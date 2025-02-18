@@ -11,8 +11,10 @@ import medicamentos.entities.Usuario;
 
 public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 	
-	
-	@Query("SELECT u FROM Usuario u JOIN u.paciente p WHERE u.medico.idReferenciaMedico = ?1")
-	List<Usuario> findPacientesByMedicoId(int idMedico);
+/*
+	@Query("select p from Paciente p join p.medicos m where m.idMedico = ?1")
+	List<Paciente> findPacientesByMedicoId(int idMedico);
+
+*/
 
 }

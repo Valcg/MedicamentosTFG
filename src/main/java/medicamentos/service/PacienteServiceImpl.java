@@ -12,12 +12,16 @@ import medicamentos.entities.Paciente;
 import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
 import medicamentos.repository.PacienteRepository;
+import medicamentos.repository.UsuarioRepository;
 
 @Service
 public class PacienteServiceImpl implements PacienteService{
 	
 	@Autowired
 	private PacienteRepository pacienteRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
 
 	@Override
 	public Paciente alta(Paciente entidad) {
@@ -72,7 +76,17 @@ public class PacienteServiceImpl implements PacienteService{
 
 	@Override
 	public List<Usuario> VerMisMedicos(int idPaciente) {
-		return pacienteRepository.VermisMedicos(idPaciente);
+	    // Paso 1: Obtener el paciente
+	    Paciente paciente = pacienteRepository.findByIdPaciente(idPaciente);
+
+	    // Paso 2: Obtener la lista de médicos del paciente
+	    List<Medico> medicos = paciente.getMedicos(); // Esto es de la relación ManyToMany
+
+	    // Paso 3: Consultar a los usuarios asociados con estos médicos
+	    List<Usuario> usuariosMedicos = usuarioRepository.findAllByMedicoIn(medicos);
+
+	    return usuariosMedicos;
 	}
+
 
 }

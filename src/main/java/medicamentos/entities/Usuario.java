@@ -47,11 +47,11 @@ public class Usuario implements Serializable{/**
 	
 	@ManyToOne
     @JoinColumn(name = "id_referencia_paciente")
-    private Paciente idReferenciaPaciente; // Para pacientes
+    private Paciente paciente; // Para pacientes
 
     @ManyToOne
     @JoinColumn(name = "id_referencia_medico")
-    private Medico idReferenciaMedico;
+    private Medico medico;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_usuario") // ✅ Coincide con la BD

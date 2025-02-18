@@ -57,7 +57,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	                usuarioPaciente.setDni(usuarioDTO.getDni());
 	                usuarioPaciente.setCorreo(usuarioDTO.getCorreo());
 	                usuarioPaciente.setTipoUsuario(tipoUsuario); // Tipo paciente
-	                usuarioPaciente.setIdReferenciaPaciente(paciente); // Referencia al paciente
+	                usuarioPaciente.setPaciente(paciente); // Referencia al paciente
 	                usuarioPaciente.setEnabled(usuarioDTO.getEnabled());
 
 	                usuarioRepository.save(usuarioPaciente); // Guardar el usuario con la referencia
@@ -85,7 +85,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	                usuarioMedico.setDni(usuarioDTO.getDni());
 	                usuarioMedico.setCorreo(usuarioDTO.getCorreo());
 	                usuarioMedico.setTipoUsuario(tipoUsuario); // Tipo medico
-	                usuarioMedico.setIdReferenciaMedico(medico); // Referencia al médico
+	                usuarioMedico.setMedico(medico); // Referencia al médico
 	                usuarioMedico.setEnabled(usuarioDTO.getEnabled());
 	                usuarioRepository.save(usuarioMedico); // Guardar el usuario con la referencia
 	                break;

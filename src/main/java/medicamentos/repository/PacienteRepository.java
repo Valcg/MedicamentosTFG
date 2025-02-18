@@ -24,14 +24,10 @@ public interface PacienteRepository extends JpaRepository<Paciente, Integer>{
 	@Query("select A from Alerta A where A.paciente.idPaciente = ?1 ")
 	List<Alerta> VermisAlertas( int idPaciente);
 	
-	@Query("""
-		    SELECT u FROM Usuario u
-		    JOIN Medico m ON u.medico.idReferenciaMedico = m.idMedico
-		    JOIN Paciente p ON m MEMBER OF p.medicos
-		    WHERE p.idPaciente = :idPaciente
-		""")
-
-	List<Usuario> VermisMedicos( int idPaciente);
+	// Método para encontrar el paciente por id
+	@Query("select p from Paciente p where p.idPaciente = ?1")
+	Paciente findByIdPaciente(int idPaciente);
+	
 
 
 }

@@ -11,12 +11,17 @@ import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
 import medicamentos.repository.MedicoRepository;
 import medicamentos.repository.PacienteRepository;
+import medicamentos.repository.UsuarioRepository;
 
 @Service
 public class MedicoServiceImpl implements MedicoService{
 
 	@Autowired
 	private MedicoRepository medicoRepository;
+	@Autowired
+	private PacienteRepository pacienteRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	
 	@Override
@@ -61,7 +66,16 @@ public class MedicoServiceImpl implements MedicoService{
 		return null;
 	}
 
-	
+/*	@Override
+	public List<Usuario> VerMisPacientes(int idMedico) {
+	    // Obtener la lista de pacientes asociados al médico con idMedico
+	    List<Usuario> pacientes = medicoRepository.findPacientesByMedicoId(idMedico);
+
+	    return pacientes;
+	}
+
+
+	*/
 
 	
 }
