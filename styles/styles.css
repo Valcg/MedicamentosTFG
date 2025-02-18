@@ -1,0 +1,333 @@
+
+/* --------------------------- ESTILOS GENERALES --------------------------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+
+}
+
+/* --------------------------- HEADER --------------------------- */
+#header {
+    display: flex;
+    justify-content: center; /* Centra el contenido del header */
+    align-items: center;
+
+    padding: 10px 20px;
+    border-bottom: 1px solid white; 
+    background-color: transparent; 
+    flex-shrink: 0; /* Evita que el header se encoja */
+
+    height: 60px;
+    width: 100%; 
+
+}
+.nav{width: 100%;}
+.nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    width: 100%; 
+    max-width: 100%; /* Sin límite de ancho */
+}
+
+.nav ul li {
+    flex: 1; /* Hace que los <li> ocupen el espacio disponible */
+    text-align: center; /* Centra el texto dentro de cada <li> */
+    margin: 0 10px; /* Margen horizontal entre los <li> */
+}
+
+#header .nav ul li a {
+    color: white; /* COLOR TEXTO enlaces */
+    text-decoration: none;
+    font-size: 16px; /* TAMAÑO FUENTE */
+    transition: color 0.3s ease; /*TANSICION el hover */
+}
+
+#header .nav ul li a:hover {
+    color: #00669C; /*CAMBIA COLOR hover */
+}
+
+/* --------------------------- MAIN --------------------------- */
+#main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* Ocupa el espacio restante */
+    padding: 20px;
+    height: calc(100vh - 80px - 60px); /* Ajusta el alto restando el header y footer */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del alto */
+}
+
+/* --------------------------- SECTION INFO --------------------------- */
+#info {
+    flex: 1 1 300px;
+    margin: 10px;
+    max-width: 400px;
+}
+
+.info-box {
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: left; /*IZQ */
+}
+
+.info-logo img.logo-img {
+    max-width: 200px; /* AND IMG */
+    max-height: 100px; /* ALT IMG */
+    margin-bottom: 20px; /* margin inferior */
+}
+
+.info-text p {
+    margin-bottom: 10px;
+    font-weight: 300; /* TIPO */
+    color: lightgray;
+}
+
+.info-text a {
+    color: #84CBF1; /* ---- COLOR ORGNAL*/
+    text-decoration: none;
+    
+}
+
+.info-text a:hover {
+    color: #84CBF1; /* Color más oscuro al hacer hover */
+    text-decoration: underline;
+}
+
+
+
+
+
+/* --------------------------- FOOTER --------------------------- */
+#footer {
+    text-align: center;
+    padding: 10px 20px; /* Margen vertical y horizontal */
+    background-color: white;
+    width: 100%;
+    flex-shrink: 0; /* Evita que el footer se encoja */
+   
+}
+
+#footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto; /* Centra el contenedor */
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    max-width: 100%; /* Ocupa todo el ancho disponible */
+    width: 100%; 
+    flex-wrap: wrap; /* Permite que los <li> se envuelvan en móvil y tablet */
+}
+
+#footer ul li {
+    margin: 0; /* Elimina el margen horizontal entre los <li> */
+    flex: 1 1 auto; /* Hace que los <li> ocupen el espacio disponible */
+    text-align: center; 
+    min-width: 100px; /* Ancho mínimo para evitar que los <li> sean demasiado pequeños */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+#footer ul li a {
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s ease; /* TRANSICION hover */
+    display: block; /* Hace que el enlace ocupe todo el espacio del <li> */
+}
+
+#footer ul li a:hover {
+    color: #00669C; 
+    text-decoration: none; 
+}
+            /* --------------------------- FOOTER-DOS --------------------------- */
+            #footer-dos {
+                text-align: center;
+                padding: 10px 20px; /* Margen vertical y horizontal */
+                background-color: #84CBF1; /* Fondo azul claro */
+                width: 100%;
+                flex-shrink: 0; /* Evita que el footer se encoja */
+            }
+
+            #footer-dos ul {
+                list-style: none;
+                padding: 0;
+                margin: 0 auto; /* Centra el contenedor */
+                display: flex;
+                justify-content: space-between; /* Distribuye el espacio entre los elementos */
+                max-width: 100%; /* Ocupa todo el ancho disponible */
+                width: 100%;
+                flex-wrap: wrap; /* Permite que los <li> se envuelvan en móvil y tablet */
+            }
+
+            #footer-dos ul li {
+                margin: 0; /* Elimina el margen horizontal entre los <li> */
+                flex: 1 1 auto; /* Hace que los <li> ocupen el espacio disponible */
+                text-align: center;
+                min-width: 100px; /* Ancho mínimo para evitar que los <li> sean demasiado pequeños */
+                white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+            }
+
+            #footer-dos ul li a {
+                color: black;
+                text-decoration: none;
+                transition: color 0.3s ease; /* TRANSICION hover */
+                display: block; /* Hace que el enlace ocupe todo el espacio del <li> */
+            }
+
+            #footer-dos ul li a:hover {
+                color: #00669C;
+                text-decoration: none;
+            }    
+
+/* --------------------------- ESTILOS PARA EL ENLACE VOLVER --------------------------- */
+.volver-link {
+    color: #84CBF1; /* Color azul claro */
+    font-family: Arial, Helvetica, sans-serif; /* Fuente Arial */
+    font-weight: bold;
+    text-decoration: none; 
+
+    display: block; /* Hace que el enlace ocupe toda la línea */
+    text-align: left; 
+    transition: color 0.3s ease; /* Transición suave hover */
+}
+
+.volver-link:hover {
+    color: #00669C; /* Color azul oscuro al hacer hover */
+}
+/* --------------------------- ESTILOS PARA EL ENLACE VOLVER --------------------------- */
+.volver-link-dos {
+    color: #84CBF1; /* Color azul claro */
+    font-family: Arial, Helvetica, sans-serif; /* Fuente Arial */
+    font-weight: bold; 
+    text-decoration: none; 
+
+    display: block; /* Hace que el enlace ocupe toda la línea */
+    text-align: left; 
+
+    transition: color 0.3s ease; /* Transición suave para el hover */
+}
+
+.volver-link-dos:hover {
+    color: white; /* Color azul oscuro al hacer hover */
+}
+/* --------------------------- LÍNEA SEPARADORA gris --------------------------- */
+.lseparadora {
+    height: 1px;
+    background-color: #ccc; /* Color de la línea */
+    margin: 20px 0;
+    width: 100%; /* Ancho completo */
+}
+/* --------------------------- LÍNEA SEPARADORA BLANCA --------------------------- */
+.lseparadora-blanca {
+    height: 1px;
+    background-color: #84CBF1; /* Color de la línea */
+    margin: 20px 0;
+    width: 100%; /* Ancho completo */
+}
+/* --------------------------- RESPONSIVE --------------------------- */
+/* TABLET------------------------- */
+@media (max-width: 768px) {
+
+    body {
+        overflow: auto; /* Permite el scroll en móvil */
+    }
+
+    #main {
+        height: auto; /* El contenido puede crecer en móvil */
+        padding: 10px;
+    }
+
+    #login, #info {
+        flex: 1 1 auto;
+        max-width: 100%;
+        margin: 10px auto;
+    }
+
+    .login-medico {
+        padding: 20px;
+        max-width: 90%; /* Reduce el ancho en móviles */
+    }
+
+    .login-medico h2 {
+        font-size: 20px;
+    }
+
+    .login-medico input {
+        font-size: 14px;
+    }
+
+    .login-medico button {
+        font-size: 14px;
+    }
+
+    .login-medico p {
+        font-size: 12px;
+    }
+
+    .info-text p {
+        font-size: 14px;
+    }
+
+    #footer ul {
+        justify-content: center; /* Centra los elementos en tablet */
+    }
+
+    #footer ul li {
+        flex: 1 1 50%; /* Dos elementos por fila e */
+        white-space: normal; /* Permite que el texto se divida en varias líneas si es necesario */
+        margin: 5px 0; /* Espaciado entre elementos */
+    }
+
+            #footer-dos ul {
+                justify-content: center; /* Centra los elementos en tablet */
+            }
+
+            #footer-dos ul li {
+                flex: 1 1 50%; /* Dos elementos por fila */
+                white-space: normal; /* Permite que el texto se divida en varias líneas si es necesario */
+                margin: 5px 0; /* Espaciado entre elementos */
+            }
+}
+
+/* MOVIL------------------------- */
+@media (max-width: 480px) {
+
+    #footer ul {
+        flex-direction: column; /* Coloca los elementos en una columna */
+        align-items: center; /* Centra horizontalmente */
+    }
+
+    #footer ul li {
+        flex: 1 1 100%; /* Un elemento por fila  */
+        margin: 5px 0; 
+    }
+
+            #footer-dos ul {
+                flex-direction: column; /* Coloca los elementos en una columna */
+                align-items: center; /* Centra horizontalmente */
+            }
+
+            #footer-dos ul li {
+                flex: 1 1 100%; /* Un elemento por fila */
+                margin: 5px 0;
+            }
+
+#info{margin: auto;}
+}
+
+/* COLORES: 
+color: #555; 
+color: #ccc;
+color: black; 
+
+color: #84CBF1; ---- AZUL CLARO
+color: #00669C; ----- AZUL OSCURO
+color:white;
+*/

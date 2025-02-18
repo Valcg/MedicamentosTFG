@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME CLIENTE</title>
+
+
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/cliente.css"> 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- --------------------------------- -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- --------------------------------- -->
+    
+
+</head>
+<body style="background-color:white;">
+
+    <header id="header-cliente-uno">
+        <nav class="nav-cliente-uno">
+            <ul>
+                <li><a href="#about-us"><img src="img/medicade.png" alt="medicade" class="logo-about-us" style="width: 90px;"></a></li>
+                <li class="nombre-usuario">Tomasin</li>
+                <li class="tipo-cuenta">TIPO DE CUENTA : <a id="paciente-text">Paciente</a></li>
+                <li><a href="#logout" class="cerrar-sesion-cliente">CERRAR SESIÓN</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    
+    <header id="header-cliente-dos">
+        <nav class="nav-cliente-dos">
+            <ul>
+                <li><a href="#about">ABOUT US</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="#support">SOPORTE</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main id="usuario-main">
+        <!-- Sección con los divs de contenido -->
+        <section id="usuario-divs-container">
+            
+            
+        <div class="usuario-div usuario-div-uno">
+            <!---------------- 4 DIVS -->
+            <div id="saludo" class="saludo-item">
+                HOLA TOMASIN
+                <p>Puedes ver o modificar tus datos de manera fácil</p>
+                <div id="verperfil"><a>VER PERFIL</a></div>
+            </div>
+
+            <div  class="saludo-item">
+              
+                <div id="VerMisRecetas"><a>VER MIS RECETAS</a></div>
+            </div>
+
+            <div  class="saludo-item">
+            
+                <div id="VerMisMedicos"><a>VER MIS MEDICOS</a></div>
+            </div>
+            <div class="saludo-item">
+                <div id="VerMisAlertas"><a>VER MIS ALERTAS</a></div>
+            </div>
+            <!------------------>
+        </div>
+    
+            <div class="usuario-div-dos-tres-container">
+                <!------------------ VER MIS CUIDADORES -->
+                <div class="usuario-div-dos">
+                    <div id="VerMisCuidadores">
+                        <h3>VER MIS CUIDADORES</h3>
+                        <table id="tablaCuidadores">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>DNI</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </table>
+                        <button id="btnAgregar" class="btn-agregar">Agregar</button>
+                    </div>
+                </div>
+                
+                <!------------------>
+                    <div class="usuario-div usuario-div-tres">Tres</div>
+            </div>
+            
+            <div class="usuario-div usuario-div-cuatro">
+                <div id="VerMiHistorialAlertas"><a>VER MI HISTORIAL DE TOMAS</a></div>
+            </div>
+            <div class="usuario-div usuario-div-cinco">Cinco</div>
+            <div class="usuario-div usuario-div-seis">Seis</div>
+        </section>
+    </main>
+    
+    
+    <footer id="footer-dos">
+        <ul>
+            <li><a>© 2025 All rights reserved.</a></li>
+            <li><a href="#privacy">Privacidad</a></li>
+            <li><a href="#terms">Condiciones de uso</a></li>
+            <li><a href="#cookies">Preferencias de cookies</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#help">Ayuda</a></li>
+        </ul>
+    </footer>
+
+        <!-- Enlazamos el archivo main.js -->
+        <script src="main.js"></script>
+        <script src="miscuidadores.js"></script>
+      
+
+</body>
+</html>

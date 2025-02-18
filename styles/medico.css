@@ -1,0 +1,251 @@
+.medico-bg {
+    background-image: url('../img/medicoindex.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+    background-blend-mode: multiply;
+}
+
+/* --------------------------- SECTION LOGIN --------------------------- */
+            #login {
+                flex: 1 1 300px;
+                margin: 10px;
+                max-width: 400px;
+            }
+
+            .login-medico {
+                background-color: white;
+                padding: 15px 30px 30px 30px;
+                border-radius: 8px;
+                text-align: center; /* Texto centrado en la sección login */
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            
+                max-width: 400px; 
+                width: 100%; 
+                margin: 0 auto; 
+            }
+
+            .login-medico h2 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #333; /* Color de texto oscuro */
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .login-medico form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px; /* Espacio entre elementos */
+            }
+
+            .login-medico label {
+                margin-bottom: 5px;
+                /* font-size: 14px; */
+            
+                text-align: left; /* Alinea el texto a la izquierda */
+            }
+
+            .login-medico input {
+                padding: 8px;
+                border-radius: 20px;
+                border: 1px solid #ccc; /* Borde gris */
+                font-size: 14px;
+
+                width: 100%; 
+                box-sizing: border-box; /* Incluye el padding en el ancho */
+            }
+
+            .login-medico input:focus {
+                border-color: #00669C; 
+                outline: none; /* Elimina el outline por defecto */
+            }
+
+
+
+            /* --------------------------- SECTION NUEVA CUENTA MEDICO --------------------------- */
+            #nuevacuentamedico {
+                flex: 1 1 300px;
+                margin: 10px;
+                max-width: 400px;
+            }
+
+            .nuevacuentamedico-box {
+                background-color: #00669C; /* Fondo azul oscuro */
+                padding: 15px 30px 30px 30px;
+                border-radius: 8px;
+                text-align: center; /* Texto centrado */
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+                max-width: 400px;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .nuevacuentamedico-box h2 {
+                /* margin-bottom: 20px; */
+                font-size: 24px;
+                color: white; /* Texto en blanco */
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .nuevacuentamedico-box form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nuevacuentamedico-box label {
+                /* margin-bottom: 5px; */
+                color: white; /* Texto */
+                text-align: left; /* Alinea el texto a la izquierda */
+            }
+
+            .nuevacuentamedico-box input {
+                /* margin-bottom: 10px; */
+                padding: 8px;
+                border-radius: 20px;
+                border: 1px solid #84CBF1; /* Borde blanco */
+                font-size: 14px;
+                width: 100%;
+                box-sizing: border-box; /* Incluye el padding en el ancho */
+                background-color: transparent; /* Fondo transparente */
+                color: white; /* Texto en blanco */
+            }
+
+            .nuevacuentamedico-box input:focus {
+                border-color: white; /* Borde blanco al enfocar */
+                outline: none; /* Elimina el outline por defecto */
+            }
+
+
+/* ---------------------------  BOTON----- INICIAR SESIÓN --------------------------- */
+.login-medico button.inicio-sesion {
+    padding: 12px;
+
+    border-radius: 20px; 
+    border: none;
+    background-color: #00669C; 
+    color: white;
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    width: 200px; /* Ancho fijo */
+    height: 36px; /* Alto fijo de 36px */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Centra el botón */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+
+}
+
+.login-medico button.inicio-sesion:hover {
+    background-color: #004d76; /* Color más oscuro al hacer hover */
+    color: #84CBF1;
+}
+/* --------------------------- BOTON----- CREAR USUARIO --------------------------- */
+.nuevacuentamedico-box button.crear-usuario {
+    padding: 12px;
+    border-radius: 20px; /* Bordes redondeados */
+    border: none;
+    background-color: white; /* Fondo blanco */
+    opacity: 0.9;
+    color: #00669C; /* Texto azul oscuro */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    width: 200px; /* Ancho fijo */
+    height: 36px; /* Alto fijo de 36px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Centra el botón */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+}
+
+.nuevacuentamedico-box button.crear-usuario:hover {
+    background-color: white; 
+    opacity: 1;
+    color: #84CBF1;  
+}
+
+/* --------------------------- LINK  INICIAR SESIÓN --------------------------- */
+        .iniciar-sesion {
+            padding: 8px;
+            border-radius: 20px;
+            border: 1px solid #84CBF1;
+            background-color: transparent; /* Fondo transparente */
+            color: white; /* Texto en blanco */
+            cursor: pointer;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            display: flex;
+            text-decoration: none; 
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Espacio entre el ícono y el texto */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+        }
+
+        .iniciar-sesion:hover {
+            background-color: #378ebd; /* Fondo blanco al hacer hover */  
+        }
+        /* --------------------------- LINK CREAR CUENTA  --------------------------- */
+        .crear-cuenta {
+            padding: 8px;
+            border-radius: 20px;
+            border: 1px solid #ccc; /* Borde gris */
+            background-color: white; /* Fondo blanco */
+            color: #333; /* Texto oscuro */
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            text-decoration: none; 
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Espacio entre el ícono y el texto */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+        }
+
+        .crear-cuenta:hover {
+            background-color: #f5f5f5; /* Fondo blanco al hacer hover */
+
+        }
+
+
+/* --------------------------- ENLACES SIN SUBRAYADO  color --------------------------- */
+        .sin-subrayado {
+            text-decoration: none; /* Quita el subrayado */
+            color: #00669C; 
+        }
+        .sin-subrayadodos {
+            text-decoration: none; /* Quita el subrayado */
+            
+        }
+        .sin-subrayado:hover {
+            text-decoration: none; /* Mantiene sin subrayado al pasar el mouse */
+            color: #84CBF1; 
+        }
+        /* --------------------------- ENLACES SIN SUBRAYADO BLANCO --------------------------- */
+        .sin-subrayado-blanco {
+            text-decoration: none; /* Quita el subrayado */
+            color: white; 
+        }
+
+        .sin-subrayado-blanco:hover {
+            color:  #84CBF1; /* Color azul claro al hacer hover */    
+        }
+        .sin-subrayado-blancodos {
+            text-decoration: none; /* Quita el subrayado */
+            color: #84CBF1;  
+        }
+

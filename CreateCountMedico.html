@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OO B MEDICO - INICIO</title>
+    
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/medico.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body class="medico-bg">
+<!-- FIN BODY-----------------------------------------  -->
+<!------------------------- HEADER -->
+    <header id="header">
+
+        <nav class="nav">
+            <ul>
+                <li><a href="#about">ABOUT US</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="#support">SOPORTE</a></li>
+            </ul>
+        </nav>
+    </header>
+<!------------------------- MAIN -->
+    <main id="main">  
+        <!------------------------- SECTION INFO -->
+        <section id="info">
+            <div class="info-box">
+                <div class="info-logo">
+                    <!-- Cambiamos el h2 por la imagen del logo -->
+                    <img src="img/medicade.png" alt="Logo Medicade" class="logo-img">
+                </div>
+                <div class="info-text">
+                    <p>Tu cuenta siempre estará asociada a un Número de Colegiado y este debe estar con estado activo.</p>
+                    <p>En caso de que no lo esté, no te permitirá crear una cuenta. Y si ya la tienes creada, no podrá usarse hasta que vuelva a estar activa.</p>
+                    <p>Si está activa y aún así no funciona ninguna de las otras opciones, ponte en contacto con nosotros mediante este email: <a href="mailto:soportemedicae@medicade.com">soportemedicae@medicade.com</a></p>
+                </div>
+            </div>
+        </section>
+       <!------------------------- SECTION NUEVA CUENTA MEDICO -->
+       <section id="nuevacuentamedico">
+        <div class="nuevacuentamedico-box">
+            <a href="#" class="volver-link-dos">. . . VOLVER</a>
+        
+            <h2>CREAR USUARIO</h2> 
+            <form>
+                <label for="numero_colegiado">NÚMERO DE COLEGIADO</label>
+                <input type="text" id="numero_colegiado" name="numero_colegiado" required>
+                
+                <label for="name">NOMBRE</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="apellidos">APELLIDOS</label>
+                <input type="text" id="apellidos" name="apellidos" required>
+                
+                <label for="correo_electronico">CORREO ELECTRÓNICO</label>
+                <input type="email" id="correo_electronico" name="correo_electronico" required>
+                
+                <label for="password">CONTRASEÑA</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit" class="crear-usuario">CREAR CUENTA</button> <!-- Cambiado a CREAR USUARIO -->
+            </form>
+            <p><a href="#forgot-password" class="sin-subrayado-blanco">¿Has olvidado tu contraseña?</a></p> <!-- Texto en blanco -->
+    
+            <!------------LINEA -->
+            <div class="lseparadora-blanca"></div> <!-- Línea en blanco -->
+    
+            <p><a class="sin-subrayado-blancodos">¿Ya tienes una cuenta?</a></p> <!-- Texto en blanco -->
+            <a href="LoginCountMedico.html" class="iniciar-sesion">INICIAR SESIÓN</a>
+        </div>
+    </section>
+    
+    </main>
+    <!------------------------- FIN MAIN -->
+
+    <!------------------------- FOOTER -->
+    <footer id="footer">
+        <ul>
+            <li><a>© 2025 All rights reserved.</a></li>
+            <li><a href="#privacy">Privacidad</a></li>
+            <li><a href="#terms">Condiciones de uso</a></li>
+            <li><a href="#cookies">Preferencias de cookies</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#help">Ayuda</a></li>
+        </ul>
+    </footer>
+<!-- FIN BODY-----------------------------------------  -->
+</body>
+</html>

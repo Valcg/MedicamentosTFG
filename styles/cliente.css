@@ -1,0 +1,592 @@
+.cliente-bg {
+    background-image: url('../img/clienteindex.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+    background-blend-mode: multiply;
+}
+
+/* --------------------------- SECTION LOGIN --------------------------- */
+#login {
+    flex: 1 1 300px;
+    margin: 10px;
+    max-width: 400px;
+}
+
+.login-cliente {
+    background-color: white;
+    padding: 15px 30px 30px 30px;
+    border-radius: 8px;
+    text-align: center; /* Texto centrado en la sección login */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.login-cliente h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333; /* Color de texto oscuro */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-cliente form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio entre elementos */
+}
+
+.login-cliente label {
+    margin-bottom: 5px;
+    text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.login-cliente input,
+.login-cliente select {
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #ccc; /* Borde gris */
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box; /* Incluye el padding en el ancho */
+}
+
+.login-cliente input:focus,
+.login-cliente select:focus {
+    border-color: #00669C;
+    outline: none; /* Elimina el outline por defecto */
+}
+
+.login-cliente button.inicio-sesion {
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    background-color: #00669C;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    width: 200px; /* Ancho fijo */
+    height: 36px; /* Alto fijo de 36px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Centra el botón */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+}
+
+.login-cliente button.inicio-sesion:hover {
+    background-color: #004d76; /* Color más oscuro al hacer hover */
+    color: #84CBF1;
+}
+
+
+/* --------------------------- ENLACES SIN SUBRAYADO --------------------------- */
+.sin-subrayado {
+    text-decoration: none; /* Quita el subrayado */
+    color: #00669C;
+}
+
+.sin-subrayado:hover {
+    text-decoration: none; /* Mantiene sin subrayado al pasar el mouse */
+    color: #84CBF1;
+}
+
+.sin-subrayadodos {
+    text-decoration: none; /* Quita el subrayado */
+}
+
+
+/* --------------------------- LINK  INICIAR SESIÓN --------------------------- */
+.iniciar-sesion-cliente {
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #84CBF1;
+    background-color: transparent; /* Fondo transparente */
+    color: white; /* Texto en blanco */
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    display: flex;
+    text-decoration: none; 
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espacio entre el ícono y el texto */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+}
+
+.iniciar-sesion-cliente:hover {
+    background-color: #378ebd; /* Fondo blanco al hacer hover */  
+}
+/* --------------------------- LINK CREAR CUENTA  --------------------------- */
+.crear-cuenta-cliente {
+    
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #ccc; /* Borde gris */
+    background-color: white; /* Fondo blanco */
+    color: #333; /* Texto oscuro */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    text-decoration: none; 
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espacio entre el ícono y el texto */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+}
+
+.crear-cuenta-cliente:hover {
+    background-color: #f5f5f5; /* Fondo blanco al hacer hover */
+
+}
+
+/* --------------------------- SECTION NUEVA CUENTA CLIENTE --------------------------- */
+#nuevacuenta {
+    flex: 1 1 300px;
+    margin: 10px;
+    max-width: 400px;
+}
+
+.nuevacuenta-cliente {
+    background-color: #00669C; /* Fondo azul oscuro */
+    padding: 15px 30px 30px 30px;
+    border-radius: 8px;
+    text-align: center; /* Texto centrado */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.nuevacuenta-cliente h2 {
+    font-size: 24px;
+    color: white; /* Texto en blanco */
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 20px;
+}
+
+.nuevacuenta-cliente form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio entre elementos */
+}
+
+.nuevacuenta-cliente label {
+    color: white; /* Texto en blanco */
+    text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.nuevacuenta-cliente input,
+.nuevacuenta-cliente select {
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #84CBF1; /* Borde azul claro */
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box; /* Incluye el padding en el ancho */
+    background-color: transparent; /* Fondo transparente */
+    color: white; /* Texto en blanco */
+}
+
+.nuevacuenta-cliente input:focus,
+.nuevacuenta-cliente select:focus {
+    border-color: white; /* Borde blanco al enfocar */
+    outline: none; /* Elimina el outline por defecto */
+}
+
+.nuevacuenta-cliente button.crear-cuenta {
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    background-color: white; /* Fondo blanco */
+    color: #00669C; /* Texto azul oscuro */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    width: 200px; /* Ancho fijo */
+    height: 36px; /* Alto fijo de 36px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Centra el botón */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+}
+
+.nuevacuenta-cliente button.crear-cuenta:hover {
+    background-color: white; 
+    opacity: 1;
+    color: #84CBF1;  
+}
+
+
+/*HOME CLIENTE HEADER -------------------------------*/
+/* --------------------------- HEADER CLIENTE UNO --------------------------- */
+#header-cliente-uno {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: transparent;
+    flex-shrink: 0;
+    height: 60px;
+    width: 100%;
+}
+
+.nav-cliente-uno {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+.nav-cliente-uno ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    align-items: center;
+}
+
+.nav-cliente-uno ul li {
+    flex: 1;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.nav-cliente-uno ul li:first-child {
+    margin-left: 0;
+}
+
+#header-cliente-uno .nav-cliente-uno ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+#header-cliente-uno .nav-cliente-uno ul li.nombre-usuario {
+    font-weight: bold;
+    color: #84CBF1;
+}
+
+#header-cliente-uno .nav-cliente-uno ul li.tipo-cuenta {
+    font-size: 16px;
+    color: #333;
+}
+
+#paciente-text {
+    font-weight: bold;
+    color: #84CBF1;
+}
+
+/* Estilos para el logotipo */
+.logo-about-us {
+    width: 90px;
+}
+
+/* Estilos para el nombre de cliente y tipo de cuenta */
+.nombre-cliente, .tipo-cuenta {
+    font-size: 16px;
+    color: #333;
+    margin-left: 20px;
+}
+
+/* Estilos para el botón de cerrar sesión */
+.cerrar-sesion-cliente {
+    width: 200px;
+    padding: 8px;
+    border-radius: 20px; border:1px solid #ccc;
+    background-color: white; /* Fondo blanco */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espacio entre el ícono y el texto */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+}
+
+.cerrar-sesion-cliente:hover {
+    background-color: #333; /* Fondo gris claro al hacer hover */
+    color: white;
+}
+
+
+/* --------------------------- HEADER CLIENTE DOS --------------------------- */
+#header-cliente-dos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 20px;
+    border: 1px solid #ccc; /* Borde sólido */
+    border-radius: 20px;
+    width: 80%; /* Modificado para que no ocupe el 100% */
+    margin: 0 auto; /* Centra el header en la página */
+}
+
+.nav-cliente-dos {
+    width: 100%;
+}
+
+.nav-cliente-dos ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.nav-cliente-dos ul li {
+    flex: 1;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.nav-cliente-dos ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+#header-cliente-dos .nav-cliente-dos ul li a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+#header-cliente-dos .nav-cliente-dos ul li a:hover {
+    color: #00669C;
+}
+
+
+
+
+
+
+
+/*----------------------------------------------------------*/
+@media (max-width: 768px) {
+    #header-cliente-dos {
+        width: 90%; /* El header ocupará el 90% en pantallas más pequeñas */
+    }
+    .nav-cliente-dos ul {
+        flex-direction: column; /* Los enlaces se apilarán en lugar de estar en fila */
+        align-items: center;
+    }
+    .nav-cliente-dos ul li {
+        margin: 5px 0;
+    }
+}
+
+/* --------------------------- MAIN --------------------------- */
+#usuario-main {
+    width: 80%; /* El main ocupa el 80% del ancho del body */
+    margin: 30px auto; /* Centra el main horizontalmente */
+    background-color: #F0F0F0; /* Fondo gris */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* --------------------------- DIVS INTERIORES --------------------------- */
+#usuario-divs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Alinea los elementos con espacio entre ellos */
+    gap: 15px; /* Espacio entre los divs */
+    margin-top: 20px;
+}
+
+/* Contenedor de los divs "dos" y "tres" para mantenerlos en la misma línea */
+.usuario-div-dos-tres-container {
+    display: flex;
+    gap: 15px; /* Añadido un pequeño espacio entre los divs "dos" y "tres" */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+}
+
+/* Divs con diferentes anchos */
+.usuario-div {
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Div "uno" ocupa 100% */
+.usuario-div-uno {
+    background-color: #f8f8f8;
+    width: 100%;
+}
+
+/* Div "dos" ocupa el 60% (ajustado para que se acomode en la misma línea) */
+.usuario-div-dos {
+    background-color: #fafafa;
+    width: 60%;
+    margin: 10px 0; /* Margen vertical */
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Div "tres" ocupa el 40% (ajustado para que se acomode en la misma línea) */
+.usuario-div-tres {
+    background-color: #f8f8f8;
+    width: 40%;
+    margin: 10px 0; /* Margen vertical */
+}
+
+/* Divs "cuatro", "cinco" y "seis" ocupan el 100% */
+.usuario-div-cuatro,
+.usuario-div-cinco,
+.usuario-div-seis {
+    background-color: #fafafa;
+    width: 100%;
+}
+
+
+
+/* --------------------------- SALUDO --------------------------- */
+
+.usuario-div {
+    display: flex;
+    flex-wrap: wrap; /* Asegura que los elementos se ajusten si es necesario */
+    gap: 15px; /* Añadimos el margen entre los divs */
+}
+
+/* --------------------------- CADA DIV DENTRO DE .usuario-div --------------------------- */
+
+.saludo-item {
+    background-color: #fafafa; /* Fondo gris claro */
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    flex: 1 1 22%; /* En pantallas grandes, los divs ocupan el 22% del ancho */
+    box-sizing: border-box; /* Para asegurar que el padding no afecte el ancho */
+}
+/* --------------------------- MEDIA QUERY PARA RESPONSIVIDAD --------------------------- */
+@media (max-width: 768px) {
+    #usuario-main {
+        width: 90%; /* El main ocupa el 90% en pantallas más pequeñas */
+    }
+
+    /* Los divs "uno", "dos", "tres", etc. ocupan el 100% en pantallas más pequeñas */
+    .usuario-div {
+        width: 100%; 
+        padding: 20px 0px; /* QUTIAR EL PADDIN PARA QWUE NO DESBORDE*/
+    
+        flex-wrap: wrap; /* Asegura que los divs se ajusten */
+    }
+    .saludo-item {
+        width: 48%; /* En tabletas, ocupan el 48% del ancho, 2 por fila */
+        margin-bottom: 15px; /* Márgenes entre los divs */
+    }
+
+    /* Contenedor de los divs "dos" y "tres" apilados en pantallas pequeñas */
+    .usuario-div-dos-tres-container {
+        flex-direction: column; /* Los divs "dos" y "tres" se apilan verticalmente */
+    }
+
+    .usuario-div-dos,
+    .usuario-div-tres {
+        width: 100%; /* Ambos divs ocuparán el 100% del ancho disponible */
+    }
+
+
+    /*------------------- SALUDO*/
+    #saludo {
+        flex-direction: column; /* Apilan los elementos en una sola columna */
+    }
+
+    .saludo-item {
+        width: 48%; /* En pantallas medianas, dos cajas por fila */
+        margin-bottom: 15px; /* Márgenes entre los divs */
+    }
+}
+
+@media (max-width: 480px) {
+
+    .usuario-div {
+       padding: 20px 0px; /* Los divs ocupan el 100% en pantallas muy pequeñas */
+    }
+}
+
+
+
+
+/*--------------------------------------------------------------------------------------------- BOTON*/
+/* Estilos para el contenedor de la tabla */
+#tablaCuidadores {
+    width: 100%; /* La tabla ocupa el 100% del ancho del div */
+    border-collapse: collapse; /* Para evitar los espacios entre las celdas */
+    margin-top: 10px; /* Espacio arriba de la tabla */
+}
+
+/* Estilos para las celdas de la tabla (las filas con los cuidadores) */
+#tablaCuidadores th, #tablaCuidadores td {
+    text-align: center; /* Centra el texto en las celdas */
+    padding: 10px; /* Espaciado en las celdas */
+    border-bottom: 1px solid #ccc; /* Líneas horizontales entre las filas */
+}
+
+/* Fondo y texto en negrita para los títulos */
+#tablaCuidadores th {
+    font-weight: bold;
+    background-color: #D3D3D3; /* Gris claro */
+}
+
+/* Estilo para el botón de agregar */
+#btnAgregar {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* Cambio de color al pasar el mouse sobre el botón de agregar */
+#btnAgregar:hover {
+    background-color: #45a049; /* Verde más oscuro */
+}
+
+/* Estilo para el botón de eliminar */
+.eliminar-btn-miscuidadores {
+    background-color: #ff6961; /* Rojo pastel */
+    color: white; /* X en blanco */
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Centrar el botón de eliminar dentro de la celda */
+#tablaCuidadores td .eliminar-btn-miscuidadores {
+    margin: 0 auto;
+}
+
+/* Hover para el botón de eliminar */
+.eliminar-btn-miscuidadores:hover {
+    background-color: #e05650; /* Un rojo más oscuro al hacer hover */
+}
+
