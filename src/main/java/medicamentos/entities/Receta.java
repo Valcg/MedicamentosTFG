@@ -44,13 +44,13 @@ public class Receta implements Serializable{/**
 	 
 	 @ManyToOne
 	 @ToString.Exclude // ❌ Evita el ciclo infinito
-	 @JoinColumn(name="id_medico", referencedColumnName = "id_medico")   
+	 @JoinColumn(name="numero_colegiado", referencedColumnName = "numero_colegiado")   
 	 private Medico medico;
 	 
 	private String dosis;
 	private int frecuencia;
 	@Column(name="duracion_tratamiento")
-	private String duracionTratamiento;
+	private int duracionTratamiento;
 	
 	   @ManyToMany
 	   @ToString.Exclude  // ❌ Evita la recursión infinita

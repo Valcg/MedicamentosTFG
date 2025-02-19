@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,33 +37,23 @@ public class Paciente implements Serializable{/**
 	@Column(name="id_paciente")
 	private int idPaciente;
 	private String diagnostico;
+		 @ManyToOne
+		    @JoinColumn(name="id_usuario")
+		    private Usuario usuario;
 
-@ManyToMany
-@ToString.Exclude  
-@JsonBackReference
-	
-	@JoinTable(
-			// aqui le digo como se conforma la tabla intermedia
-		name="medicos_pacientes"
-		, joinColumns={
-			@JoinColumn(name="id_paciente")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="id_medico")
-			}
-		)
-		private List<Medico> medicos;
-
-    
-    
-    
-    /*
-    @ManyToMany
-    @JoinTable(
-      name = "FAMILIARES_PACIENTES",  // Nombre de la tabla intermedia
-      joinColumns = @JoinColumn(name = "id_paciente"),  // Clave foránea a Paciente
-      inverseJoinColumns = @JoinColumn(name = "id_familiar") // Clave foránea a Familiar
-    )
-    private List<Familiar> familiares;*/
-
+		@ManyToMany
+		@ToString.Exclude  
+		
+			
+			@JoinTable(
+					// aqui le digo como se conforma la tabla intermedia
+				name="medicos_pacientes"
+				, joinColumns={
+					@JoinColumn(name="id_paciente")
+					}
+				, inverseJoinColumns={
+					@JoinColumn(name="numero_colegiado")
+					}
+				)
+				private List<Medico> medicos;
 }

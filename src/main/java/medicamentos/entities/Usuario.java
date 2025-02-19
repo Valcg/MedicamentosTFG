@@ -41,18 +41,8 @@ public class Usuario implements Serializable{/**
 	private String nombre;
 	private String apellido;
 	private String contrasena;
-	private String Dni;
-
+	private String dni;
 	private String correo;
-	
-	@ManyToOne
-    @JoinColumn(name = "id_referencia_paciente")
-    private Paciente paciente; // Para pacientes
-
-    @ManyToOne
-    @JoinColumn(name = "id_referencia_medico")
-    private Medico medico;
-	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_usuario") // ✅ Coincide con la BD
 	private TipoUsuario tipoUsuario;

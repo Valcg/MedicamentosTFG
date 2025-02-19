@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,11 +27,12 @@ public class Medico implements Serializable{/**
 	private static final long serialVersionUID = 1L;
 	 @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-		@Column(name="id_medico")
-	    private Integer idMedico;
-		@Column(name="numero_Colegiado")
+		@Column(name="numero_colegiado")
 	    private Integer numeroColegiado;
 	    private String especialidad;
+	    @ManyToOne
+	    @JoinColumn(name="id_usuario")
+	    private Usuario usuario;
 	    
 	   
 }
