@@ -26,9 +26,9 @@ public class MedicoRestController {
 	private  MedicoService medicoService;
 	
 	
-	/*@GetMapping("/VerMisPacientes/{idMedico}")
-	public ResponseEntity<List<Usuario>> VerMisPacientes(@PathVariable int idMedico) {
-	    List<Usuario> MisPacientes = medicoService.VerMisPacientes(idMedico);
+	@GetMapping("/VerMisPacientes/{numeroColegiado}")
+	public ResponseEntity<List<Usuario>> VerMisPacientes(@PathVariable int numeroColegiado) {
+	    List<Usuario> MisPacientes = medicoService.VerMisPacientes(numeroColegiado);
 	    System.out.println("ver mis pacientes "+ MisPacientes );
 	    
 	    if (MisPacientes.isEmpty()) {
@@ -36,7 +36,7 @@ public class MedicoRestController {
 	    }
 	    
 	    return new ResponseEntity<>(MisPacientes, HttpStatus.OK);
-	}*/
+	}
 	
 
 }

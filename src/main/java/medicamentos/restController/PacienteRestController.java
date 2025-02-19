@@ -76,6 +76,18 @@ public class PacienteRestController {
 	    return new ResponseEntity<>(medicos, HttpStatus.OK);
 	}
 	
+	@GetMapping("/VerMiPerfilPaciente/{idPaciente}")
+	public ResponseEntity<Usuario> VerMiPerfil(@PathVariable int idPaciente) {
+	    Usuario paciente = pacienteService.VerMiPerfilPaciente(idPaciente);
+	    System.out.println("Ver mi perfil: " + paciente);
+
+	    if (paciente == null) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Si no se encuentra al paciente
+	    }
+
+	    return new ResponseEntity<>(paciente, HttpStatus.OK);  // Si se encuentra al paciente
+	}
+	
 	
 	
 
