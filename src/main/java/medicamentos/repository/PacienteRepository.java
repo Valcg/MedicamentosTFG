@@ -1,6 +1,7 @@
 package medicamentos.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,14 +29,9 @@ public interface PacienteRepository extends JpaRepository<Paciente, Integer>{
 	@Query("select p from Paciente p where p.idPaciente = ?1")
 	Paciente findByIdPaciente(int idPaciente);
 	
-	@Query(value = """
-		    SELECT u.* FROM usuarios u
-		    JOIN medicos m ON u.id_usuario = m.id_usuario
-		    JOIN medicos_pacientes mp ON m.numero_colegiado = mp.numero_colegiado
-		    JOIN pacientes p ON mp.id_paciente = p.id_paciente
-		    WHERE p.id_paciente = :idPaciente
-		    """, nativeQuery = true)
-		List<Usuario> findMedicosByPaciente(int idPaciente);
+	
+    
+
 
 
 

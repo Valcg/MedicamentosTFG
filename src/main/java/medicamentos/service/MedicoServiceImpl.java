@@ -66,16 +66,7 @@ public class MedicoServiceImpl implements MedicoService{
 		return medicoRepository.findUsuariosPacientesByMedico(numeroColegiado);
 	}
 
-/*	@Override
-	public List<Usuario> VerMisPacientes(int idMedico) {
-	    // Obtener la lista de pacientes asociados al médico con idMedico
-	    List<Usuario> pacientes = medicoRepository.findPacientesByMedicoId(idMedico);
 
-	    return pacientes;
-	}
-
-
-	*/
 
 	
 }

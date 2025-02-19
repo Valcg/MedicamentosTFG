@@ -66,8 +66,8 @@ public class PacienteRestController {
 	}
 	
 	@GetMapping("/VermisMedicos/{idPaciente}")
-	public ResponseEntity<List<Usuario>> VermisMedicos(@PathVariable int idPaciente) {
-	    List<Usuario> medicos = pacienteService.VerMisMedicos(idPaciente);
+	public ResponseEntity<List<Medico>> obtenerMedicosDePaciente(@PathVariable int idPaciente) {
+	    List<Medico> medicos = pacienteService.obtenerMedicosPorPaciente(idPaciente);
 	    System.out.println("ver medicos "+ medicos );
 	    
 	    if (medicos.isEmpty()) {
