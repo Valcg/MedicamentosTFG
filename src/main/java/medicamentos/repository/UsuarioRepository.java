@@ -10,8 +10,9 @@ import medicamentos.entities.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	
-	@Query("select u from Usuario u where u.medico in ?1")
+	/*@Query("SELECT u FROM Usuario u JOIN Paciente p WHERE p.medicos IN :medicos")
 	List<Usuario> findAllByMedicoIn(List<Medico> medicos);
 
+*/
 
 }

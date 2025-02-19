@@ -30,9 +30,7 @@ public class UsuarioDto {
     @Column(name = "tipo_usuario")
     private TipoUsuario tipoUsuario; // Enum: "paciente" o "medico"
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "enabled")
-    private Enabled enabled;  // Enum: "ACTIVO", "INACTIVO"
+ 
     private String diagnostico;        // Solo para pacientes
     private int numeroColegiado;    // Solo para médicos
     private String especialidad;       // Solo para médicos

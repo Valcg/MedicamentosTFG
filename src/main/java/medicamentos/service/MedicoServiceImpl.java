@@ -61,9 +61,9 @@ public class MedicoServiceImpl implements MedicoService{
 	}
 
 	@Override
-	public List<Usuario> VerMisPacientes(int idMedico) {
+	public List<Usuario> VerMisPacientes(int numeroColegiado) {
 		// TODO Auto-generated method stub
-		return null;
+		return medicoRepository.findUsuariosPacientesByMedico(numeroColegiado);
 	}
 
 /*	@Override

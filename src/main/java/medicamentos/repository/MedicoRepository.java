@@ -11,10 +11,17 @@ import medicamentos.entities.Usuario;
 
 public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 	
-/*
-	@Query("select p from Paciente p join p.medicos m where m.idMedico = ?1")
-	List<Paciente> findPacientesByMedicoId(int idMedico);
 
-*/
+	@Query(value = """
+		    SELECT u.* 
+		    FROM usuarios u
+		    JOIN pacientes p ON u.id_usuario = p.id_usuario
+		    JOIN medicos_pacientes mp ON p.id_paciente = mp.id_paciente
+		    JOIN medicos m ON mp.numero_colegiado = m.numero_colegiado
+		    WHERE m.numero_colegiado = :numeroColegiado
+		    """, nativeQuery = true)
+		List<Usuario> findUsuariosPacientesByMedico(int numeroColegiado);
+
+
 
 }

@@ -15,6 +15,8 @@ public interface PacienteService extends IntGenericoCrud<Paciente, Integer> {
 	List<HistorialDeToma> VerMihistorial(int idPaciente);
 	List<Alerta> VerMisAlertas(int idPaciente);
 	List<Usuario> VerMisMedicos(int idPaciente);
+	Usuario VerMiPerfilPaciente(int idPaciente);
+	
 
 
 

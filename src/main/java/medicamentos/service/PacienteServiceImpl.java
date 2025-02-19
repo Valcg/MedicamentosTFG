@@ -11,6 +11,7 @@ import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
 import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
+import medicamentos.repository.MedicoRepository;
 import medicamentos.repository.PacienteRepository;
 import medicamentos.repository.UsuarioRepository;
 
@@ -21,6 +22,8 @@ public class PacienteServiceImpl implements PacienteService{
 	private PacienteRepository pacienteRepository;
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	@Autowired
+	private MedicoRepository medicoRepository;
 
 
 	@Override
@@ -76,16 +79,15 @@ public class PacienteServiceImpl implements PacienteService{
 
 	@Override
 	public List<Usuario> VerMisMedicos(int idPaciente) {
-	    // Paso 1: Obtener el paciente
-	    Paciente paciente = pacienteRepository.findByIdPaciente(idPaciente);
+	   
 
-	    // Paso 2: Obtener la lista de médicos del paciente
-	    List<Medico> medicos = paciente.getMedicos(); // Esto es de la relación ManyToMany
+	    return pacienteRepository.findMedicosByPaciente(idPaciente);
+	}
 
-	    // Paso 3: Consultar a los usuarios asociados con estos médicos
-	    List<Usuario> usuariosMedicos = usuarioRepository.findAllByMedicoIn(medicos);
-
-	    return usuariosMedicos;
+	@Override
+	public Usuario VerMiPerfilPaciente(int idPaciente) {
+		// TODO Auto-generated method stub
+		return usuarioRepository.findById(idPaciente).orElse(null); 
 	}
 
 

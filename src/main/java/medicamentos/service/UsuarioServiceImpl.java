@@ -8,6 +8,7 @@ import org.springframework.data.mapping.AccessOptions.SetOptions.Propagation;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import medicamentos.entities.Enabled;
 import medicamentos.entities.Medico;
 import medicamentos.entities.MedicoColegiado;
 import medicamentos.entities.Paciente;
@@ -43,12 +44,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 
 	        switch (tipoUsuario) {
-	            case paciente:
-	                // Crear un paciente y asignar diagnóstico
-	                Paciente paciente = new Paciente();
-	                paciente.setDiagnostico(usuarioDTO.getDiagnostico());
-	                pacienteRepository.save(paciente); // Guardar en la tabla PACIENTES
-
+	            case PACIENTE:
+	            	
 	                // Crear el usuario con la referencia al paciente
 	                Usuario usuarioPaciente = new Usuario();
 	                usuarioPaciente.setNombre(usuarioDTO.getNombre());
@@ -57,13 +54,20 @@ public class UsuarioServiceImpl implements UsuarioService{
 	                usuarioPaciente.setDni(usuarioDTO.getDni());
 	                usuarioPaciente.setCorreo(usuarioDTO.getCorreo());
 	                usuarioPaciente.setTipoUsuario(tipoUsuario); // Tipo paciente
-	                usuarioPaciente.setPaciente(paciente); // Referencia al paciente
-	                usuarioPaciente.setEnabled(usuarioDTO.getEnabled());
+	                usuarioPaciente.setEnabled(Enabled.ACTIVO);
+	                
+	                // Crear un paciente y asignar diagnóstico
+	                Paciente paciente = new Paciente();
+	                paciente.setDiagnostico(usuarioDTO.getDiagnostico());
+	                paciente.setUsuario(usuarioPaciente);
+	                pacienteRepository.save(paciente); // Guardar en la tabla PACIENTES
 
 	                usuarioRepository.save(usuarioPaciente); // Guardar el usuario con la referencia
+	                
+
 	                break;
 
-	            case medico:
+	            case MEDICO:
 	                // Verificar si el médico está registrado en MEDICOS_COLEGIADOS
 	                Optional<MedicoColegiado> medicoColegiado = medicoColegiadoRepository.findByNumeroColegiado(usuarioDTO.getNumeroColegiado());
 	                
@@ -71,13 +75,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 	                    return "Error: El número de colegiado no está registrado.";
 	                }
 
-	                // Crear un médico y asignar número de colegiado y especialidad
-	                Medico medico = new Medico();
-	                medico.setNumeroColegiado(usuarioDTO.getNumeroColegiado());
-	                medico.setEspecialidad(usuarioDTO.getEspecialidad());
-	                medicoRepository.save(medico); // Guardar en la tabla MEDICOS
-
-	                // Crear el usuario con la referencia al médico
 	                Usuario usuarioMedico = new Usuario();
 	                usuarioMedico.setNombre(usuarioDTO.getNombre());
 	                usuarioMedico.setApellido(usuarioDTO.getApellido());
@@ -85,8 +82,18 @@ public class UsuarioServiceImpl implements UsuarioService{
 	                usuarioMedico.setDni(usuarioDTO.getDni());
 	                usuarioMedico.setCorreo(usuarioDTO.getCorreo());
 	                usuarioMedico.setTipoUsuario(tipoUsuario); // Tipo medico
-	                usuarioMedico.setMedico(medico); // Referencia al médico
-	                usuarioMedico.setEnabled(usuarioDTO.getEnabled());
+	                usuarioMedico.setEnabled(Enabled.ACTIVO);
+	                
+	                
+	                // Crear un médico y asignar número de colegiado y especialidad
+	                Medico medico = new Medico();
+	                medico.setNumeroColegiado(usuarioDTO.getNumeroColegiado());
+	                medico.setEspecialidad(usuarioDTO.getEspecialidad());
+	                medico.setUsuario(usuarioMedico);
+	                medicoRepository.save(medico); // Guardar en la tabla MEDICOS
+
+	               
+	                
 	                usuarioRepository.save(usuarioMedico); // Guardar el usuario con la referencia
 	                break;
 

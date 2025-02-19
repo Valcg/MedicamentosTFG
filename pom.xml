@@ -60,11 +60,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>productosweb</groupId>
-			<artifactId>04_Productos_jpa</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			</dependency>
+	
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
     <artifactId>jackson-annotations</artifactId>
@@ -73,6 +69,10 @@
 
 
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
