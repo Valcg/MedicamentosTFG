@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import medicamentos.entities.Alerta;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medico;
+import medicamentos.entities.Paciente;
 import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
 import medicamentos.service.PacienteService;
@@ -77,8 +78,8 @@ public class PacienteRestController {
 	}
 	
 	@GetMapping("/VerMiPerfilPaciente/{idPaciente}")
-	public ResponseEntity<Usuario> VerMiPerfil(@PathVariable int idPaciente) {
-	    Usuario paciente = pacienteService.VerMiPerfilPaciente(idPaciente);
+	public ResponseEntity<Paciente> VerMiPerfil(@PathVariable int idPaciente) {
+	    Paciente paciente = pacienteService.VerMiPerfilPaciente(idPaciente);
 	    System.out.println("Ver mi perfil: " + paciente);
 
 	    if (paciente == null) {

@@ -85,9 +85,9 @@ public class PacienteServiceImpl implements PacienteService{
 	}
 
 	@Override
-	public Usuario VerMiPerfilPaciente(int idPaciente) {
+	public Paciente VerMiPerfilPaciente(int idPaciente) {
 		// TODO Auto-generated method stub
-		return usuarioRepository.findById(idPaciente).orElse(null); 
+		return pacienteRepository.findById(idPaciente).orElse(null); 
 	}
 
 
