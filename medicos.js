@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fragment = document.createDocumentFragment();
 
     // PETICIÓN GET CON AXIOS PARA OBTENER LOS MÉDICOS DEL PACIENTE CON ID 3
-    axios.get("http://localhost:9050/pacientes/VermisMedicos/3")
+    axios.get("http://localhost:9050/pacientes/VermisMedicos/1")
         .then(res => {
             const medicos = res.data; // DATOS DE LOS MÉDICOS
             console.log(medicos); // Verifica los datos que estás recibiendo
@@ -21,10 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     div.classList.add("medico-item");
 
                     // ACCESO A `medico.medico` PARA OBTENER `numeroColegiado`, `especialidad`
-                    div.innerHTML = `<strong>Nombre:</strong> ${medico.nombre} ${medico.apellido} <br>
-                                     <strong>Número Colegiado:</strong> ${medico.medico.numeroColegiado} <br>
-                                     <strong>Especialidad:</strong> ${medico.medico.especialidad} <br>
-                                     <strong>Email:</strong> ${medico.correo}`; // email
+                    div.innerHTML = `<strong>Nombre:</strong> ${medico.usuario.nombre} ${medico.usuario.apellido} <br>
+                           <strong>Número Colegiado:</strong> ${medico.numeroColegiado} <br>
+                               <strong>Especialidad:</strong> ${medico.especialidad} <br>
+                                      <strong>Email:</strong> ${medico.usuario.correo}`; // email
                     // AGREGAMOS AL FRAGMENTO PARA OPTIMIZAR RENDIMIENTO
                     fragment.appendChild(div);
                 });

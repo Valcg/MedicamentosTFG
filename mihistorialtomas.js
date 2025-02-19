@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const historialContainer = document.getElementById("VerMiHistorialTomas");
     const fragment = document.createDocumentFragment();
 
-    axios.get("http://localhost:9050/pacientes/Vermihistorial/3")
+    axios.get("http://localhost:9050/pacientes/Vermihistorial/1")
         .then(res => {
             const historial = res.data;
             console.log(historial); // Verificar los datos

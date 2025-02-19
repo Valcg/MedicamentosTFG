@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Elementos de manejo de DOM
     const axiosLista = document.getElementById("axios");
     const fragment = document.createDocumentFragment();
-    axios.get("http://localhost:9050/pacientes/VerMisRecetas/3") // Petición GET con Axios
+    axios.get("http://localhost:9050/pacientes/VerMisRecetas/1") // Petición GET con Axios
     // axios.get("http://localhost:9050/pacientes/VerMisRecetas/{idPaciente}") // Petición GET con Axios
         .then(res => {
             const recetas = res.data; // Datos de las recetas

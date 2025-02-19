@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const fragment = document.createDocumentFragment();
 
     // ID DEL PACIENTE (PUEDES CAMBIAR ESTE ID SEGÚN SEA NECESARIO)
-    const pacienteId = 3;
+    const pacienteId = 1;
 
     // HACEMOS UNA PETICIÓN GET CON AXIOS PARA OBTENER EL PERFIL DEL PACIENTE
-    axios.get(`http://localhost:9050/pacientes/VerMiPerfil/${pacienteId}`)
+    axios.get(`http://localhost:9050/pacientes/VerMiPerfilPaciente/${pacienteId}`)
         .then(res => {
             const paciente = res.data; // OBTENEMOS LOS DATOS DEL PERFIL DEL PACIENTE
             console.log(paciente); // VERIFICAMOS SI LOS DATOS SE RECIBEN CORRECTAMENTE
@@ -27,14 +27,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 // MOSTRAMOS LOS DATOS BÁSICOS DEL PACIENTE EN EL DIV
                 div.innerHTML = `
                     <h3>Perfil del Paciente</h3>
-                    <strong>ID del Paciente:</strong> ${paciente.idUsuario} <br>
-                    <strong>Nombre del Paciente:</strong> ${paciente.nombre} <br>
-                    <strong>Apellidos del Paciente:</strong> ${paciente.apellido} <br>
-                    <strong>Correo del Paciente:</strong> ${paciente.correo} <br>
-                    <strong>DNI:</strong> ${paciente.dni} <br>
-                    <strong>Diagnóstico:</strong> ${paciente.paciente.diagnostico} <br>
-                    <strong>Estado:</strong> ${paciente.enabled} <br>
-                    <strong>Tipo de Usuario:</strong> ${paciente.tipoUsuario} <br>
+                    <strong>ID del USUARIO:</strong> ${paciente.usuario.idUsuario} <br>
+                     <strong>ID del PACIENTE:</strong> ${paciente.idPaciente} <br>
+                    <strong>Nombre del Paciente:</strong> ${paciente.usuario.nombre} <br>
+                     <strong>Apellidos del Paciente:</strong> ${paciente.usuario.apellido} <br>
+                     <strong>Correo del Paciente:</strong> ${paciente.usuario.correo} <br>
+                     <strong>DNI:</strong> ${paciente.usuario.dni} <br>
+                     <strong>Estado:</strong> ${paciente.usuario.enabled} <br>
+                     <strong>Tipo de Usuario:</strong> ${paciente.usuario.tipoUsuario} <br>
+                      <strong>diagnostico:</strong> ${paciente.diagnostico} <br>
+
                 `;
 
                 // AGREGAMOS EL DIV AL FRAGMENTO PARA OPTIMIZAR EL RENDIMIENTO

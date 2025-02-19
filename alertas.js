@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fragment = document.createDocumentFragment();
 
     // PETICIÓN GET CON AXIOS PARA OBTENER LAS ALERTAS DEL PACIENTE CON ID 3
-    axios.get("http://localhost:9050/pacientes/VermisAlertas/3")
+    axios.get("http://localhost:9050/pacientes/VermisAlertas/1")
         .then(res => {
             const alertas = res.data; // DATOS DE LAS ALERTAS
             console.log(alertas); // Verifica los datos que estás recibiendo
