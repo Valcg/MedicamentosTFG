@@ -232,7 +232,6 @@
 /* --------------------------- HEADER CLIENTE UNO --------------------------- */
 #header-cliente-uno {
     margin:auto;
-    background-color: blue;
 
     display: flex;
     justify-content: center;
@@ -303,7 +302,7 @@
 .nombre-cliente, .tipo-cuenta {
     font-size: 16px;
     color: #333;
-    margin-left: 20px;
+   
 }
 
 /* Estilos para el botón de cerrar sesión */
@@ -312,18 +311,19 @@
     padding: 8px;
     border-radius: 20px; border:1px solid #ccc;
     background-color: white; /* Fondo blanco */
-    color: red;
+    color: black;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px; /* Espacio entre el ícono y el texto */
-    /* transition: background-color 0.3s ease, color 0.3s ease; Transición suave */
-}
+    transition: color 0.3s ease;
+   }
+  
 
 .cerrar-sesion-cliente:hover {
     background-color: #333; /* Fondo gris claro al hacer hover */
-    color: white;
+    color: white; transition: color 0.3s ease;
 }
 
 
@@ -333,7 +333,7 @@
     justify-content: center;
     align-items: center;
     padding: 8px 0px;
-    border: 1px solid red; /* Borde sólido */
+    border: 1px solid #ccc; /* Borde sólido */
     border-radius: 20px;
     width: 90%; /* Modificado para que no ocupe el 100% */
     margin: 0 auto; /* Centra el header en la página */
@@ -356,7 +356,6 @@
 .nav-cliente-dos ul li {
     flex: 1;
     text-align: center;
-    margin: 0 10px;
 }
 
 .nav-cliente-dos ul li a {
@@ -446,21 +445,71 @@
                     width: 60%;
                     border-radius: 8px;
                     text-align: center;
+                    padding: 30px 0; /* MIS CUIDADORES*/
                 }
 
                 /* Div "tres" ocupa el 40% (ajustado para que se acomode en la misma línea) */
                 .usuario-div-tres {
-                    background-color: #f8f8f8;
+                    background-color: white;
                     border-radius: 8px;
                     width: 40%;
-                
+
+                    padding: 20px; /*PARA EL CALENDARIO*/
+
+                    max-width: 100%;
+                    box-sizing: border-box;
+            
                 }
+
+/*--------------CALENDARIO*/                  
+    #fecha {
+        text-align: center;
+        width: 100%;
+        margin:10px 0;
+        padding: 20px 0;
+        font-size: 16px;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        background-color: white;
+        border-radius: 8px;
+        color: #333;
+      }
+      #diacuenta {
+        text-align: center;
+        width: 100%;
+        margin:10px 0;
+        padding: 20px 0;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        background-color: rgb(189, 215, 255);
+        border-radius: 8px;
+        color: #333;
+      }
+    
+    
+      .calendar-container {
+        width: 100%;
+        height: 250px;  /* Ajusta esta altura según el tamaño deseado */
+        margin-top: 10px;
+      }
+    
+      .calendar-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
 
 /* Divs "cuatro", "cinco" y "seis" ocupan el 100% */
 .usuario-div-cuatro,
 .usuario-div-cinco,
 .usuario-div-seis {
-    background-color: #fafafa;
+    background-color:white;
+    width: 100%;
+}
+/*SEIS*/
+
+.usuario-div-seis {
+    background-color:lightgoldenrodyellow;
     width: 100%;
 }
 
@@ -477,10 +526,9 @@
 /* --------------------------- CADA DIV DENTRO DE .usuario-div --------------------------- */
 
 .saludo-item {
-    background-color: #fafafa; /* Fondo gris claro */
+    background-color: #F0F0F0; /* Fondo gris claro */
     padding: 20px;
     text-align: center;
-    border: 1px solid #ddd;
     border-radius: 8px;
     flex: 1 1 22%; /* En pantallas grandes, los divs ocupan el 22% del ancho */
     box-sizing: border-box; /* Para asegurar que el padding no afecte el ancho */
@@ -494,8 +542,7 @@
     /* Los divs "uno", "dos", "tres", etc. ocupan el 100% en pantallas más pequeñas */
     .usuario-div {
         width: 100%; 
-        padding: 20px 0px; /* QUTIAR EL PADDIN PARA QWUE NO DESBORDE*/
-    
+
         flex-wrap: wrap; /* Asegura que los divs se ajusten */
     }
     .saludo-item {
@@ -528,7 +575,7 @@
 @media (max-width: 480px) {
 
     .usuario-div {
-       padding: 20px 0px; /* Los divs ocupan el 100% en pantallas muy pequeñas */
+       padding: 20px;
     }
 }
 
@@ -537,23 +584,24 @@
 
 /*--------------------------------------------------------------------------------------------- BOTON*/
 /* Estilos para el contenedor de la tabla */
-#tablaCuidadores {
+#tabmiscuidadores {
     width: 100%; /* La tabla ocupa el 100% del ancho del div */
     border-collapse: collapse; /* Para evitar los espacios entre las celdas */
     margin-top: 10px; /* Espacio arriba de la tabla */
 }
 
 /* Estilos para las celdas de la tabla (las filas con los cuidadores) */
-#tablaCuidadores th, #tablaCuidadores td {
+#tabmiscuidadores th, #tabmiscuidadores td {
     text-align: center; /* Centra el texto en las celdas */
-    padding: 10px; /* Espaciado en las celdas */
-    border-bottom: 1px solid #ccc; /* Líneas horizontales entre las filas */
+    padding: 20px 0px; /* Espaciado en las celdas */
+    border-bottom: 1px solid #F0F0F0; /* Líneas horizontales entre las filas */
 }
 
 /* Fondo y texto en negrita para los títulos */
-#tablaCuidadores th {
+#tabmiscuidadores th {
     font-weight: bold;
-    background-color: #D3D3D3; /* Gris claro */
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f7f7f7; /* Gris claro */
 }
 
 /* Estilo para el botón de agregar */
@@ -570,12 +618,12 @@
 
 /* Cambio de color al pasar el mouse sobre el botón de agregar */
 #btnAgregar:hover {
-    background-color: #45a049; /* Verde más oscuro */
+    background-color: #235726; /* Verde más oscuro */
 }
 
 /* Estilo para el botón de eliminar */
 .eliminar-btn-miscuidadores {
-    background-color: #ff6961; /* Rojo pastel */
+    background-color: #ff756e; /* Rojo pastel */
     color: white; /* X en blanco */
     width: 30px;
     height: 30px;
@@ -589,12 +637,12 @@
 }
 
 /* Centrar el botón de eliminar dentro de la celda */
-#tablaCuidadores td .eliminar-btn-miscuidadores {
+#tabmiscuidadores td .eliminar-btn-miscuidadores {
     margin: 0 auto;
 }
 
 /* Hover para el botón de eliminar */
 .eliminar-btn-miscuidadores:hover {
-    background-color: #e05650; /* Un rojo más oscuro al hacer hover */
+    background-color: #b63730; /* Un rojo más oscuro al hacer hover */
 }
 

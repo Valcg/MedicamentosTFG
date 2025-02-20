@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
             { nombre: "Carlos", apellidos: "Ruiz Martínez", dni: "11223344C" }
         ];
 
-        const tabla = document.getElementById("tablaCuidadores");
+        const tabla = document.getElementById("tabmiscuidadores");
         if (!tabla) {
-            console.error("Tabla 'tablaCuidadores' no encontrada");
+            console.error("Tabla 'tabmiscuidadores' no encontrada");
             return;
         }
 
