@@ -231,21 +231,24 @@
 /*HOME CLIENTE HEADER -------------------------------*/
 /* --------------------------- HEADER CLIENTE UNO --------------------------- */
 #header-cliente-uno {
+    margin:auto;
+    background-color: blue;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 20px;
-    background-color: transparent;
+    padding: 10px 0px;
+    
     flex-shrink: 0;
     height: 60px;
-    width: 100%;
+    width: 90%;
 }
 
 .nav-cliente-uno {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 0;
     width: 100%;
 }
 
@@ -260,11 +263,11 @@
     align-items: center;
 }
 
-.nav-cliente-uno ul li {
+/* .nav-cliente-uno ul li {
     flex: 1;
     text-align: center;
     margin: 0 10px;
-}
+} */
 
 .nav-cliente-uno ul li:first-child {
     margin-left: 0;
@@ -273,7 +276,7 @@
 #header-cliente-uno .nav-cliente-uno ul li a {
     text-decoration: none;
     font-size: 16px;
-    transition: color 0.3s ease;
+    /* transition: color 0.3s ease; */
 }
 
 #header-cliente-uno .nav-cliente-uno ul li.nombre-usuario {
@@ -309,12 +312,13 @@
     padding: 8px;
     border-radius: 20px; border:1px solid #ccc;
     background-color: white; /* Fondo blanco */
+    color: red;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px; /* Espacio entre el ícono y el texto */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+    /* transition: background-color 0.3s ease, color 0.3s ease; Transición suave */
 }
 
 .cerrar-sesion-cliente:hover {
@@ -328,10 +332,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px 20px;
-    border: 1px solid #ccc; /* Borde sólido */
+    padding: 8px 0px;
+    border: 1px solid red; /* Borde sólido */
     border-radius: 20px;
-    width: 80%; /* Modificado para que no ocupe el 100% */
+    width: 90%; /* Modificado para que no ocupe el 100% */
     margin: 0 auto; /* Centra el header en la página */
 }
 
@@ -380,6 +384,9 @@
 
 /*----------------------------------------------------------*/
 @media (max-width: 768px) {
+    #header-cliente-uno {
+        width: 90%; /* El header ocupará el 90% en pantallas más pequeñas */
+    }
     #header-cliente-dos {
         width: 90%; /* El header ocupará el 90% en pantallas más pequeñas */
     }
@@ -394,10 +401,10 @@
 
 /* --------------------------- MAIN --------------------------- */
 #usuario-main {
-    width: 80%; /* El main ocupa el 80% del ancho del body */
+    width: 90%; /* El main ocupa el 80% del ancho del body */
     margin: 30px auto; /* Centra el main horizontalmente */
     background-color: #F0F0F0; /* Fondo gris */
-    padding: 20px;
+    padding: 20px 0px;
     border-radius: 8px;
 }
 
@@ -406,8 +413,24 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between; /* Alinea los elementos con espacio entre ellos */
-    gap: 15px; /* Espacio entre los divs */
-    margin-top: 20px;
+    /* gap: 15px; Espacio entre los divs */
+
+}
+
+
+
+/* Divs con diferentes anchos */
+.usuario-div {
+  
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+/* Div "uno" ocupa 100% */
+.usuario-div-uno {
+    background-color: white;
+    width: 100%;
 }
 
 /* Contenedor de los divs "dos" y "tres" para mantenerlos en la misma línea */
@@ -415,38 +438,23 @@
     display: flex;
     gap: 15px; /* Añadido un pequeño espacio entre los divs "dos" y "tres" */
     width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    margin: 20px;
 }
+                /* Div "dos" ocupa el 60% (ajustado para que se acomode en la misma línea) */
+                .usuario-div-dos {
+                    background-color: white;
+                    width: 60%;
+                    border-radius: 8px;
+                    text-align: center;
+                }
 
-/* Divs con diferentes anchos */
-.usuario-div {
-    background-color: white;
-    padding: 20px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-/* Div "uno" ocupa 100% */
-.usuario-div-uno {
-    background-color: #f8f8f8;
-    width: 100%;
-}
-
-/* Div "dos" ocupa el 60% (ajustado para que se acomode en la misma línea) */
-.usuario-div-dos {
-    background-color: #fafafa;
-    width: 60%;
-    margin: 10px 0; /* Margen vertical */
-    border-radius: 8px;
-    text-align: center;
-}
-
-/* Div "tres" ocupa el 40% (ajustado para que se acomode en la misma línea) */
-.usuario-div-tres {
-    background-color: #f8f8f8;
-    width: 40%;
-    margin: 10px 0; /* Margen vertical */
-}
+                /* Div "tres" ocupa el 40% (ajustado para que se acomode en la misma línea) */
+                .usuario-div-tres {
+                    background-color: #f8f8f8;
+                    border-radius: 8px;
+                    width: 40%;
+                
+                }
 
 /* Divs "cuatro", "cinco" y "seis" ocupan el 100% */
 .usuario-div-cuatro,
