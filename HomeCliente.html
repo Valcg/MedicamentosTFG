@@ -7,7 +7,8 @@
 
 
     <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="styles/cliente.css"> 
+    <link rel="stylesheet" href="styles/cliente.css">
+    <link rel="stylesheet" href="styles/botones.css"> 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,30 +50,63 @@
     <main id="usuario-main">
         <!-- Sección con los divs de contenido -->
         <section id="usuario-divs-container">
-            
+
+                 <!-- -------------------------CAMBIOS VALERIA-----------------------  -->
+
             
         <div class="usuario-div usuario-div-uno">
             <!---------------- 4 DIVS -->
             <div id="saludo" class="saludo-item">
-                HOLA TOMASIN
+                <!-- ACUERDATE DE ARREGLAR ESTO LA IMAGEN DEL SALUDO Y PONER EL TEXTO 
+                 A LA IZQUIERDA PORQUE ESTA EN TU CSS -->
+                <div class="texto1">HOLA TOMASIN
+                <img src="img/icons8-waving-hand-emoji-48.png" alt="">
+                </div>
+                
                 <p>Puedes ver o modificar tus datos de manera fácil</p>
-                <div id="verperfil"><a>VER PERFIL</a></div>
+                <div id="verperfil">
+                    <a>VER MI PERFIL</a>
+                </div>
             </div>
 
+
             <div  class="saludo-item">
-              
-                <div id="VerMisRecetas"><a>VER MIS RECETAS</a></div>
+                <div id="VerMisRecetas">
+                    <div class="icono">
+                    <img  src="img/icons8-papers-64.png" alt="">  
+                    </div>
+                    <div class="texto">
+                    <p class="texto1" id="hoverr">VER MIS RECETAS</p>
+                    <p class="texto2">Tambien puedes ver: Información del medicamento</p>
+                    </div>
+                </div>
             </div>
 
             <div  class="saludo-item">
             
-                <div id="VerMisMedicos"><a>VER MIS MEDICOS</a></div>
+                <div id="VerMisMedicos">
+                    <div class="icono">
+                        <img  src="img/icons8-medico-64.png" alt="">  
+                        </div>
+                        <div class="texto">
+                        <p class="texto1" id="hoverm">VER MIS MEDICOS</p>
+                        <p class="texto2">Información del médico o médicos asignados</p>
+                        </div>
+                </div>
             </div>
+
             <div class="saludo-item">
-                <div id="VerMisAlertas"><a>VER MIS ALERTAS</a></div>
-            </div>
+                <div id="VerMisAlertas">
+                        <div class="icono">
+                        <img  src="img/icons8-alarm-50.png" alt="">  
+                        </div>
+                        <div class="texto">
+                        <p class="texto1" id="hovera">VER MIS ALERTAS</p>
+                        <p class="texto2">Información del médico o médicos asignados</p>
+                        </div> 
+                </div>
             <!------------------>
-        </div>
+            </div>
     
             <div class="usuario-div-dos-tres-container">
                 <!------------------ VER MIS CUIDADORES -->
@@ -134,6 +168,7 @@
         <!-- Enlazamos el archivo main.js -->
         <script src="main.js"></script>
         <script src="miscuidadores.js"></script>
+        
       
         <script>
             // Obtener la fecha actual
