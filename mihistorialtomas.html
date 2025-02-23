@@ -4,17 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HISTORIAL DE  TOMAS</title>
+    <!-- --------------------------------- -->
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/cliente.css">
+    <!-- --------------------------------- -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- --------------------------------- -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- --------------------------------- -->
-     
+    <!-- --------------------------------- -->   
 </head>
 <body>
+    <!-- HEADER CLIENTE------------------------------------------------------- -->
+        <header id="header-cliente-uno">
+            <nav class="nav-cliente-uno">
+                <ul>
+                    <li><a href="#about-us"><img src="img/medicadeblue.png" alt="medicade" class="logo-about-us" style="width: 90px;"></a></li>
+                    <li class="nombre-usuario">Tomasin</li>
+                    <li class="tipo-cuenta">TU CUENTA ES TIPO <img src="img/icoflechader.png" alt="flechader" style="height: 20px;"><a id="paciente-text">Paciente</a></li>
+                    <li><a href="#logout" class="cerrar-sesion-cliente">CERRAR SESIÓN</a></li>
+                </ul>
+            </nav>
+        </header>
+    <!-- HEADER CLIENTE DOS------------------------------------------------------- -->
+        <header id="header-cliente-dos">
+            <nav class="nav-cliente-dos">
+                <ul>
+                    <li><a href="#about">ABOUT US</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                    <li><a href="#support">SOPORTE</a></li>
+                </ul>
+            </nav>
+        </header>
+    <!-- MAIN-USUARIO ------------------------------------------------------- -->
+
+
+<!-- MAIN-USUARIO ------------------------------------------------------- -->
+<main id="usuario-main">
     <h1>MI HISTORIAL DE TOMAS</h1>
     <div id="VerMiHistorialTomas"></div>
     
-    <a href="HomeCliente.html">Volver al inicio</a>
+    <a href="HomeCliente.html" id="volverHomeCli">Volver al inicio</a>
     <script src="mihistorialtomas.js"></script>
+</main>
+    
+    <!-- FOOTER ------------------------------------------------------- -->
+        <footer id="footer-dos">
+            <ul>
+                <li><a>© 2025 All rights reserved.</a></li>
+                <li><a href="#privacy">Privacidad</a></li>
+                <li><a href="#terms">Condiciones de uso</a></li>
+                <li><a href="#cookies">Preferencias de cookies</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#help">Ayuda</a></li>
+            </ul>
+        </footer>
+
+
+
+
 </body>
 </html>

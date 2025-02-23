@@ -21,12 +21,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 // CREAMOS UN DIV PARA MOSTRAR LOS DATOS DEL PACIENTE
                 const div = document.createElement("div");
                 div.classList.add("perfil-item");
-                div.style.border = "1px solid #ccc"; // AÑADIMOS UN BORDE PARA QUE SE VEA MEJOR
+                // div.style.border = "1px solid #ccc"; // AÑADIMOS UN BORDE PARA QUE SE VEA MEJOR
                 div.style.padding = "10px"; // AÑADIMOS ESPACIO INTERIOR AL DIV
 
                 // MOSTRAMOS LOS DATOS BÁSICOS DEL PACIENTE EN EL DIV
                 div.innerHTML = `
-                    <h3>Perfil del Paciente</h3>
+                    <h3>--- TUS DATOS : </h3>
                     <strong>ID del USUARIO:</strong> ${paciente.usuario.idUsuario} <br>
                      <strong>ID del PACIENTE:</strong> ${paciente.idPaciente} <br>
                     <strong>Nombre del Paciente:</strong> ${paciente.usuario.nombre} <br>

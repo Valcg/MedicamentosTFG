@@ -1,106 +1,47 @@
-#VerMisRecetas {
+#VerMisRecetas,#VerMisMedicos,#VerMisAlertas {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     /* Distribuye los elementos equitativamente */
-    background-color: #f59d7d;
+    padding: 0 20px;
     height: 100%;
     border-radius: 10px;
     width: auto;
+    transition:  0.3s ease-in-out;
 }
-
-#VerMisRecetas:hover {
-    background-color: #d77957; /* Un tono más vibrante de naranja */
-    transition: background-color 0.3s ease-in-out;
-}
-
-
-#VerMisMedicos {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    /* Distribuye los elementos equitativamente */
-    background-color: #66b794f1;
-    height: 100%;
-    border-radius: 10px;
-    width: auto;
-}
-#VerMisMedicos:hover {
-    background-color: #449a74f1; /* Un tono más vibrante de naranja */
-    transition: background-color 0.3s ease-in-out;
-}
-
-#VerMisAlertas {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    /* Distribuye los elementos equitativamente */
-    background-color: #84CBF1;
-    height: 100%;
-    border-radius: 10px;
-    width: auto;
-}
-
-#VerMisAlertas:hover {
-    background-color: #5aa0c6; /* Un tono más vibrante de naranja */
-    transition: background-color 0.3s ease-in-out;
-}
-
-#verperfil {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #84CBF1;
-    height: 50px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-
-}
-
-#verperfil:hover {
-    background-color: rgb(90, 146, 177); /* Un tono más vibrante de naranja */
-    transition: background-color 0.3s ease-in-out;
-}
-
-
-
-.texto {
-    margin: 3px;
-    /* Espacio entre el texto y el icono */
-}
-
-.texto1 {
+#hoverr,#hoverm,#hovera{  transition:  0.3s ease-in-out;
     background-color: white;
-    font-size: 16px;
     font-weight: bold;
     text-align: center;
-    color: black;
-    border-radius: 5px; /* Suaviza los bordes */
-
-}
- 
+  
+       border-radius: 5px; /* Suaviza los bordes */}
+/* -----------------------------------------MIS RECETAS*/
+#VerMisRecetas {background-color: #f59d7d;}
+#VerMisRecetas:hover {background-color: #d77957; }
 #hoverr:hover {
     color: #f9a365; /* Mantiene el color del texto en armonía */
-  /*  padding: 2px 5px;  Agrega un pequeño margen para destacar */
-    transition: background-color 0.3s ease-in-out;
-}
-#hoverm:hover {
-    color: #66b794f1; /* Mantiene el color del texto en armonía */
-  /*  padding: 2px 5px;  Agrega un pequeño margen para destacar */
-    transition: background-color 0.3s ease-in-out;
-}
-#hovera:hover {
-    color: #84CBF1; /* Mantiene el color del texto en armonía */
-  /*  padding: 2px 5px;  Agrega un pequeño margen para destacar */
-    transition: background-color 0.3s ease-in-out;
 }
 
+/* -----------------------------------------MIS MEDICOS*/
+#VerMisMedicos {background-color: #66b794f1;}
+#VerMisMedicos:hover {background-color: #449a74f1;}
+#hoverm:hover {
+    color: #66b794f1; /* Mantiene el color del texto en armonía */ 
+}
+/* -----------------------------------------MIS ALERTAS*/
+#VerMisAlertas {background-color: #84CBF1;}
+#VerMisAlertas:hover {background-color: #5aa0c6;  }
+#hovera:hover {
+    color: #84CBF1; /* Mantiene el color del texto en armonía */
+}
+/* ----------TEXTOS BTN*/
+.texto {
+    margin: 20px;}
 
 .texto2 {
     font-size: 12px;
     text-align: left;
-    color: rgb(236, 236, 236);
+    color: rgb(226, 226, 226);
 }
 
 .icono {
@@ -109,41 +50,46 @@
     width: auto;
     /* Tamaño mediano */
     height: auto;
-    margin: 3px;
+    margin-right: 20px;
     /* Espacio entre el texto y el icono */
 }
 
-.icono>img {
-    width: 50px;
-    /* Tamaño mediano */
-    height: auto;
+.icono>img {width: 50px;}
+
+
+/* VER MI PERFIL---------------------------------------*/
+#verperfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #84CBF1;
+    height: 50px;
+    width: 200px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+
+#verperfil:hover {
+    background-color: #00669C;
+  
 }
 
 @media screen and (max-width: 700px) {
-    #VerMisRecetas {
+    #VerMisRecetas,#VerMisMedicos,#VerMisAlertas{
         flex-direction: column;
-        align-items: center;
-
-
-    }
-
-    #VerMisMedicos {
-        flex-direction: column;
-        align-items: center;
-
-    }
-
-    .texto1 {
-        order: 1;
-        /* Ubica el título arriba */
-        font-size: 18px;
     }
 
     .icono {
         order: 2;
         /* La imagen en el centro */
     }
-
+    .hoverr {
+        order: 1;
+        /* Ubica el título arriba */
+        font-size: 18px;
+    }
     .texto2 {
         order: 3;
         /* El texto descriptivo abajo */

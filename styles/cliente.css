@@ -412,15 +412,10 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between; /* Alinea los elementos con espacio entre ellos */
-    /* gap: 15px; Espacio entre los divs */
-
 }
-
-
 
 /* Divs con diferentes anchos */
 .usuario-div {
-  
     padding: 20px;
     border-radius: 8px;
     margin: 20px;
@@ -485,14 +480,11 @@
         border-radius: 8px;
         color: #333;
       }
-    
-    
       .calendar-container {
         width: 100%;
         height: 250px;  /* Ajusta esta altura según el tamaño deseado */
         margin-top: 10px;
       }
-    
       .calendar-container iframe {
         width: 100%;
         height: 100%;
@@ -501,18 +493,50 @@
 
 /* Divs "cuatro", "cinco" y "seis" ocupan el 100% */
 .usuario-div-cuatro,
-.usuario-div-cinco,
-.usuario-div-seis {
+.usuario-div-cinco{
     background-color:white;
     width: 100%;
 }
-/*SEIS*/
-
+/* SEIS-------------------------- SALUDO --------------------------- */
 .usuario-div-seis {
-    background-color:lightgoldenrodyellow;
+    border-top:1px solid white;
     width: 100%;
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    flex-wrap: wrap;
 }
-
+.usu-footer {
+    padding: 20px 20px;
+    text-align: center;
+    flex: 1;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente */
+}
+#rrss {
+    width: 100%;
+    /* border-right: 1px solid white; */
+}
+#rrss ul {
+    width: 100%;
+    list-style: none; 
+    padding: 0;
+    margin: 20px 0;
+    display: flex; /* Coloca los elementos en línea */
+    justify-content: space-around; /* Espaciado uniforme */
+    align-items: center;
+}
+#rrss ul li {
+    display: inline-block; /* Asegura que los elementos permanezcan en línea */}
+#rrss ul li a img {
+    width: 30px; 
+    height: auto; 
+    opacity: 0.6; 
+    transition: opacity 0.3s ease-in-out;
+}
+#rrss ul li a img:hover {opacity: 1; }
 
 
 /* --------------------------- SALUDO --------------------------- */
@@ -520,16 +544,13 @@
 .usuario-div {
     display: flex;
     flex-wrap: wrap; /* Asegura que los elementos se ajusten si es necesario */
-    gap: 15px; /* Añadimos el margen entre los divs */
+    gap: 20px; /* Añadimos el margen entre los divs */
 }
+#saludo{margin: 20px;}
 
 /* --------------------------- CADA DIV DENTRO DE .usuario-div --------------------------- */
 
 .saludo-item {
-    background-color: #F0F0F0; /* Fondo gris claro */
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
     flex: 1 1 22%; /* En pantallas grandes, los divs ocupan el 22% del ancho */
     box-sizing: border-box; /* Para asegurar que el padding no afecte el ancho */
 }
@@ -561,6 +582,15 @@
     }
 
 
+    .usuario-div-seis {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .usu-footer {
+        flex-basis: 45%; /* Para que quepan dos en una fila */
+    }
+
     /*------------------- SALUDO*/
     #saludo {
         flex-direction: column; /* Apilan los elementos en una sola columna */
@@ -570,6 +600,8 @@
         width: 48%; /* En pantallas medianas, dos cajas por fila */
         margin-bottom: 15px; /* Márgenes entre los divs */
     }
+    /*------------------- ICONOS RECETAS*/
+    .icono{margin: 20px;}
 }
 
 @media (max-width: 480px) {
@@ -577,9 +609,16 @@
     .usuario-div {
        padding: 20px;
     }
+
+    .usuario-div-seis {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .usu-footer {
+        width: 100%;
+    }
 }
-
-
 
 
 /*--------------------------------------------------------------------------------------------- BOTON*/
@@ -633,7 +672,7 @@
     font-weight: bold;
     border-radius: 4px; /* Bordes redondeados */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition:  0.3s ease;
 }
 
 /* Centrar el botón de eliminar dentro de la celda */
@@ -646,3 +685,58 @@
     background-color: #b63730; /* Un rojo más oscuro al hacer hover */
 }
 
+/* BONT NEWSLETTER Y CREAR CUENTA---------------------------------------*/
+#btn-usu-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #84CBF1;
+    height: 50px;
+    width: 200px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+#btn-usu-footer:hover {
+    background-color: #00669C;  
+}
+/* BOT VOLVERHOMECLIE---------------------------------------*/
+#volverHomeCli {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    background-color: #84CBF1;
+    height: 50px;
+    width: 200px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+
+#volverHomeCli:hover {
+    background-color: #00669C; 
+  
+}
+
+/* BOT VOLVERHOMECLIE---------------------------------------*/
+#verhistorialTomas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    background-color: #f0d16b;
+    height: 50px;
+    width: 300px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+
+#verhistorialTomas:hover {
+    background-color: #e6b457;
+  
+}

@@ -4,38 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOME CLIENTE</title>
-
-
+    <!-- --------------------------------- -->
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/cliente.css">
     <link rel="stylesheet" href="styles/botones.css"> 
-
+    <!-- --------------------------------- -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+    <!-- --------------------------------- -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
     <!-- --------------------------------- -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- --------------------------------- -->
-    
-
 </head>
 
 <body style="background-color:white;">
-
+    <!-- HEADER CLIENTE UNO------------------------------------------------------- -->
     <header id="header-cliente-uno">
         <nav class="nav-cliente-uno">
             <ul>
                 <li><a href="#about-us"><img src="img/medicadeblue.png" alt="medicade" class="logo-about-us" style="width: 90px;"></a></li>
                 <li class="nombre-usuario">Tomasin</li>
-                <li class="tipo-cuenta">TU CUENTA ES TIPO :  <img src="img/icoflechader.png" alt="flechader" style="height: 20px;"><a id="paciente-text">Paciente</a></li>
+                <li class="tipo-cuenta">TU CUENTA ES TIPO <img src="img/icoflechader.png" alt="flechader" style="height: 20px;"><a id="paciente-text">Paciente</a></li>
                 <li><a href="#logout" class="cerrar-sesion-cliente">CERRAR SESIÓN</a></li>
             </ul>
         </nav>
     </header>
-    
-    
+    <!-- HEADER CLIENTE DOS------------------------------------------------------- -->
     <header id="header-cliente-dos">
         <nav class="nav-cliente-dos">
             <ul>
@@ -46,114 +41,128 @@
             </ul>
         </nav>
     </header>
-    
+    <!-- MAIN-USUARIO ------------------------------------------------------- -->
     <main id="usuario-main">
         <!-- Sección con los divs de contenido -->
         <section id="usuario-divs-container">
-
-                 <!-- -------------------------CAMBIOS VALERIA-----------------------  -->
-
-            
         <div class="usuario-div usuario-div-uno">
-            <!---------------- 4 DIVS -->
-            <div id="saludo" class="saludo-item">
-                <!-- ACUERDATE DE ARREGLAR ESTO LA IMAGEN DEL SALUDO Y PONER EL TEXTO 
-                 A LA IZQUIERDA PORQUE ESTA EN TU CSS -->
-                <div class="texto1">HOLA TOMASIN
-                <img src="img/icons8-waving-hand-emoji-48.png" alt="">
-                </div>
-                
-                <p>Puedes ver o modificar tus datos de manera fácil</p>
-                <div id="verperfil">
-                    <a>VER MI PERFIL</a>
-                </div>
-            </div>
-
-
-            <div  class="saludo-item">
-                <div id="VerMisRecetas">
-                    <div class="icono">
-                    <img  src="img/icons8-papers-64.png" alt="">  
-                    </div>
-                    <div class="texto">
-                    <p class="texto1" id="hoverr">VER MIS RECETAS</p>
-                    <p class="texto2">Tambien puedes ver: Información del medicamento</p>
-                    </div>
-                </div>
-            </div>
-
-            <div  class="saludo-item">
-            
-                <div id="VerMisMedicos">
-                    <div class="icono">
-                        <img  src="img/icons8-medico-64.png" alt="">  
-                        </div>
-                        <div class="texto">
-                        <p class="texto1" id="hoverm">VER MIS MEDICOS</p>
-                        <p class="texto2">Información del médico o médicos asignados</p>
-                        </div>
-                </div>
-            </div>
-
-            <div class="saludo-item">
-                <div id="VerMisAlertas">
-                        <div class="icono">
-                        <img  src="img/icons8-alarm-50.png" alt="">  
-                        </div>
-                        <div class="texto">
-                        <p class="texto1" id="hovera">VER MIS ALERTAS</p>
-                        <p class="texto2">Información del médico o médicos asignados</p>
-                        </div> 
-                </div>
-            <!------------------>
-            </div>
-    
+        <!---------------- 4 DIVS -->
+                            <!--  VER MI PERFIL -------------- -->
+                            <div id="saludo" class="saludo-item" >
+                                <!-- ACUERDATE DE ARREGLAR ESTO LA IMAGEN DEL SALUDO Y PONER EL TEXTO 
+                                A LA IZQUIERDA PORQUE ESTA EN TU CSS -->
+                                <div style="font-weight: bold;">
+                                    HOLA TOMASIN
+                                <img src="img/icons8-waving-hand-emoji-48.png" alt="saludo" width="30px" style="margin-left: 10%;">
+                                </div> 
+                                <p>Puedes ver o modificar tus datos de manera fácil</p>
+                                <div id="verperfil">
+                                    <a>VER MI PERFIL</a>
+                                </div>
+                            </div> 
+                            <!--  VER MIS RECETAS -------------- -->
+                            <div  class="saludo-item">
+                                        <div id="VerMisRecetas">
+                                            <div class="icono">
+                                                <img  src="img/icons8-papers-64.png" alt="">  
+                                            </div>
+                                            <div class="texto">
+                                                <p id="hoverr">VER MIS RECETAS</p>
+                                                <p class="texto2">Tambien puedes ver: Información del medicamento</p>
+                                            </div>
+                                        </div>
+                            </div>
+                            <!--  VER MIS MEDICOS -------------- -->
+                            <div  class="saludo-item">
+                                    <div id="VerMisMedicos">
+                                        <div class="icono">
+                                                <img  src="img/icons8-medico-64.png" alt="">  
+                                            </div>
+                                            <div class="texto">
+                                                <p id="hoverm">VER MIS MEDICOS</p>
+                                                <p class="texto2">Información del médico o médicos asignados</p>
+                                            </div>
+                                    </div>
+                            </div>
+                            <!-- VER MIS ALERTAS -------------- -->
+                            <div class="saludo-item">
+                                    <div id="VerMisAlertas">
+                                            <div class="icono">
+                                                <img  src="img/icons8-alarm-50.png" alt="">  
+                                            </div>
+                                            <div class="texto">
+                                                <p id="hovera">VER MIS ALERTAS</p>
+                                                <p class="texto2">Información del médico o médicos asignados</p>
+                                            </div> 
+                                    </div>
+                            </div>
+            </div><!-- FIN DIV UNO---------------------------- -->
+        <!-- DIV 3 VER MIS CUIDADORES Y  CALENDAR --------------- -->
             <div class="usuario-div-dos-tres-container">
-                <!------------------ VER MIS CUIDADORES -->
-                <div class="usuario-div-dos">
-                    <div id="VerMisCuidadores">
-                        <p>VER MIS CUIDADORES</p>
-                        <table id="tabmiscuidadores">
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th>DNI</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </table>
-                        <button id="btnAgregar" class="btn-agregar">Agregar</button>
-                    </div>
-                </div>
-                
-                <!------------------>
-                    <div class="usuario-div-tres">
-                        <div id="fecha"></div>
-                        <div class="calendar-container">
-                          <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=Your_Timezone" 
-                                  style="border: 0;border-radius: 8px;" frameborder="0" scrolling="no" ></iframe>
-                        </div>
-                        <div id="diacuenta"> Hoy tienes 3 medicamentos por tomar</div>
-                    </div>
+                            <!-- ---------------- VER MIS CUIDADORES -->
+                            <div class="usuario-div-dos">
+                                <div id="VerMisCuidadores">
+                                    <p>VER MIS CUIDADORES</p>
+                                    <table id="tabmiscuidadores">
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Apellidos</th>
+                                            <th>DNI</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </table>
+                                    <button id="btnAgregar" class="btn-agregar">Agregar</button>
+                                </div>
+                            </div>
+                            <!-- ---------------- CALENDARIO -->
+                            <div class="usuario-div-tres">
+                                <div id="fecha"></div>
+                                <div class="calendar-container">
+                                <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=Your_Timezone" 
+                                        style="border: 0;border-radius: 8px;" frameborder="0" scrolling="no" ></iframe>
+                                </div>
+                                <div id="diacuenta"> " Hoy tienes 1 medicamento por tomar "</div>
+                            </div>
             </div>
-            
+            <!-- DIV 4 VER HISTORIAL DE TOMAS--------------- -->
             <div class="usuario-div usuario-div-cuatro">
-                <div id="VerMiHistorialAlertas"><a>VER MI HISTORIAL DE TOMAS</a></div>
+                <div id="VerMiHistorialAlertas"><a id="verhistorialTomas">VER MI HISTORIAL DE TOMAS</a></div>
             </div>
+            <!-- DIV 5 --------------- -->
             <div class="usuario-div usuario-div-cinco">Cinco</div>
-
+            <!-- DIV 6 FOOTER --------------- -->
             <div class="usuario-div-seis">
-
-                <div> NUESTRAS RRSS
-                    
-                </div>
-                <div> NEWSLETTER</div>
-                <div> CREAR CUENTA</div>
+                            <!-- ---------------- RRSS -->
+                            <div class="usu-footer" id="rrss"> 
+                                <h4>NUESTRAS REDES SOCIALES</h4>
+                                <ul>
+                                    <li><a href="https://www.instagram.com" target="_blank"><img src="img/ico-insta-48.png" alt="Instagram"></a></li>
+                                    <li><a href="https://www.tiktok.com" target="_blank"><img src="img/ico-tktk-48.png" alt="TikTok"></a></li>
+                                    <li><a href="https://twitter.com" target="_blank"><img src="img/ico-x-48.png" alt="Twitter (X)"></a></li>
+                                    <li><a href="https://www.pinterest.com" target="_blank"><img src="img/ico-pinterest-50.png" alt="Pinterest"></a></li>     
+                                </ul>
+                            </div>
+                            <!-- ---------------- NEWSLETTER -->
+                            <div class="usu-footer">
+                                <h4>NEWSLETTER</h4>
+                                <p>Recibe actualizaciones, recomendaciones o avisos de cambios que hagamos !</p>
+                                <div id="btn-usu-footer">
+                                    <a>UNIRSE</a>
+                                </div>
+                            </div>
+                            <!-- ---------------- NEWSLETTER -->
+                            <div class="usu-footer">
+                                <h4>CREAR CUENTA</h4>
+                                <p>Si aún no tienes una cuenta con nosotros puedes crear una y empieza a usarla.</p>
+                                <div id="btn-usu-footer">
+                                    <a>CREAR CUENTA</a>
+                                </div>
+                            </div>
 
             </div>
         </section>
     </main>
-    
-    
+    <!-- FOOTER ------------------------------------------------------- -->
     <footer id="footer-dos">
         <ul>
             <li><a>© 2025 All rights reserved.</a></li>
@@ -164,7 +173,8 @@
             <li><a href="#help">Ayuda</a></li>
         </ul>
     </footer>
-
+    
+<!--SCRIPTS ------------------------------------------------------- -->
         <!-- Enlazamos el archivo main.js -->
         <script src="main.js"></script>
         <script src="miscuidadores.js"></script>
