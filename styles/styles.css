@@ -149,8 +149,8 @@ body {
             /* --------------------------- FOOTER-DOS --------------------------- */
             #footer-dos {
                 text-align: center;
-                padding: 10px 20px; /* Margen vertical y horizontal */
-                background-color: #ccc; /* Fondo azul claro */
+                padding: 10px 0px; 
+                background-color: #F0F0F0; /* Fondo azul claro */
                 width: 100%;
                 flex-shrink: 0; /* Evita que el footer se encoja */
             }

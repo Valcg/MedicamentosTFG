@@ -375,12 +375,38 @@
     color: #00669C;
 }
 
+/* CLIENTE - USUARIO COMO PACIENTE----------------------------------------------------------*/
 
+.cliTitulos{
+color: black;
+text-align: center;
+background-color: white;
 
+margin: 20px;
+border-radius: 8px;}
 
+.receta-item, .medico-item,.perfil-item,
+#mi-historial-tomas,#mis-alertas-medicas{
+    border: 1px solid white;
+    text-align: center;
+    margin: 40px 20px;
+    border-radius: 8px;
+    padding: 40px;}
+    #mi-historial-tomas table,
+    #mis-alertas-medicas table{
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        text-align: center;
+        table-layout: fixed;
+        }
+    #mi-historial-tomas table td ,#mi-historial-tomas table th,
+    #mis-alertas-medicas table td, #mis-alertas-medicas table th
+    {
+    padding: 10px;
+    border-bottom: 1px solid white;
 
-
-
+        } 
 /*----------------------------------------------------------*/
 @media (max-width: 768px) {
     #header-cliente-uno {
@@ -714,6 +740,7 @@
     color: white;
     font-weight: bold;
     transition: 0.3s ease-in-out;
+    margin:auto;
 }
 
 #volverHomeCli:hover {

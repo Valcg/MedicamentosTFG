@@ -1,31 +1,39 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const historialContainer = document.getElementById("VerMiHistorialTomas");
-    const fragment = document.createDocumentFragment();
+    const historialContainer = document.getElementById("mi-historial-tomas");
+
+    // Crear la tabla
+    const tabla = document.createElement("table");
+    tabla.innerHTML = `
+        <thead>
+            <tr>
+                <th>Fecha y Hora de Toma</th>
+                <th>Estado de Alerta</th>
+                <th>Nombre del Medicamento</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    `;
+    const cuerpoTabla = tabla.querySelector("tbody");
 
     axios.get("http://localhost:9050/pacientes/Vermihistorial/1")
         .then(res => {
             const historial = res.data;
-            console.log(historial); // Verificar los datos
 
             if (historial.length === 0) {
-                const mensaje = document.createElement("p");
-                mensaje.textContent = "No hay historial de tomas disponible.";
-                historialContainer.appendChild(mensaje);
+                historialContainer.innerHTML = "<p>No hay historial de tomas disponible.</p>";
             } else {
                 historial.forEach(toma => {
-                    const div = document.createElement("div");
-                    div.classList.add("historial-item");
-
-                    // --------------------ACCESO A  :
-                    div.innerHTML = `<strong>Fecha y Hora de Toma:</strong> ${toma.fechaHoraToma} <br>
-                                     <strong>Estado de Alerta:</strong> ${toma.alerta.estadoAlerta} <br>
-                                     <strong>Nombre del Medicamento:</strong> ${toma.alerta.medicamento.nombreMedicamento}`;
-
-                    fragment.appendChild(div);
+                    const fila = document.createElement("tr");
+                    fila.innerHTML = `
+                        <td>${toma.fechaHoraToma}</td>
+                        <td>${toma.alerta.estadoAlerta}</td>
+                        <td>${toma.alerta.medicamento.nombreMedicamento}</td>
+                    `;
+                    cuerpoTabla.appendChild(fila);
                 });
             }
 
-            historialContainer.appendChild(fragment);
+            historialContainer.appendChild(tabla);
         })
         .catch(err => {
             console.error("Hubo un fallo en la petición: " + err);

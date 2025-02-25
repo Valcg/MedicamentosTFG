@@ -14,12 +14,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 mensaje.textContent = "No hay recetas disponibles.";
                 axiosLista.appendChild(mensaje);
             } else {
-                // Mostrar dosis y frecuencia de las recetas con estructura HTML mejorada
+                // Mostrar dosis, frecuencia y nombre del medicamento
                 recetas.forEach(receta => {
                     const div = document.createElement("div");
                     div.classList.add("receta-item");
+
+                    // Extraer el nombre del medicamento (asumiendo que hay al menos un medicamento por receta)
+                    let nombreMedicamento = "No especificado"; // Valor por defecto
+                    if (receta.medicamentos && receta.medicamentos.length > 0) {
+                        nombreMedicamento = receta.medicamentos[0].nombreMedicamento; 
+                    }
                     
-                    div.innerHTML = `<strong>Dosis:</strong> ${receta.dosis} <br>
+                    div.innerHTML = `<strong>Medicamento:</strong> ${nombreMedicamento} <br>
+                                     <strong>Dosis:</strong> ${receta.dosis} <br>
                                      <strong>Frecuencia:</strong> ${receta.frecuencia} <br>
                                      <strong>Duración del Tratamiento:</strong> ${receta.duracionTratamiento}`;
                     
