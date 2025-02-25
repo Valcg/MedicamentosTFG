@@ -2,6 +2,7 @@ package medicamentos.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -40,6 +41,6 @@ public class HistorialDeToma implements Serializable{/**
 
 	
 	@Column(name="fecha_hora_toma")
-	 private Date fechaHoraToma ;
+	 private LocalDateTime fechaHoraToma ;
 
 }

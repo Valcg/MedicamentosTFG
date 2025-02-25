@@ -2,6 +2,7 @@ package medicamentos.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +41,7 @@ public class Alerta implements Serializable{
     private Medicamento medicamento;
     
 	@Column(name="fecha_hora_alerta")
-    private Date fechaHoraAlerta ;
+    private LocalDateTime fechaHoraAlerta ;
     
 	@Enumerated(EnumType.STRING)
 	private EstadoAlerta estadoAlerta;
