@@ -24,10 +24,24 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 historial.forEach(toma => {
                     const fila = document.createElement("tr");
+
+                    // Formatear fecha y hora a "DD/MM/YYYY HH:MM"
+                    const fechaHora = new Date(toma.fechaHoraToma);
+                    const dia = fechaHora.getDate().toString().padStart(2, '0'); // DD
+                    const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0'); // MM
+                    const anio = fechaHora.getFullYear(); // YYYY
+                    const hora = fechaHora.getHours().toString().padStart(2, '0'); // HH
+                    const minutos = fechaHora.getMinutes().toString().padStart(2, '0'); // MM
+                    const fechaHoraFormateada = `${dia}/${mes}/${anio} ${hora}:${minutos}`;
+
+                    // Verificar que los datos existen antes de acceder a ellos
+                    const estadoAlerta = toma.alerta ? toma.alerta.estadoAlerta : 'No disponible';
+                    const nombreMedicamento = toma.alerta && toma.alerta.medicamento ? toma.alerta.medicamento.nombreMedicamento : 'No disponible';
+
                     fila.innerHTML = `
-                        <td>${toma.fechaHoraToma}</td>
-                        <td>${toma.alerta.estadoAlerta}</td>
-                        <td>${toma.alerta.medicamento.nombreMedicamento}</td>
+                        <td>${fechaHoraFormateada}</td>
+                        <td>${estadoAlerta}</td>
+                        <td>${nombreMedicamento}</td>
                     `;
                     cuerpoTabla.appendChild(fila);
                 });
@@ -39,3 +53,4 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Hubo un fallo en la petición: " + err);
         });
 });
+

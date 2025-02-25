@@ -27,8 +27,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     
                     div.innerHTML = `<strong>Medicamento:</strong> ${nombreMedicamento} <br>
                                      <strong>Dosis:</strong> ${receta.dosis} <br>
-                                     <strong>Frecuencia:</strong> ${receta.frecuencia} <br>
-                                     <strong>Duración del Tratamiento:</strong> ${receta.duracionTratamiento}`;
+                                     <strong>Frecuencia:</strong> cada ${receta.frecuencia} horas <br>
+                                     <strong>Duración del Tratamiento:</strong> ${receta.duracionTratamiento} dias`;
                     
                     fragment.appendChild(div);
                 });

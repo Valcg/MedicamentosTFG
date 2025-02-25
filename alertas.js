@@ -32,13 +32,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 alertas.forEach(alerta => {
                     const fila = document.createElement("tr");
 
+                    // Obtener la fecha y hora formateada en "DD/MM/YYYY HH:MM"
+                    const fechaHora = new Date(alerta.fechaHoraAlerta);
+                    const dia = fechaHora.getDate().toString().padStart(2, '0'); // DD
+                    const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0'); // MM
+                    const anio = fechaHora.getFullYear(); // YYYY
+                    const hora = fechaHora.getHours().toString().padStart(2, '0'); // HH
+                    const minutos = fechaHora.getMinutes().toString().padStart(2, '0'); // MM
+                    const fechaHoraFormateada = `${dia}/${mes}/${anio} ${hora}:${minutos}`; // Formato final
+
                     // Accediendo al nombre del medicamento y stock
                     const nombreMedicamento = alerta.medicamento ? alerta.medicamento.nombreMedicamento : 'No disponible';
                     const stock = alerta.medicamento ? alerta.medicamento.stock : 'No disponible';
 
                     // Agregar los valores de cada alerta a las celdas de la fila
                     fila.innerHTML = `
-                        <td>${alerta.fechaHoraAlerta}</td>
+                        <td>${fechaHoraFormateada}</td>
                         <td>${alerta.estadoAlerta}</td>
                         <td>${alerta.tipoAlerta}</td>
                         <td>${nombreMedicamento}</td>
