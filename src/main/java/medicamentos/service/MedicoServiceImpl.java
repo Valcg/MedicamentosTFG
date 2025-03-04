@@ -66,6 +66,12 @@ public class MedicoServiceImpl implements MedicoService{
 		return medicoRepository.findUsuariosPacientesByMedico(numeroColegiado);
 	}
 
+	@Override
+	public Medico buscarPorIdUsuario(int idUsuario) {
+		return medicoRepository.findByIdUsuario(idUsuario);
+
+	}
+
 
 
 	

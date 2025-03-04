@@ -89,5 +89,11 @@ public class PacienteServiceImpl implements PacienteService{
         return paciente.getMedicos();
     }
 
+	@Override
+	public Paciente buscarPorIdUsuario(int idUsuario) {
+		return pacienteRepository.findByIdUsuario(idUsuario) ;
+
+	}
+
 
 }

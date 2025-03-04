@@ -14,5 +14,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	List<Usuario> findAllByMedicoIn(List<Medico> medicos);
 
 */
-
+	Usuario findByCorreo(String correo);
 }

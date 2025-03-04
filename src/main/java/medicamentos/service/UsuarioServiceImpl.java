@@ -169,6 +169,13 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 
+	@Override
+	public Usuario buscarPorEmail(String correo) {
+		// TODO Auto-generated method stub
+		return usuarioRepository.findByCorreo(correo);
+	}
+
+
 
 
 }

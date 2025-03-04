@@ -22,7 +22,8 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 		    """, nativeQuery = true)
 		List<Usuario> findUsuariosPacientesByMedico(int numeroColegiado);
 	
-		
+	@Query("SELECT m FROM Medico m WHERE m.usuario.idUsuario = :idUsuario")
+	 Medico findByIdUsuario(int idUsuario);
 
 
 
