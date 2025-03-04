@@ -1,5 +1,10 @@
 package medicamentos.restController;
 
+import java.nio.file.Files;
+import java.nio.file.Path; // This is the correct one for file operations
+import java.nio.file.Paths;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Value;
+
 import medicamentos.entities.Enabled;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
-import medicamentos.entities.TipoUsuario;
 import medicamentos.entities.Usuario;
 import medicamentos.medicamentosDto.UsuarioDto;
 import medicamentos.service.MedicoService;
@@ -34,6 +39,7 @@ public class UsuarioRestController {
 	@Autowired 
 	private PacienteService pacienteService;
 	
+   
 	@PutMapping("/modificar")
 	public ResponseEntity<?> modificar(@RequestBody Usuario usuario) {
 	    Usuario usuarioModificado = usuarioService.modificar(usuario);
@@ -74,9 +80,11 @@ public class UsuarioRestController {
 	    }
 	    
 	    
-	    @GetMapping("/inicioSesion")
+	    @PostMapping("/inicioSesion")
 	    public ResponseEntity<?> iniciarSesion(@RequestBody Usuario usuario) {
+	    	
 	        Usuario usuario1 = usuarioService.buscarPorEmail(usuario.getCorreo());
+	        
 	        
 	        if (usuario1 == null) {
 	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");

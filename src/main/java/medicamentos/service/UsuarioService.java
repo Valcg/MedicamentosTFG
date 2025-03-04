@@ -8,7 +8,7 @@ public interface UsuarioService extends IntGenericoCrud<Usuario, Integer>{
 	String alta2(UsuarioDto usuarioDTO);
 
 	Usuario buscarPorEmail(String correo);
-		
+
 	
 	
 }

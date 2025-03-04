@@ -1,6 +1,7 @@
 package medicamentos.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -37,6 +38,8 @@ public class Receta implements Serializable{/**
 	@Column(name="id_receta")
 	private int idReceta;
 	
+	@Column(name="fecha_inicio")
+	private LocalDateTime fechaInicio;
 	 
 	@ManyToOne
     @JoinColumn(name = "id_paciente",referencedColumnName = "id_paciente")  // Aquí debe estar el nombre de la columna en Receta
