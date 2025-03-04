@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- --------------------------------- -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- --------------------------------- -->
 </head>
 <body class="cliente-bg">
     <header id="header">
@@ -41,22 +44,22 @@
                 <a href="#" class="volver-link">. . . VOLVER</a>
                 <h2>INICIAR SESION</h2>
                 <form>
-                    <label for="user-type">TIPO DE USUARIO</label>
+                    <!-- <label for="user-type">TIPO DE USUARIO</label>
                     <select id="user-type" name="user-type" required>
                         <option value="paciente">Paciente</option>
                         <option value="cuidador">Cuidador</option>
-                    </select>
-                    <label for="name">NOMBRE</label>
-                    <input type="text" id="name" name="name" required>
+                    </select> -->
+                    <label for="correo">CORREO</label>
+                    <input type="text" id="correo" name="correo" required>
                     
-                    <label for="password">CONTRASEÑA</label>
-                    <input type="password" id="password" name="password" required>
+                    <label for="contrasena">CONTRASEÑA</label>
+                    <input type="contrasena" id="contrasena" name="contrasena" required>
                     
 
                     
                     <button type="submit" class="inicio-sesion" id="btnIniciarSesion">INICIAR SESIÓN</button>
                 </form>
-                <p><a href="#forgot-password" class="sin-subrayado">¿Has olvidado tu contraseña?</a></p>
+                <p><a href="#forgot-contrasena" class="sin-subrayado">¿Has olvidado tu contraseña?</a></p>
                 <div class="lseparadora"></div>
                 <p><a class="sin-subrayadodos">¿No tienes una cuenta?</a></p>
                 <a href="CreateCountCliente.html" class="crear-cuenta-cliente">CREAR CUENTA</a>
@@ -77,5 +80,6 @@
 
     <!-- Enlazamos el archivo main.js -->
      <script src="main.js"></script>
+     <script src="LoginCount.js"></script>
 </body>
 </html>
