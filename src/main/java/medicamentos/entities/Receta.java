@@ -41,6 +41,8 @@ public class Receta implements Serializable{/**
 	@Column(name="fecha_inicio")
 	private LocalDateTime fechaInicio;
 	 
+	
+	
 	@ManyToOne
     @JoinColumn(name = "id_paciente",referencedColumnName = "id_paciente")  // Aquí debe estar el nombre de la columna en Receta
     private Paciente paciente;
@@ -55,14 +57,9 @@ public class Receta implements Serializable{/**
 	@Column(name="duracion_tratamiento")
 	private int duracionTratamiento;
 	
-	   @ManyToMany
-	   @ToString.Exclude  // ❌ Evita la recursión infinita
-	    @JoinTable(
-	      name = "recetas_medicamentos",  // Nombre de la tabla intermedia
-	      joinColumns = @JoinColumn(name = "id_receta"),  // Clave foránea a Receta
-	      inverseJoinColumns = @JoinColumn(name = "id_medicamento")  // Clave foránea a Medicamento
-	    )
-	    private List<Medicamento> medicamentos;
+	 @ManyToOne
+	    @JoinColumn(name="id_medicamento", referencedColumnName = "id_medicamento", nullable = false) 
+	    private Medicamento medicamento;
 	
 	@Enumerated(EnumType.STRING)
 	private Caducidad caducidad;

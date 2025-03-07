@@ -1,6 +1,7 @@
 package medicamentos.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	List<Usuario> findAllByMedicoIn(List<Medico> medicos);
 
 */
+	@Query("SELECT u FROM Usuario u WHERE u.correo = ?1")
+    Boolean existsByCorreo(String correo);
+
 	Usuario findByCorreo(String correo);
 
 }

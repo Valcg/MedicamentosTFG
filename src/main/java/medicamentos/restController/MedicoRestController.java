@@ -8,13 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import medicamentos.entities.Paciente;
 import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
+import medicamentos.medicamentosDto.RecetaDto;
 import medicamentos.service.MedicoService;
+import medicamentos.service.RecetaService;
+
 import medicamentos.service.PacienteService;
 
 @RestController
@@ -24,7 +30,8 @@ public class MedicoRestController {
 	
 	@Autowired
 	private  MedicoService medicoService;
-	
+	@Autowired
+	private  RecetaService recetaService;
 	
 	@GetMapping("/VerMisPacientes/{numeroColegiado}")
 	public ResponseEntity<List<Usuario>> VerMisPacientes(@PathVariable int numeroColegiado) {
@@ -37,6 +44,36 @@ public class MedicoRestController {
 	    
 	    return new ResponseEntity<>(MisPacientes, HttpStatus.OK);
 	}
+	
+    @PostMapping("/asociarPaciente/{numeroColegiado}")
+    
+    public ResponseEntity<String> asociarPaciente(@RequestParam String correo,@PathVariable int numeroColegiado) {
+        try {
+            Boolean asociado = medicoService.asociarPacienteAMedico(correo, numeroColegiado);
+            return asociado ? ResponseEntity.ok("Paciente asociado correctamente") :
+                              ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se pudo asociar el paciente");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+	/* RECETAS*/
+	
+	@PostMapping("/CrearReceta")
+	public ResponseEntity<String> crearReceta(@RequestBody RecetaDto receta) {
+		System.out.println(receta);
+	    try {
+	        Receta recetaCreada = recetaService.altaReceta(receta);
+	        
+	        if (recetaCreada != null) {
+	            return new ResponseEntity<>("Receta creada exitosamente", HttpStatus.CREATED);
+	        } else {
+	            return new ResponseEntity<>("No se pudo crear la receta", HttpStatus.BAD_REQUEST);
+	        }
+	    } catch (Exception e) {
+	        return new ResponseEntity<>("Error al crear la receta: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
+
 	
 
 }

@@ -33,68 +33,57 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private MedicoRepository medicoRepository;
 	
 	@Override
-	@Transactional
+	//@Transactional()
 	public String alta2(UsuarioDto usuarioDTO) {
 	    try {
-	    	
-	            // Primero, asegurarse de que el tipo de usuario sea válido
-	        TipoUsuario tipoUsuario = usuarioDTO.getTipoUsuario(); // Ya es un TipoUsuario, no es necesario llamar a valueOf
+	        // Validar que el tipo de usuario sea válido
+	        TipoUsuario tipoUsuario = usuarioDTO.getTipoUsuario();
+	        
+	        if (tipoUsuario == null) {
+	            return "Error: Tipo de usuario no especificado.";
+	        }
 
-	            
+	        // Insertar el usuario en la tabla de usuarios
+	        Usuario usuario = new Usuario();
+	        usuario.setNombre(usuarioDTO.getNombre());
+	        usuario.setApellido(usuarioDTO.getApellido());
+	        usuario.setContrasena(usuarioDTO.getContrasena());
+	        usuario.setDni(usuarioDTO.getDni());
+	        usuario.setCorreo(usuarioDTO.getCorreo());
+	        usuario.setTipoUsuario(tipoUsuario);
+	        usuario.setEnabled(Enabled.ACTIVO);
+
+	         //Verificar si ya existe un usuario con el mismo correo
+	        if (usuarioRepository.existsByCorreo(usuarioDTO.getCorreo())) {
+	            return "Error: El correo ya está registrado.";
+	        }
 
 
+	       Usuario newUser = usuarioRepository.save(usuario); // Guardar usuario
+	       
+
+	        // Dependiendo del tipo de usuario, insertamos en la tabla correspondiente
 	        switch (tipoUsuario) {
 	            case PACIENTE:
-	            	
-	                // Crear el usuario con la referencia al paciente
-	                Usuario usuarioPaciente = new Usuario();
-	                usuarioPaciente.setNombre(usuarioDTO.getNombre());
-	                usuarioPaciente.setApellido(usuarioDTO.getApellido());
-	                usuarioPaciente.setContrasena(usuarioDTO.getContrasena());
-	                usuarioPaciente.setDni(usuarioDTO.getDni());
-	                usuarioPaciente.setCorreo(usuarioDTO.getCorreo());
-	                usuarioPaciente.setTipoUsuario(tipoUsuario); // Tipo paciente
-	                usuarioPaciente.setEnabled(Enabled.ACTIVO);
-	                
-	                // Crear un paciente y asignar diagnóstico
+	                // Asegúrate de que el usuario sea un paciente
 	                Paciente paciente = new Paciente();
 	                paciente.setDiagnostico(usuarioDTO.getDiagnostico());
-	                paciente.setUsuario(usuarioPaciente);
-	                pacienteRepository.save(paciente); // Guardar en la tabla PACIENTES
-
-	                usuarioRepository.save(usuarioPaciente); // Guardar el usuario con la referencia
-	                
-
+	                paciente.setUsuario(usuario);
+	                pacienteRepository.save(paciente); // Guardar paciente
 	                break;
 
 	            case MEDICO:
-	                // Verificar si el médico está registrado en MEDICOS_COLEGIADOS
-	                Optional<MedicoColegiado> medicoColegiado = medicoColegiadoRepository.findByNumeroColegiado(usuarioDTO.getNumeroColegiado());
-	                
-	                if (!medicoColegiado.isPresent()) {
+	                // Verificar que el número de colegiado sea válido
+	      //         MedicoColegiado medicoColegiado = medicoColegiadoRepository.findById(usuarioDTO.getNumeroColegiado());
+	                if (!medicoColegiadoRepository.existsById(usuarioDTO.getNumeroColegiado())) {
 	                    return "Error: El número de colegiado no está registrado.";
 	                }
 
-	                Usuario usuarioMedico = new Usuario();
-	                usuarioMedico.setNombre(usuarioDTO.getNombre());
-	                usuarioMedico.setApellido(usuarioDTO.getApellido());
-	                usuarioMedico.setContrasena(usuarioDTO.getContrasena());
-	                usuarioMedico.setDni(usuarioDTO.getDni());
-	                usuarioMedico.setCorreo(usuarioDTO.getCorreo());
-	                usuarioMedico.setTipoUsuario(tipoUsuario); // Tipo medico
-	                usuarioMedico.setEnabled(Enabled.ACTIVO);
-	                
-	                
-	                // Crear un médico y asignar número de colegiado y especialidad
 	                Medico medico = new Medico();
 	                medico.setNumeroColegiado(usuarioDTO.getNumeroColegiado());
 	                medico.setEspecialidad(usuarioDTO.getEspecialidad());
-	                medico.setUsuario(usuarioMedico);
-	                medicoRepository.save(medico); // Guardar en la tabla MEDICOS
-
-	               
-	                
-	                usuarioRepository.save(usuarioMedico); // Guardar el usuario con la referencia
+	                medico.setUsuario(newUser);
+	                medicoRepository.save(medico); // Guardar médico
 	                break;
 
 	            default:
@@ -105,7 +94,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        return "Error al crear el usuario." + e.getMessage();
+	        return "Error al crear el usuario: " + e.getMessage();
 	    }
 	}
 

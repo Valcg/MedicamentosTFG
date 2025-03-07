@@ -1,6 +1,7 @@
 package medicamentos.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +71,36 @@ public class MedicoServiceImpl implements MedicoService{
 	public Medico buscarPorIdUsuario(int idUsuario) {
 		return medicoRepository.findByIdUsuario(idUsuario);
 
+	}
+
+	@Override
+	public Boolean asociarPacienteAMedico(String correoPaciente, int numeroColegiado) {
+		 // Buscar al médico por su número de colegiado
+	    Optional<Medico> medicoOpt = medicoRepository.findById(numeroColegiado);
+	    if (medicoOpt.isEmpty()) {
+	        throw new RuntimeException("El médico no existe.");
+	    }
+	    correoPaciente = correoPaciente.trim();
+	    System.out.println("Correo a buscar: " + correoPaciente); 
+	    // Buscar al paciente por su correo electrónico
+	    Optional<Paciente> pacienteOpt = pacienteRepository.findByCorreo(correoPaciente);
+	    if (pacienteOpt.isEmpty()) {
+	        throw new RuntimeException("No se encontró un paciente con ese correo.");
+	    }
+
+	    Medico medico = medicoOpt.get();
+	    Paciente paciente = pacienteOpt.get();
+
+	    // Verificar si la relación ya existe
+	    if (paciente.getMedicos().contains(medico)) {
+	        throw new RuntimeException("El paciente ya está asociado a este médico.");
+	    }
+
+	    // Asociar paciente al médico
+	    paciente.getMedicos().add(medico);
+	    pacienteRepository.save(paciente); // Guardar los cambios en el paciente
+	    
+	    return true;
 	}
 
 

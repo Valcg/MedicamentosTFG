@@ -9,6 +9,6 @@ import medicamentos.entities.MedicoColegiado;
 
 public interface MedicoColegiadoRepository extends JpaRepository<MedicoColegiado, Integer>{
 
-	Optional<MedicoColegiado> findByNumeroColegiado(int numeroColegiado);
+	
 
 }
