@@ -35,8 +35,9 @@
     color: #84CBF1; /* Mantiene el color del texto en armonía */
 }
 /* ----------TEXTOS BTN*/
-.texto {
-    margin: 20px;}
+/* .texto {
+    margin: 20px;
+padding: 20px;} */
 
 .texto2 {
     font-size: 12px;

@@ -3,14 +3,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const medicosContainer = document.getElementById("VerMisMedicos");
     const fragment = document.createDocumentFragment();
 
-    // PETICIÓN GET CON AXIOS PARA OBTENER LOS MÉDICOS DEL PACIENTE CON ID 3
-    axios.get("http://localhost:9050/pacientes/VermisMedicos/1")
+    // OBTENER EL idPaciente DESDE localStorage
+    const idPaciente = localStorage.getItem("idUsuario");
+
+    // VALIDAR QUE EL idPaciente EXISTA
+    if (!idPaciente) {
+        medicosContainer.innerHTML = "<p>Error: No se encontró el ID del paciente en localStorage.</p>";
+        return;
+    }
+
+    // Construir la URL con el idPaciente
+    const url = `http://localhost:9050/pacientes/VermisMedicos/${idPaciente}`;
+
+    // PETICIÓN GET CON AXIOS PARA OBTENER LOS MÉDICOS DEL PACIENTE
+    axios.get(url)
         .then(res => {
             const medicos = res.data; // DATOS DE LOS MÉDICOS
             console.log(medicos); // Verifica los datos que estás recibiendo
 
             // SI NO HAY MÉDICOS, MOSTRAR MENSAJE
-            if (medicos.length === 0) {
+            if (!medicos || medicos.length === 0) {
                 const mensaje = document.createElement("p");
                 mensaje.textContent = "No hay médicos disponibles.";
                 medicosContainer.appendChild(mensaje);
@@ -20,11 +32,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     const div = document.createElement("div");
                     div.classList.add("medico-item");
 
-                    // ACCESO A `medico.medico` PARA OBTENER `numeroColegiado`, `especialidad`
-                    div.innerHTML = `<strong>Nombre:</strong> ${medico.usuario.nombre} ${medico.usuario.apellido} <br>
-                           <strong>Número Colegiado:</strong> ${medico.numeroColegiado} <br>
-                               <strong>Especialidad:</strong> ${medico.especialidad} <br>
-                                      <strong>Email:</strong> ${medico.usuario.correo}`; // email
+                    // ACCEDER A `medico.usuario` PARA OBTENER DATOS PERSONALES
+                    div.innerHTML = `
+                        <strong>Nombre:</strong> ${medico.usuario.nombre} ${medico.usuario.apellido} <br>
+                        <strong>Número Colegiado:</strong> ${medico.numeroColegiado} <br>
+                        <strong>Especialidad:</strong> ${medico.especialidad} <br>
+                        <strong>Email:</strong> ${medico.usuario.correo}
+                    `;
+
                     // AGREGAMOS AL FRAGMENTO PARA OPTIMIZAR RENDIMIENTO
                     fragment.appendChild(div);
                 });
@@ -35,5 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(err => {
             console.error("Hubo un fallo en la petición: " + err);
+            medicosContainer.innerHTML = "<p>Error al cargar los médicos.</p>";
         });
 });

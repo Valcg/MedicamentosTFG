@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Elementos del DOM
-    const loginForm = document.querySelector("form");
     const correoInput = document.getElementById("correo");
     const contrasenaInput = document.getElementById("contrasena");
     const btnIniciarSesion = document.getElementById("btnIniciarSesion");
@@ -26,10 +25,26 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = res.data;
             console.log("Respuesta del servidor:", data);
             
-            if (typeof data === "number") {
-                localStorage.setItem("idPaciente", data);
+            if (typeof data === "object" && data.tipoUsuario) {
+                const tipoUsuario = data.tipoUsuario.toUpperCase(); // Convertir a mayúsculas por seguridad
+                const idUsuario = data.id; // Puede ser idPaciente o numeroColegiado
+                
+                // Guardar en localStorage
+                localStorage.setItem("idUsuario", idUsuario);
                 localStorage.setItem("correo", correo);
-                window.location.href = "HomeCliente.html"; // Redirigir al dashboard
+                localStorage.setItem("tipoUsuario", tipoUsuario);
+
+                // Mostrar alerta con el tipo de usuario
+                alert("Inicio de sesión exitoso. Tu cuenta es de tipo: " + tipoUsuario);
+
+                // Redirigir según el tipo de usuario
+                if (tipoUsuario === "PACIENTE") {
+                    window.location.href = "HomeCliente.html";
+                } else if (tipoUsuario === "MEDICO") {
+                    window.location.href = "HomeMedico.html";
+                } else {
+                    alert("Error: Tipo de usuario desconocido.");
+                }
             } else {
                 alert("Error en el inicio de sesión: " + data);
             }

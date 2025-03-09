@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HISTORIAL DE  TOMAS</title>
+    <title>Mis Recetas</title>
     <!-- --------------------------------- -->
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/cliente.css">
@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- --------------------------------- -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- --------------------------------- -->   
+    <!-- --------------------------------- -->
 </head>
 <body>
     <!-- HEADER CLIENTE------------------------------------------------------- -->
@@ -32,6 +32,7 @@
             </ul>
         </nav>
     </header>
+
     <!-- HEADER CLIENTE DOS------------------------------------------------------- -->
     <header id="header-cliente-dos">
         <nav class="nav-cliente-dos">
@@ -43,32 +44,35 @@
             </ul>
         </nav>
     </header>
-    
-<!-- MAIN-USUARIO ------------------------------------------------------- -->
-<main id="usuario-main">
-    <h1 class="cliTitulos">Mi Historial de las Tomas</h1>
-    <div id="mi-historial-tomas"></div>
-    
-    <a href="HomeCliente.html" id="volverHomeCli">Volver al inicio</a>
-    <script src="mihistorialtomas.js"></script>
-</main>
-    
-<!-- FOOTER ------------------------------------------------------- -->
-        <footer id="footer-dos">
-            <ul>
-                <li><a>© 2025 All rights reserved.</a></li>
-                <li><a href="#privacy">Privacidad</a></li>
-                <li><a href="#terms">Condiciones de uso</a></li>
-                <li><a href="#cookies">Preferencias de cookies</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#help">Ayuda</a></li>
-            </ul>
-        </footer>
 
+    <!-- MAIN-USUARIO ------------------------------------------------------- -->
+    <main id="usuario-main">
+        <!-- Aquí está el contenedor donde se mostrarán las recetas -->
+        <h1 class="cliTitulos">Mis Recetas</h1>
+        <div id="axios">
+            <!-- Mensaje de carga mientras se obtienen las recetas -->
+            <p id="loadingMessage">Cargando recetas...</p>
+            FATLA LA TABLA DE RECETAS - POR ESO NO CARGA :  RECETAS_MEDICAMENTOS
+        </div>
+
+        <a href="HomeCliente.html" id="volverHomeCli">Volver al inicio</a>
+
+        <script src="misrecetas.js"></script><!-- style en CLIENTE  -->
+    </main>
+    
+    <!-- FOOTER ------------------------------------------------------- -->
+    <footer id="footer-dos">
+        <ul>
+            <li><a>© 2025 All rights reserved.</a></li>
+            <li><a href="#privacy">Privacidad</a></li>
+            <li><a href="#terms">Condiciones de uso</a></li>
+            <li><a href="#cookies">Preferencias de cookies</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#help">Ayuda</a></li>
+        </ul>
+    </footer>
 <!--SCRIPTS ------------------------------------------------------- -->
-<script src="main.js"></script>
-
-
-
+    <script src="main.js"></script>
+     
 </body>
 </html>

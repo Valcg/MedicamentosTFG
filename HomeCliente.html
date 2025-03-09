@@ -24,11 +24,16 @@
         <nav class="nav-cliente-uno">
             <ul>
                 <li><a href="#about-us"><img src="img/medicadeblue.png" alt="medicade" class="logo-about-us" style="width: 90px;"></a></li>
-                <li class="nombre-usuario">Tomasin</li>
-                <li class="tipo-cuenta">TU CUENTA ES TIPO 
-                    <!-- <img src="img/icoflechader.png" alt="flechader" style="height: 20px;"> -->
-                    <a id="paciente-text">Paciente</a></li>
-                <li><a href="#logout" class="cerrar-sesion-cliente">CERRAR SESIÓN</a></li>
+                <!-- --------------------------------- -->
+                <li>
+                    <a class="nombre-usuario">  </a>
+                </li>
+                <!-- --------------------------------- -->
+                <li class="tipo-cuenta">TU CUENTA ES TIPO   
+                    <a id="paciente-text">  </a> <!-- Aquí se va a cambiar el tipo -->
+                </li>
+                <!-- --------------------------------- -->
+                <li><a class="cerrar-sesion-cliente">CERRAR SESIÓN</a></li>
             </ul>
         </nav>
     </header>
@@ -36,9 +41,9 @@
     <header id="header-cliente-dos">
         <nav class="nav-cliente-dos">
             <ul>
-                <li><a href="#about">ABOUT US</a></li>
+                <li><a href="#about">SOBRE NOSOTROS</a></li>
                 <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="#contact">CONTACTO</a></li>
                 <li><a href="#support">SOPORTE</a></li>
             </ul>
         </nav>
@@ -51,10 +56,8 @@
         <!---------------- 4 DIVS -->
                             <!--  VER MI PERFIL -------------- -->
                             <div id="saludo" class="saludo-item" >
-                                <!-- ACUERDATE DE ARREGLAR ESTO LA IMAGEN DEL SALUDO Y PONER EL TEXTO 
-                                A LA IZQUIERDA PORQUE ESTA EN TU CSS -->
                                 <div style="font-weight: bold;">
-                                    HOLA TOMASIN
+                                    HOLA  <a id="nombre-usu">nombre</a>
                                 <img src="img/icons8-waving-hand-emoji-48.png" alt="saludo" width="30px" style="margin-left: 10%;">
                                 </div> 
                                 <p>Puedes ver o modificar tus datos de manera fácil</p>
@@ -177,25 +180,11 @@
     </footer>
     
 <!--SCRIPTS ------------------------------------------------------- -->
-        <!-- Enlazamos el archivo main.js -->
         <script src="main.js"></script>
+
         <script src="miscuidadores.js"></script>
         
-      
-        <script>
-            // Obtener la fecha actual
-            const fecha = new Date();
-            const dia = fecha.getDate();
-            const mes = fecha.getMonth() + 1; // Los meses comienzan desde 0
-            const anio = fecha.getFullYear();
-          
-            // Crear el texto con la fecha
-            const textoFecha = `Hoy es : ${anio} / ${mes} / ${dia}`;
-          
-            // Insertar el texto en el div con id "fecha"
-            document.getElementById("fecha").textContent = textoFecha;
-          </script>
-          
-         
+
+
 </body>
 </html>

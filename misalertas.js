@@ -18,14 +18,26 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     const cuerpoTabla = tabla.querySelector("tbody");
 
-    // PETICIÓN GET CON AXIOS PARA OBTENER LAS ALERTAS DEL PACIENTE CON ID 1
-    axios.get("http://localhost:9050/pacientes/VermisAlertas/1")
+    // OBTENER EL idPaciente DESDE localStorage
+    const idPaciente = localStorage.getItem("idUsuario");
+
+    // VALIDAR QUE EL idPaciente EXISTA
+    if (!idPaciente) {
+        alertasContainer.innerHTML = "<p>Error: No se encontró el ID del paciente en localStorage.</p>";
+        return;
+    }
+
+    // Construir la URL con el idPaciente
+    const url = `http://localhost:9050/pacientes/VermisAlertas/${idPaciente}`;
+
+    // PETICIÓN GET CON AXIOS PARA OBTENER LAS ALERTAS DEL PACIENTE
+    axios.get(url)
         .then(res => {
             const alertas = res.data; // DATOS DE LAS ALERTAS
             console.log(alertas); // Verifica los datos que estás recibiendo
 
             // SI NO HAY ALERTAS, MOSTRAR MENSAJE
-            if (alertas.length === 0) {
+            if (!alertas || alertas.length === 0) {
                 alertasContainer.innerHTML = "<p>No hay alertas disponibles.</p>";
             } else {
                 // RECORREMOS CADA ALERTA Y AGREGAMOS UNA FILA A LA TABLA
@@ -62,5 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(err => {
             console.error("Hubo un fallo en la petición: " + err);
+            alertasContainer.innerHTML = "<p>Error al cargar las alertas.</p>";
         });
 });

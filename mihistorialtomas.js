@@ -15,11 +15,22 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     const cuerpoTabla = tabla.querySelector("tbody");
 
-    axios.get("http://localhost:9050/pacientes/Vermihistorial/1")
+    // Obtener el idPaciente desde localStorage
+    const idPaciente = localStorage.getItem("idUsuario"); 
+
+    if (!idPaciente) {
+        historialContainer.innerHTML = "<p>Error: No se encontró el ID del paciente en localStorage.</p>";
+        return;
+    }
+
+    // Construir la URL con el idPaciente
+    const url = `http://localhost:9050/pacientes/Vermihistorial/${idPaciente}`;
+
+    axios.get(url)
         .then(res => {
             const historial = res.data;
 
-            if (historial.length === 0) {
+            if (!historial || historial.length === 0) {
                 historialContainer.innerHTML = "<p>No hay historial de tomas disponible.</p>";
             } else {
                 historial.forEach(toma => {
@@ -51,6 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(err => {
             console.error("Hubo un fallo en la petición: " + err);
+            historialContainer.innerHTML = "<p>Error al cargar el historial.</p>";
         });
 });
-

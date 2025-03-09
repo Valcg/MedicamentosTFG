@@ -5,7 +5,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    /* overflow: hidden; */
     background-color: rgba(0, 0, 0, 0.8);
     background-blend-mode: multiply;
 }
@@ -278,7 +278,7 @@
     /* transition: color 0.3s ease; */
 }
 
-#header-cliente-uno .nav-cliente-uno ul li.nombre-usuario {
+#header-cliente-uno  .nombre-usuario , #paciente-text{
     font-weight: bold;
     color: #84CBF1;
 }
@@ -288,10 +288,7 @@
     color: #333;
 }
 
-#paciente-text {
-    font-weight: bold;
-    color: #84CBF1;
-}
+
 
 /* Estilos para el logotipo */
 .logo-about-us {
@@ -324,6 +321,7 @@
 .cerrar-sesion-cliente:hover {
     background-color: #333; /* Fondo gris claro al hacer hover */
     color: white; transition: color 0.3s ease;
+    border: 1px solid #333 ;
 }
 
 
