@@ -3,7 +3,8 @@ package medicamentos.restController;
 import java.nio.file.Files;
 import java.nio.file.Path; // This is the correct one for file operations
 import java.nio.file.Paths;
-
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -79,51 +80,107 @@ public class UsuarioRestController {
 	        }
 	    }
 	    
-	    
 	    @PostMapping("/inicioSesion")
 	    public ResponseEntity<?> iniciarSesion(@RequestBody Usuario usuario) {
-	    	
+	        
+	        // BUSCAR EL USUARIO POR SU CORREO
 	        Usuario usuario1 = usuarioService.buscarPorEmail(usuario.getCorreo());
 	        
-	        
+	        // SI EL USUARIO NO EXISTE, DEVOLVER ERROR 404
 	        if (usuario1 == null) {
 	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
 	        }
 	        
+	        // SI LA CONTRASEÑA NO COINCIDE, DEVOLVER ERROR 401
 	        if (!usuario1.getContrasena().equals(usuario.getContrasena())) {
 	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
 	        }
-	       
-	        
+
+	        // NO DEVOLVER LA CONTRASEÑA POR SEGURIDAD
 	        usuario1.setContrasena(null);
-	        
 
+	        // CREAR UN MAPA PARA DEVOLVER DATOS
+	        Map<String, Object> respuesta = new HashMap<>();
+	        respuesta.put("tipoUsuario", usuario1.getTipoUsuario().name()); // GUARDAR EL TIPO DE USUARIO COMO STRING
+
+	        // VERIFICAR SI EL USUARIO ES PACIENTE O MÉDICO
 	        switch (usuario1.getTipoUsuario()) {
-	        case PACIENTE:
-	            Paciente paciente = pacienteService.buscarPorIdUsuario(usuario1.getIdUsuario());
-	            if (paciente != null) {
-	                // Devuelve el id del paciente
-	                return ResponseEntity.ok(paciente.getIdPaciente());
-	            } else {
-	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente no encontrado");
-	            }
+	            case PACIENTE:
+	                Paciente paciente = pacienteService.buscarPorIdUsuario(usuario1.getIdUsuario());
+	                if (paciente != null) {
+	                    respuesta.put("id", paciente.getIdPaciente()); // GUARDAR ID DEL PACIENTE
+	                    return ResponseEntity.ok(respuesta); // DEVOLVER RESPUESTA EXITOSA
+	                } else {
+	                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente no encontrado");
+	                }
 
-	        case MEDICO:
-	            Medico medico = medicoService.buscarPorIdUsuario(usuario1.getIdUsuario());
-	            if (medico != null) {
-	                // Devuelve el numero de colegiado del médico
-	                return ResponseEntity.ok(medico.getNumeroColegiado());
-	            } else {
-	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Médico no encontrado");
-	            }
+	            case MEDICO:
+	                Medico medico = medicoService.buscarPorIdUsuario(usuario1.getIdUsuario());
+	                if (medico != null) {
+	                    respuesta.put("id", medico.getNumeroColegiado()); // GUARDAR NÚMERO DE COLEGIADO DEL MÉDICO
+	                    return ResponseEntity.ok(respuesta); // DEVOLVER RESPUESTA EXITOSA
+	                } else {
+	                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Médico no encontrado");
+	                }
 
-	        default:
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de usuario desconocido");
+	            default:
+	                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de usuario desconocido");
 	        }
 	    }
+}
 
+/*
+ 
+  @PostMapping("/inicioSesion")
+	    public ResponseEntity<?> iniciarSesion(@RequestBody Usuario usuario) {
+	        
+	        // BUSCAR EL USUARIO POR SU CORREO
+	        Usuario usuario1 = usuarioService.buscarPorEmail(usuario.getCorreo());
+	        
+	        // SI EL USUARIO NO EXISTE, DEVOLVER ERROR 404
+	        if (usuario1 == null) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+	        }
+	        
+	        // SI LA CONTRASEÑA NO COINCIDE, DEVOLVER ERROR 401
+	        if (!usuario1.getContrasena().equals(usuario.getContrasena())) {
+	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
+	        }
 
-	}
+	        // NO DEVOLVER LA CONTRASEÑA POR SEGURIDAD
+	        usuario1.setContrasena(null);
+
+	        // CREAR UN MAPA PARA DEVOLVER DATOS
+	        Map<String, Object> respuesta = new HashMap<>();
+	        respuesta.put("tipoUsuario", usuario1.getTipoUsuario().name()); // GUARDAR EL TIPO DE USUARIO COMO STRING
+
+	        // VERIFICAR SI EL USUARIO ES PACIENTE O MÉDICO
+	        switch (usuario1.getTipoUsuario()) {
+	            case PACIENTE:
+	                Paciente paciente = pacienteService.buscarPorIdUsuario(usuario1.getIdUsuario());
+	                if (paciente != null) {
+	                    respuesta.put("id", paciente.getIdPaciente()); // GUARDAR ID DEL PACIENTE
+	                    return ResponseEntity.ok(respuesta); // DEVOLVER RESPUESTA EXITOSA
+	                } else {
+	                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente no encontrado");
+	                }
+
+	            case MEDICO:
+	                Medico medico = medicoService.buscarPorIdUsuario(usuario1.getIdUsuario());
+	                if (medico != null) {
+	                    respuesta.put("id", medico.getNumeroColegiado()); // GUARDAR NÚMERO DE COLEGIADO DEL MÉDICO
+	                    return ResponseEntity.ok(respuesta); // DEVOLVER RESPUESTA EXITOSA
+	                } else {
+	                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Médico no encontrado");
+	                }
+
+	            default:
+	                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de usuario desconocido");
+	        }
+	    }
+  
+  
+ * */
 
 
 

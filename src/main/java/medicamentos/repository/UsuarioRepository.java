@@ -15,8 +15,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	List<Usuario> findAllByMedicoIn(List<Medico> medicos);
 
 */
-	@Query("SELECT u FROM Usuario u WHERE u.correo = ?1")
-    Boolean existsByCorreo(String correo);
+	boolean existsByCorreo(String correo);
+
 
 	Usuario findByCorreo(String correo);
 
