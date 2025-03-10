@@ -52,7 +52,7 @@ public class Receta implements Serializable{/**
 	 @JoinColumn(name="numero_colegiado", referencedColumnName = "numero_colegiado")   
 	 private Medico medico;
 	 
-	private String dosis;
+	private int dosis;
 	private int frecuencia;
 	@Column(name="duracion_tratamiento")
 	private int duracionTratamiento;

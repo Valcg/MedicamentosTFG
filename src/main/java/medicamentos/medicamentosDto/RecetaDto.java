@@ -1,6 +1,8 @@
 package medicamentos.medicamentosDto;
 
-import jakarta.persistence.Column;
+
+import java.time.LocalDateTime;
+
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -9,18 +11,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import medicamentos.entities.Caducidad;
 import medicamentos.entities.Medicamento;
-import medicamentos.entities.TipoUsuario;
+import medicamentos.entities.Medico;
+import medicamentos.entities.Paciente;
+import medicamentos.entities.Receta;
 
-@Data
+
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
+
 public class RecetaDto {
 	
 	    private Integer idPaciente;
 	    private Integer numeroColegiado;
 	    private Medicamento medicamento;
-	    private String dosis;
+	    private Integer dosis;
 	    private Integer frecuencia;
 	    private Integer duracionTratamiento;
 
@@ -30,5 +37,8 @@ public class RecetaDto {
     
     @Enumerated(EnumType.STRING)
     private Caducidad caducidad; // "Caducada" o "Activa"
+
+
+
 
 }

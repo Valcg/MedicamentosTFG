@@ -8,4 +8,5 @@ public interface RecetaService extends IntGenericoCrud<Receta, Integer>{
 	
 	public Receta altaReceta(RecetaDto recetaDTO);
 	
+	
 }
