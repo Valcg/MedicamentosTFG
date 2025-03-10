@@ -6,6 +6,6 @@ import medicamentos.entities.Receta;
 
 public interface AlertaService extends IntGenericoCrud<Alerta, Integer>{
 
-	boolean crearAlertasParaReceta(Receta nuevaReceta, Paciente paciente);
+	public void confirmarAlerta(int idAlerta);
 
 }

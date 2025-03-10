@@ -59,36 +59,24 @@ public class AlertaServiceImpl implements AlertaService {
 	}
 
 	@Override
-	public boolean crearAlertasParaReceta(Receta receta, Paciente paciente) {
-	    LocalDateTime ahora = LocalDateTime.now();
-	    int frecuenciaHoras = receta.getFrecuencia(); // Se asume que es un int
-	    int diasDuracion = receta.getDuracionTratamiento(); // Campo correcto
-	    boolean alertasGuardadas = false;
+	public void confirmarAlerta(int idAlerta) {
+		  try {
+		        // Buscar la alerta por su ID
+		        Alerta alerta = alertaRepository.findById(idAlerta)
+		                .orElseThrow(() -> new RuntimeException("Alerta no encontrada"));
 
-	    // Obtenemos el medicamento asociado a la receta
-	    Medicamento medicamento = receta.getMedicamento(); 
+		        // Cambiar el estado de la alerta a 'confirmado'
+		        alerta.setEstadoAlerta(EstadoAlerta.confirmado);
 
-	    // Generamos las alertas para la cantidad de días del tratamiento
-	    for (int i = 0; i < diasDuracion; i++) {
-	        LocalDateTime fechaHoraAlerta = receta.getFechaInicio().plusDays(i); // Usa la fecha de inicio de la receta
-
-	        // Luego generamos las alertas con la frecuencia indicada (cada X horas)
-	        for (int j = 0; j < 24 / frecuenciaHoras; j++) {
-	            fechaHoraAlerta = fechaHoraAlerta.plusHours(frecuenciaHoras);
-	            
-	            // Creamos la alerta para el único medicamento
-	            Alerta alerta = new Alerta();
-	            alerta.setFechaHoraAlerta(fechaHoraAlerta);
-	            alerta.setPaciente(paciente);
-	            alerta.setMedicamento(medicamento); // Solo un medicamento por receta
-	            alerta.setEstadoAlerta(EstadoAlerta.sinConfirmar); // Asigna un estado inicial
-	            alerta.setTipoAlerta(TipoAlerta.medicacion); // Tipo de alerta por medicación
-	            alertaRepository.save(alerta);  // Guardamos la alerta
-	            alertasGuardadas = true;
-	        }
-	    }
-	    return alertasGuardadas;
+		        // Guardar los cambios en la base de datos
+		        alertaRepository.save(alerta);
+		        
+		    } catch (Exception e) {
+		        throw new RuntimeException("Error al confirmar la alerta: " + e.getMessage());
+		    }
+		
 	}
+
 
 
 	

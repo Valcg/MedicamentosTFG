@@ -11,16 +11,22 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import medicamentos.entities.Alerta;
 import medicamentos.entities.Caducidad;
 import medicamentos.entities.Enabled;
+import medicamentos.entities.EstadoAlerta;
 import medicamentos.entities.Medicamento;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
+import medicamentos.entities.PacienteMedicamento;
 import medicamentos.entities.Receta;
+import medicamentos.entities.TipoAlerta;
 import medicamentos.entities.TipoUsuario;
 import medicamentos.medicamentosDto.RecetaDto;
+import medicamentos.repository.AlertaRepository;
 import medicamentos.repository.MedicamentoRepository;
 import medicamentos.repository.MedicoRepository;
+import medicamentos.repository.PacienteMedicamentoRepository;
 import medicamentos.repository.PacienteRepository;
 import medicamentos.repository.RecetaRepository;
 
@@ -39,6 +45,14 @@ public class RecetaServiceImpl implements RecetaService {
 
 	@Autowired
     private MedicoRepository medicoRepository;
+	
+
+	@Autowired
+    private PacienteMedicamentoRepository PacienteMedicamentoRepo;
+	
+	@Autowired
+    private AlertaRepository alertaRepository;
+
 
     @Autowired
     private AlertaService alertaService;
@@ -115,7 +129,40 @@ public class RecetaServiceImpl implements RecetaService {
 	                .build();
 
 	        // Guardar la receta en la base de datos
-	        return recetaRepository.save(receta);
+	        recetaRepository.save(receta);
+	        
+	        PacienteMedicamento pacienteMedicamento = PacienteMedicamento.builder()
+                    .paciente(paciente)
+                    .medicamento(medicamento)
+                    .cantidadDisponible(medicamento.getCantidadUnidad()) // Asignar un blíster completo al paciente
+                    .build();
+	        
+	        PacienteMedicamentoRepo.save(pacienteMedicamento); 
+	        
+	        // Paso 2: Generar las alertas de medicación
+            int dosisPorDia = 24 / recetaDTO.getFrecuencia(); // Calcular cuántas veces al día se toma el medicamento
+            int totalAlertas = dosisPorDia * recetaDTO.getDuracionTratamiento(); // Total de alertas para todo el tratamiento
+
+            // Hora de la primera alerta, basada en la hora de creación de la receta
+            LocalDateTime fechaHoraAlerta = receta.getFechaInicio().plusHours(recetaDTO.getFrecuencia());
+
+            // Generar alertas para todas las dosis
+            for (int i = 0; i < totalAlertas; i++) {
+                Alerta alerta = Alerta.builder()
+                        .paciente(paciente)
+                        .medicamento(medicamento)
+                        .fechaHoraAlerta(fechaHoraAlerta)
+                        .estadoAlerta(EstadoAlerta.sinConfirmar)
+                        .tipoAlerta(TipoAlerta.medicacion)
+                        .build();
+                alertaRepository.save(alerta);
+
+                // Incrementar la hora para la siguiente alerta
+                fechaHoraAlerta = fechaHoraAlerta.plusHours(recetaDTO.getFrecuencia());
+            }
+
+            // Retornar la receta creada
+            return receta;
 	    } catch (Exception e) {
 	        throw new RuntimeException("Error al crear la receta: " + e.getMessage());
 	    }

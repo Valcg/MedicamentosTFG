@@ -34,7 +34,8 @@ public class Medicamento implements Serializable {
     private int idMedicamento;
 	@Column(name="nombre_medicamento")
     private String nombreMedicamento;
-    private int stock;
+	@Column(name="cantidad_unidad")
+    private int cantidadUnidad;
 
     
     
