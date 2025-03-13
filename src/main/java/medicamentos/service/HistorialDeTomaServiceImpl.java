@@ -1,13 +1,34 @@
 package medicamentos.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import medicamentos.entities.Alerta;
+import medicamentos.entities.EstadoAlerta;
+import medicamentos.entities.HistorialDeToma;
+import medicamentos.entities.PacienteMedicamento;
+import medicamentos.entities.Receta;
+import medicamentos.repository.AlertaRepository;
+import medicamentos.repository.HistorialDeTomaRepository;
+import medicamentos.repository.PacienteMedicamentoRepository;
+import medicamentos.repository.RecetaRepository;
+
 @Service
 public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
-
+	@Autowired
+	private  HistorialDeTomaRepository historialTomasRepository;
+	@Autowired
+    private  AlertaRepository alertaRepository;
+	@Autowired
+    private  PacienteMedicamentoRepository pacienteMedicamentoRepository;
+	@Autowired
+    private  RecetaRepository recetaRepository;
+    
+    
 	@Override
 	public HistorialDeTomaService alta(HistorialDeTomaService entidad) {
 		// TODO Auto-generated method stub
@@ -46,8 +67,53 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 
 	@Override
 	public boolean AceptarToma(int idAlerta) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		try {
+	        // Buscar la alerta
+	        Alerta alerta = alertaRepository.findById(idAlerta)
+	                .orElseThrow(() -> new RuntimeException("Alerta no encontrada"));
 
+	        // Verificar si la alerta ya fue confirmada
+	        if (alerta.getEstadoAlerta() == EstadoAlerta.confirmado) {
+	            return false; // Ya estaba confirmada, no se hace nada
+	        }
+
+	        // Registrar la toma en HISTORIAL_TOMAS
+	        HistorialDeToma nuevaToma = HistorialDeToma.builder()
+	                .paciente(alerta.getPaciente())
+	                .fechaHoraToma(LocalDateTime.now())
+	                .build();
+	        historialTomasRepository.save(nuevaToma);
+
+	        // Buscar la receta asociada con el paciente y el medicamento de la alerta
+	        Receta receta = recetaRepository.findByPacienteIdAndMedicamentoIdAndCaducidadActiva(
+	                alerta.getPaciente().getIdPaciente(),
+	                alerta.getMedicamento().getIdMedicamento()
+	        );
+
+	        if (receta == null) {
+	            throw new RuntimeException("No se encontró receta para este medicamento y paciente");
+	        }
+
+	        // Si la receta está presente, descontar dosis del stock
+	        int dosisRecetada = receta.getDosis();
+
+	        PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepository.VermisedicamentosDisponibles(
+	                alerta.getPaciente().getIdPaciente(),
+	                alerta.getMedicamento().getIdMedicamento()
+	        );
+
+	        pacienteMedicamento.setCantidadDisponible(pacienteMedicamento.getCantidadDisponible() - dosisRecetada);
+	        pacienteMedicamentoRepository.save(pacienteMedicamento);
+
+	        // Marcar la alerta como confirmada después de realizar todas las acciones
+	        alerta.setEstadoAlerta(EstadoAlerta.confirmado);
+	        alertaRepository.save(alerta);
+
+	        return true; // Todo salió bien
+	    } catch (Exception e) {
+	        e.printStackTrace(); // Agregar el stacktrace para depurar mejor
+	        return false; // Algo falló
+	    }
+	}
 }
+
