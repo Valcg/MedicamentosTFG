@@ -27,8 +27,8 @@ public class PacienteMedicamento implements Serializable{
 	private static final long serialVersionUID = 1L;
 	 	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID autoincremental
-	    @Column(name = "id")
-	    private Long id;
+	    @Column(name = "id_pacientes_medicamentos")
+	    private Long idPacienteMedicamento;
 
 
     @ManyToOne

@@ -6,6 +6,7 @@ import medicamentos.entities.Alerta;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
+import medicamentos.entities.PacienteMedicamento;
 import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
 
@@ -17,6 +18,8 @@ public interface PacienteService extends IntGenericoCrud<Paciente, Integer> {
 	List<Medico> obtenerMedicosPorPaciente(int idPaciente);
 	Paciente VerMiPerfilPaciente(int idPaciente);
 	Paciente buscarPorIdUsuario(int idUsuario);
+	PacienteMedicamento verMisMedicamentosDisponibles(int idPaciente, int idMedicamento);
+	
 	
 
 

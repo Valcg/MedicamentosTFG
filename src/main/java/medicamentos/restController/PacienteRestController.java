@@ -89,6 +89,8 @@ public class PacienteRestController {
 	    return new ResponseEntity<>(paciente, HttpStatus.OK);  // Si se encuentra al paciente
 	}
 	
+
+	
 	
 	
 

@@ -9,9 +9,11 @@ import medicamentos.entities.Alerta;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
+import medicamentos.entities.PacienteMedicamento;
 import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
 import medicamentos.repository.MedicoRepository;
+import medicamentos.repository.PacienteMedicamentoRepository;
 import medicamentos.repository.PacienteRepository;
 import medicamentos.repository.UsuarioRepository;
 
@@ -24,6 +26,10 @@ public class PacienteServiceImpl implements PacienteService{
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private MedicoRepository medicoRepository;
+	@Autowired
+	private PacienteMedicamentoRepository pacienteMedicamentoRepository;
+
+
 
 
 	@Override
@@ -93,6 +99,12 @@ public class PacienteServiceImpl implements PacienteService{
 	public Paciente buscarPorIdUsuario(int idUsuario) {
 		return pacienteRepository.findByIdUsuario(idUsuario) ;
 
+	}
+
+	@Override
+	public PacienteMedicamento verMisMedicamentosDisponibles(int idPaciente, int idMedicamento) {
+		// TODO Auto-generated method stub
+		return pacienteMedicamentoRepository.VermisedicamentosDisponibles(idPaciente, idMedicamento);
 	}
 
 
