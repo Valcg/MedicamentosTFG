@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <th>Estado</th>
                 <th>Tipo de Alerta</th>
                 <th>Medicamento</th>
-                <th>Stock</th>
+                <th>cantidad por Unidad de cada caja/blister/frasco</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -55,7 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Accediendo al nombre del medicamento y stock
                     const nombreMedicamento = alerta.medicamento ? alerta.medicamento.nombreMedicamento : 'No disponible';
-                    const stock = alerta.medicamento ? alerta.medicamento.stock : 'No disponible';
+                    // no hay stock de los medicamentos de los pacientes dentro de medicamentos
+                    // recordar que eso es generico 
+                    // aqui habra que poner un boton que diga , quieres ver el stock que te queda ? , y luego 
+                    //  tendras que pasar el id del medicamento y el id del paciente para ver su stock
+                    const cantidadUnidad = alerta.medicamento ? alerta.medicamento.cantidadUnidad : 'No disponible';
 
                     // Agregar los valores de cada alerta a las celdas de la fila
                     fila.innerHTML = `
@@ -63,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>${alerta.estadoAlerta}</td>
                         <td>${alerta.tipoAlerta}</td>
                         <td>${nombreMedicamento}</td>
-                        <td>${stock}</td>
+                        <td>${cantidadUnidad}</td>
                     `;
                     cuerpoTabla.appendChild(fila);
                 });
