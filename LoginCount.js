@@ -30,9 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const idUsuario = data.id; // Puede ser idPaciente o numeroColegiado
                 
                 // Guardar en localStorage
-                localStorage.set
-                
-                Item("idUsuario", idUsuario);
+                localStorage.setItem("idUsuario", idUsuario);
                 localStorage.setItem("correo", correo);
                 localStorage.setItem("tipoUsuario", tipoUsuario);
 

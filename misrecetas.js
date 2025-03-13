@@ -38,9 +38,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     // MOSTRAMOS LOS DETALLES DE CADA RECETA
                     recetaDiv.innerHTML = `
                         <h3>Receta ID: ${receta.idReceta}</h3>
-                        <strong>Medicación:</strong> ${receta.medicamento.nombre} <br>
-                        <strong>Fecha de Receta:</strong> ${receta.fecha} <br>
-                        <strong>Detalles:</strong> ${receta.detalle} <br>
+                        <strong>Medicación:</strong> ${receta.medicamento.nombreMedicamento} <br>
+                        <strong>Fecha de Receta:</strong> ${receta.fechaInicio} <br>
+                        <strong>diagnostico:</strong> ${receta.paciente.diagnostico} <br>
+                        <strong>
+                        duracionTratamiento:</strong> ${receta.duracionTratamiento} dias <br>
+                        <strong>dosis:</strong> ${receta.dosis} <br>
+                        <strong>frecuencia:</strong> ${receta.frecuencia} <br>
+
+                          
                     `;
 
                     // AGREGAMOS CADA RECETA AL DIV PRINCIPAL
