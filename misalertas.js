@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <th>Tipo de Alerta</th>
                 <th>Medicamento</th>
                 <th>Cantidad por Unidad de cada caja/blister/frasco</th>
-                <th>Acción</th> <!-- Nueva columna para el botón de confirmación -->
+                <th>Acción</th> <!-- Nueva columna para el botón de ver cantidad -->
             </tr>
         </thead>
         <tbody></tbody>
@@ -72,20 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert(`Cantidad disponible de ${nombreMedicamento}: ${stockMedicamento}`);
                     });
 
-                    // Crear el botón de Confirmar
-                    const confirmarBtn = document.createElement("button");
-                    confirmarBtn.textContent = "Confirmar";
-                    confirmarBtn.classList.add("confirm-btn");
-
-                    // Crear el comportamiento para el botón "Confirmar"
-                    confirmarBtn.addEventListener("click", function() {
-                        // Cambiar el color del texto en la columna "Estado"
-                        const estadoCelda = fila.querySelector("td:nth-child(2)"); // Obtener la celda "Estado"
-                        estadoCelda.style.color = "green"; // Cambiar el color a verde
-                        estadoCelda.textContent = "Confirmada"; // Cambiar el texto del estado a "Confirmada"
-                        confirmarBtn.style.display = "none"; // Ocultar el botón de confirmación
-                    });
-
                     // Agregar los valores de cada alerta a las celdas de la fila
                     fila.innerHTML = `
                         <td>${fechaHoraFormateada}</td>
@@ -93,19 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>${alerta.tipoAlerta}</td>
                         <td>${nombreMedicamento}</td>
                         <td>${cantidadUnidad}</td>
-                        <td></td> <!-- Columna para el enlace y el botón de acción -->
+                        <td></td> <!-- Columna para el enlace de acción -->
                     `;
 
-                    // Si el estado de la alerta es "Confirmada", ocultar el botón "Confirmar"
-                    if (alerta.estadoAlerta === "confirmado") {
-                        fila.querySelector("td:nth-child(2)").style.color = "green"; // Cambiar color de estado a verde
-                        fila.querySelector("td:nth-child(2)").textContent = "Confirmada"; // Actualizar el texto de estado
-                    } else if (alerta.estadoAlerta === "sinConfirmar") {
-                        // Si el estado es "SinConfirmar", mostrar el botón de confirmar
-                        fila.querySelector("td:nth-child(6)").appendChild(confirmarBtn); // Agregar el botón de confirmar
-                    }
-
-                    // Añadir el enlace en la penúltima columna (Acción)
+                    // Añadir el enlace en la última columna (Acción)
                     fila.querySelector("td:nth-child(6)").appendChild(enlace);
 
                     // Añadir la fila a la tabla
