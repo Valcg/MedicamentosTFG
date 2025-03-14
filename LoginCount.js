@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Elementos del DOM
     const correoInput = document.getElementById("correo");
     const contrasenaInput = document.getElementById("contrasena");
+    
     const btnIniciarSesion = document.getElementById("btnIniciarSesion");
 
     // Evento para iniciar sesión

@@ -12,7 +12,84 @@
     <!-- --------------------------------- -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- --------------------------------- -->
-        
+    <!-- CSS -->
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid red;
+            width: 50%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .confirm-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .confirm-btn:hover {
+            background-color: #0056b3;
+        }
+        .open-modal-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px;
+        }
+        .open-modal-btn:hover {
+            background-color: #218838;
+        }
+
+        /*----------------------------- /* Estilo para el enlace */
+        .ver-stock-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            background-color: lightsalmon;
+            height: 50px;
+            width: 200px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s ease-in-out;
+            margin: auto;
+            font-size: 12px;
+        }
+
+        .ver-stock-link:hover {
+            background: darkorange;
+        }
+
+    </style>
 </head>
 <body>
     <!-- HEADER CLIENTE ------------------------------------------------------- -->
@@ -20,15 +97,12 @@
         <nav class="nav-cliente-uno">
             <ul>
                 <li><a href="#about-us"><img src="img/medicadeblue.png" alt="medicade" class="logo-about-us" style="width: 90px;"></a></li>
-                <!-- --------------------------------- -->
                 <li>
                     <a class="nombre-usuario">  </a>
                 </li>
-                <!-- --------------------------------- -->
                 <li class="tipo-cuenta">TU CUENTA ES TIPO   
-                    <a id="paciente-text">  </a> <!-- Aquí se va a cambiar el tipo -->
+                    <a id="paciente-text">  </a>
                 </li>
-                <!-- --------------------------------- -->
                 <li><a class="cerrar-sesion-cliente">CERRAR SESIÓN</a></li>
             </ul>
         </nav>
@@ -45,32 +119,62 @@
         </nav>
     </header>
 
-<!-- MAIN-USUARIO ------------------------------------------------------- -->
-<main id="usuario-main">
-    <h1 class="cliTitulos">Mis Alertas Médicas</h1>
+    <!-- MAIN-USUARIO ------------------------------------------------------- -->
+    <main id="usuario-main">
+        <h1 class="cliTitulos">Mis Alertas Médicas</h1>
 
-    <div id="mis-alertas-medicas"></div> 
-    <a href="HomeCliente.html" id="volverHomeCli">Volver al inicio</a> <!-- style en CLIENTE  -->
-    <script src="misalertas.js" ></script>
-    
-</main>
-    
-        <!-- FOOTER ------------------------------------------------------- -->
-        <footer id="footer-dos">
-            <ul>
-                <li><a>© 2025 All rights reserved.</a></li>
-                <li><a href="#privacy">Privacidad</a></li>
-                <li><a href="#terms">Condiciones de uso</a></li>
-                <li><a href="#cookies">Preferencias de cookies</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#help">Ayuda</a></li>
-            </ul>
-        </footer>
+        <div id="mis-alertas-medicas"></div>
+        <a href="HomeCliente.html" id="volverHomeCli">Volver al inicio</a>
+        <script src="misalertas.js"></script>
 
-<!--SCRIPTS ------------------------------------------------------- -->
-<script src="main.js"></script>
+        <!-- Botón para abrir la modal -->
+        <button id="openModalBtn" class="open-modal-btn">Abrir Modal</button>
 
+        <!-- Modal Structure -->
+        <div id="modalalerta" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModalBtn">&times;</span>
+                <p>Este es el mensaje de la alerta médica.</p>
+                <button id="confirmBtn" class="confirm-btn">Confirmar</button>
+            </div>
+        </div>
 
+    </main>
+
+    <!-- FOOTER ------------------------------------------------------- -->
+    <footer id="footer-dos">
+        <ul>
+            <li><a>© 2025 All rights reserved.</a></li>
+            <li><a href="#privacy">Privacidad</a></li>
+            <li><a href="#terms">Condiciones de uso</a></li>
+            <li><a href="#cookies">Preferencias de cookies</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#help">Ayuda</a></li>
+        </ul>
+    </footer>
+
+    <!--SCRIPTS ------------------------------------------------------- -->
+    <script src="main.js"></script>
+
+    <!-- JavaScript -->
+    <script>
+        document.getElementById("openModalBtn").addEventListener("click", function() {
+            document.getElementById("modalalerta").style.display = "flex";
+
+            // Configurar el temporizador para cerrar el modal en 30 segundos
+            setTimeout(function() {
+                document.getElementById("modalalerta").style.display = "none";
+            }, 10000); // 30000 ms = 30 segundos
+        });
+
+        document.getElementById("closeModalBtn").addEventListener("click", function() {
+            document.getElementById("modalalerta").style.display = "none";
+        });
+
+        document.getElementById("confirmBtn").addEventListener("click", function() {
+            document.getElementById("modalalerta").style.display = "none";
+        });
+    </script>
 
 </body>
 </html>

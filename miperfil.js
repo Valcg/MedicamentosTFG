@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Construir la URL con el idPaciente
-    const url = `http://localhost:9050/pacientes/VerMiPerfilPaciente/${idPaciente}`;
+    const url = `http://localhost:9050/pacientes/VerMiPerfilPaciente/1`;
 
     // HACEMOS UNA PETICIÓN GET CON AXIOS PARA OBTENER EL PERFIL DEL PACIENTE
     axios.get(url)

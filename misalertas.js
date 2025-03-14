@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <th>Estado</th>
                 <th>Tipo de Alerta</th>
                 <th>Medicamento</th>
-                <th>cantidad por Unidad de cada caja/blister/frasco</th>
+                <th>Cantidad por Unidad de cada caja/blister/frasco</th>
+                <th>Acción</th> <!-- Nueva columna para el botón de confirmación -->
             </tr>
         </thead>
         <tbody></tbody>
@@ -55,11 +56,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Accediendo al nombre del medicamento y stock
                     const nombreMedicamento = alerta.medicamento ? alerta.medicamento.nombreMedicamento : 'No disponible';
-                    // no hay stock de los medicamentos de los pacientes dentro de medicamentos
-                    // recordar que eso es generico 
-                    // aqui habra que poner un boton que diga , quieres ver el stock que te queda ? , y luego 
-                    //  tendras que pasar el id del medicamento y el id del paciente para ver su stock
                     const cantidadUnidad = alerta.medicamento ? alerta.medicamento.cantidadUnidad : 'No disponible';
+
+                    // Crear el enlace <a>
+                    const enlace = document.createElement("a");
+                    enlace.href = "#";
+                    enlace.textContent = "VER MI CANTIDAD DISPONIBLE";
+                    enlace.classList.add("ver-stock-link"); // Clase para el estilo
+
+                    // Evento para el enlace
+                    enlace.addEventListener("click", function(event) {
+                        event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+                        // Lógica para mostrar el stock disponible
+                        const stockMedicamento = alerta.medicamento ? alerta.medicamento.stock : "No disponible"; // Reemplazar con el valor real del stock
+                        alert(`Cantidad disponible de ${nombreMedicamento}: ${stockMedicamento}`);
+                    });
+
+                    // Crear el botón de Confirmar
+                    const confirmarBtn = document.createElement("button");
+                    confirmarBtn.textContent = "Confirmar";
+                    confirmarBtn.classList.add("confirm-btn");
+
+                    // Crear el comportamiento para el botón "Confirmar"
+                    confirmarBtn.addEventListener("click", function() {
+                        // Cambiar el color del texto en la columna "Estado"
+                        const estadoCelda = fila.querySelector("td:nth-child(2)"); // Obtener la celda "Estado"
+                        estadoCelda.style.color = "green"; // Cambiar el color a verde
+                        estadoCelda.textContent = "Confirmada"; // Cambiar el texto del estado a "Confirmada"
+                        confirmarBtn.style.display = "none"; // Ocultar el botón de confirmación
+                    });
 
                     // Agregar los valores de cada alerta a las celdas de la fila
                     fila.innerHTML = `
@@ -68,7 +93,22 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>${alerta.tipoAlerta}</td>
                         <td>${nombreMedicamento}</td>
                         <td>${cantidadUnidad}</td>
+                        <td></td> <!-- Columna para el enlace y el botón de acción -->
                     `;
+
+                    // Si el estado de la alerta es "Confirmada", ocultar el botón "Confirmar"
+                    if (alerta.estadoAlerta === "confirmado") {
+                        fila.querySelector("td:nth-child(2)").style.color = "green"; // Cambiar color de estado a verde
+                        fila.querySelector("td:nth-child(2)").textContent = "Confirmada"; // Actualizar el texto de estado
+                    } else if (alerta.estadoAlerta === "sinConfirmar") {
+                        // Si el estado es "SinConfirmar", mostrar el botón de confirmar
+                        fila.querySelector("td:nth-child(6)").appendChild(confirmarBtn); // Agregar el botón de confirmar
+                    }
+
+                    // Añadir el enlace en la penúltima columna (Acción)
+                    fila.querySelector("td:nth-child(6)").appendChild(enlace);
+
+                    // Añadir la fila a la tabla
                     cuerpoTabla.appendChild(fila);
                 });
             }
