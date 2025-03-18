@@ -16,6 +16,7 @@ import medicamentos.entities.Alerta;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
+import medicamentos.entities.PacienteMedicamento;
 import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
 import medicamentos.service.AlertaService;
@@ -37,6 +38,7 @@ public class PacienteRestController {
 	@Autowired
 	private  HistorialDeTomaService historialDeTomaService;
 	
+
 	
 	@GetMapping("/VerMisRecetas/{idPaciente}")
 	public ResponseEntity<List<Receta>> VerMisRecetas(@PathVariable int idPaciente) {
@@ -118,6 +120,16 @@ public class PacienteRestController {
             return new ResponseEntity<>("Error interno en el servidor.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+	 @GetMapping("VerCantidadDeMisMedicamentos/pacientes/{idPaciente}/medicamentos/{idMedicamento}")
+	    public ResponseEntity<PacienteMedicamento> getMedicamentoDisponible(@PathVariable int idPaciente, 
+	                                                                        @PathVariable int idMedicamento) {
+	        PacienteMedicamento pacienteMedicamento = pacienteService.verMisMedicamentosDisponibles(idPaciente, idMedicamento);
+	        if (pacienteMedicamento != null) {
+	            return ResponseEntity.ok(pacienteMedicamento);
+	        } else {
+	            return ResponseEntity.notFound().build();
+	        }
+	    }
 	
 
 }
