@@ -48,7 +48,7 @@ public class RecetaServiceImpl implements RecetaService {
 	
 
 	@Autowired
-    private PacienteMedicamentoRepository PacienteMedicamentoRepo;
+    private PacienteMedicamentoRepository pacienteMedicamentoRepo;
 	
 	@Autowired
     private AlertaRepository alertaRepository;
@@ -100,7 +100,7 @@ public class RecetaServiceImpl implements RecetaService {
 	public Receta altaReceta(RecetaDto recetaDTO) {
 	    try {
 	        // Verificar existencia del paciente
-	        Paciente paciente = pacienteRepository.findById(recetaDTO.getIdPaciente())
+	        Paciente paciente = pacienteRepository.findById(recetaDTO.getPaciente().getIdPaciente())
 	                .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
 
 	        // Verificar existencia del médico
@@ -110,6 +110,10 @@ public class RecetaServiceImpl implements RecetaService {
 	        // Validar si el medicamento es nulo
 	        if (recetaDTO.getMedicamento() == null) {
 	            throw new RuntimeException("Medicamento no puede ser nulo");
+	        }
+	        
+	        if (recetaRepository.countRecetasActivas(recetaDTO.getPaciente().getIdPaciente(), recetaDTO.getMedicamento().getIdMedicamento()) > 0) {
+	            throw new IllegalStateException("Ya existe una receta activa para este medicamento. Por favor, caduque la anterior antes de crear una nueva.");
 	        }
 
 	        // Verificar existencia del medicamento
@@ -131,13 +135,20 @@ public class RecetaServiceImpl implements RecetaService {
 	        // Guardar la receta en la base de datos
 	        recetaRepository.save(receta);
 	        
-	        PacienteMedicamento pacienteMedicamento = PacienteMedicamento.builder()
+	        PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepo.findByPacienteAndMedicamento(recetaDTO.getPaciente(),recetaDTO.getMedicamento());
+	              
+	        if (pacienteMedicamento == null) {
+	        pacienteMedicamento = PacienteMedicamento.builder()
                     .paciente(paciente)
                     .medicamento(medicamento)
                     .cantidadDisponible(medicamento.getCantidadUnidad()) // Asignar un blíster completo al paciente
                     .build();
 	        
-	        PacienteMedicamentoRepo.save(pacienteMedicamento); 
+	        }else {
+	        	
+	        	
+	        }
+	        pacienteMedicamentoRepo.save(pacienteMedicamento); 
 	        
 	        // Paso 2: Generar las alertas de medicación
             int dosisPorDia = 24 / recetaDTO.getFrecuencia(); // Calcular cuántas veces al día se toma el medicamento
@@ -166,6 +177,31 @@ public class RecetaServiceImpl implements RecetaService {
 	    } catch (Exception e) {
 	        throw new RuntimeException("Error al crear la receta: " + e.getMessage());
 	    }
+	}
+
+
+	@Override
+	public long countRecetasActivas(int idPaciente, int idMedicamento) {
+		// TODO Auto-generated method stub
+		return recetaRepository.countRecetasActivas(idPaciente, idMedicamento);
+	}
+
+
+	@Override
+	public Receta caducarReceta(int idReceta) {
+		 Receta receta = recetaRepository.findById(idReceta)
+		            .orElseThrow(() -> new RuntimeException("Receta no encontrada"));
+
+		    // Verificar si hay alertas pendientes (futuras)
+		    long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfter(
+		            receta.getMedicamento(), receta.getPaciente(), LocalDateTime.now());
+
+		    if (alertasPendientes > 0) {
+		        throw new IllegalStateException("No puede caducar la receta, aún hay alertas pendientes.");
+		    }
+
+		    receta.setCaducidad(Caducidad.Caducada);
+		    return recetaRepository.save(receta);
 	}
 
 }

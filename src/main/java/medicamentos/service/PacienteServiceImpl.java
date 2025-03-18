@@ -104,7 +104,7 @@ public class PacienteServiceImpl implements PacienteService{
 	@Override
 	public PacienteMedicamento verMisMedicamentosDisponibles(int idPaciente, int idMedicamento) {
 		// TODO Auto-generated method stub
-		return pacienteMedicamentoRepository.VermisedicamentosDisponibles(idPaciente, idMedicamento);
+		return pacienteMedicamentoRepository.VermismedicamentosDisponibles(idPaciente, idMedicamento);
 	}
 
 

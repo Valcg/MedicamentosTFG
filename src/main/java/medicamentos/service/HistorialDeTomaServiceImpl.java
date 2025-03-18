@@ -81,6 +81,7 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	        HistorialDeToma nuevaToma = HistorialDeToma.builder()
 	                .paciente(alerta.getPaciente())
 	                .fechaHoraToma(LocalDateTime.now())
+	                .alerta(alerta)
 	                .build();
 	        historialTomasRepository.save(nuevaToma);
 
@@ -96,11 +97,17 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 
 	        // Si la receta está presente, descontar dosis del stock
 	        int dosisRecetada = receta.getDosis();
+	        System.out.println("ID Paciente: " + alerta.getPaciente().getIdPaciente());
+	        System.out.println("ID Medicamento: " + alerta.getMedicamento().getIdMedicamento());
 
-	        PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepository.VermisedicamentosDisponibles(
+	        PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepository.VermismedicamentosDisponibles(
 	                alerta.getPaciente().getIdPaciente(),
 	                alerta.getMedicamento().getIdMedicamento()
 	        );
+	        
+	        if (pacienteMedicamento == null) {
+	            throw new RuntimeException("No se encontró el medicamento en stock para este paciente.");
+	        }
 
 	        pacienteMedicamento.setCantidadDisponible(pacienteMedicamento.getCantidadDisponible() - dosisRecetada);
 	        pacienteMedicamentoRepository.save(pacienteMedicamento);
