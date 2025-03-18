@@ -15,8 +15,10 @@ import medicamentos.entities.PacienteMedicamento;
 
 public interface PacienteMedicamentoRepository extends JpaRepository<PacienteMedicamento, Integer>{
 
-	@Query("select p from PacienteMedicamento p where p.paciente.idPaciente = ?1And p.medicamento.idMedicamento =?2 ")
-	public PacienteMedicamento VermisedicamentosDisponibles(int idPaciente,int idMedicamento);
+	@Query("SELECT p FROM PacienteMedicamento p WHERE p.paciente.idPaciente = :idPaciente AND p.medicamento.idMedicamento = :idMedicamento")
+	public PacienteMedicamento VermismedicamentosDisponibles(int idPaciente,int idMedicamento);
+
+    PacienteMedicamento findByPacienteAndMedicamento(Paciente paciente, Medicamento medicamento);
 
 	
 }
