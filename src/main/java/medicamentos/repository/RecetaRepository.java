@@ -17,6 +17,10 @@ public interface RecetaRepository extends JpaRepository<Receta, Integer>{
 	
 	@Query("SELECT r FROM Receta r WHERE r.paciente.idPaciente = :idPaciente AND r.medicamento.idMedicamento = :idMedicamento AND r.caducidad = 'ACTIVA'")
 	Receta findByPacienteIdAndMedicamentoIdAndCaducidadActiva(@Param("idPaciente") int idPaciente, @Param("idMedicamento") int idMedicamento);
+	
+	@Query("SELECT COUNT(r) FROM Receta r WHERE r.paciente.idPaciente = :idPaciente AND r.medicamento.idMedicamento = :idMedicamento AND r.caducidad = 'ACTIVA'")
+	long countRecetasActivas( int idPaciente, int idMedicamento);
+
 
 
 }
