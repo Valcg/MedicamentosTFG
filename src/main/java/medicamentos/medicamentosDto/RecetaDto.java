@@ -24,7 +24,7 @@ import medicamentos.entities.Receta;
 
 public class RecetaDto {
 	
-	    private Integer idPaciente;
+	    private Paciente paciente;
 	    private Integer numeroColegiado;
 	    private Medicamento medicamento;
 	    private Integer dosis;
