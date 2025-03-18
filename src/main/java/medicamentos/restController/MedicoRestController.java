@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
 import medicamentos.entities.HistorialDeToma;
+import medicamentos.entities.Medicamento;
 import medicamentos.entities.Paciente;
 import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
 import medicamentos.medicamentosDto.RecetaDto;
 import medicamentos.service.HistorialDeTomaService;
+import medicamentos.service.MedicamentoService;
 import medicamentos.service.MedicoService;
 import medicamentos.service.RecetaService;
 
@@ -37,7 +40,10 @@ public class MedicoRestController {
 	
 	@Autowired
 	private  HistorialDeTomaService historialDeTomaService;
+	@Autowired
+	private  MedicamentoService medicamentoService;
 	
+
 
 	
 	@GetMapping("/VerMisPacientes/{numeroColegiado}")
@@ -104,6 +110,41 @@ public class MedicoRestController {
 	                    .body("Error al caducar la receta: " + e.getMessage());
 	        }
 	    }
+	   
+	   /*MEDICAMENTOS*/
+	   
+	   @GetMapping("/BuscarTodosLosMedicamentos")
+	   public ResponseEntity<List<Medicamento>> obtenerTodos(HttpServletRequest request) {
+	       System.out.println("URL recibida: " + request.getRequestURL());
+	       List<Medicamento> medicamentos = medicamentoService.buscarTodos();
+	       if (!medicamentos.isEmpty()) {
+	           return ResponseEntity.ok(medicamentos);
+	       } else {
+	           return ResponseEntity.noContent().build();
+	       }
+	   }
+
+	   
+	   @GetMapping("/BuscarUnMedicamento/{codigo}")
+	    public ResponseEntity<Medicamento> obtenerMedicamento(@PathVariable Integer codigo) {
+	        Medicamento medicamento = medicamentoService.buscarUno(codigo);
+	        if (medicamento != null) {
+	            return ResponseEntity.ok(medicamento); // Devuelve el medicamento si se encuentra
+	        } else {
+	            return ResponseEntity.notFound().build(); // Devuelve 404 si no se encuentra
+	        }
+	    }
+	   @GetMapping("/BuscarUnMedicamentoPorNombre/{nombreMedicamento}")
+	   public ResponseEntity<List<Medicamento>> buscarMedicamentos(@PathVariable String nombreMedicamento) {
+	       List<Medicamento> medicamentos = medicamentoService.buscarPorNombre(nombreMedicamento);
+	       if (!medicamentos.isEmpty()) {
+	           return ResponseEntity.ok(medicamentos); // Devuelve la lista si se encuentran medicamentos
+	       } else {
+	           return ResponseEntity.noContent().build(); // Devuelve 204 No Content si no se encuentran resultados
+	       }
+	   }
+
+
 	}
 
 
