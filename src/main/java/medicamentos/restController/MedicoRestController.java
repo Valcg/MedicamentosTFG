@@ -73,7 +73,22 @@ public class MedicoRestController {
 	        return new ResponseEntity<>("Error al crear la receta: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	}
+	
+	   @PostMapping("/CaducarReceta/{idReceta}")
+	    public ResponseEntity<String> caducarReceta(@PathVariable int idReceta) {
+	        try {
+	            recetaService.caducarReceta(idReceta);
+	            return ResponseEntity.ok("Receta caducada correctamente.");
+	        } catch (IllegalStateException e) {
+	            return ResponseEntity.badRequest().body(e.getMessage());
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                    .body("Error al caducar la receta: " + e.getMessage());
+	        }
+	    }
+	}
+
 
 	
 
-}
+
