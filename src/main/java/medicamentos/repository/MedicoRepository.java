@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
 import medicamentos.entities.Usuario;
@@ -24,6 +25,9 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 	
 	@Query("SELECT m FROM Medico m WHERE m.usuario.idUsuario = :idUsuario")
 	 Medico findByIdUsuario(int idUsuario);
+	
+	@Query("SELECT h FROM HistorialDeToma h WHERE h.alerta.paciente.idPaciente = :idPaciente")
+	List<HistorialDeToma> VerhistorialDeMisPacientes( int idPaciente);
 
 
 

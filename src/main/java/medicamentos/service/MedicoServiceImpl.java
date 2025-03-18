@@ -6,13 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
 import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
 import medicamentos.repository.MedicoRepository;
 import medicamentos.repository.PacienteRepository;
-import medicamentos.repository.UsuarioRepository;
+
 
 @Service
 public class MedicoServiceImpl implements MedicoService{
@@ -21,9 +22,7 @@ public class MedicoServiceImpl implements MedicoService{
 	private MedicoRepository medicoRepository;
 	@Autowired
 	private PacienteRepository pacienteRepository;
-	@Autowired
-	private UsuarioRepository usuarioRepository;
-
+	
 	
 	@Override
 	public Medico alta(Medico entidad) {
@@ -101,6 +100,12 @@ public class MedicoServiceImpl implements MedicoService{
 	    pacienteRepository.save(paciente); // Guardar los cambios en el paciente
 	    
 	    return true;
+	}
+
+	@Override
+	public List<HistorialDeToma> VerHistorialDeMiPaciente(int idPaciente) {
+		// TODO Auto-generated method stub
+		return medicoRepository.VerhistorialDeMisPacientes(idPaciente);
 	}
 
 

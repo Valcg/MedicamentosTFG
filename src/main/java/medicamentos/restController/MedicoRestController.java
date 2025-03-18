@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Paciente;
 import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
 import medicamentos.medicamentosDto.RecetaDto;
+import medicamentos.service.HistorialDeTomaService;
 import medicamentos.service.MedicoService;
 import medicamentos.service.RecetaService;
 
@@ -32,6 +34,11 @@ public class MedicoRestController {
 	private  MedicoService medicoService;
 	@Autowired
 	private  RecetaService recetaService;
+	
+	@Autowired
+	private  HistorialDeTomaService historialDeTomaService;
+	
+
 	
 	@GetMapping("/VerMisPacientes/{numeroColegiado}")
 	public ResponseEntity<List<Usuario>> VerMisPacientes(@PathVariable int numeroColegiado) {
@@ -56,6 +63,17 @@ public class MedicoRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    
+    @GetMapping("/VerHistorialDeMisPacientes/{idPaciente}")
+    public ResponseEntity<List<HistorialDeToma>> getHistorialDeToma(@PathVariable int idPaciente) {
+        List<HistorialDeToma> historialDeToma = medicoService.VerHistorialDeMiPaciente(idPaciente);
+        if (!historialDeToma.isEmpty()) {
+            return ResponseEntity.ok(historialDeToma);
+        } else {
+            return ResponseEntity.noContent().build();  // 204 No Content si no hay historial
+        }
+    }
+    
 	/* RECETAS*/
 	
 	@PostMapping("/CrearReceta")
