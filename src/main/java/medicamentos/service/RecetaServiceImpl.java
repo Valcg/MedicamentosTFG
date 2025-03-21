@@ -145,9 +145,11 @@ public class RecetaServiceImpl implements RecetaService {
                     .build();
 	        
 	        }else {
-	        	
+	            pacienteMedicamento.setCantidadDisponible(medicamento.getCantidadUnidad()); // Reiniciar a una caja completa
+
 	        	
 	        }
+	        
 	        pacienteMedicamentoRepo.save(pacienteMedicamento); 
 	        
 	        // Paso 2: Generar las alertas de medicación

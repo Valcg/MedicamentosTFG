@@ -43,6 +43,7 @@ public class MedicoRestController {
 	@Autowired
 	private  MedicamentoService medicamentoService;
 	
+	
 
 
 	
@@ -119,6 +120,7 @@ public class MedicoRestController {
 	        return ResponseEntity.ok(nuevoMedicamento);
 	    }
 	   
+	  
 	   @GetMapping("/BuscarTodosLosMedicamentos")
 	   public ResponseEntity<List<Medicamento>> obtenerTodos(HttpServletRequest request) {
 	       System.out.println("URL recibida: " + request.getRequestURL());

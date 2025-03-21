@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import medicamentos.entities.Alerta;
@@ -21,6 +22,7 @@ import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
 import medicamentos.service.AlertaService;
 import medicamentos.service.HistorialDeTomaService;
+import medicamentos.service.MedicamentoService;
 import medicamentos.service.PacienteService;
 
 
@@ -37,6 +39,10 @@ public class PacienteRestController {
 	
 	@Autowired
 	private  HistorialDeTomaService historialDeTomaService;
+	
+	@Autowired
+	private  MedicamentoService medicamentoService;
+	
 	
 
 	
@@ -130,6 +136,40 @@ public class PacienteRestController {
 	            return ResponseEntity.notFound().build();
 	        }
 	    }
+	 
+	 @PostMapping("/{idPaciente}/medicamentos/{idMedicamento}/agregar-stock")
+	    public ResponseEntity<String> agregarStockSiNecesario(
+	            @PathVariable int idPaciente,
+	            @PathVariable int idMedicamento,
+	            @RequestParam int cantidadCajas) {
+
+	        // Llamamos al servicio que contiene la lógica de agregar stock
+	        boolean stockActualizado = medicamentoService.agregarStockSiNecesario(idPaciente, idMedicamento, cantidadCajas);
+
+	        // Devolvemos una respuesta adecuada
+	        if (stockActualizado) {
+	            return ResponseEntity.ok("Stock actualizado correctamente.");
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_MODIFIED)
+	                                 .body("No se actualizó el stock. Revisa las condiciones.");
+	        }
+	    }
+	 
+	 @PostMapping("/verificar-stock/{idPaciente}/{idMedicamento}")
+	    public ResponseEntity<String> verificarStock(@PathVariable int idPaciente, @PathVariable int idMedicamento) {
+	        try {
+	            boolean stockVerificado = medicamentoService.verificarStockPorPacienteYMedicamento(idPaciente, idMedicamento);
+	            
+	            if (stockVerificado) {
+	                return ResponseEntity.ok("Stock verificado correctamente. Se ha generado una alerta de bajostock si es necesario.");
+	            } else {
+	                return ResponseEntity.ok("Stock suficiente, no es necesario generar alerta.");
+	            }
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al verificar stock");
+	        }
+	    }
+}
 	
 
-}
+

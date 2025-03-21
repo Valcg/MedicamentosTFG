@@ -20,5 +20,10 @@ public interface PacienteMedicamentoRepository extends JpaRepository<PacienteMed
 
     PacienteMedicamento findByPacienteAndMedicamento(Paciente paciente, Medicamento medicamento);
 
+    @Query("SELECT pm FROM PacienteMedicamento pm WHERE pm.paciente.idPaciente = :idPaciente AND pm.medicamento.idMedicamento = :idMedicamento")
+    PacienteMedicamento findByPacienteIdAndMedicamentoId(int idPaciente,int idMedicamento);
+    
+
+
 	
 }
