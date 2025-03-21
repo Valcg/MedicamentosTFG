@@ -74,11 +74,7 @@ public class MedicoRestController {
         }
     }
     
-    @DeleteMapping("/desasociar")
-    public ResponseEntity<?> desasociarPaciente(@RequestParam int numeroColegiado, @RequestParam int idPaciente) {
-        medicoService.desasociarPaciente(numeroColegiado, idPaciente);
-        return ResponseEntity.ok("Paciente " + idPaciente + " desasociado del médico " + numeroColegiado);
-    }
+   
     
     @GetMapping("/VerHistorialDeMisPacientes/{idPaciente}")
     public ResponseEntity<List<HistorialDeToma>> getHistorialDeToma(@PathVariable int idPaciente) {

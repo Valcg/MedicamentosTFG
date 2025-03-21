@@ -109,9 +109,6 @@ public class MedicoServiceImpl implements MedicoService{
 	}
 
 
-    public void desasociarPaciente(int numeroColegiado, int idPaciente) {
-        medicoRepository.eliminarRelacion(numeroColegiado, idPaciente);
-    }
-
+    
 	
 }
