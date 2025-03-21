@@ -3,8 +3,10 @@ package medicamentos.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import jakarta.transaction.Transactional;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
@@ -28,6 +30,11 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 	
 	@Query("SELECT h FROM HistorialDeToma h WHERE h.alerta.paciente.idPaciente = :idPaciente")
 	List<HistorialDeToma> VerhistorialDeMisPacientes( int idPaciente);
+	
+	@Modifying
+	@Transactional
+	 @Query("DELETE FROM MedicoPaciente mp WHERE mp.medico.numeroColegiado = :numeroColegiado AND mp.paciente.idPaciente = :idPaciente")
+	    void eliminarRelacion( int numeroColegiado,  int idPaciente);
 
 
 

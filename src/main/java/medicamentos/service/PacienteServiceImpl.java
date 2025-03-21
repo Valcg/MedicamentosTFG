@@ -107,5 +107,11 @@ public class PacienteServiceImpl implements PacienteService{
 		return pacienteMedicamentoRepository.VermismedicamentosDisponibles(idPaciente, idMedicamento);
 	}
 
+	@Override
+	public List<Receta> VerMisRecetasACTIVAS(int idPaciente) {
+		return pacienteRepository.findRecetasActivas(idPaciente);
+
+	}
+
 
 }

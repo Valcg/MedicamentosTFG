@@ -19,6 +19,9 @@ public interface PacienteRepository extends JpaRepository<Paciente, Integer>{
 	@Query("select R from Receta R where R.paciente.idPaciente = ?1 ")
 	public List<Receta> Vermisrecetas(int idPaciente);
 	
+	@Query("SELECT r FROM Receta r WHERE r.paciente.idPaciente = :idPaciente AND r.caducidad = 'Activa'")
+	List<Receta> findRecetasActivas(int idPaciente);
+	
 	@Query("SELECT h FROM HistorialDeToma h WHERE h.alerta.paciente.idPaciente = :idPaciente")
 	List<HistorialDeToma> Vermihistorial( int idPaciente);
 	

@@ -58,6 +58,18 @@ public class PacienteRestController {
 	    return new ResponseEntity<>(recetas, HttpStatus.OK);
 	}
 	
+	@GetMapping("/VerMisRecetasACTIVAS/{idPaciente}")
+	public ResponseEntity<List<Receta>> VerMisRecetasACTIVAS(@PathVariable int idPaciente) {
+	    List<Receta> recetas = pacienteService.VerMisRecetasACTIVAS(idPaciente);
+	    System.out.println("ver recetas "+ recetas );
+	    
+	    if (recetas.isEmpty()) {
+	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	    }
+	    
+	    return new ResponseEntity<>(recetas, HttpStatus.OK);
+	}
+	
 	@GetMapping("/Vermihistorial/{idPaciente}")
 	public ResponseEntity<List<HistorialDeToma>> Vermihistorial(@PathVariable int idPaciente) {
 	    List<HistorialDeToma> historialDeToma = pacienteService.VerMihistorial(idPaciente);
