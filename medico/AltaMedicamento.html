@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta de Medicamento</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="styles/cliente.css">
+    <link rel="stylesheet" href="styles/botones.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Alta de Medicamento</h1>
+
+    <!-- Formulario de alta de medicamento -->
+    <form id="formAltaMedicamento">
+        <label for="nombreMedicamento">Nombre del Medicamento:</label>
+        <input type="text" id="nombreMedicamento" name="nombreMedicamento" required placeholder="Escribe el nombre del medicamento">
+        <br>
+
+        <label for="cantidadUnidad">Cantidad por Caja:</label>
+        <input type="number" id="cantidadUnidad" name="cantidadUnidad" min="1" required placeholder="Cantidad por caja">
+        <br>
+
+        <button type="button" id="btnAltaMedicamento">Registrar Medicamento</button>
+    </form>
+<!-- MOSTRAR LISTA  PARA LOS MEDICAMENTOS QUE YA EXISTE Y HACER UNA BARRA DE BUSQUEDA -->
+    <div id="mensajeAlta"></div>
+
+    <!-- Vinculamos el archivo JS -->
+    <script src="AltaMedicamento.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASOCIAR PACIENTE</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/cliente.css">
+    <link rel="stylesheet" href="styles/botones.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Asociar Paciente</h1>
+
+    <!-- Formulario para asociar paciente -->
+    <label for="numeroColegiado">Número de Colegiado:</label>
+    <input type="text" id="numeroColegiado" required>
+    <br>
+    <label for="correoPaciente">Correo del Paciente:</label>
+    <input type="email" id="correoPaciente" required>
+    <br>
+    <button id="btnAsociarPaciente">Asociar Paciente</button>
+
+    <!-- Área para mostrar el mensaje de éxito o error -->
+    <div id="mensajeAsociacion"></div>
+
+    <!-- Vinculamos el archivo JS -->
+    <script src="AsociarPaciente.js"></script>
+</body>
+</html>
