@@ -54,10 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // AGREGAR EVENTOS A LOS BOTONES DE NAVEGACION
-    agregarEvento("verperfil", "miperfil.html");
-    agregarEvento("VerMisRecetas", "misrecetas.html");
-    agregarEvento("VerMisMedicos", "mismedicos.html");
-    agregarEvento("VerMisAlertas", "misalertas.html");
-    agregarEvento("VerMiHistorialAlertas", "mihistorialtomas.html");
+    agregarEvento("verperfil", "cliente_paciente/miperfil.html");
+    agregarEvento("VerMisRecetas", "cliente_paciente/misrecetas.html");
+    agregarEvento("VerMisMedicos", "cliente_paciente/mismedicos.html");
+    agregarEvento("VerMisAlertas", "cliente_paciente/misalertas.html");
+    agregarEvento("VerMiHistorialAlertas", "cliente_paciente/mihistorialtomas.html");
 });
 // ------------------- Fin Script 3 -------------------
