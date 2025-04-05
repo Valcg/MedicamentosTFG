@@ -1,6 +1,7 @@
 package medicamentos.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -111,6 +112,11 @@ public class PacienteServiceImpl implements PacienteService{
 	public List<Receta> VerMisRecetasACTIVAS(int idPaciente) {
 		return pacienteRepository.findRecetasActivas(idPaciente);
 
+	}
+
+	@Override
+	public Optional<Paciente> buscarUsuarioCorreo(String correo) {
+		return pacienteRepository.findByCorreo(correo);
 	}
 
 

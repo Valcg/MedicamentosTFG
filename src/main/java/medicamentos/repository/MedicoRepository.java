@@ -31,10 +31,6 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 	@Query("SELECT h FROM HistorialDeToma h WHERE h.alerta.paciente.idPaciente = :idPaciente")
 	List<HistorialDeToma> VerhistorialDeMisPacientes( int idPaciente);
 	
-	@Modifying
-	@Transactional
-	 @Query("DELETE FROM MedicoPaciente mp WHERE mp.medico.numeroColegiado = :numeroColegiado AND mp.paciente.idPaciente = :idPaciente")
-	    void eliminarRelacion( int numeroColegiado,  int idPaciente);
 
 
 

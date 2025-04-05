@@ -1,6 +1,7 @@
 package medicamentos.restController;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,8 @@ public class MedicoRestController {
 	
 	@Autowired
 	private  MedicoService medicoService;
+	@Autowired
+	private  PacienteService pacienteService;
 	@Autowired
 	private  RecetaService recetaService;
 	
@@ -156,6 +159,14 @@ public class MedicoRestController {
 	           return ResponseEntity.noContent().build(); // Devuelve 204 No Content si no se encuentran resultados
 	       }
 	   }
+	   
+		 @GetMapping("/buscarPorCorreo")
+		    public ResponseEntity<Paciente> buscarPorCorreo(@RequestParam String correo) {
+		        Optional<Paciente> paciente = pacienteService.buscarUsuarioCorreo(correo);
+
+		        return paciente.map(ResponseEntity::ok)
+		                       .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+		    }
 
 
 	}
