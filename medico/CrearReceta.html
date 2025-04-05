@@ -4,35 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Receta</title>
-    <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="styles/cliente.css">
-    <link rel="stylesheet" href="styles/botones.css"> 
+    <!-- no tiene estilos  -->
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/medico.css">
+    <link rel="stylesheet" href="../styles/botones.css"> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
+</head>
 <body>
     <h1>Crear Receta</h1>
+    <div id="resultadoDiv"></div>
 
-    <!-- Formulario para crear la receta -->
-    <div id="crearRecetaDiv">
-        <h3>Crear Receta</h3>
-        <label for="id_paciente">ID Paciente:</label><input type="text" id="id_paciente"><br>
-        <label for="numero_colegiado">Número Colegiado:</label><input type="text" id="numero_colegiado"><br>
-        <label for="id_medicamento">ID Medicamento:</label><input type="text" id="id_medicamento"><br>
-        <label for="dosis">Dosis:</label><input type="text" id="dosis"><br>
-        <label for="frecuencia">Frecuencia (veces al día):</label><input type="text" id="frecuencia"><br>
-        <label for="duracion_tratamiento">Duración del Tratamiento (días):</label><input type="text" id="duracion_tratamiento"><br>
-        <label for="caducidad">Estado de la Receta:</label>
-        <select id="caducidad">
-            <option value="Activa">Activa</option>
-            <option value="Caducada">Caducada</option>
-        </select><br>
-        <button id="btnCrearReceta">Aceptar</button>
-        <p id="mensajeReceta"></p>
-    </div>
+    <script src="CrearReceta.js"></script>
+ 
 
-    <script src="medico/CrearReceta.js"></script>
+
+
 </body>
 </html>
