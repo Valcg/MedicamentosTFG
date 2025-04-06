@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     axios.get(url)
         .then(res => {
             const alertas = res.data; // DATOS DE LAS ALERTAS
+            console.log("data", res.data);
             console.log(alertas); // Verifica los datos que estás recibiendo
 
             // SI NO HAY ALERTAS, MOSTRAR MENSAJE

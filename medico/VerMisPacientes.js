@@ -13,11 +13,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         axios.get(`${baseURL}/VerMisPacientes/${numeroColegiado}`)
+        
+        
+
             .then(response => {
                 if (response.data.length === 0) {
+                    
                     pacientesContainer.innerHTML = "<p>No hay pacientes asociados.</p>";
                     return;
                 }
+                console.log("daTA DEL PACIETNE:", response.data);
+
 
                 let table = `<table border='1'>
                     <tr>
@@ -31,12 +37,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 response.data.forEach(paciente => {
                     table += `
                     <tr>
-                        <td>${paciente.nombre}</td>
-                        <td>${paciente.apellido}</td>
-                        <td>${paciente.correo}</td>
-                        <td style="background-color: #D3D3D3;">${paciente.idUsuario}</td> <!-- Celda con ID en gris -->
+                        <td>${paciente.usuario.nombre}</td>
+                        <td>${paciente.usuario.apellido}</td>
+                        <td>${paciente.usuario.correo}</td>
+                        <td style="background-color: #D3D3D3;">${paciente.idPaciente}</td> <!-- Celda con ID en gris -->
                         <td>
-                            <button class="verHistorial" data-id="${paciente.idUsuario}" data-nombre="${paciente.nombre}">
+                            <button class="verHistorial" data-id="${paciente.idPaciente}" data-nombre="${paciente.usuario.nombre}">
                                 Ver Historial
                             </button>
                         </td>
@@ -68,6 +74,8 @@ document.addEventListener("DOMContentLoaded", function () {
         axios.get(`${baseURL}/VerHistorialDeMisPacientes/${idPaciente}`)
             .then(response => {
                 const historial = response.data;
+                console.log("Historial recibido:", response.data);
+
 
                 if (!historial || historial.length === 0) {
                     historialContainer.innerHTML = `<h3>Historial de ${nombrePaciente}</h3><p>No hay historial de tomas disponible.</p>`;

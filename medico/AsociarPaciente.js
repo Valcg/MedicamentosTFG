@@ -19,8 +19,11 @@ function enviarAsociacion() {
             document.getElementById("mensajeAsociacion").innerHTML = `<p style="color: green;">Éxito: ${response.data}</p>`;
         })
         .catch(error => {
-            // Mostrar mensaje de error
-            document.getElementById("mensajeAsociacion").innerHTML = `<p style="color: red;">Error al asociar paciente.</p>`;
+            if (error.response && error.response.status === 409) {
+                document.getElementById("mensajeAsociacion").innerHTML = `<p style="color: blue;">Nota: El paciente ya se encuentra asociado a este médico.</p>`;
+            } else {
+                document.getElementById("mensajeAsociacion").innerHTML = `<p style="color: red;">Error al asociar paciente.</p>`;
+            }
             console.error(error);
         });
 }
