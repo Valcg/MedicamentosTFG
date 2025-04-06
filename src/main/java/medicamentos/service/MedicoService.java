@@ -10,7 +10,7 @@ import medicamentos.entities.Usuario;
 
 public interface MedicoService  extends IntGenericoCrud<Medico, Integer> {
 	
-	List<Usuario> VerMisPacientes(int idMedico);
+	List<Paciente> VerMisPacientes(int idMedico);
 	Medico buscarPorIdUsuario(int idUsuario);
 	Boolean asociarPacienteAMedico(String correoPaciente, int numeroColegiado) ;
 	List<HistorialDeToma>VerHistorialDeMiPaciente(int idPaciente);

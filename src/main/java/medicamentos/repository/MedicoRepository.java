@@ -16,14 +16,14 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 	
 
 	@Query(value = """
-		    SELECT u.* 
-		    FROM usuarios u
-		    JOIN pacientes p ON u.id_usuario = p.id_usuario
+		    SELECT p.* 
+		    FROM pacientes p
+		    JOIN usuarios u ON p.id_usuario = u.id_usuario
 		    JOIN medicos_pacientes mp ON p.id_paciente = mp.id_paciente
-		    JOIN medicos m ON mp.numero_colegiado = m.numero_colegiado
-		    WHERE m.numero_colegiado = :numeroColegiado
+		    WHERE mp.numero_colegiado = :numeroColegiado
 		    """, nativeQuery = true)
-		List<Usuario> findUsuariosPacientesByMedico(int numeroColegiado);
+		List<Paciente> findPacientesByMedico(int numeroColegiado);
+
 	
 	@Query("SELECT m FROM Medico m WHERE m.usuario.idUsuario = :idUsuario")
 	 Medico findByIdUsuario(int idUsuario);

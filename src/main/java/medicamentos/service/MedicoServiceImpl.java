@@ -61,9 +61,9 @@ public class MedicoServiceImpl implements MedicoService{
 	}
 
 	@Override
-	public List<Usuario> VerMisPacientes(int numeroColegiado) {
+	public List<Paciente> VerMisPacientes(int numeroColegiado) {
 		// TODO Auto-generated method stub
-		return medicoRepository.findUsuariosPacientesByMedico(numeroColegiado);
+		return medicoRepository.findPacientesByMedico(numeroColegiado);
 	}
 
 	@Override
@@ -91,8 +91,9 @@ public class MedicoServiceImpl implements MedicoService{
 	    Paciente paciente = pacienteOpt.get();
 
 	    // Verificar si la relación ya existe
+	    
 	    if (paciente.getMedicos().contains(medico)) {
-	        throw new RuntimeException("El paciente ya está asociado a este médico.");
+	        throw new IllegalStateException("El paciente ya está asociado a este médico.");
 	    }
 
 	    // Asociar paciente al médico

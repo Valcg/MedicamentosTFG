@@ -54,8 +54,8 @@ public class MedicoRestController {
 
 	
 	@GetMapping("/VerMisPacientes/{numeroColegiado}")
-	public ResponseEntity<List<Usuario>> VerMisPacientes(@PathVariable int numeroColegiado) {
-	    List<Usuario> MisPacientes = medicoService.VerMisPacientes(numeroColegiado);
+	public ResponseEntity<List<Paciente>> VerMisPacientes(@PathVariable int numeroColegiado) {
+	    List<Paciente> MisPacientes = medicoService.VerMisPacientes(numeroColegiado);
 	    System.out.println("ver mis pacientes "+ MisPacientes );
 	    
 	    if (MisPacientes.isEmpty()) {
@@ -72,6 +72,9 @@ public class MedicoRestController {
             Boolean asociado = medicoService.asociarPacienteAMedico(correo, numeroColegiado);
             return asociado ? ResponseEntity.ok("Paciente asociado correctamente") :
                               ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se pudo asociar el paciente");
+        } catch (IllegalStateException e) {
+            // Si el paciente ya está asociado, devolver 409 Conflict
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
