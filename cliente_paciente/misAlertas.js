@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Accediendo al nombre del medicamento y stock
                     const nombreMedicamento = alerta.medicamento ? alerta.medicamento.nombreMedicamento : 'No disponible';
                     const cantidadUnidad = alerta.medicamento ? alerta.medicamento.cantidadUnidad : 'No disponible';
+                    const idMedicamento = alerta.medicamento ? alerta.medicamento.idMedicamento : null;
 
                     // Crear el enlace <a>
                     const enlace = document.createElement("a");
@@ -68,9 +69,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Evento para el enlace
                     enlace.addEventListener("click", function(event) {
                         event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
-                        // Lógica para mostrar el stock disponible
-                        const stockMedicamento = alerta.medicamento ? alerta.medicamento.stock : "No disponible"; // Reemplazar con el valor real del stock
-                        alert(`Cantidad disponible de ${nombreMedicamento}: ${stockMedicamento}`);
+
+                        if (idMedicamento) {
+                            // Llamar al endpoint para obtener la cantidad disponible
+                            const urlCantidad = `http://localhost:9050/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
+
+                            axios.get(urlCantidad)
+                                .then(response => {
+                                    const stock = response.data ? response.data.cantidadDisponible : "No disponible";
+                                    console.log("stock ", response.data );
+                                    alert(`Cantidad disponible de ${nombreMedicamento}: ${stock}`);
+                                })
+                                .catch(error => {
+                                    console.error("Error al obtener la cantidad:", error);
+                                    alert("Hubo un error al obtener la cantidad.");
+                                });
+                        } else {
+                            alert("El medicamento no tiene un ID válido.");
+                        }
                     });
 
                     // Agregar los valores de cada alerta a las celdas de la fila
