@@ -55,20 +55,30 @@
 <div class="usuario-div usuario-div-cinco">
     
     
-
-                                    <h1>MEDICO : Ver Mis Pacientes</h1>
-                                    <div id="pacientes"></div>          
-                                    <hr>
-                                    <div id="historial-pacientes"><h2>Historial del paciente</h2></div>
-
-                                    <script src="VerMisPacientes.js"></script>
-
-
-</div>
-<div class="usuario-div usuario-div-cinco">
     
+    MEDICO
+                            <h2>HISTORIAL DE TOMA de :</h2>
 
-<div ><a href="../HomeMedico.html" style="color: red;" >VOLVER A HOME</a></div>
+                            <div id="historial-pacientes"></div>
+                        
+                            <!-- Modal Confirmar Toma -->
+                            <div id="modal-confirmar-toma" class="modal">
+                                <div class="modal-content">
+                                    <span id="closeModalConfirmar" class="close">&times;</span>
+                                    <h2>Confirmar Toma</h2>
+                                    <p>¿Confirmar esta toma?</p>
+                                    <button id="confirmarTomaBtn">Confirmar</button>
+                                </div>
+                            </div>
+                        
+                            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+                            <script src="historial.js"></script>
+
+
+
+
+
 
 
 </div>
@@ -119,12 +129,12 @@
     
 <!--SCRIPTS ------------------------------------------------------- -->
       
-            <!-- Enlazamos al archivo main.js -->
-            <script src="../main.js"></script>
-
-
+ 
+                            <script src="../main.js"></script>
             
   
 </body>
 </html>
+
+
 
