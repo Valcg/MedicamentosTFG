@@ -1,13 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     const historialContainer = document.getElementById("mi-historial-tomas");
-    const modalConfirmarToma = document.getElementById("modal-confirmar-toma");
-    const closeModalConfirmar = document.getElementById("closeModalConfirmar");
+    const tabla = document.createElement("table");
+    const modal = document.getElementById("modal-confirmar-toma");
+    const closeModalBtn = document.getElementById("closeModalConfirmar");
     const confirmarTomaBtn = document.getElementById("confirmarTomaBtn");
 
-    let rowToConfirm; // Para almacenar la fila que se debe confirmar
+    let idAlertaAConfirmar = null; // guardamos temporalmente el id
 
-    // Crear la tabla
-    const tabla = document.createElement("table");
     tabla.innerHTML = `
         <thead>
             <tr>
@@ -21,96 +20,110 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     const cuerpoTabla = tabla.querySelector("tbody");
 
-    // Obtener el idPaciente desde localStorage
-    const idPaciente = localStorage.getItem("idUsuario"); 
+    const idPaciente = localStorage.getItem("idUsuario");
 
     if (!idPaciente) {
         historialContainer.innerHTML = "<p>Error: No se encontró el ID del paciente en localStorage.</p>";
         return;
     }
 
-    // Construir la URL con el idPaciente
     const url = `http://localhost:9050/pacientes/Vermihistorial/${idPaciente}`;
 
-    axios.get(url)
-        .then(res => {
-            let historial = res.data;
+    function cargarHistorial() {
+        axios.get(url)
+            .then(res => {
+                let historial = res.data;
+                if (!historial || historial.length === 0) {
+                    historialContainer.innerHTML = "<p>No hay historial de tomas disponible.</p>";
+                } else {
+                    historial.sort((a, b) => new Date(b.fechaHoraToma) - new Date(a.fechaHoraToma));
+                    cuerpoTabla.innerHTML = '';
 
-            if (!historial || historial.length === 0) {
-                historialContainer.innerHTML = "<p>No hay historial de tomas disponible.</p>";
-            } else {
-                // Ordenar el historial por fecha y hora descendente
-                historial.sort((a, b) => new Date(b.fechaHoraToma) - new Date(a.fechaHoraToma));
+                    historial.forEach(toma => {
+                        const fila = document.createElement("tr");
 
-                historial.forEach(toma => {
-                    const fila = document.createElement("tr");
+                        const fechaHora = new Date(toma.fechaHoraToma);
+                        const dia = fechaHora.getDate().toString().padStart(2, '0');
+                        const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0');
+                        const anio = fechaHora.getFullYear();
+                        const hora = fechaHora.getHours().toString().padStart(2, '0');
+                        const minutos = fechaHora.getMinutes().toString().padStart(2, '0');
+                        const fechaHoraFormateada = `${dia}/${mes}/${anio} ${hora}:${minutos}`;
 
-                    // Formatear fecha y hora a "DD/MM/YYYY HH:MM"
-                    const fechaHora = new Date(toma.fechaHoraToma);
-                    const dia = fechaHora.getDate().toString().padStart(2, '0');
-                    const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0');
-                    const anio = fechaHora.getFullYear();
-                    const hora = fechaHora.getHours().toString().padStart(2, '0');
-                    const minutos = fechaHora.getMinutes().toString().padStart(2, '0');
-                    const fechaHoraFormateada = `${dia}/${mes}/${anio} ${hora}:${minutos}`;
+                        const estadoAlerta = toma.alerta ? toma.alerta.estadoAlerta : 'No disponible';
+                        const nombreMedicamento = toma.alerta?.medicamento?.nombreMedicamento || 'No disponible';
 
-                    // Verificar que los datos existen antes de acceder a ellos
-                    const estadoAlerta = toma.alerta ? toma.alerta.estadoAlerta : 'No disponible';
-                    const nombreMedicamento = toma.alerta && toma.alerta.medicamento ? toma.alerta.medicamento.nombreMedicamento : 'No disponible';
+                        let estadoHTML = "";
+                        if (estadoAlerta === "confirmado") {
+                            estadoHTML = `<td style="color: green;">Confirmada</td>`;
+                        } else if (estadoAlerta === "sinConfirmar") {
+                            estadoHTML = `<td style="color: red;">Sin Confirmar</td>`;
+                        } else {
+                            estadoHTML = `<td>${estadoAlerta}</td>`;
+                        }
 
-                    // Crear celda de estado con color si es confirmado
-                    let estadoHTML = `<td>${estadoAlerta}</td>`;
-                    if (estadoAlerta === "confirmado") {
-                        estadoHTML = `<td style="color: green;">Confirmada</td>`;
-                    }
+                        let accionHTML = "<td></td>";
+                        if (estadoAlerta === "sinConfirmar") {
+                            accionHTML = `<td><button class="confirm-btn">Confirmar</button></td>`;
+                        }
 
-                    // Crear botón de confirmación si el estado es "sinConfirmar"
-                    let accionHTML = "<td></td>";
-                    if (estadoAlerta === "sinConfirmar") {
-                        accionHTML = `<td><button class="confirm-btn">Confirmar</button></td>`;
-                    }
+                        fila.innerHTML = `
+                            <td>${fechaHoraFormateada}</td>
+                            ${estadoHTML}
+                            <td>${nombreMedicamento}</td>
+                            ${accionHTML}
+                        `;
 
-                    fila.innerHTML = `
-                        <td>${fechaHoraFormateada}</td>
-                        ${estadoHTML}
-                        <td>${nombreMedicamento}</td>
-                        ${accionHTML}
-                    `;
+                        cuerpoTabla.appendChild(fila);
 
-                    // Agregar la fila a la tabla
-                    cuerpoTabla.appendChild(fila);
+                        const confirmarBtn = fila.querySelector(".confirm-btn");
+                        if (confirmarBtn) {
+                            confirmarBtn.addEventListener("click", function () {
+                                idAlertaAConfirmar = toma.alerta.idAlerta; // guarda ID
+                                modal.style.display = "flex"; // mostrar modal
+                            });
+                        }
+                    });
+                }
 
-                    // Agregar funcionalidad al botón de confirmación
-                    const confirmarBtn = fila.querySelector(".confirm-btn");
-                    if (confirmarBtn) {
-                        confirmarBtn.addEventListener("click", function () {
-                            rowToConfirm = fila;  // Almacenar la fila a confirmar
-                            modalConfirmarToma.style.display = "flex"; // Mostrar la modal
-                        });
-                    }
-                });
-            }
+                if (!historialContainer.contains(tabla)) {
+                    historialContainer.appendChild(tabla);
+                }
+            })
+            .catch(err => {
+                console.error("Hubo un fallo en la petición: " + err);
+                historialContainer.innerHTML = "<p>Error al cargar el historial.</p>";
+            });
+    }
 
-            historialContainer.appendChild(tabla);
-        })
-        .catch(err => {
-            console.error("Hubo un fallo en la petición: " + err);
-            historialContainer.innerHTML = "<p>Error al cargar el historial.</p>";
-        });
-
-    // Cerrar la modal
-    closeModalConfirmar.addEventListener("click", function () {
-        modalConfirmarToma.style.display = "none";
+    // Evento para cerrar modal
+    closeModalBtn.addEventListener("click", function () {
+        modal.style.display = "none";
+        idAlertaAConfirmar = null;
     });
 
-    // Confirmar la toma
+    // Evento para confirmar desde el modal
     confirmarTomaBtn.addEventListener("click", function () {
-        if (rowToConfirm) {
-            // Cambiar estado a confirmado visualmente
-            rowToConfirm.cells[1].textContent = "Confirmada";
-            rowToConfirm.cells[1].style.color = "green";
-            rowToConfirm.querySelector(".confirm-btn").style.display = "none"; // Ocultar el botón
+        if (idAlertaAConfirmar) {
+            const urlConfirmar = `http://localhost:9050/pacientes/confirmarToma/${idAlertaAConfirmar}`;
+            axios.post(urlConfirmar)
+                .then(response => {
+                    if (response.status === 200) {
+                        console.log("Toma confirmada y registrada correctamente.");
+                        modal.style.display = "none";
+                        idAlertaAConfirmar = null;
+                        cargarHistorial(); // recargar datos
+                    } else {
+                        console.error("Error al confirmar la toma. Código de estado:", response.status);
+                        alert("No se pudo confirmar la toma. Intente de nuevo.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al confirmar la toma:", error);
+                    alert("Hubo un error al confirmar la toma. Intente de nuevo.");
+                });
         }
-        modalConfirmarToma.style.display = "none"; // Cerrar la modal
     });
+
+    cargarHistorial();
 });
