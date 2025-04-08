@@ -122,5 +122,28 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	        return false; // Algo falló
 	    }
 	}
+	
+	
+	@Override
+	public boolean confirmarToma(int idAlerta) {
+	    try {
+	        // Buscar la alerta en la base de datos
+	        Alerta alerta = alertaRepository.findById(idAlerta).orElse(null);
+	        if (alerta != null && alerta.getEstadoAlerta() == EstadoAlerta.sinConfirmar) {
+	            // Cambiar el estado de la alerta a "confirmado"
+	            alerta.setEstadoAlerta(EstadoAlerta.confirmado);
+	            // Guardar la alerta con el nuevo estado
+	            alertaRepository.save(alerta);
+	            return true; // La toma fue confirmada correctamente
+	        }
+	        // Si la alerta no fue encontrada o ya está confirmada
+	        return false;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false; // Si ocurre un error, retornamos false
+	    }
+	}
+
+
 }
 

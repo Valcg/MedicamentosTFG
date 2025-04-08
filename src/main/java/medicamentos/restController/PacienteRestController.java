@@ -83,6 +83,18 @@ public class PacienteRestController {
 	    return new ResponseEntity<>(historialDeToma, HttpStatus.OK);
 	}
 	
+	
+	  @PostMapping("/confirmarToma/{idAlerta}")//-------- PARA CONFIRMAR LA TOMA En hsitorial de Tomas , una vez se Confirma en el Front ya no se puede cambiar
+	    public ResponseEntity<String> confirmarToma(@PathVariable int idAlerta) {
+	        boolean resultado = historialDeTomaService.confirmarToma(idAlerta);
+
+	        if (resultado) {
+	            return new ResponseEntity<>("Toma confirmada correctamente", HttpStatus.OK);
+	        } else {
+	            return new ResponseEntity<>("La alerta ya fue confirmada previamente o hubo un error", HttpStatus.BAD_REQUEST);
+	        }
+	    }
+	
 	@GetMapping("/VermisAlertas/{idPaciente}")
 	public ResponseEntity<List<Alerta>> VermisAlertas(@PathVariable int idPaciente) {
 	    List<Alerta> alertas = pacienteService.VerMisAlertas(idPaciente);
@@ -121,7 +133,7 @@ public class PacienteRestController {
 	
 
 	
-	@PostMapping("/aceptarToma/{idAlerta}")
+	@PostMapping("/aceptarToma/{idAlerta}") //- CONFIRMA LA TOMA EN MIS ALERTAS MEDICAS , con el front se PUEDE CONFIRMA CUANDO QUEDEN 5 MINUTOS ANTES DE LA HORA
     public ResponseEntity<String> aceptarToma(@PathVariable int idAlerta) {
         try {
             boolean resultado = historialDeTomaService.AceptarToma(idAlerta);
@@ -139,6 +151,8 @@ public class PacienteRestController {
             return new ResponseEntity<>("Error interno en el servidor.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+	
+	
 	 @GetMapping("VerCantidadDeMisMedicamentos/pacientes/{idPaciente}/medicamentos/{idMedicamento}")
 	    public ResponseEntity<PacienteMedicamento> getMedicamentoDisponible(@PathVariable int idPaciente, 
 	                                                                        @PathVariable int idMedicamento) {
