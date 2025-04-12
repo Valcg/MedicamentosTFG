@@ -14,6 +14,8 @@ public interface MedicoService  extends IntGenericoCrud<Medico, Integer> {
 	Medico buscarPorIdUsuario(int idUsuario);
 	Boolean asociarPacienteAMedico(String correoPaciente, int numeroColegiado) ;
 	List<HistorialDeToma>VerHistorialDeMiPaciente(int idPaciente);
+	Medico VerMiPerfilMedico(int nunmeroColegiado);
+
 	
 
 

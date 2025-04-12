@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medicamento;
+import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
 import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
@@ -91,6 +92,18 @@ public class MedicoRestController {
             return ResponseEntity.noContent().build();  // 204 No Content si no hay historial
         }
     }
+    
+	@GetMapping("/VerMiPerfilMedico/{numeroColegiado}")
+	public ResponseEntity<Medico> VerMiPerfil(@PathVariable int numeroColegiado) {
+		Medico medico = medicoService.VerMiPerfilMedico(numeroColegiado);
+	    System.out.println("Ver mi perfil: " + medico);
+
+	    if (medico == null) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Si no se encuentra al paciente
+	    }
+
+	    return new ResponseEntity<>(medico, HttpStatus.OK);  // Si se encuentra al paciente
+	}
     
 	/* RECETAS*/
 	

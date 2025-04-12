@@ -109,6 +109,13 @@ public class MedicoServiceImpl implements MedicoService{
 		return medicoRepository.VerhistorialDeMisPacientes(idPaciente);
 	}
 
+	@Override
+	public Medico VerMiPerfilMedico(int nunmeroColegiado) {
+		return medicoRepository.findById(nunmeroColegiado).orElse(null); 
+		
+	}		
+
+
 
     
 	
