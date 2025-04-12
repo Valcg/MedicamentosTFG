@@ -74,7 +74,7 @@ function enviarReceta() {
                 return;
             }
 
-            // Verificar si ya existe una receta con el mismo medicamento para este paciente
+            // Crear la receta
             const recetaDto = {
                 paciente: paciente,
                 numeroColegiado: document.getElementById("numero_colegiado").value,
@@ -87,26 +87,14 @@ function enviarReceta() {
                 caducidad: document.getElementById("caducidad").value
             };
 
-            // Verificar si ya existe la receta para el mismo medicamento
-            axios.get(`http://localhost:9050/medicos/RecetaExistente?correo=${correoPaciente}&idMedicamento=${recetaDto.medicamento.idMedicamento}`)
+            // Hacer el POST para crear la receta
+            axios.post("http://localhost:9050/medicos/CrearReceta", recetaDto)
                 .then(res => {
-                    if (res.data.exists) {
-                        document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">¡Esta receta ya existe! Si quieres otra, debes cancelar la receta anterior.</span>`;
-                    } else {
-                        // Si no existe la receta, crearla
-                        axios.post("http://localhost:9050/medicos/CrearReceta", recetaDto)
-                            .then(res => {
-                                document.getElementById("mensajeReceta").innerHTML = `<span style="color:green;">Receta creada correctamente</span>`;
-                            })
-                            .catch(err => {
-                                console.error("Error al crear receta:", err);
-                                document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">Error al crear receta</span>`;
-                            });
-                    }
+                    document.getElementById("mensajeReceta").innerHTML = `<span style="color:green;">Receta creada correctamente</span>`;
                 })
                 .catch(err => {
-                    console.error("Error al verificar receta existente:", err);
-                    document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">Error al verificar si la receta existe.</span>`;
+                    console.error("Error al crear receta:", err);
+                    document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">Error al crear receta</span>`;
                 });
         })
         .catch(error => {
