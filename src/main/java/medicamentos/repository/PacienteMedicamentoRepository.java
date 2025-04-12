@@ -2,6 +2,7 @@ package medicamentos.repository;
 
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,9 @@ public interface PacienteMedicamentoRepository extends JpaRepository<PacienteMed
 
     @Query("SELECT pm FROM PacienteMedicamento pm WHERE pm.paciente.idPaciente = :idPaciente AND pm.medicamento.idMedicamento = :idMedicamento")
     PacienteMedicamento findByPacienteIdAndMedicamentoId(int idPaciente,int idMedicamento);
+    
+    @Query("SELECT pm FROM PacienteMedicamento pm WHERE pm.paciente.idPaciente = :idPaciente")
+    List<PacienteMedicamento> verMisMedicamentosPacientes(int idPaciente); 
     
     
    

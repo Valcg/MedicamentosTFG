@@ -17,5 +17,6 @@ public interface AlertaRepository extends JpaRepository<Alerta, Integer>{
 	                                                          @Param("paciente") Paciente paciente, 
 	                                                          @Param("fechaActual") LocalDateTime fechaActual);
 
+	
 
 }

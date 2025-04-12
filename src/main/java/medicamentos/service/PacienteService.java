@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import medicamentos.entities.Alerta;
 import medicamentos.entities.HistorialDeToma;
+import medicamentos.entities.Medicamento;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
 import medicamentos.entities.PacienteMedicamento;
@@ -22,6 +23,7 @@ public interface PacienteService extends IntGenericoCrud<Paciente, Integer> {
 	Paciente VerMiPerfilPaciente(int idPaciente);
 	Paciente buscarPorIdUsuario(int idUsuario);
 	PacienteMedicamento verMisMedicamentosDisponibles(int idPaciente, int idMedicamento);
+	public  List<PacienteMedicamento> verMisMedicamentos(int idPaciente);
 	Optional<Paciente> buscarUsuarioCorreo(String correo);
 	
 	

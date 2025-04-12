@@ -119,5 +119,11 @@ public class PacienteServiceImpl implements PacienteService{
 		return pacienteRepository.findByCorreo(correo);
 	}
 
+	@Override
+	public List<PacienteMedicamento> verMisMedicamentos(int idPaciente) {
+		// TODO Auto-generated method stub
+		return pacienteMedicamentoRepository. verMisMedicamentosPacientes(idPaciente);
+	}
+
 
 }

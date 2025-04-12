@@ -153,7 +153,7 @@ public class PacienteRestController {
     }
 	
 	
-	 @GetMapping("VerCantidadDeMisMedicamentos/pacientes/{idPaciente}/medicamentos/{idMedicamento}")
+	 @GetMapping("/VerCantidadDeMisMedicamentos/pacientes/{idPaciente}/medicamentos/{idMedicamento}")
 	    public ResponseEntity<PacienteMedicamento> getMedicamentoDisponible(@PathVariable int idPaciente, 
 	                                                                        @PathVariable int idMedicamento) {
 	        PacienteMedicamento pacienteMedicamento = pacienteService.verMisMedicamentosDisponibles(idPaciente, idMedicamento);
@@ -163,6 +163,18 @@ public class PacienteRestController {
 	            return ResponseEntity.notFound().build();
 	        }
 	    }
+	 
+	 @GetMapping("/VerMisMedicamentos/paciente/{idPaciente}")
+	 public ResponseEntity<List<PacienteMedicamento>> misMedicamentos(@PathVariable int idPaciente) {
+	     List<PacienteMedicamento> pacienteMedicamento = pacienteService.verMisMedicamentos(idPaciente);
+	     
+	     if (pacienteMedicamento != null && !pacienteMedicamento.isEmpty()) {
+	         return ResponseEntity.ok(pacienteMedicamento);
+	     } else {
+	         return ResponseEntity.noContent().build();
+	     }
+	 }
+
 	 
 	 @PostMapping("/{idPaciente}/medicamentos/{idMedicamento}/agregar-stock")
 	    public ResponseEntity<String> agregarStockSiNecesario(
