@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
+import medicamentos.entities.Receta;
 import medicamentos.entities.Usuario;
 
 public interface MedicoRepository extends JpaRepository<Medico, Integer>{
@@ -31,6 +32,9 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer>{
 	@Query("SELECT h FROM HistorialDeToma h WHERE h.alerta.paciente.idPaciente = :idPaciente")
 	List<HistorialDeToma> VerhistorialDeMisPacientes( int idPaciente);
 	
+	@Query("select R from Receta R where R.paciente.idPaciente = ?1 and R.medico.numeroColegiado = ?2")
+	public List<Receta> VerRecetasDeMisPacientes(int idPaciente, int numeroColegiado);
+
 
 
 

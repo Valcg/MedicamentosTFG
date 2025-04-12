@@ -113,6 +113,12 @@ public class MedicoServiceImpl implements MedicoService{
 	public Medico VerMiPerfilMedico(int nunmeroColegiado) {
 		return medicoRepository.findById(nunmeroColegiado).orElse(null); 
 		
+	}
+
+	@Override
+	public List<Receta> VerRecetasDeMisPacientes(int idPaciente, int numeroColegiado) {
+		// TODO Auto-generated method stub
+		return medicoRepository.VerRecetasDeMisPacientes(idPaciente, numeroColegiado);
 	}		
 
 

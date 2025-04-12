@@ -136,6 +136,18 @@ public class MedicoRestController {
 	        }
 	    }
 	   
+	   @GetMapping("/VerRecetasDeMisPacientes/paciente/{idPaciente}/medico/{numeroColegiado}")
+		public ResponseEntity<List<Receta>> VerMisRecetas(@PathVariable int idPaciente, @PathVariable  int numeroColegiado ) {
+		    List<Receta> recetas = medicoService.VerRecetasDeMisPacientes(idPaciente,numeroColegiado);
+		    System.out.println("ver recetas "+ recetas );
+		    
+		    if (recetas.isEmpty()) {
+		        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		    }
+		    
+		    return new ResponseEntity<>(recetas, HttpStatus.OK);
+		}
+	   
 	   /*MEDICAMENTOS*/
 	   
 	   @PostMapping("/AltaMedicamentos")
