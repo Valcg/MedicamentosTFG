@@ -1,10 +1,48 @@
+// -------------------------------------
+// SECCIÓN: Alta de Medicamentos
+// -------------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const mensajeAlta = document.getElementById("mensajeAlta");
+
+    document.getElementById("btnAltaMedicamento").addEventListener("click", function () {
+        const nombreMedicamento = document.getElementById("nombreMedicamento").value.trim();
+        const cantidadUnidad = document.getElementById("cantidadUnidad").value;
+
+        if (!nombreMedicamento) {
+            mensajeAlta.innerHTML = "<p style='color: red;'>El nombre del medicamento no puede estar vacío.</p>";
+            return;
+        }
+
+        if (!cantidadUnidad || isNaN(cantidadUnidad) || cantidadUnidad <= 0) {
+            mensajeAlta.innerHTML = "<p style='color: red;'>Por favor, ingrese una cantidad válida mayor a 0.</p>";
+            return;
+        }
+
+        const medicamento = {
+            nombreMedicamento: nombreMedicamento,
+            cantidadUnidad: parseInt(cantidadUnidad)
+        };
+
+        axios.post("http://localhost:9050/medicos/AltaMedicamentos", medicamento)
+            .then(response => {
+                mensajeAlta.innerHTML = `<p style="color: green;">Medicamento creado: ${response.data.nombreMedicamento}</p>`;
+            })
+            .catch(error => {
+                mensajeAlta.innerHTML = "<p style='color: red;'>Error al crear el medicamento. Por favor, intente nuevamente.</p>";
+                console.error(error);
+            });
+    });
+});
+
+// -------------------------------------
+// SECCIÓN: Búsqueda y Listado de Medicamentos
+// -------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
     const inputNombre = document.getElementById("nombreMedicamento");
     const btnBuscar = document.getElementById("btnBuscarMedicamento");
     const resultadoBusqueda = document.getElementById("resultadoBusqueda");
     const tablaBody = document.querySelector("#tablaMedicamentos tbody");
 
-    // Función para buscar medicamentos por nombre
     btnBuscar.addEventListener("click", function () {
         const nombre = inputNombre.value.trim();
 
@@ -34,12 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
-    // Función para mostrar todos los medicamentos en la tabla
     function cargarTodosLosMedicamentos() {
         axios.get("http://localhost:9050/medicos/BuscarTodosLosMedicamentos")
             .then(response => {
                 const medicamentos = response.data;
-                tablaBody.innerHTML = ""; // Limpiar tabla
+                tablaBody.innerHTML = "";
 
                 medicamentos.forEach(med => {
                     const row = `
@@ -57,6 +94,5 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Al cargar la página, mostrar todos los medicamentos
     cargarTodosLosMedicamentos();
 });

@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const esSinConfirmar = alertaProxima.estadoAlerta === "sinConfirmar";
         const puedeConfirmar = diferenciaMin <= 5;
 
-        let contenido = `
+        let contenido = ` 
             <strong style="color: red;">TU SIGUIENTE TOMA MÁS CERCANA ES:</strong><br><br>
             <strong>Estado:</strong> <span id="estadoAlerta">${alertaProxima.estadoAlerta}</span><br>
             <strong>Tipo:</strong> ${alertaProxima.tipoAlerta}<br>
@@ -97,12 +97,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 const alertas = res.data;
                 const ahora = new Date();
 
+                // 1. Filtrar solo las alertas futuras
                 const alertasFuturas = alertas.filter(alerta => {
                     const fechaAlerta = new Date(alerta.fechaHoraAlerta);
                     return fechaAlerta > ahora;
                 });
 
-                const alertaProxima = alertasFuturas.sort((a, b) => new Date(a.fechaHoraAlerta) - new Date(b.fechaHoraAlerta))[0];
+                // 2. Eliminar duplicados por medicamento + fecha
+                const alertasFuturasUnicas = alertasFuturas.filter((alerta, index, self) =>
+                    index === self.findIndex(a =>
+                        a.fechaHoraAlerta === alerta.fechaHoraAlerta &&
+                        a.medicamento?.nombreMedicamento === alerta.medicamento?.nombreMedicamento
+                    )
+                );
+
+                // 3. Ordenar por la fecha más cercana
+                const alertaProxima = alertasFuturasUnicas.sort((a, b) =>
+                    new Date(a.fechaHoraAlerta) - new Date(b.fechaHoraAlerta)
+                )[0];
 
                 if (alertaProxima) {
                     ultimaAlerta = alertaProxima;

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!nombreMedicamento) {
             mensajeAlta.innerHTML = "<p style='color: red;'>El nombre del medicamento no puede estar vacío.</p>";
             return;  // Detener el envío si el nombre está vacío
-        }
+        }            
 
         // Validación de que la cantidad sea válida
         if (!cantidadUnidad || isNaN(cantidadUnidad) || cantidadUnidad <= 0) {

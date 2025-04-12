@@ -50,16 +50,37 @@
     <main id="usuario-main">
         <!-- Sección con los divs de contenido -->
         <section id="usuario-divs-container">
-
-           <!-- DIV 5 --------------- -->
+<!-- DIV 5 ------------------------------------------------------- -->
+            <div class="usuario-div usuario-div-cinco">
+       
+                <div id ="unico"><h1>MEDICO : Alta de Medicamento</h1>
+                                  
+                    <!-- Formulario de alta de medicamento -->
+                    <form id="formAltaMedicamento">
+                        <label for="nombreMedicamento">Nombre del Medicamento:</label>
+                        <input type="text" id="nombreMedicamento" name="nombreMedicamento" required placeholder="Escribe el nombre del medicamento">
+                        <br>
+                
+                        <label for="cantidadUnidad">Cantidad por Caja:</label>
+                        <input type="number" id="cantidadUnidad" name="cantidadUnidad" min="1" required placeholder="Cantidad por caja">
+                        <br>
+                
+                        <button type="button" id="btnAltaMedicamento">Registrar Medicamento</button>
+                    </form>
+                <!-- MOSTRAR LISTA  PARA LOS MEDICAMENTOS QUE YA EXISTE Y HACER UNA BARRA DE BUSQUEDA -->
+                    <div id="mensajeAlta"></div>
+                
+                <!-- Vinculamos el archivo JS -->
+                    <script src="SeccionMedicamentos.js"></script>
+                    
+                </div>
+            
+            </div>
+<!-- DIV 5 ------------------------------------------------------- -->
 <div class="usuario-div usuario-div-cinco">
-    
-    
-      
+   
     <div id ="unico"><h1>MEDICO : Gestión de Medicamentos</h1>
                       
-
-
         <!-- Buscador por nombre -->
         <section id="buscador">
             <label for="nombreMedicamento">Buscar por nombre:</label>
@@ -69,7 +90,6 @@
         </section>
     
         <hr>
-    
         <!-- Lista de todos los medicamentos -->
         <section id="listaMedicamentos">
             <h2>Todos los Medicamentos</h2>
@@ -85,24 +105,15 @@
                 </tbody>
             </table>
         </section>
-    
-        <script src="BuscarMedicamentos.js"></script>
-
-
-
-        
+        <script src="BuscarMedicamentos.js"></script>     
     </div>
 </div>
 
-<div class="usuario-div usuario-div-cinco">
-    
-
+<div class="usuario-div usuario-div-cinco">  
 <div ><a href="../HomeMedico.html" style="color: red;" >VOLVER A HOME</a></div>
-
-
 </div>
 
-            <!-- DIV 6 FOOTER --------------- -->
+<!-- DIV 6 FOOTER --------------- -->
             <div class="usuario-div-seis">
                             <!-- ---------------- RRSS -->
                             <div class="usu-footer" id="rrss"> 
@@ -151,12 +162,8 @@
             <!-- Enlazamos al archivo main.js -->
             <script src="../main.js"></script>
 
-
-            
-  
 </body>
 </html>
-<!-- ------------------------------------------------------- -->
 
 
 
