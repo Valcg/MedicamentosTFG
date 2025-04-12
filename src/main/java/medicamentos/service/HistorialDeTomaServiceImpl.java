@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import medicamentos.entities.Alerta;
 import medicamentos.entities.EstadoAlerta;
 import medicamentos.entities.HistorialDeToma;
@@ -64,9 +65,10 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	@Transactional
 	@Override
 	public boolean AceptarToma(int idAlerta) {
+		System.out.println("entrnado al metodo");
 		try {
 	        // Buscar la alerta
 	        Alerta alerta = alertaRepository.findById(idAlerta)
@@ -87,9 +89,11 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 
 	        // Buscar la receta asociada con el paciente y el medicamento de la alerta
 	        Receta receta = recetaRepository.findByPacienteIdAndMedicamentoIdAndCaducidadActiva(
+	        		
 	                alerta.getPaciente().getIdPaciente(),
 	                alerta.getMedicamento().getIdMedicamento()
 	        );
+	        System.out.println("receta" + receta);
 
 	        if (receta == null) {
 	            throw new RuntimeException("No se encontró receta para este medicamento y paciente");
@@ -104,12 +108,15 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	                alerta.getPaciente().getIdPaciente(),
 	                alerta.getMedicamento().getIdMedicamento()
 	        );
+	        System.out.println("medicamentos disponibles"+ pacienteMedicamento);
 	        
 	        if (pacienteMedicamento == null) {
+	        	System.out.println("No se encontró el medicamento en stock para este paciente.");
 	            throw new RuntimeException("No se encontró el medicamento en stock para este paciente.");
 	        }
-
-	        pacienteMedicamento.setCantidadDisponible(pacienteMedicamento.getCantidadDisponible() - dosisRecetada);
+	        	int cantidadNueva = pacienteMedicamento.getCantidadDisponible() - dosisRecetada;
+	        	System.out.println("nueva cantidad resta"+cantidadNueva);
+	        pacienteMedicamento.setCantidadDisponible(cantidadNueva);
 	        pacienteMedicamentoRepository.save(pacienteMedicamento);
 
 	        // Marcar la alerta como confirmada después de realizar todas las acciones
