@@ -133,6 +133,7 @@ public class RecetaServiceImpl implements RecetaService {
 	                .build();
 
 	        // Guardar la receta en la base de datos
+	        System.out.println(receta);
 	        recetaRepository.save(receta);
 	        
 	        PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepo.findByPacienteAndMedicamento(recetaDTO.getPaciente(),recetaDTO.getMedicamento());
