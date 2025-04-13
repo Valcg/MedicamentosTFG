@@ -76,7 +76,7 @@ function enviarReceta() {
                 return;
             }
 
-            // Crear el objeto recetaDto con los datos del formulario
+
             const recetaDto = {
                 paciente: paciente,
                 numeroColegiado: document.getElementById("numero_colegiado").value,
@@ -89,7 +89,7 @@ function enviarReceta() {
                 caducidad: document.getElementById("caducidad").value
             };
 
-            // Crear la receta directamente
+
             axios.post("http://localhost:9050/medicos/CrearReceta", recetaDto)
                 .then(res => {
                     document.getElementById("mensajeReceta").innerHTML = `<span style="color:green;">Receta creada correctamente</span>`;
