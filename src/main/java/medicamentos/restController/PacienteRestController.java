@@ -7,21 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import medicamentos.entities.Alerta;
+import medicamentos.entities.ContactoEmergencia;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
 import medicamentos.entities.PacienteMedicamento;
 import medicamentos.entities.Receta;
-
-
+import medicamentos.service.ContactoEmergenciaService;
 import medicamentos.service.HistorialDeTomaService;
 import medicamentos.service.MedicamentoService;
 import medicamentos.service.PacienteService;
@@ -42,6 +45,11 @@ public class PacienteRestController {
 	
 	@Autowired
 	private  MedicamentoService medicamentoService;
+	
+	@Autowired
+	private  ContactoEmergenciaService contactoEmergenciaService;
+	
+	
 	
 	
 
@@ -218,7 +226,50 @@ public class PacienteRestController {
 	                    .body("Error al registrar tomas no confirmadas: " + e.getMessage());
 	        }
 	    }
-	 
+	   
+	   /*-------------- CONTACTOS DE EMERGENCIA--------------*/
+	   
+	   @PostMapping("/alta-contacto-emergencia")
+	    public ResponseEntity<ContactoEmergencia> crearContacto(@RequestBody ContactoEmergencia contacto) {
+	        ContactoEmergencia nuevo = contactoEmergenciaService.alta(contacto);
+	        if (nuevo != null) {
+	            return ResponseEntity.ok(nuevo);
+	        } else {
+	            return ResponseEntity.badRequest().build();
+	        }
+	    }
+	   
+	   // Modificar
+	    @PutMapping("/modificar-contacto-emergencia")
+	    public ResponseEntity<ContactoEmergencia> modificarContacto(@RequestBody ContactoEmergencia contacto) {
+	        ContactoEmergencia actualizado = contactoEmergenciaService.modificar(contacto);
+	        if (actualizado != null) {
+	            return ResponseEntity.ok(actualizado);
+	        } else {
+	            return ResponseEntity.notFound().build();
+	        }
+	    }
+
+
+	    // Eliminar por entidad (por body)
+	    @DeleteMapping("/eliminar-contacto-emergencia")
+	    public ResponseEntity<Void> eliminarPorEntidad(@RequestBody ContactoEmergencia contacto) {
+	        int resultado = contactoEmergenciaService.eliminarPorEntidad(contacto);
+	        return resultado == 1 ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+	    }
+
+	   
+	   
+	   @GetMapping("/contacto-emergencia-por-paciente/{correo}")
+	   public ResponseEntity<List<ContactoEmergencia>> obtenerContactosPorPaciente(@PathVariable String correo) {
+	       List<ContactoEmergencia> contactos = contactoEmergenciaService.buscarContactosDePacienteCorreo(correo);
+	       if (contactos != null) {
+	           return ResponseEntity.ok(contactos);
+	       } else {
+	           return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	       }
+	   }
+
 
 }
 	
