@@ -1,12 +1,14 @@
 package medicamentos.repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import medicamentos.entities.Alerta;
+import medicamentos.entities.EstadoAlerta;
 import medicamentos.entities.Medicamento;
 import medicamentos.entities.Paciente;
 
@@ -16,6 +18,9 @@ public interface AlertaRepository extends JpaRepository<Alerta, Integer>{
 	long countByMedicamentoAndPacienteAndFechaHoraAlertaAfter(@Param("medicamento") Medicamento medicamento, 
 	                                                          @Param("paciente") Paciente paciente, 
 	                                                          @Param("fechaActual") LocalDateTime fechaActual);
+	
+	List<Alerta> findByEstadoAlertaAndFechaHoraAlertaBefore(EstadoAlerta estado, LocalDateTime fecha);
+
 
 	
 

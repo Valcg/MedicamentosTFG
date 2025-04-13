@@ -1,7 +1,7 @@
 package medicamentos.restController;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +20,8 @@ import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
 import medicamentos.entities.PacienteMedicamento;
 import medicamentos.entities.Receta;
-import medicamentos.entities.Usuario;
-import medicamentos.service.AlertaService;
+
+
 import medicamentos.service.HistorialDeTomaService;
 import medicamentos.service.MedicamentoService;
 import medicamentos.service.PacienteService;
@@ -35,8 +35,7 @@ public class PacienteRestController {
 	@Autowired
 	private  PacienteService pacienteService;
 	
-	@Autowired
-	private  AlertaService alertaService;
+
 	
 	@Autowired
 	private  HistorialDeTomaService historialDeTomaService;
@@ -86,7 +85,7 @@ public class PacienteRestController {
 	
 	  @PostMapping("/confirmarToma/{idAlerta}")//-------- PARA CONFIRMAR LA TOMA En hsitorial de Tomas , una vez se Confirma en el Front ya no se puede cambiar
 	    public ResponseEntity<String> confirmarToma(@PathVariable int idAlerta) {
-	        boolean resultado = historialDeTomaService.confirmarToma(idAlerta);
+	        boolean resultado = historialDeTomaService.confirmarTomaDesdeHistorial(idAlerta);
 
 	        if (resultado) {
 	            return new ResponseEntity<>("Toma confirmada correctamente", HttpStatus.OK);
@@ -206,6 +205,17 @@ public class PacienteRestController {
 	            }
 	        } catch (Exception e) {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al verificar stock");
+	        }
+	    }
+	 
+	   @PostMapping("/registrar-tomas-vencidas")
+	    public ResponseEntity<String> registrarTomasNoConfirmadas() {
+	        try {
+	        	historialDeTomaService.registrarTomasNoConfirmadas();
+	            return ResponseEntity.ok("Tomas no confirmadas registradas correctamente.");
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                    .body("Error al registrar tomas no confirmadas: " + e.getMessage());
 	        }
 	    }
 	 

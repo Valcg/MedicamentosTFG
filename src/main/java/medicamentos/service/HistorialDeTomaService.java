@@ -6,5 +6,8 @@ public interface HistorialDeTomaService extends IntGenericoCrud<HistorialDeTomaS
 
 	 public boolean AceptarToma(int idAlerta);
 
-	public boolean confirmarToma(int idAlerta);
+	public boolean confirmarTomaDesdeHistorial(int idAlerta);
+	
+	public void registrarTomasNoConfirmadas();
+
 }

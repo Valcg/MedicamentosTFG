@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -131,25 +131,86 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	}
 	
 	
+	@Transactional
 	@Override
-	public boolean confirmarToma(int idAlerta) {
+	public boolean confirmarTomaDesdeHistorial(int idAlerta) {
 	    try {
-	        // Buscar la alerta en la base de datos
-	        Alerta alerta = alertaRepository.findById(idAlerta).orElse(null);
-	        if (alerta != null && alerta.getEstadoAlerta() == EstadoAlerta.sinConfirmar) {
-	            // Cambiar el estado de la alerta a "confirmado"
-	            alerta.setEstadoAlerta(EstadoAlerta.confirmado);
-	            // Guardar la alerta con el nuevo estado
-	            alertaRepository.save(alerta);
-	            return true; // La toma fue confirmada correctamente
+	        // Buscar la alerta
+	        Alerta alerta = alertaRepository.findById(idAlerta)
+	                .orElseThrow(() -> new RuntimeException("Alerta no encontrada"));
+
+	        // Verificar si ya fue confirmada
+	        if (alerta.getEstadoAlerta() == EstadoAlerta.confirmado) {
+	            return false; // Ya estaba confirmada
 	        }
-	        // Si la alerta no fue encontrada o ya está confirmada
-	        return false;
+
+	        // Marcar la alerta como confirmada (aunque fue tarde)
+	        alerta.setEstadoAlerta(EstadoAlerta.confirmadaTarde);
+	        alertaRepository.save(alerta);
+
+	        // Buscar receta activa
+	        Receta receta = recetaRepository.findByPacienteIdAndMedicamentoIdAndCaducidadActiva(
+	                alerta.getPaciente().getIdPaciente(),
+	                alerta.getMedicamento().getIdMedicamento()
+	        );
+
+	        if (receta == null) {
+	            throw new RuntimeException("No se encontró receta activa para este medicamento y paciente");
+	        }
+
+	        // Buscar stock del paciente
+	        PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepository
+	                .VermismedicamentosDisponibles(
+	                        alerta.getPaciente().getIdPaciente(),
+	                        alerta.getMedicamento().getIdMedicamento()
+	                );
+
+	        if (pacienteMedicamento == null) {
+	            throw new RuntimeException("No se encontró stock del paciente para este medicamento");
+	        }
+
+	        // Restar dosis
+	        int cantidadNueva = pacienteMedicamento.getCantidadDisponible() - receta.getDosis();
+	        pacienteMedicamento.setCantidadDisponible(cantidadNueva);
+	        pacienteMedicamentoRepository.save(pacienteMedicamento);
+
+	        return true;
+
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        return false; // Si ocurre un error, retornamos false
+	        return false;
 	    }
 	}
+	
+	@Transactional
+	public void registrarTomasNoConfirmadas() {
+	    LocalDateTime ahora = LocalDateTime.now();
+
+	    // Buscar alertas pasadas que no se han confirmado
+	    List<Alerta> alertasVencidas = alertaRepository
+	            .findByEstadoAlertaAndFechaHoraAlertaBefore(EstadoAlerta.sinConfirmar, ahora);
+
+	    for (Alerta alerta : alertasVencidas) {
+	        // Verificar si ya existe una entrada en el historial para evitar duplicados
+	        boolean yaRegistrada = historialTomasRepository.existsByAlerta(alerta);
+
+	        if (!yaRegistrada) {
+	            // Insertar en historial como toma no confirmada
+	            HistorialDeToma tomaNoConfirmada = HistorialDeToma.builder()
+	                    .paciente(alerta.getPaciente())
+	                    .alerta(alerta)
+	                    .fechaHoraToma(alerta.getFechaHoraAlerta()) // Se registra la hora de la alerta
+	                    .build();
+
+	            historialTomasRepository.save(tomaNoConfirmada);
+
+	            // (opcional) Puedes mantener el estado de la alerta como sinConfirmar o marcarla como "caducada"
+	            // alerta.setEstadoAlerta(EstadoAlerta.caducada);
+	            // alertaRepository.save(alerta);
+	        }
+	    }
+	}
+
 
 
 }

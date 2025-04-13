@@ -2,6 +2,7 @@ package medicamentos.entities;
 
 public enum EstadoAlerta {
 	confirmado,
-	sinConfirmar
+	sinConfirmar,
+	confirmadaTarde
 
 }

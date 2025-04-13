@@ -6,5 +6,8 @@ import medicamentos.entities.Alerta;
 import medicamentos.entities.HistorialDeToma;
 
 public interface HistorialDeTomaRepository extends JpaRepository<HistorialDeToma, Integer> {
+	
+	boolean existsByAlerta(Alerta alerta);
+
 
 }
