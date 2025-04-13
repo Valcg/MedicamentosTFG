@@ -7,10 +7,12 @@ axios.get("http://localhost:9050/medicos/BuscarTodosLosMedicamentos")
         // Asegúrate de que response.data contiene el array de medicamentos
         console.log(response); // Imprime toda la respuesta para verificar la estructura
         const medicamentos = response.data;  // Esto debe ser el array de objetos con los medicamentos
+
         let opcionesMedicamentos = medicamentos.map(med => 
             `<option value="${med.idMedicamento}">${med.nombreMedicamento}</option>`
         ).join("");  // Usamos nombreMedicamento para mostrar el nombre del medicamento
 
+        // Crear el formulario para la receta
         resultadoDiv.innerHTML = `
             <div id="crearRecetaDiv">
                 <h3>Crear Receta</h3>
@@ -74,7 +76,7 @@ function enviarReceta() {
                 return;
             }
 
-            // Verificar si ya existe una receta con el mismo medicamento para este paciente
+            // Crear el objeto recetaDto con los datos del formulario
             const recetaDto = {
                 paciente: paciente,
                 numeroColegiado: document.getElementById("numero_colegiado").value,
@@ -87,27 +89,16 @@ function enviarReceta() {
                 caducidad: document.getElementById("caducidad").value
             };
 
-            // Verificar si ya existe la receta para el mismo medicamento
-            axios.get(`http://localhost:9050/medicos/RecetaExistente?correo=${correoPaciente}&idMedicamento=${recetaDto.medicamento.idMedicamento}`)
+            // Crear la receta directamente
+            axios.post("http://localhost:9050/medicos/CrearReceta", recetaDto)
                 .then(res => {
-                    if (res.data.exists) {
-                        document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">¡Esta receta ya existe! Si quieres otra, debes cancelar la receta anterior.</span>`;
-                    } else {
-                        // Si no existe la receta, crearla
-                        axios.post("http://localhost:9050/medicos/CrearReceta", recetaDto)
-                            .then(res => {
-                                document.getElementById("mensajeReceta").innerHTML = `<span style="color:green;">Receta creada correctamente</span>`;
-                            })
-                            .catch(err => {
-                                console.error("Error al crear receta:", err);
-                                document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">Error al crear receta</span>`;
-                            });
-                    }
+                    document.getElementById("mensajeReceta").innerHTML = `<span style="color:green;">Receta creada correctamente</span>`;
                 })
                 .catch(err => {
-                    console.error("Error al verificar receta existente:", err);
-                    document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">Error al verificar si la receta existe.</span>`;
+                    console.error("Error al crear receta:", err);
+                    document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">Error al crear receta</span>`;
                 });
+
         })
         .catch(error => {
             document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">Paciente no encontrado</span>`;

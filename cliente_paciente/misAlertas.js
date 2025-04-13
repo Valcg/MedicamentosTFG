@@ -36,7 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(res => {
             const alertas = res.data; // DATOS DE LAS ALERTAS
             console.log("data", res.data);
-            console.log(alertas); // Verifica los datos que estás recibiendo
+
+
+            
+            console.log("alertas",alertas); // Verifica los datos que estás recibiendo
 
             // SI NO HAY ALERTAS, MOSTRAR MENSAJE
             if (!alertas || alertas.length === 0) {
