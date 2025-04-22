@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     const alertasContainer = document.getElementById("mis-alertas-medicas");
 
@@ -39,10 +40,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     axios.get(url)
         .then(res => {
-            const alertas = res.data;
+            let alertas = res.data;
 
             if (!alertas || alertas.length === 0) {
                 alertasContainer.innerHTML = "<p>No hay alertas disponibles.</p>";
+                return;
+            }
+
+            // Filtrar solo alertas futuras
+            const ahora = new Date();
+            alertas = alertas
+                .map(alerta => ({
+                    ...alerta,
+                    fechaHoraDate: new Date(alerta.fechaHoraAlerta)
+                }))
+                .filter(alerta => alerta.fechaHoraDate >= ahora)
+                .sort((a, b) => a.fechaHoraDate - b.fechaHoraDate); // Ordenar por fecha ascendente
+
+            if (alertas.length === 0) {
+                alertasContainer.innerHTML = "<p>No hay próximas alertas médicas.</p>";
                 return;
             }
 
@@ -93,14 +109,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     const cantidadUnidad = alerta.medicamento ? alerta.medicamento.cantidadUnidad : 'No disponible';
                     const idMedicamento = alerta.medicamento ? alerta.medicamento.idMedicamento : null;
 
-                    // Estado: verificar el valor correcto
                     const estadoAlerta = alerta.estadoAlerta === 'sinConfirmar'
                         ? `<span style="color: red; font-weight: bold;">Sin Confirmar</span>`
                         : alerta.estadoAlerta === 'confirmado'
                         ? `<span style="color: green; font-weight: bold;">Confirmado</span>`
-                        : `<span>${alerta.estadoAlerta}</span>`; // Si el estado es diferente, lo mostramos tal cual
+                        : `<span>${alerta.estadoAlerta}</span>`;
 
-                    // Fila con los datos
                     fila.innerHTML = `
                         <td><strong>${alerta.horaTexto}</strong></td>
                         <td>${estadoAlerta}</td>
@@ -109,7 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>${cantidadUnidad === 20 ? '20' : cantidadUnidad}</td>
                     `;
 
-                    // Acciones (medicamento stock)
                     const celdaAccion = document.createElement("td");
                     if (idMedicamento) {
                         const urlCantidad = `http://localhost:9050/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
@@ -139,3 +152,4 @@ document.addEventListener("DOMContentLoaded", function () {
             alertasContainer.innerHTML = "<p>Error al cargar las alertas.</p>";
         });
 });
+
