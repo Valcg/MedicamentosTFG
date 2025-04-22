@@ -50,44 +50,88 @@
     <main id="usuario-main">
         <!-- Sección con los divs de contenido -->
         <section id="usuario-divs-container">
+<!-- DIV 5 ------------------------------------------------------- -->
+            <div class="usuario-div usuario-div-cinco">
+       
+                <div id ="unico"><h1>MEDICO : Alta de Medicamento</h1>
+                                  
+                <!-- Formulario de alta de medicamento -->
+                <form id="formAltaMedicamento">
+                    <label for="nombreMedicamento">Nombre del Medicamento:</label>
+                    <input type="text" id="nombreMedicamento" name="nombreMedicamento" required placeholder="Ej: Paracetamol 600 mg">
+                    <br>
 
-           <!-- DIV 5 --------------- -->
-           <div class="usuario-div usuario-div-cinco">
-            <div id="unico">
-                <h1>MEDICO : Asociar Paciente</h1>
-        
-                <!-- Formulario para asociar paciente -->
-               <!-- Formulario para asociar paciente -->
-<label for="numeroColegiado">Número de Colegiado:</label>
-<input type="text" id="numeroColegiado" required>
-<br>
-<label for="correoPaciente">Correo del Paciente:</label>
-<input type="email" id="correoPaciente" required>
-<br>
-<button id="btnAsociarPaciente">Asociar Paciente</button>
+                    <label for="unidadMedicamento">Unidad de Medida:</label>
+                    <select id="unidadMedicamento" name="unidadMedicamento" required>
+                        <option value="">Seleccione una unidad</option>
+                        <option value="mg">mg (miligramos)</option>
+                        <option value="ml">ml (mililitros)</option>
+                        <option value="mg/ml">mg/ml (miligramos por mililitro)</option>
+                        <option value="g">g (gramos)</option>
+                        <option value="%">% (porcentaje de concentración)</option>
+                        <option value="mcg/dosis">mcg/dosis (microgramos por dosis)</option>
+                    </select>
+                    <br>
 
-<!-- Área para mostrar el mensaje de éxito o error -->
-<div id="mensajeAsociacion"></div>
+                    <label for="cantidadUnidad">Cantidad Total por Caja:</label>
+                    <input type="number" id="cantidadUnidad" name="cantidadUnidad" min="1" required placeholder="Cantidad por caja">
+                    <br>
 
-<!-- Vinculamos el archivo JS -->
+                    <button type="button" id="btnAltaMedicamento">Registrar Medicamento</button>
+                    <div id="mensajeAlta"></div> <!-- Aquí va el mensaje de validación -->
+                </form>
+
+                <div id="nombreRenderizado" style="margin-top: 5px; font-size: 14px; font-family: arial;"></div>
+
+                <!-- Vinculamos el archivo JS -->
+                    
+                </div>
+            
+                
 
 
-                <script src="AsociarPaciente.js"></script>
             </div>
-        </div>
+<!-- DIV 5 ------------------------------------------------------- -->
+<div class="usuario-div usuario-div-cinco">
+   
+    <div id ="unico"><h1>MEDICO : Gestión de Medicamentos</h1>
+                      
+
+        <!-- Buscador por nombre -->
+        <section id="buscador">
+            <label for="nombreMedicamentoBusqueda">Buscar por nombre:</label>
+            <input type="text" id="nombreMedicamentoBusqueda" placeholder="Ej. Paracetamol">
+            <button id="btnBuscarMedicamento">Buscar</button>
+            <div id="resultadoBusqueda"></div>
+        </section>
         
 
 
-
-<div class="usuario-div usuario-div-cinco">
-    
-
-<div ><a href="../HomeMedico.html" style="color: red;" >VOLVER A HOME</a></div>
-
-
+        <hr>
+        <!-- Lista de todos los medicamentos -->
+        <section id="listaMedicamentos">
+            <h2>Todos los Medicamentos</h2>
+            <table id="tablaMedicamentos" border="1">
+                <thead>
+                    <tr>
+                        <th>Nombre del Medicamento</th>
+                        <th>Cantidad Total por Caja</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se insertarán los medicamentos -->
+                </tbody>
+            </table>
+        </section>
+        
+    </div>
 </div>
 
-            <!-- DIV 6 FOOTER --------------- -->
+<div class="usuario-div usuario-div-cinco">  
+<div ><a href="../HomeMedico.html" style="color: red;" >VOLVER A HOME</a></div>
+</div>
+
+<!-- DIV 6 FOOTER --------------- -->
             <div class="usuario-div-seis">
                             <!-- ---------------- RRSS -->
                             <div class="usu-footer" id="rrss"> 
@@ -136,12 +180,11 @@
             <!-- Enlazamos al archivo main.js -->
             <script src="../main.js"></script>
 
+            <script src="SeccionMedicamentos.js"></script>
 
-            
-  
 </body>
 </html>
-<!-- ------------------------------------------------------- -->
+
 
 
 

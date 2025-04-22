@@ -1,113 +1,137 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ELEMENTOS DE MANEJO DE DOM
     const alertasContainer = document.getElementById("mis-alertas-medicas");
 
-    // Crear la tabla
-    const tabla = document.createElement("table");
-    tabla.innerHTML = `
-        <thead>
-            <tr>
-                <th>Fecha y Hora</th>
-                <th>Estado</th>
-                <th>Tipo de Alerta</th>
-                <th>Medicamento</th>
-                <th>Cantidad por Unidad de cada caja/blister/frasco</th>
-                <th>Acción</th> <!-- Nueva columna para el botón de ver cantidad -->
-            </tr>
-        </thead>
-        <tbody></tbody>
-    `;
-    const cuerpoTabla = tabla.querySelector("tbody");
+    // ---------- INICIO TRANSFORMACIÓN DE FECHA ----------
+    function obtenerFechaYHoraFormateada(fechaStr) {
+        const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 
+                       'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
-    // OBTENER EL idPaciente DESDE localStorage
+        const fecha = new Date(fechaStr);
+        const diaSemana = dias[fecha.getDay()];
+        const dia = fecha.getDate();
+        const mes = meses[fecha.getMonth()];
+        const año = fecha.getFullYear();
+        const hora = fecha.getHours().toString().padStart(2, '0');
+        const minutos = fecha.getMinutes().toString().padStart(2, '0');
+
+        const fechaTexto = `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)} ${dia} de ${mes} de ${año}`;
+        const horaTexto = `${hora}:${minutos}`;
+
+        const claveAgrupacion = `${año}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+
+        return {
+            fechaTexto,
+            horaTexto,
+            claveAgrupacion
+        };
+    }
+    // ---------- FIN TRANSFORMACIÓN DE FECHA ----------
+
     const idPaciente = localStorage.getItem("idUsuario");
 
-    // VALIDAR QUE EL idPaciente EXISTA
     if (!idPaciente) {
         alertasContainer.innerHTML = "<p>Error: No se encontró el ID del paciente en localStorage.</p>";
         return;
     }
 
-    // Construir la URL con el idPaciente
     const url = `http://localhost:9050/pacientes/VermisAlertas/${idPaciente}`;
 
-    // PETICIÓN GET CON AXIOS PARA OBTENER LAS ALERTAS DEL PACIENTE
     axios.get(url)
         .then(res => {
-            const alertas = res.data; // DATOS DE LAS ALERTAS
-            console.log("data", res.data);
-            console.log(alertas); // Verifica los datos que estás recibiendo
+            const alertas = res.data;
 
-            // SI NO HAY ALERTAS, MOSTRAR MENSAJE
             if (!alertas || alertas.length === 0) {
                 alertasContainer.innerHTML = "<p>No hay alertas disponibles.</p>";
-            } else {
-                // RECORREMOS CADA ALERTA Y AGREGAMOS UNA FILA A LA TABLA
-                alertas.forEach(alerta => {
+                return;
+            }
+
+            const alertasAgrupadas = {};
+
+            alertas.forEach(alerta => {
+                const { fechaTexto, horaTexto, claveAgrupacion } = obtenerFechaYHoraFormateada(alerta.fechaHoraAlerta);
+                if (!alertasAgrupadas[claveAgrupacion]) {
+                    alertasAgrupadas[claveAgrupacion] = {
+                        fechaTexto,
+                        alertas: []
+                    };
+                }
+                alertasAgrupadas[claveAgrupacion].alertas.push({
+                    ...alerta,
+                    horaTexto
+                });
+            });
+
+            const tabla = document.createElement("table");
+            tabla.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Fecha y Hora</th>
+                        <th>Estado</th>
+                        <th>Tipo de Alerta</th>
+                        <th>Medicamento</th>
+                        <th>Cantidad por Unidad de cada caja/blister/frasco</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            `;
+            const cuerpoTabla = tabla.querySelector("tbody");
+
+            for (const clave in alertasAgrupadas) {
+                const grupo = alertasAgrupadas[clave];
+
+                // Fila de fecha
+                const filaTitulo = document.createElement("tr");
+                filaTitulo.innerHTML = `<td colspan="6" style="background-color: white; font-weight: bold; padding: 10px;">${grupo.fechaTexto}</td>`;
+                cuerpoTabla.appendChild(filaTitulo);
+
+                grupo.alertas.forEach(alerta => {
                     const fila = document.createElement("tr");
 
-                    // Obtener la fecha y hora formateada en "DD/MM/YYYY HH:MM"
-                    const fechaHora = new Date(alerta.fechaHoraAlerta);
-                    const dia = fechaHora.getDate().toString().padStart(2, '0'); // DD
-                    const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0'); // MM
-                    const anio = fechaHora.getFullYear(); // YYYY
-                    const hora = fechaHora.getHours().toString().padStart(2, '0'); // HH
-                    const minutos = fechaHora.getMinutes().toString().padStart(2, '0'); // MM
-                    const fechaHoraFormateada = `${dia}/${mes}/${anio} ${hora}:${minutos}`; // Formato final
-
-                    // Accediendo al nombre del medicamento y stock
                     const nombreMedicamento = alerta.medicamento ? alerta.medicamento.nombreMedicamento : 'No disponible';
                     const cantidadUnidad = alerta.medicamento ? alerta.medicamento.cantidadUnidad : 'No disponible';
                     const idMedicamento = alerta.medicamento ? alerta.medicamento.idMedicamento : null;
 
-                    // Crear el enlace <a>
-                    const enlace = document.createElement("a");
-                    enlace.href = "#";
-                    enlace.textContent = "VER MI CANTIDAD DISPONIBLE";
-                    enlace.classList.add("ver-stock-link"); // Clase para el estilo
+                    // Estado: verificar el valor correcto
+                    const estadoAlerta = alerta.estadoAlerta === 'sinConfirmar'
+                        ? `<span style="color: red; font-weight: bold;">Sin Confirmar</span>`
+                        : alerta.estadoAlerta === 'confirmado'
+                        ? `<span style="color: green; font-weight: bold;">Confirmado</span>`
+                        : `<span>${alerta.estadoAlerta}</span>`; // Si el estado es diferente, lo mostramos tal cual
 
-                    // Evento para el enlace
-                    enlace.addEventListener("click", function(event) {
-                        event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
-
-                        if (idMedicamento) {
-                            // Llamar al endpoint para obtener la cantidad disponible
-                            const urlCantidad = `http://localhost:9050/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
-
-                            axios.get(urlCantidad)
-                                .then(response => {
-                                    const stock = response.data ? response.data.cantidadDisponible : "No disponible";
-                                    console.log("stock ", response.data );
-                                    alert(`Cantidad disponible de ${nombreMedicamento}: ${stock}`);
-                                })
-                                .catch(error => {
-                                    console.error("Error al obtener la cantidad:", error);
-                                    alert("Hubo un error al obtener la cantidad.");
-                                });
-                        } else {
-                            alert("El medicamento no tiene un ID válido.");
-                        }
-                    });
-
-                    // Agregar los valores de cada alerta a las celdas de la fila
+                    // Fila con los datos
                     fila.innerHTML = `
-                        <td>${fechaHoraFormateada}</td>
-                        <td>${alerta.estadoAlerta}</td>
+                        <td><strong>${alerta.horaTexto}</strong></td>
+                        <td>${estadoAlerta}</td>
                         <td>${alerta.tipoAlerta}</td>
-                        <td>${nombreMedicamento}</td>
-                        <td>${cantidadUnidad}</td>
-                        <td></td> <!-- Columna para el enlace de acción -->
+                        <td><strong>${nombreMedicamento}</strong></td>
+                        <td>${cantidadUnidad === 20 ? '20' : cantidadUnidad}</td>
                     `;
 
-                    // Añadir el enlace en la última columna (Acción)
-                    fila.querySelector("td:nth-child(6)").appendChild(enlace);
+                    // Acciones (medicamento stock)
+                    const celdaAccion = document.createElement("td");
+                    if (idMedicamento) {
+                        const urlCantidad = `http://localhost:9050/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
 
-                    // Añadir la fila a la tabla
+                        axios.get(urlCantidad)
+                            .then(response => {
+                                const stock = response.data ? response.data.cantidadDisponible : "No disponible";
+                                celdaAccion.innerHTML = `<span style="font-weight: bold; color: orange;">${stock} unidades</span>`;
+                            })
+                            .catch(error => {
+                                console.error("Error al obtener la cantidad:", error);
+                                celdaAccion.innerHTML = `<span style="color: red; font-weight: bold;">Error al obtener</span>`;
+                            });
+                    } else {
+                        celdaAccion.innerHTML = `<span style="color: red; font-weight: bold;">ID inválido</span>`;
+                    }
+
+                    fila.appendChild(celdaAccion);
                     cuerpoTabla.appendChild(fila);
                 });
             }
 
-            // AGREGAR LA TABLA AL DOM
             alertasContainer.appendChild(tabla);
         })
         .catch(err => {

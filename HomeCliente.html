@@ -123,8 +123,9 @@
                             <div class="usuario-div-tres">
                                 <div id="fecha"></div>
                                 <div class="calendar-container">
-                                <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=Your_Timezone" 
-                                        style="border: 0;border-radius: 8px;" frameborder="0" scrolling="no" ></iframe>
+                                    <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=Your_Timezone" 
+                                    style="border: 0;border-radius: 8px;" frameborder="0" scrolling="no" ></iframe>
+                            
                                 </div>
                                 <div id="diacuenta"> " Hoy tienes 1 medicamento por tomar "</div>
                             </div>
@@ -181,10 +182,25 @@
     
 <!--SCRIPTS ------------------------------------------------------- -->
         <script src="main.js"></script>
-
-        <script src="miscuidadores.js"></script>
+        <script src="cliente_paciente/enlaces.js"></script>
+        <script src="cliente_paciente/miscuidadores.js"></script>
+       
+        <script>
+        // ------------------- Script 1: Mostrar fecha -------------------
+        document.addEventListener("DOMContentLoaded", function () {
+            // Obtener la fecha actual
+            const fecha = new Date();
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1; // Los meses comienzan desde 0
+            const anio = fecha.getFullYear();
         
-
+            // Crear el texto con la fecha
+            const textoFecha = `Hoy es : ${anio} / ${mes} / ${dia}`;
+        
+            // Insertar el texto en el div con id "fecha"
+            document.getElementById("fecha").textContent = textoFecha;
+        });
+       </script> 
 
 </body>
 </html>
