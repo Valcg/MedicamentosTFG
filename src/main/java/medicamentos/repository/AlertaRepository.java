@@ -20,6 +20,8 @@ public interface AlertaRepository extends JpaRepository<Alerta, Integer>{
 	                                                          @Param("fechaActual") LocalDateTime fechaActual);
 	
 	List<Alerta> findByEstadoAlertaAndFechaHoraAlertaBefore(EstadoAlerta estado, LocalDateTime fecha);
+	
+	 List<Alerta> findByPaciente(Paciente paciente);
 
 
 	

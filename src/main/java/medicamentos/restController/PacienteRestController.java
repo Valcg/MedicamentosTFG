@@ -27,6 +27,7 @@ import medicamentos.entities.Paciente;
 import medicamentos.entities.PacienteMedicamento;
 import medicamentos.entities.Receta;
 import medicamentos.entities.RelacionEnum;
+import medicamentos.service.AlertaService;
 import medicamentos.service.ContactoEmergenciaService;
 import medicamentos.service.HistorialDeTomaService;
 import medicamentos.service.MedicamentoService;
@@ -41,7 +42,11 @@ public class PacienteRestController {
 	@Autowired
 	private  PacienteService pacienteService;
 	
+	@Autowired
+	private  AlertaService alertaService;
+	
 
+	
 	
 	@Autowired
 	private  HistorialDeTomaService historialDeTomaService;
@@ -277,6 +282,29 @@ public class PacienteRestController {
 	    public RelacionEnum[] getRelaciones() {
 	        return RelacionEnum.values();
 	    }
+	   
+	   @GetMapping("/alertasDeHoy/{idPaciente}/alertas/hoy")
+	   public ResponseEntity<Integer> obtenerCantidadDeAlertasDeHoy(@PathVariable int idPaciente) {
+	       // Obtener el paciente con el id
+	       Paciente paciente = pacienteService.buscarPacientePorId(idPaciente);
+
+	       // Verificar si el paciente existe
+	       if (paciente == null) {
+	           // Si el paciente no existe, retornar un error 404
+	           return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                   .body(null);
+	       }
+
+	       // Llamar al servicio con el paciente
+	       int cantidad = alertaService.contarAlertasDeHoy(paciente);
+
+	       // Retornar la cantidad de alertas
+	       return ResponseEntity.ok(cantidad);
+	   }
+
+
+
+
 
 	   
 }

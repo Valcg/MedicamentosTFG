@@ -16,9 +16,9 @@ import medicamentos.entities.Usuario;
 
 public interface PacienteRepository extends JpaRepository<Paciente, Integer>{
 	
-	@Query("select R from Receta R where R.paciente.idPaciente = ?1 ")
+	@Query("SELECT R FROM Receta R WHERE R.paciente.idPaciente = ?1 ORDER BY R.fechaInicio DESC")
 	public List<Receta> Vermisrecetas(int idPaciente);
-	
+
 	@Query("SELECT r FROM Receta r WHERE r.paciente.idPaciente = :idPaciente AND r.caducidad = 'Activa'")
 	List<Receta> findRecetasActivas(int idPaciente);
 	

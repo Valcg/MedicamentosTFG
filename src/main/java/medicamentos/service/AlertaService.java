@@ -7,5 +7,7 @@ import medicamentos.entities.Receta;
 public interface AlertaService extends IntGenericoCrud<Alerta, Integer>{
 
 	public void confirmarAlerta(int idAlerta);
+	
+	public int contarAlertasDeHoy(Paciente paciente);
 
 }

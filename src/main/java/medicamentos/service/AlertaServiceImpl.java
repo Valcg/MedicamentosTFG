@@ -2,7 +2,9 @@ package medicamentos.service;
 
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +117,26 @@ public class AlertaServiceImpl implements AlertaService {
     }
 }
 	 * */
+
+
+
+    public int contarAlertasDeHoy(Paciente paciente) {
+        // Obtener el inicio y fin del día actual
+        LocalDate hoy = LocalDate.now();
+        LocalDateTime inicioDelDia = hoy.atStartOfDay();
+        LocalDateTime finDelDia = hoy.atTime(LocalTime.MAX);
+
+        // Obtener todas las alertas del paciente
+        List<Alerta> alertas = alertaRepository.findByPaciente(paciente);
+
+        // Filtrar las alertas que están dentro del rango de hoy
+        long cantidadDeAlertasDeHoy = alertas.stream()
+                .filter(alerta -> !alerta.getFechaHoraAlerta().isBefore(inicioDelDia) && !alerta.getFechaHoraAlerta().isAfter(finDelDia))
+                .count();
+
+        return (int) cantidadDeAlertasDeHoy;
+    }
+
 
 
 

@@ -25,6 +25,7 @@ public interface PacienteService extends IntGenericoCrud<Paciente, Integer> {
 	PacienteMedicamento verMisMedicamentosDisponibles(int idPaciente, int idMedicamento);
 	public  List<PacienteMedicamento> verMisMedicamentos(int idPaciente);
 	Optional<Paciente> buscarUsuarioCorreo(String correo);
+	Paciente buscarPacientePorId(int idPaciente);
 	
 	
 

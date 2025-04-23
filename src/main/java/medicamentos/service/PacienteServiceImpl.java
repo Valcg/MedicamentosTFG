@@ -125,5 +125,13 @@ public class PacienteServiceImpl implements PacienteService{
 		return pacienteMedicamentoRepository. verMisMedicamentosPacientes(idPaciente);
 	}
 
+	@Override
+	public Paciente buscarPacientePorId(int idPaciente) {
+		// TODO Auto-generated method stub
+		return pacienteRepository.findByIdPaciente(idPaciente);
+	}
+
+
+
 
 }
