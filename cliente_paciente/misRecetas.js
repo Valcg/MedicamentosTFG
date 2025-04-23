@@ -38,8 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         <strong>Fecha de Inicio de la Receta:</strong> ${receta.fechaInicio} <br>
                         <strong>Diagnóstico:</strong> ${receta.paciente.diagnostico} <br>
                         <strong>Duración del Tratamiento:</strong> ${receta.duracionTratamiento} días <br>
-                        <strong>Dosis:</strong> ${receta.dosis} <br>
-                        <strong>Frecuencia:</strong> ${receta.frecuencia} <br>
+                        <strong>Dosis:</strong> ${receta.dosis} ${receta.medicamento.nombreMedicamento.split(" ").slice(-1)[0]} <br>
+
+                        <strong>Frecuencia:</strong> ${receta.frecuencia} hora <br>
                         <strong>Estado de la Receta:</strong>    <hr>
                         <span style="color: ${colorCaducidad}; font-weight: bold;">
                             ${caducidadTexto}

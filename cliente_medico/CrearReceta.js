@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 `<option value="${med.idMedicamento}">${med.nombreMedicamento}</option>`
             ).join("");
 
+            // Oculte el numero de colegiado
             resultadoDiv.innerHTML = `
                 <div id="crearRecetaDiv">
                     <h3>Crear Receta</h3>
@@ -25,8 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <input type="text" id="correo_paciente">
                     <span id="mensajeCorreo" style="margin-left: 10px;"></span><br>
 
-                    <label>Número Colegiado:</label>
-                    <input type="text" id="numero_colegiado" value="${numeroColegiado}" readonly><br>
+                    <input type="hidden" id="numero_colegiado" value="${numeroColegiado}" readonly>
 
                     <label>Medicamento:</label>
                     <select id="id_medicamento">
@@ -72,9 +72,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 const paciente = response.data;
 
                 if (paciente) {
-                    mensajeCorreo.style.color = "green";
-                    mensajeCorreo.textContent = "✔ Correo existe como paciente";
-                    mensajeCorreo.dataset.valido = "true";
+                    // Verificar si el paciente está asociado al médico
+                    axios.get(`http://localhost:9050/medicos/VerMisPacientes/${numeroColegiado}`)
+                        .then(pacientesAsociadosResponse => {
+                            const pacientesAsociados = pacientesAsociadosResponse.data;
+                            const pacienteAsociado = pacientesAsociados.find(p => p.usuario.correo === correo);
+
+                            if (pacienteAsociado) {
+                                mensajeCorreo.style.color = "green";
+                                mensajeCorreo.textContent = "✔ Correo existe como paciente y está asociado al médico";
+                                mensajeCorreo.dataset.valido = "true";
+                            } else {
+                                mensajeCorreo.style.color = "red";
+                                mensajeCorreo.textContent = "Correo no asociado a este médico";
+                                mensajeCorreo.dataset.valido = "false";
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error al obtener pacientes asociados:", error);
+                            mensajeCorreo.style.color = "red";
+                            mensajeCorreo.textContent = "Error al verificar la asociación con el médico";
+                            mensajeCorreo.dataset.valido = "false";
+                        });
                 } else {
                     mensajeCorreo.style.color = "red";
                     mensajeCorreo.textContent = "Correo no asociado a un paciente";
@@ -120,13 +139,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         document.getElementById("mensajeReceta").innerHTML = `<span style="color:green;">Receta creada correctamente</span>`;
                     })
                     .catch(err => {
-                        // Mostrar el mensaje de error directamente en el frontend si la receta ya existe
                         document.getElementById("mensajeReceta").innerHTML =
                             `<span style="color:red;">Ya existe una receta para este medicamento. Si quieres crear una nueva receta, debes caducar la receta que está dada de alta.</span>`;
-                                        // Agregar el botón para redirigir a la página VerMisPacientes.html
-                                        document.getElementById("mensajeReceta").innerHTML += 
-                                        `<br><button id="btnRedirigir" style="background-color: #f44336; color: white; padding: 10px 15px; border: none; cursor: pointer;" onclick="window.location.href='VerMisPacientes.html';">Ir a Ver Mis Pacientes</button>`;
-                                });
+                        document.getElementById("mensajeReceta").innerHTML += 
+                            `<br><button id="btnRedirigir" style="background-color: #f44336; color: white; padding: 10px 15px; border: none; cursor: pointer;" onclick="window.location.href='VerMisPacientes.html';">Ir a Ver Mis Pacientes</button>`;
+                    });
             })
             .catch(error => {
                 document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">Paciente no encontrado</span>`;
