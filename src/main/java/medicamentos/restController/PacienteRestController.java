@@ -24,6 +24,7 @@ import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
 import medicamentos.entities.PacienteMedicamento;
 import medicamentos.entities.Receta;
+import medicamentos.entities.RelacionEnum;
 import medicamentos.service.ContactoEmergenciaService;
 import medicamentos.service.HistorialDeTomaService;
 import medicamentos.service.MedicamentoService;
@@ -270,6 +271,10 @@ public class PacienteRestController {
 	       }
 	   }
 
+	   @GetMapping("/relacionesContactoEmergencia")
+	    public RelacionEnum[] getRelaciones() {
+	        return RelacionEnum.values();
+	    }
 
 }
 	
