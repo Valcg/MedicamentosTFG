@@ -1,11 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Elementos del DOM
     const correoInput = document.getElementById("correo");
     const contrasenaInput = document.getElementById("contrasena");
-    
     const btnIniciarSesion = document.getElementById("btnIniciarSesion");
 
-    // Evento para iniciar sesión
     btnIniciarSesion.addEventListener("click", function (event) {
         event.preventDefault();
         
@@ -17,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Realizar petición POST con Axios incluyendo los headers
         axios.post("http://localhost:9050/usuarios/inicioSesion", 
             { correo: correo, contrasena: contrasena },
             { headers: { "Content-Type": "application/json" } }
@@ -27,16 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Respuesta del servidor:", data);
             
             if (typeof data === "object" && data.tipoUsuario) {
-                const tipoUsuario = data.tipoUsuario.toUpperCase(); // Convertir a mayúsculas por seguridad
-                const idUsuario = data.id; // Puede ser idPaciente o numeroColegiado
-                
-                // Guardar en localStorage
+                const tipoUsuario = data.tipoUsuario.toUpperCase();
+                const idUsuario = data.id;
+
                 localStorage.setItem("idUsuario", idUsuario);
                 localStorage.setItem("correo", correo);
                 localStorage.setItem("tipoUsuario", tipoUsuario);
-
-                // Mostrar alerta con el tipo de usuario
-                alert("Inicio de sesión exitoso. Tu cuenta es de tipo: " + tipoUsuario);
 
                 // Redirigir según el tipo de usuario
                 if (tipoUsuario === "PACIENTE") {

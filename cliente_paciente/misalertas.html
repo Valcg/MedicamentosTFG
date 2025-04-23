@@ -33,13 +33,13 @@
             background-color: white;
             padding: 30px;
             border-radius: 15px;
-            border: 1px solid red;
+            border: 1px solid #84CBF1; /*  #84CBF1 */
             width: 50%;
             max-width: 700px; /* Increased max-width for larger modal */
             min-width: 400px; /* Set a minimum width for better responsiveness */
             text-align: left;
             position: relative;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
             overflow-y: auto; /* Allow scrolling if content is too large */
         }
 
@@ -86,26 +86,7 @@
             background-color: #218838;
         }
 
-        /* Link Styling */
-        .ver-stock-link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            background-color: lightsalmon;
-            height: 50px;
-            width: 200px;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
-            transition: 0.3s ease-in-out;
-            margin: auto;
-            font-size: 12px;
-        }
 
-        .ver-stock-link:hover {
-            background: darkorange;
-        }
 
         /* Ensure spacing between content */
         .modal-content p {
@@ -135,24 +116,28 @@
 
     <!-- MAIN-USUARIO ------------------------------------------------------- -->
     <main id="usuario-main">
+        <a href="../HomeCliente.html" id="volverHomeCli">Volver al inicio</a>
         <h1 class="cliTitulos">Mis Alertas Médicas</h1>
 
         <div id="mis-alertas-medicas"></div>
-        <a href="../HomeCliente.html" id="volverHomeCli">Volver al inicio</a>
+        <a href="#" id="scrollToTop">VOLVER HACIA ARRIBA</a>
         <script src="misAlertas.js"></script>
         <script src="alertamodal.js"></script>
 
-        <!-- Botón para abrir la modal -->
-        <button id="openModalBtn" class="open-modal-btn">VER LA ALERTA MÁS PRÓXIMA A LA TOMA</button>
+<!-- Botón para abrir la modal -->
+<button id="openModalBtn" class="open-modal-btn">VER LA ALERTA MÁS PRÓXIMA A LA TOMA</button>
 
-        <!-- Modal Structure -->
-        <div id="modalalerta" class="modal">
-            <div class="modal-content">
-                <span class="close" id="closeModalBtn">&times;</span>
-                <p>Este es el mensaje de la alerta médica.</p>
-                <button id="confirmBtn" class="confirm-btn">Leído</button>
-            </div>
-        </div>
+<!-- Modal de alerta médica -->
+<div id="modalalerta" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModalBtn">&times;</span>
+        <p>Este es el mensaje de la alerta médica.</p>
+        <button id="confirmBtn" class="confirm-btn">Leído</button>
+    </div>
+</div>
+
+
+        
     </main>
 
     <!-- FOOTER ------------------------------------------------------- -->
@@ -189,6 +174,17 @@
             document.getElementById("modalalerta").style.display = "none";
         });
     </script>
+
+<script>
+    document.getElementById("scrollToTop").addEventListener("click", function(event) {
+        event.preventDefault(); // Evita el comportamiento por defecto del enlace
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+</script>
+
 
 </body>
 </html>
