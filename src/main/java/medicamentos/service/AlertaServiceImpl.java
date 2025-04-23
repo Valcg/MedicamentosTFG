@@ -79,44 +79,6 @@ public class AlertaServiceImpl implements AlertaService {
 		    }
 		
 	}
-	/*
-	 * public void confirmarAlerta(int idAlerta) {
-    try {
-        // Buscar la alerta por su ID
-        Alerta alerta = alertaRepository.findById(idAlerta)
-                .orElseThrow(() -> new RuntimeException("Alerta no encontrada"));
-
-        // Cambiar el estado de la alerta a 'confirmado'
-        alerta.setEstadoAlerta(EstadoAlerta.confirmado);
-        alertaRepository.save(alerta);
-
-        // Obtener la receta relacionada con la alerta
-        Receta receta = alerta.getReceta();
-        if (receta == null) {
-            throw new RuntimeException("La alerta no tiene una receta asociada");
-        }
-
-        // Obtener paciente y medicamento de la receta
-        Paciente paciente = receta.getPaciente();
-        Medicamento medicamento = receta.getMedicamento();
-
-        // Buscar el registro de PacienteMedicamento
-        PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepository
-                .findByPacienteAndMedicamento(paciente, medicamento)
-                .orElseThrow(() -> new RuntimeException("No se encontró stock para el paciente y medicamento"));
-
-        // Restar la dosis
-        int nuevaCantidad = pacienteMedicamento.getCantidadDisponible() - receta.getDosis();
-        pacienteMedicamento.setCantidadDisponible(nuevaCantidad);
-
-        // Guardar los cambios
-        pacienteMedicamentoRepository.save(pacienteMedicamento);
-
-    } catch (Exception e) {
-        throw new RuntimeException("Error al confirmar la alerta: " + e.getMessage());
-    }
-}
-	 * */
 
 
 

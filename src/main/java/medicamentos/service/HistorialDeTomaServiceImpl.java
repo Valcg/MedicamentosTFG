@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import medicamentos.entities.Alerta;
+import medicamentos.entities.Caducidad;
 import medicamentos.entities.EstadoAlerta;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.PacienteMedicamento;
@@ -122,6 +123,19 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	        // Marcar la alerta como confirmada después de realizar todas las acciones
 	        alerta.setEstadoAlerta(EstadoAlerta.confirmado);
 	        alertaRepository.save(alerta);
+	        
+	        // Contar las alertas pendientes para este medicamento y paciente
+	        long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfter(
+	                alerta.getMedicamento(),
+	                alerta.getPaciente(),
+	                LocalDateTime.now()
+	        );
+
+	        // Si no hay más alertas pendientes, caducar la receta
+	        if (alertasPendientes == 0) {
+	        	 receta.setCaducidad(Caducidad.Caducada);
+	            recetaRepository.save(receta);
+	        }
 
 	        return true; // Todo salió bien
 	    } catch (Exception e) {
@@ -173,6 +187,19 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	        int cantidadNueva = pacienteMedicamento.getCantidadDisponible() - receta.getDosis();
 	        pacienteMedicamento.setCantidadDisponible(cantidadNueva);
 	        pacienteMedicamentoRepository.save(pacienteMedicamento);
+	        
+	     // Contar las alertas pendientes para este medicamento y paciente
+	        long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfter(
+	                alerta.getMedicamento(),
+	                alerta.getPaciente(),
+	                LocalDateTime.now()
+	        );
+
+	        // Si no hay más alertas pendientes, caducar la receta
+	        if (alertasPendientes == 0) {
+	            receta.setCaducidad(Caducidad.Caducada);
+	            recetaRepository.save(receta);
+	        }
 
 	        return true;
 
