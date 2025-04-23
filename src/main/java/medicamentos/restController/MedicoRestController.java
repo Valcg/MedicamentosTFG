@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
+import medicamentos.entities.EstadoAlerta;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medicamento;
 import medicamentos.entities.Medico;
@@ -195,7 +196,10 @@ public class MedicoRestController {
 		        return paciente.map(ResponseEntity::ok)
 		                       .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 		    }
-
+		 @GetMapping("/estadoBuscador")
+		    public EstadoAlerta[] getEstadoAlerta() {
+		        return EstadoAlerta.values();
+		    }
 
 	}
 

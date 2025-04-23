@@ -1,5 +1,6 @@
 package medicamentos.restController;
 
+
 import java.util.List;
 
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import medicamentos.entities.Alerta;
 import medicamentos.entities.ContactoEmergencia;
+import medicamentos.entities.EstadoAlerta;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medico;
 import medicamentos.entities.Paciente;
@@ -276,6 +278,7 @@ public class PacienteRestController {
 	        return RelacionEnum.values();
 	    }
 
+	   
 }
 	
 
