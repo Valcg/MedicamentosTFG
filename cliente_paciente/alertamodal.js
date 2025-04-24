@@ -56,8 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td style="font-weight: normal; padding: 10px; text-align: right;">Cantidad por unidad:</td>
                     <td style="padding: 5px; text-align: left;">${cantidadUnidad}</td>
                 </tr>
+
                 <tr>
-                    <td style="font-weight: normal; padding: 10px; text-align: right;">Acción:</td>
+                    <td style="font-weight: normal; padding: 10px; text-align: right;">Acción(mi stock actual):</td>
                     <td id="cantidad-stock" style="padding: 10px; text-align: left;">Cargando...</td>
                 </tr>
                 <tr>
@@ -178,6 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
         axios.get(url)
             .then(res => {
                 const alertas = res.data;
+                console.log(alertas)
                 const ahora = new Date();
 
                 const alertasFuturas = alertas.filter(alerta => {

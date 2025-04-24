@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         axios.get(`http://localhost:9050/pacientes/VerMisMedicamentos/paciente/${idPaciente}`)
             .then(response => {
                 const medicamentos = response.data;
+                console.log(medicamentos);
                 tablaBody.innerHTML = "";
 
                 if (!medicamentos || medicamentos.length === 0) {
@@ -16,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 medicamentos.forEach(item => {
                     const row = `
                         <tr>
-                            <td>${medicamento.nombreMedicamento}</td>
+                            <td>${item.medicamento.nombreMedicamento}</td>
                             <td>${item.cantidadDisponible}</td>
                         </tr>
                     `;

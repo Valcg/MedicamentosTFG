@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <strong>Especialidad:</strong> ${medico.especialidad || "No disponible"} <br>
                     <strong>Estado:</strong> ${medico.usuario.enabled ? "Activo" : "Inactivo"} <br>
                     <strong>Tipo de Usuario:</strong> ${medico.usuario.tipoUsuario} <br>
-                    <strong>Teléfono:</strong> ${medico.telefono || "No disponible"} <br>
+                   
                 `;
 
                 // AGREGAMOS EL DIV AL FRAGMENTO PARA OPTIMIZAR EL RENDIMIENTO

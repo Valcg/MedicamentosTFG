@@ -40,7 +40,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     axios.get(url)
         .then(res => {
+
+            //const alertas = res.data; // DATOS DE LAS ALERTAS
+            //console.log("data", res.data);
+           // console.log("alertas",alertas); // Verifica los datos que estás recibiendo
+
             let alertas = res.data;
+
 
             if (!alertas || alertas.length === 0) {
                 alertasContainer.innerHTML = "<p>No hay alertas disponibles.</p>";

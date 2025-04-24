@@ -5,6 +5,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const idPaciente = localStorage.getItem("idUsuario");
 
+    const selectRelacion = document.getElementById("relacionEnum");
+    
+
+    // Verificamos que el select exista antes de usarlo
+    if (!selectRelacion) {
+        console.error("No se encontró el select con id 'relacionEnum'");
+        return;
+    }
+
+    // Cargar las opciones del enum
+    axios.get("http://localhost:9050/pacientes/relacionesContactoEmergencia")
+        .then(response => {
+            const relaciones = response.data;
+
+            // Agregar las demás opciones
+            relaciones.forEach(relacion => {
+                const option = document.createElement("option");
+                option.value = relacion;
+                option.textContent = relacion.replace("_", " ").toUpperCase();
+                selectRelacion.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error("Error al obtener las relaciones:", error);
+            mensaje.innerHTML = "<p style='color:red;'>No se pudieron cargar las relaciones de contacto.</p>";
+        });
+
     if (!idPaciente) {
         mensaje.innerHTML = "<p>Error: No se encontró el ID del paciente en localStorage.</p>";
         return;
@@ -46,10 +73,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 mensaje.innerHTML = "<p>Contacto de emergencia guardado con éxito.</p>";
                 form.reset();
                 console.log("Guardado correctamente:", res.data);
+               
             })
             .catch(err => {
                 console.error("Error al guardar contacto:", err);
                 mensaje.innerHTML = "<p>Error al guardar el contacto.</p>";
             });
     });
+<<<<<<< HEAD
 });
+=======
+
+    
+});
+>>>>>>> dbb6703c894309b65ea550e70e9e0f85d6ab8492
