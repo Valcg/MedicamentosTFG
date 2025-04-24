@@ -142,36 +142,21 @@
 
 
 <!-- ALTA CONTACTO------------------------------------------------------- -->
+<form id="form-contacto">
+    <input type="text" id="nombre" placeholder="Nombre del contacto" required />
+    <input type="number" id="telefono" placeholder="Teléfono" required />
+    <select id="relacionEnum" required>
+        <option value="">Seleccione una relación</option>
+    </select>
+        <input type="text" id="relacionEspecifica" placeholder="Relación específica" />
+    <input type="text" id="comentarios" placeholder="Comentarios" />
+    <input type="email" id="correo" placeholder="Correo electrónico" />
+    <button type="submit">Guardar contacto</button>
+  </form>
+  
+  <div id="mensaje"></div>
 
-                <form id="form-contacto">
-                    <input type="text" id="nombre" placeholder="Nombre del contacto" required />
-                    <input type="number" id="telefono" placeholder="Teléfono" required />
-<<<<<<< HEAD
-                    <select id="relacionEnum" required>
-                        <option value="">Seleccione una relación</option>
-                    </select>
-                    
-=======
-                    <!-- <input type="text" id="relacionEnum" placeholder="Relación (Ej: MADRE, PADRE)" required /> -->
-                    <select id="relacionEnum" required>
-                        <option value="">Seleccione una relación</option>
-                      </select>
-                      
->>>>>>> dbb6703c894309b65ea550e70e9e0f85d6ab8492
-                    <input type="text" id="relacionEspecifica" placeholder="Relación específica" />
-                    <input type="text" id="comentarios" placeholder="Comentarios" />
-                    <input type="email" id="correo" placeholder="Correo electrónico" />
-                    <button type="submit">Guardar contacto</button>
-                  </form>
-                  
-                  <div id="mensaje"></div>
-
-<<<<<<< HEAD
-<script src="/cliente_paciente/contactoalta.js">  </script>                  
-<!-- VER CONTACTO ; MODIFICAR ELIMINAR ------------------------------------------------------- -->
-=======
-<script src="cliente_paciente/contactoalta.js">  </script>                  
->>>>>>> dbb6703c894309b65ea550e70e9e0f85d6ab8492
+<script src="/cliente_paciente/contactoalta.js">  </script>  
 
             <div id="tabla-contactos-container">
                 <h2>Contactos de Emergencia</h2>
