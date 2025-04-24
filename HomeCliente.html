@@ -137,10 +137,16 @@
             <!-- DIV 5 --------------- -->
             <div class="usuario-div usuario-div-cinco">Cinco
 
+
+<!-- ALTA CONTACTO------------------------------------------------------- -->
+
                 <form id="form-contacto">
                     <input type="text" id="nombre" placeholder="Nombre del contacto" required />
                     <input type="number" id="telefono" placeholder="Teléfono" required />
-                    <input type="text" id="relacionEnum" placeholder="Relación (Ej: MADRE, PADRE)" required />
+                    <select id="relacionEnum" required>
+                        <option value="">Seleccione una relación</option>
+                    </select>
+                    
                     <input type="text" id="relacionEspecifica" placeholder="Relación específica" />
                     <input type="text" id="comentarios" placeholder="Comentarios" />
                     <input type="email" id="correo" placeholder="Correo electrónico" />
@@ -150,6 +156,7 @@
                   <div id="mensaje"></div>
 
 <script src="/cliente_paciente/contactoalta.js">  </script>                  
+<!-- VER CONTACTO ; MODIFICAR ELIMINAR ------------------------------------------------------- -->
 
             <div id="tabla-contactos-container">
                 <h2>Contactos de Emergencia</h2>
