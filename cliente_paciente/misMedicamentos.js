@@ -1,34 +1,100 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const tablaBody = document.querySelector("#tablaMedicamentosPaciente tbody");
-    const idPaciente = 1; // <- Reemplazá esto por el ID real del paciente
+    const idPaciente = 1;  // ID del paciente (reemplázalo según sea necesario)
+    const tablaBody = document.querySelector("#tablaMedicamentosPaciente tbody");  // Referencia al tbody de la tabla
 
+    // Cargar los medicamentos al cargar la página
     function cargarMisMedicamentos() {
-        axios.get(`http://localhost:9050/pacientes/VerMisMedicamentos/paciente/${idPaciente}`)
+        const url = `http://localhost:9050/pacientes/VerMisMedicamentos/paciente/${idPaciente}`;
+
+        axios.get(url)
             .then(response => {
                 const medicamentos = response.data;
-                console.log(medicamentos);
+
+                // Limpiar el contenido actual de la tabla
                 tablaBody.innerHTML = "";
 
                 if (!medicamentos || medicamentos.length === 0) {
-                    tablaBody.innerHTML = "<tr><td colspan='2'>No tienes medicamentos registrados.</td></tr>";
+                    const row = document.createElement("tr");
+                    const td = document.createElement("td");
+                    td.setAttribute("colspan", "4");
+                    td.textContent = "No tienes medicamentos registrados.";
+                    row.appendChild(td);
+                    tablaBody.appendChild(row);
                     return;
                 }
 
+                // Crear filas de la tabla para cada medicamento
                 medicamentos.forEach(item => {
-                    const row = `
-                        <tr>
-                            <td>${item.medicamento.nombreMedicamento}</td>
-                            <td>${item.cantidadDisponible}</td>
-                        </tr>
-                    `;
-                    tablaBody.innerHTML += row;
+                    const row = document.createElement("tr");
+
+                    // Columna del nombre del medicamento
+                    const nombreTd = document.createElement("td");
+                    nombreTd.textContent = item.medicamento.nombreMedicamento;
+                    row.appendChild(nombreTd);
+
+                    // Columna de la cantidad disponible
+                    const cantidadTd = document.createElement("td");
+                    cantidadTd.setAttribute("id", `cantidad-${item.medicamento.idMedicamento}`);
+                    cantidadTd.textContent = item.cantidadDisponible;
+                    row.appendChild(cantidadTd);
+
+                    // Columna de acciones (para agregar stock)
+                    const accionesTd = document.createElement("td");
+
+                    const input = document.createElement("input");
+                    input.setAttribute("type", "number");
+                    input.setAttribute("min", "1");
+                    input.setAttribute("value", "1");
+                    input.setAttribute("id", `input-${item.medicamento.idMedicamento}`);
+                    input.style.width = "50px";
+
+                    const button = document.createElement("button");
+                    button.textContent = "Agregar Stock";
+                    button.onclick = function() {
+                        agregarStock(idPaciente, item.medicamento.idMedicamento);
+                    };
+
+                    accionesTd.appendChild(input);
+                    accionesTd.appendChild(button);
+                    row.appendChild(accionesTd);
+
+                    // Añadir la fila creada al cuerpo de la tabla
+                    tablaBody.appendChild(row);
                 });
             })
             .catch(error => {
-                tablaBody.innerHTML = "<tr><td colspan='2'>Error al cargar tus medicamentos.</td></tr>";
+                tablaBody.innerHTML = "<tr><td colspan='4'>Error al cargar tus medicamentos.</td></tr>";
                 console.error("Error al obtener medicamentos del paciente:", error);
             });
     }
 
-    cargarMisMedicamentos();
+    cargarMisMedicamentos();  // Cargar los medicamentos cuando la página se cargue
+
+    // Función para agregar stock de un medicamento
+    window.agregarStock = function(idPaciente, idMedicamento) {
+        const input = document.getElementById(`input-${idMedicamento}`);
+        const cantidadCajas = parseInt(input.value);
+
+        if (isNaN(cantidadCajas) || cantidadCajas <= 0) {
+            alert("Ingresa una cantidad válida.");
+            return;
+        }
+
+        // Realizar la solicitud POST para agregar stock
+        const url = `http://localhost:9050/pacientes/${idPaciente}/medicamentos/${idMedicamento}/agregar-stock?cantidadCajas=${cantidadCajas}`;
+
+        axios.post(url)
+            .then(response => {
+                alert(response.data);  // Mostrar mensaje de éxito
+
+                // Actualizar solo la cantidad en la tabla sin recargar
+                const cantidadCell = document.getElementById(`cantidad-${idMedicamento}`);
+                const nuevaCantidad = parseInt(cantidadCell.textContent) + cantidadCajas;
+                cantidadCell.textContent = nuevaCantidad;
+            })
+            .catch(error => {
+                alert("Error al agregar stock.");
+                console.error(error);
+            });
+    };
 });

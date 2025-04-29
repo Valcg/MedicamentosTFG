@@ -45,36 +45,34 @@
         </nav>
     </header>
 
-    <!-- MAIN-USUARIO ------------------------------------------------------- -->
-    <main id="usuario-main">
-        <!-- Aquí está el contenedor donde se mostrarán las recetas -->
-        <h1 class="cliTitulos">Mis Medicamentos</h1>
-        <table id="tablaMedicamentosPaciente">
-            <thead>
-                <tr>
-                    <th>Medicamento</th>
-                    <th>Cantidad Disponible</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Datos dinámicos aquí -->
-            </tbody>
-        </table>
-        <!-- Mostrar botón para ver medicamentos -->
-        <div id="seccion-medicamentos">
+<!-- MAIN-USUARIO ------------------------------------------------------- -->
+<main id="usuario-main">
+ 
+    <div id="seccion-medicamentos">  
+         <h1 class="cliTitulos">Mis Medicamentos</h1>
+  
+    <table id="tablaMedicamentosPaciente">
+        <thead>
+            <tr>
+                <th>Nombre del Medicamento</th>
+                <th>Cantidad Disponible</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Las filas de los medicamentos se agregarán aquí dinámicamente -->
+        </tbody>
+    </table>
+    
 
 
-            </table>
-            
-        </div>
-        <script src="misMedicamentos.js"></script>
+    </div>
 
+    <script src="misMedicamentos.js"></script>
 
+    <a href="../HomeCliente.html" id="volverHomeCli">Volver al inicio</a>
+</main>
 
-        <a href="../HomeCliente.html" id="volverHomeCli">Volver al inicio</a>
-
-        <script src="misRecetas.js"></script><!-- style en CLIENTE  -->
-    </main>
     
     <!-- FOOTER ------------------------------------------------------- -->
     <footer id="footer-dos">
