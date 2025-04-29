@@ -79,6 +79,15 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	        if (alerta.getEstadoAlerta() == EstadoAlerta.confirmado) {
 	            return false; // Ya estaba confirmada, no se hace nada
 	        }
+	        
+	        // Buscar la receta asociada con el paciente y el medicamento de la alerta
+	        Receta receta = recetaRepository.findByPacienteIdAndMedicamentoIdAndCaducidadActiva(
+	        		
+	                alerta.getPaciente().getIdPaciente(),
+	                alerta.getMedicamento().getIdMedicamento()
+	        );
+
+	        
 
 	        // Registrar la toma en HISTORIAL_TOMAS
 	        HistorialDeToma nuevaToma = HistorialDeToma.builder()
@@ -88,12 +97,7 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	                .build();
 	        historialTomasRepository.save(nuevaToma);
 
-	        // Buscar la receta asociada con el paciente y el medicamento de la alerta
-	        Receta receta = recetaRepository.findByPacienteIdAndMedicamentoIdAndCaducidadActiva(
-	        		
-	                alerta.getPaciente().getIdPaciente(),
-	                alerta.getMedicamento().getIdMedicamento()
-	        );
+	    
 	        System.out.println("receta" + receta);
 
 	        if (receta == null) {
@@ -111,9 +115,14 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	        );
 	        System.out.println("medicamentos disponibles"+ pacienteMedicamento);
 	        
-	        if (pacienteMedicamento == null) {
+	        if (pacienteMedicamento == null ) {
 	        	System.out.println("No se encontró el medicamento en stock para este paciente.");
 	            throw new RuntimeException("No se encontró el medicamento en stock para este paciente.");
+	        }
+	        // si no hay dufientes cantidades de medicamento no se podra onfimar la toma 
+	        if (pacienteMedicamento.getCantidadDisponible() < dosisRecetada) {
+	            System.out.println("No hay suficiente medicamento para confirmar la toma.");
+	            throw new RuntimeException("No hay suficiente medicamento para confirmar la toma.");
 	        }
 	        	int cantidadNueva = pacienteMedicamento.getCantidadDisponible() - dosisRecetada;
 	        	System.out.println("nueva cantidad resta"+cantidadNueva);
@@ -181,6 +190,11 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 
 	        if (pacienteMedicamento == null) {
 	            throw new RuntimeException("No se encontró stock del paciente para este medicamento");
+	        }
+	        
+	        if (pacienteMedicamento.getCantidadDisponible() < receta.getDosis()) {
+	            System.out.println("No hay suficiente medicamento para confirmar la toma.");
+	            throw new RuntimeException("No hay suficiente medicamento para confirmar la toma.");
 	        }
 
 	        // Restar dosis

@@ -224,6 +224,24 @@ public class PacienteRestController {
 	        }
 	    }
 	 
+	 
+	    // Confirmar alerta bajo stock (cambia estado a confirmado)
+	    @PostMapping("/confirmarAlertaBajoStock/{idAlerta}")
+	    public ResponseEntity<String> confirmarAlerta(@PathVariable int idAlerta) {
+	        boolean resultado = alertaService.confirmarAlertaBajoStock(idAlerta);
+	        return resultado
+	                ? ResponseEntity.ok("Alerta confirmada correctamente.")
+	                : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo confirmar la alerta.");
+	    }
+
+	    // Posponer alerta bajo stock (suma 3 horas, cambia estado)
+	    @PostMapping("/posponerAlertaBajoStock/{idAlerta}")
+	    public ResponseEntity<String> posponerAlerta(@PathVariable int idAlerta) {
+	        boolean resultado = alertaService.posponerAlertaBajoStock(idAlerta);
+	        return resultado
+	                ? ResponseEntity.ok("Alerta pospuesta correctamente.")
+	                : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo posponer la alerta.");
+	    }
 	   @PostMapping("/registrar-tomas-vencidas")
 	    public ResponseEntity<String> registrarTomasNoConfirmadas() {
 	        try {
@@ -282,7 +300,7 @@ public class PacienteRestController {
 	    public RelacionEnum[] getRelaciones() {
 	        return RelacionEnum.values();
 	    }
-	   
+	   // esto es para el home page debajo del hroario 
 	   @GetMapping("/alertasDeHoy/{idPaciente}/alertas/hoy")
 	   public ResponseEntity<Integer> obtenerCantidadDeAlertasDeHoy(@PathVariable int idPaciente) {
 	       // Obtener el paciente con el id

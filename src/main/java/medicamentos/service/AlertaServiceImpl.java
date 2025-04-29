@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import medicamentos.entities.Alerta;
 import medicamentos.entities.EstadoAlerta;
 import medicamentos.entities.Medicamento;
@@ -98,6 +99,58 @@ public class AlertaServiceImpl implements AlertaService {
 
         return (int) cantidadDeAlertasDeHoy;
     }
+
+	
+	 @Override
+	 @Transactional
+	 public boolean confirmarAlertaBajoStock(int idAlerta) {
+	     try {
+	         System.out.println("Intentando confirmar alerta con ID: " + idAlerta);
+	         Alerta alerta = alertaRepository.findById(idAlerta)
+	                 .orElseThrow(() -> new RuntimeException("Alerta no encontrada"));
+
+	         System.out.println("Tipo de alerta: " + alerta.getTipoAlerta());
+	         System.out.println("Estado actual de la alerta: " + alerta.getEstadoAlerta());
+
+	         if (alerta.getTipoAlerta() == TipoAlerta.bajo_stock &&
+	             alerta.getEstadoAlerta() != EstadoAlerta.confirmado) {
+
+	             alerta.setEstadoAlerta(EstadoAlerta.confirmado);
+	             alertaRepository.save(alerta);
+	             System.out.println("Alerta confirmada con éxito.");
+	             return true;
+	         }
+
+	         System.out.println("No se cumplen las condiciones para confirmar la alerta.");
+	         return false;
+	     } catch (Exception e) {
+	         System.err.println("Error al confirmar la alerta: " + e.getMessage());
+	         e.printStackTrace();
+	         return false;
+	     }
+	 }
+	@Override
+	 @Transactional
+	    public boolean posponerAlertaBajoStock(int idAlerta) {
+	        try {
+	            Alerta alerta = alertaRepository.findById(idAlerta)
+	                    .orElseThrow(() -> new RuntimeException("Alerta no encontrada"));
+
+	            if (alerta.getTipoAlerta() == TipoAlerta.bajo_stock &&
+	                alerta.getEstadoAlerta() == EstadoAlerta.sinConfirmar) {
+
+	                alerta.setFechaHoraAlerta(alerta.getFechaHoraAlerta().plusHours(3));
+	                alerta.setEstadoAlerta(EstadoAlerta.sinConfirmar); // Asegúrate de tener este enum
+	                alertaRepository.save(alerta);
+	                return true;
+	            }
+
+	            return false;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+	    }
 
 
 
