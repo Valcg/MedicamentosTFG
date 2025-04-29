@@ -3,6 +3,7 @@ package medicamentos.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mapping.AccessOptions.SetOptions.Propagation;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private MedicoColegiadoRepository medicoColegiadoRepository;
 	@Autowired
 	private MedicoRepository medicoRepository;
+
+
 	
 	@Override
 	//@Transactional()
@@ -47,7 +50,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 	        Usuario usuario = new Usuario();
 	        usuario.setNombre(usuarioDTO.getNombre());
 	        usuario.setApellido(usuarioDTO.getApellido());
-	        usuario.setContrasena(usuarioDTO.getContrasena());
+	        //usuario.setContrasena(usuarioDTO.getContrasena());
+	  
+	   
+	        String contrasenaHasheada = BCrypt.hashpw(usuarioDTO.getContrasena(), BCrypt.gensalt());
+	        usuario.setContrasena(contrasenaHasheada);
+	        
 	        usuario.setDni(usuarioDTO.getDni());
 	        usuario.setCorreo(usuarioDTO.getCorreo());
 	        usuario.setTipoUsuario(tipoUsuario);

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,7 @@ public class UsuarioRestController {
 	@Autowired 
 	private PacienteService pacienteService;
 	
+
    
 	@PutMapping("/modificar")
 	public ResponseEntity<?> modificar(@RequestBody Usuario usuario) {
@@ -95,7 +97,7 @@ public class UsuarioRestController {
 	        }
 	        
 	        // SI LA CONTRASEÑA NO COINCIDE, DEVOLVER ERROR 401
-	        if (!usuario1.getContrasena().equals(usuario.getContrasena())) {
+	        if (!BCrypt.checkpw(usuario.getContrasena(), usuario1.getContrasena())) {
 	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
 	        }
 
