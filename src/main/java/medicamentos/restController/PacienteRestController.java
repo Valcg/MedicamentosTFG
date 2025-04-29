@@ -229,6 +229,7 @@ public class PacienteRestController {
 	    @PostMapping("/confirmarAlertaBajoStock/{idAlerta}")
 	    public ResponseEntity<String> confirmarAlerta(@PathVariable int idAlerta) {
 	        boolean resultado = alertaService.confirmarAlertaBajoStock(idAlerta);
+	        System.out.println("Buscando alerta con ID: " + idAlerta);
 	        return resultado
 	                ? ResponseEntity.ok("Alerta confirmada correctamente.")
 	                : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo confirmar la alerta.");
@@ -238,6 +239,8 @@ public class PacienteRestController {
 	    @PostMapping("/posponerAlertaBajoStock/{idAlerta}")
 	    public ResponseEntity<String> posponerAlerta(@PathVariable int idAlerta) {
 	        boolean resultado = alertaService.posponerAlertaBajoStock(idAlerta);
+	        System.out.println("Buscando alerta con ID: " + idAlerta);
+
 	        return resultado
 	                ? ResponseEntity.ok("Alerta pospuesta correctamente.")
 	                : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo posponer la alerta.");
