@@ -74,27 +74,39 @@ document.addEventListener("DOMContentLoaded", function () {
     window.agregarStock = function(idPaciente, idMedicamento) {
         const input = document.getElementById(`input-${idMedicamento}`);
         const cantidadCajas = parseInt(input.value);
-
+    
         if (isNaN(cantidadCajas) || cantidadCajas <= 0) {
             alert("Ingresa una cantidad válida.");
             return;
         }
-
-        // Realizar la solicitud POST para agregar stock
+    
         const url = `http://localhost:9050/pacientes/${idPaciente}/medicamentos/${idMedicamento}/agregar-stock?cantidadCajas=${cantidadCajas}`;
-
+    
         axios.post(url)
             .then(response => {
-                alert(response.data);  // Mostrar mensaje de éxito
-
-                // Actualizar solo la cantidad en la tabla sin recargar
+                alert(response.data);  // Stock agregado correctamente
+    
+                // Recargar stock actualizado
+                return axios.get(`http://localhost:9050/pacientes/VerMisMedicamentos/paciente/${idPaciente}`);
+            })
+            .then(res => {
+                const listaMedicamentos = res.data;
+                const actualizado = listaMedicamentos.find(med => med.medicamento.idMedicamento === idMedicamento);
+                if (!actualizado) return;
+    
                 const cantidadCell = document.getElementById(`cantidad-${idMedicamento}`);
-                const nuevaCantidad = parseInt(cantidadCell.textContent) + cantidadCajas;
-                cantidadCell.textContent = nuevaCantidad;
+                cantidadCell.textContent = actualizado.cantidadDisponible;
+                input.value = "1";  // Reset input
             })
             .catch(error => {
-                alert("Error al agregar stock.");
-                console.error(error);
+                if (error.response && error.response.status === 304) {
+                    alert("Ya hay suficiente stock, no es necesario agregar más.");
+                } else {
+                    alert("Error al agregar stock.");
+                    console.error(error);
+                }
             });
     };
-});
+    
+    
+}); 
