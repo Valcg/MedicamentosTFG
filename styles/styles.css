@@ -1,13 +1,101 @@
 
-/* --------------------------- ESTILOS GENERALES --------------------------- */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "Noto Sans", serif;
-    font-optical-sizing: auto;
-    font-style: normal;
+            /* --------------------------- ESTILOS GENERALES --------------------------- */
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Noto Sans", serif;
+                font-optical-sizing: auto;
+                font-style: normal;
 
-}
+            }
+
+            /* --------------------------- SECTION LOGIN --------------------------- */
+            .cliente-bg {
+                background-image: url('../img/clienteindex.jpg');
+                background-size: cover;
+                background-position: center;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                /* overflow: hidden; */
+                background-color: rgba(0, 0, 0, 0.2);
+                background-blend-mode: multiply;
+            }
+
+            #login {
+                flex: 1 1 300px;
+                margin: 10px;
+                max-width: 400px;
+            }
+
+            .login-cliente {
+                background-color: white;
+                padding: 15px 30px 30px 30px;
+                border-radius: 8px;
+                text-align: center; /* Texto centrado en la sección login */
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+                max-width: 400px;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .login-cliente h2 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #333; /* Color de texto oscuro */
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .login-cliente form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px; /* Espacio entre elementos */
+            }
+
+            .login-cliente label {
+                margin-bottom: 5px;
+                text-align: left; /* Alinea el texto a la izquierda */
+            }
+
+            .login-cliente input,
+            .login-cliente select {
+                padding: 8px;
+                border-radius: 20px;
+                border: 1px solid #ccc; /* Borde gris */
+                font-size: 14px;
+                width: 100%;
+                box-sizing: border-box; /* Incluye el padding en el ancho */
+            }
+
+            .login-cliente input:focus,
+            .login-cliente select:focus {
+                border-color: #00669C;
+                outline: none; /* Elimina el outline por defecto */
+            }
+
+            .login-cliente button.inicio-sesion {
+                padding: 12px;
+                border-radius: 20px;
+                border: none;
+                background-color: #00669C;
+                color: white;
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: bold;
+                width: 200px; /* Ancho fijo */
+                height: 36px; /* Alto fijo de 36px */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto; /* Centra el botón */
+                transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+            }
+
+            .login-cliente button.inicio-sesion:hover {
+                background-color: #004d76; /* Color más oscuro al hacer hover */
+                color: #84CBF1;
+            }
+
 
 /* --------------------------- HEADER --------------------------- */
 #header {
@@ -87,8 +175,8 @@ body {
 
 .info-text p {
     margin-bottom: 10px;
-    font-weight: 300; /* TIPO */
-    color: lightgray;
+    font-weight: 400; /* TIPO */
+    color: white;
 }
 
 .info-text a {
@@ -101,9 +189,6 @@ body {
     color: #84CBF1; /* Color más oscuro al hacer hover */
     text-decoration: underline;
 }
-
-
-
 
 
 /* --------------------------- FOOTER --------------------------- */
