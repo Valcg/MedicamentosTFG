@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
         const resRelaciones = await axios.get("http://localhost:9050/pacientes/relacionesContactoEmergencia");
         relacionesEnumGlobal = resRelaciones.data;
+        
     } catch (error) {
         console.error("Error al obtener relacionesEnum:", error);
         mensaje.innerText = "Error al cargar opciones de relación.";

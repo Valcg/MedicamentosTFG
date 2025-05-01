@@ -9,9 +9,13 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
 
     recetasContainer.innerHTML = `<h3>Recetas de ${nombrePaciente}</h3><p>Cargando...</p>`;
 
-    axios.get(`http://localhost:9050/medicos/VerRecetasDeMisPacientes/paciente/${idPaciente}/medico/${numeroColegiado}`)
+    //axios.get(`http://localhost:9050/medicos/VerRecetasDeMisPacientes/paciente/${idPaciente}/medico/${numeroColegiado}`)
+    axios.get(`http://localhost:9050/pacientes/VerMisRecetas/${idPaciente}`)
+    
+
         .then(response => {
             const recetas = response.data;
+            console.log(recetas);
 
             if (!recetas || recetas.length === 0) {
                 recetasContainer.innerHTML = `<h3>Recetas de ${nombrePaciente}</h3><p>No hay recetas disponibles.</p>`;
@@ -27,6 +31,9 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
                         <th>Frecuencia (h)</th>
                         <th>Duración (días)</th>
                         <th>Estado</th>
+                         <th>Medico</th>
+                          <th>especialidad del Medico</th>
+                           <th>email de Medico</th>
                         <th>Acción</th> <!-- Nueva columna para el botón -->
                     </tr>
                 </thead>
@@ -39,6 +46,10 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
                 const frecuencia = receta.frecuencia ?? "No especificada";
                 const duracion = receta.duracionTratamiento ?? "No especificada";
                 const estado = receta.caducidad ?? "Desconocido";
+                const medico = receta.medico.usuario.nombre ?? "Desconocido";
+                const especialidad = receta.medico.especialidad ?? "Desconocido";
+                const emailMedico = receta.medico.usuario.correo ?? "Desconocido";
+
 
                 // Verificar si la receta tiene alertas pendientes
                 const tieneAlertasPendientes = receta.alertas && receta.alertas.some(alerta => alerta.estado === 'sinConfirmar');
@@ -56,6 +67,9 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
                         <td>${frecuencia}</td>
                         <td>${duracion}</td>
                         <td id="estado_${receta.idReceta}">${estado}</td>
+                         <td>${medico}</td>
+                         <td>${especialidad}</td>
+                         <td>${emailMedico}</td>
                         <td>${caducarButton}</td>
                     </tr>`;
             });
