@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const idPaciente = 1;  // ID del paciente (reemplázalo según sea necesario)
+    const idPaciente = localStorage.getItem("idUsuario");
+    if (!idPaciente) {
+        console.error("Error: No se encontró el ID del paciente en localStorage.");
+        return;  // Detener la ejecución si no se encuentra el idPaciente
+    }
+  
     const tablaBody = document.querySelector("#tablaMedicamentosPaciente tbody");  // Referencia al tbody de la tabla
 
     // Cargar los medicamentos al cargar la página
@@ -106,7 +111,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error(error);
                 }
             });
-    };
-    
+    };   
     
 }); 
