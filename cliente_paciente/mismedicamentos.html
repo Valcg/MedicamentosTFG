@@ -176,19 +176,18 @@
     <script src="../main.js"></script>
 
     <script>
-        // Abrir el modal
         document.getElementById("btnAbrirBajoStock").addEventListener("click", function () {
-    document.getElementById("modalBajoStock").classList.add("show");
-});
-
-document.getElementById("closeModalBajoStockBtn").addEventListener("click", function () {
-    document.getElementById("modalBajoStock").classList.remove("show");
-});
-
-document.getElementById("confirmBtn").addEventListener("click", function () {
-    document.getElementById("modalBajoStock").classList.remove("show");
-});
-
+            document.getElementById("modalBajoStock").classList.add("show");
+        });
+    
+        document.getElementById("closeModalBajoStockBtn").addEventListener("click", function () {
+            document.getElementById("modalBajoStock").classList.remove("show");
+        });
+    
+        document.getElementById("confirmBtn").addEventListener("click", function () {
+            document.getElementById("modalBajoStock").classList.remove("show");
+        });
     </script>
+    
 </body>
 </html>
