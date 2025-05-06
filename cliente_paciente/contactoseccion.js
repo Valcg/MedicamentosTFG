@@ -53,8 +53,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <td><input type="text" value="${contacto.comentarios || ''}" /></td>
                 <td><input type="text" value="${contacto.correo || ''}" /></td>
                 <td>
-                    <button class="btn-guardar" data-id="${contacto.idContacto}">Guardar</button>
-                    <button class="btn-eliminar" data-id="${contacto.idContacto}">Eliminar</button>
+                    <button class="btn-guardar" data-id="${contacto.idContacto}" ><div id="btnAgregar" class="btn-agregar">GUARDAR</div></button>
+                    <button class="btn-eliminar" data-id="${contacto.idContacto}"><div class="eliminar-btn-miscuidadores">X</div></button>
                 </td>
             `;
 

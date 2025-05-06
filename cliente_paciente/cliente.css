@@ -318,7 +318,7 @@ border-radius: 8px;}
 
         } 
 /*----------------------------------------------------------*/
-@media (max-width: 768px) {
+@media (max-width: 770px) {
     #header-cliente-uno {
         width: 90%; /* El header ocupará el 90% en pantallas más pequeñas */
     }
@@ -332,6 +332,14 @@ border-radius: 8px;}
     .nav-cliente-dos ul li {
         margin: 5px 0;
     }
+    
+    .usuario-div-seis {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .usu-footer {width: 100%;}
+
 }
 
 /* --------------------------- MAIN --------------------------- */
@@ -343,61 +351,12 @@ border-radius: 8px;}
     border-radius: 8px;
 }
 
-/* --------------------------- DIVS INTERIORES --------------------------- */
-#usuario-divs-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; /* Alinea los elementos con espacio entre ellos */
-}
-
-/* Divs con diferentes anchos */
-.usuario-div {
-    padding: 20px;
-    border-radius: 8px;
-    margin: 20px;
-}
-
-/* Div "uno" ocupa 100% */
-.usuario-div-uno {
-    background-color: white;
-    width: 100%;
-}
-
-/* Contenedor de los divs "dos" y "tres" para mantenerlos en la misma línea */
-.usuario-div-dos-tres-container {
-    display: flex;
-    gap: 15px; /* Añadido un pequeño espacio entre los divs "dos" y "tres" */
-    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
-    margin: 20px;
-}
-                /* Div "dos" ocupa el 60% (ajustado para que se acomode en la misma línea) */
-                .usuario-div-dos {
-                    background-color: white;
-                    width: 60%;
-                    border-radius: 8px;
-                    text-align: center;
-                    padding: 30px 0; /* MIS CUIDADORES*/
-                }
-
-                /* Div "tres" ocupa el 40% (ajustado para que se acomode en la misma línea) */
-                .usuario-div-tres {
-                    background-color: white;
-                    border-radius: 8px;
-                    width: 40%;
-
-                    padding: 20px; /*PARA EL CALENDARIO*/
-
-                    max-width: 100%;
-                    box-sizing: border-box;
-            
-                }
-
 /*--------------CALENDARIO*/                  
     #fecha {
         text-align: center;
         width: 100%;
         margin:10px 0;
-        padding: 20px 0;
+        padding: 60px 0;
         font-size: 16px;
         font-weight: bold;
         font-family: Arial, sans-serif;
@@ -409,7 +368,7 @@ border-radius: 8px;}
         text-align: center;
         width: 100%;
         margin:10px 0;
-        padding: 20px 0;
+        padding: 60px 0;
         font-size: 16px;
         font-family: Arial, sans-serif;
         background-color: rgb(189, 215, 255);
@@ -418,7 +377,7 @@ border-radius: 8px;}
       }
       .calendar-container {
         width: 100%;
-        height: 250px;  /* Ajusta esta altura según el tamaño deseado */
+        height: 400px;  /* Ajusta esta altura según el tamaño deseado */
         margin-top: 10px;
       }
       .calendar-container iframe {
@@ -428,11 +387,19 @@ border-radius: 8px;}
       }
 
 /* Divs "cuatro", "cinco" y "seis" ocupan el 100% */
-.usuario-div-cuatro,
-.usuario-div-cinco{
+.usu-div-cli{
     background-color:white;
     width: 100%;
+    display: flex;
+    flex-wrap: wrap; 
+    border-radius: 8px;
+    margin: 20px;
 }
+
+/* Divs con diferentes anchos */
+.usuario-div {background-color: red;
+}
+
 /* SEIS-------------------------- SALUDO --------------------------- */
 .usuario-div-seis {
     border-top:1px solid white;
@@ -475,151 +442,6 @@ border-radius: 8px;}
 #rrss ul li a img:hover {opacity: 1; }
 
 
-/* --------------------------- SALUDO --------------------------- */
-
-.usuario-div {
-    display: flex;
-    flex-wrap: wrap; /* Asegura que los elementos se ajusten si es necesario */
-    gap: 20px; /* Añadimos el margen entre los divs */
-}
-#saludo{margin: 20px;}
-
-/* --------------------------- CADA DIV DENTRO DE .usuario-div --------------------------- */
-
-.saludo-item {
-    flex: 1 1 22%; /* En pantallas grandes, los divs ocupan el 22% del ancho */
-    box-sizing: border-box; /* Para asegurar que el padding no afecte el ancho */
-}
-/* --------------------------- MEDIA QUERY PARA RESPONSIVIDAD --------------------------- */
-@media (max-width: 768px) {
-    #usuario-main {
-        width: 90%; /* El main ocupa el 90% en pantallas más pequeñas */
-    }
-
-    /* Los divs "uno", "dos", "tres", etc. ocupan el 100% en pantallas más pequeñas */
-    .usuario-div {
-        width: 100%; 
-
-        flex-wrap: wrap; /* Asegura que los divs se ajusten */
-    }
-    .saludo-item {
-        width: 48%; /* En tabletas, ocupan el 48% del ancho, 2 por fila */
-        margin-bottom: 15px; /* Márgenes entre los divs */
-    }
-
-    /* Contenedor de los divs "dos" y "tres" apilados en pantallas pequeñas */
-    .usuario-div-dos-tres-container {
-        flex-direction: column; /* Los divs "dos" y "tres" se apilan verticalmente */
-    }
-
-    .usuario-div-dos,
-    .usuario-div-tres {
-        width: 100%; /* Ambos divs ocuparán el 100% del ancho disponible */
-    }
-
-
-    .usuario-div-seis {
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .usu-footer {
-        flex-basis: 45%; /* Para que quepan dos en una fila */
-    }
-
-    /*------------------- SALUDO*/
-    #saludo {
-        flex-direction: column; /* Apilan los elementos en una sola columna */
-    }
-
-    .saludo-item {
-        width: 48%; /* En pantallas medianas, dos cajas por fila */
-        margin-bottom: 15px; /* Márgenes entre los divs */
-    }
-    /*------------------- ICONOS RECETAS*/
-    .icono{margin: 20px;}
-}
-
-@media (max-width: 480px) {
-
-    .usuario-div {
-       padding: 20px;
-    }
-
-    .usuario-div-seis {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .usu-footer {
-        width: 100%;
-    }
-}
-
-
-/*--------------------------------------------------------------------------------------------- BOTON*/
-/* Estilos para el contenedor de la tabla */
-#tabmiscuidadores {
-    width: 100%; /* La tabla ocupa el 100% del ancho del div */
-    border-collapse: collapse; /* Para evitar los espacios entre las celdas */
-    margin-top: 10px; /* Espacio arriba de la tabla */
-}
-
-/* Estilos para las celdas de la tabla (las filas con los cuidadores) */
-#tabmiscuidadores th, #tabmiscuidadores td {
-    text-align: center; /* Centra el texto en las celdas */
-    padding: 20px 0px; /* Espaciado en las celdas */
-    border-bottom: 1px solid #F0F0F0; /* Líneas horizontales entre las filas */
-}
-
-/* Fondo y texto en negrita para los títulos */
-#tabmiscuidadores th {
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f7f7f7; /* Gris claro */
-}
-
-/* Estilo para el botón de agregar */
-#btnAgregar {
-    background-color: #4CAF50; /* Verde */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-}
-
-/* Cambio de color al pasar el mouse sobre el botón de agregar */
-#btnAgregar:hover {
-    background-color: #235726; /* Verde más oscuro */
-}
-
-/* Estilo para el botón de eliminar */
-.eliminar-btn-miscuidadores {
-    background-color: #ff756e; /* Rojo pastel */
-    color: white; /* X en blanco */
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    border-radius: 4px; /* Bordes redondeados */
-    cursor: pointer;
-    transition:  0.3s ease;
-}
-
-/* Centrar el botón de eliminar dentro de la celda */
-#tabmiscuidadores td .eliminar-btn-miscuidadores {
-    margin: 0 auto;
-}
-
-/* Hover para el botón de eliminar */
-.eliminar-btn-miscuidadores:hover {
-    background-color: #b63730; /* Un rojo más oscuro al hacer hover */
-}
 
 /* BONT NEWSLETTER Y CREAR CUENTA---------------------------------------*/
 #btn-usu-footer {

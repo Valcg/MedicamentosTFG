@@ -7,7 +7,9 @@
     <!-- --------------------------------- -->
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="cliente_paciente/cliente.css">
-    <link rel="stylesheet" href="styles/botones.css"> 
+
+
+    <link rel="stylesheet" href="styles/paciente.css">
     <!-- --------------------------------- -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,8 +20,8 @@
     <!-- --------------------------------- -->
 </head>
 
-<body style="background-color:#F0F0F0;">
-    <!-- HEADER CLIENTE UNO------------------------------------------------------- -->
+<body style="background-color:white;">
+    <!-- HEADER CLIENTE UNO #F0F0F0;------------------------------------------------------- -->
     <header id="header-cliente-uno">
         <nav class="nav-cliente-uno">
             <ul>
@@ -49,22 +51,29 @@
         </nav>
     </header>
     <!-- MAIN-USUARIO ------------------------------------------------------- -->
-    <main id="usuario-main">
+    <main id="usuario-main" style="background-color:rgb(75, 119, 156);" >
         <!-- Sección con los divs de contenido -->
-        <section id="usuario-divs-container">
-        <div class="usuario-div usuario-div-uno">
-        <!---------------- 4 DIVS -->
+        <section id="usuario-divs-container" >
+        <div class="usu-div-cli">
+       <!---------------- 4 DIVS -->
+                            
+        
                             <!--  VER MI PERFIL -------------- -->
-                            <div id="saludo" class="saludo-item" >
-                                <div style="font-weight: bold;">
-                                    HOLA  <a id="nombre-usu">nombre</a>
-                                <img src="img/icons8-waving-hand-emoji-48.png" alt="saludo" width="30px" style="margin-left: 10%;">
-                                </div> 
-                                <p>Puedes ver o modificar tus datos de manera fácil</p>
-                                <div id="verperfil">
-                                    <a>VER MI PERFIL</a>
-                                    
-                                </div>
+                            <div  class="saludo-item" >
+                        
+                                    <div  id="saludo">
+        
+                                        <div class="icono">
+                                            <img src="img/icons8-waving-hand-emoji-48.png" alt="saludo" >
+                                        </div>
+                                        <div class="texto">  <p id="verperfil">VER MI PERFIL</p>   
+                                      
+                                            <p class="texto2">HOLA Puedes ver o modificar tus datos</p>
+                                            
+                                        </div>
+    
+                                    </div>
+                            
                             </div> 
                             <!--  VER MIS RECETAS -------------- -->
                             <div  class="saludo-item">
@@ -74,7 +83,7 @@
                                             </div>
                                             <div class="texto">
                                                 <p id="hoverr">VER MIS RECETAS</p>
-                                                <p class="texto2">Tambien puedes ver: Información del medicamento</p>
+                                                <p class="texto2">Puedes ver las recetas activas de este momento</p>
                                             </div>
                                         </div>
                             </div>
@@ -86,7 +95,7 @@
                                             </div>
                                             <div class="texto">
                                                 <p id="hoverm">VER MIS MEDICOS</p>
-                                                <p class="texto2">Información del médico o médicos asignados</p>
+                                                <p class="texto2">Puedes ver la información de tu médico/s</p>
                                             </div>
                                     </div>
                             </div>
@@ -98,13 +107,41 @@
                                             </div>
                                             <div class="texto">
                                                 <p id="hovera">VER MIS ALERTAS</p>
-                                                <p class="texto2">Información del médico o médicos asignados</p>
+                                                <p class="texto2"> Todas tus alertas programadas</p>
                                             </div> 
                                     </div>
                             </div>
             </div><!-- FIN DIV UNO---------------------------- -->
+
+
+
+
+              <!-- DIV 3 VER MIS CUIDADORES Y  CALENDAR --------------- -->
+              <div class="usu-dos-tres-container">
+                <!-- ---------------- VER MIS CUIDADORES -->
+                <div class="usuario-div-dos">
+
+                        <div id="fecha"></div>
+                        <script src="cliente_paciente/medicamentosDeHoy.js">  </script>    
+                        <!-- <div id="diacuenta"> " Hoy tienes 1 medicamento por tomar "</div> -->
+                        <div id="diacuenta">Cargando recordatorio de hoy...</div>
+            
+                </div>
+                <!-- ---------------- CALENDARIO -->
+                <div class="usuario-div-tres">
+                   
+                    <div class="calendar-container">
+                        <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=Your_Timezone" 
+                        style="border: 0;border-radius: 8px;" frameborder="0" scrolling="no" ></iframe>
+      
+                    </div>
+
+                </div>
+
+
+</div>
         <!-- DIV 3 VER MIS CUIDADORES Y  CALENDAR --------------- -->
-            <div class="usuario-div-dos-tres-container">
+            <div class="usu-dos-tres-container">
                             <!-- ---------------- VER MIS CUIDADORES -->
                             <div class="usuario-div-dos">
                                 <div id="VerMisCuidadores">
@@ -117,32 +154,26 @@
                                             <th>Eliminar</th>
                                         </tr>
                                     </table>
-                                    <button id="btnAgregar" class="btn-agregar">Agregar</button>
                                 </div>
                             </div>
                             <!-- ---------------- CALENDARIO -->
                             <div class="usuario-div-tres">
-                                <div id="fecha"></div>
-                                <div class="calendar-container">
-                                    <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=Your_Timezone" 
-                                    style="border: 0;border-radius: 8px;" frameborder="0" scrolling="no" ></iframe>
-                            
-                <script src="cliente_paciente/medicamentosDeHoy.js">  </script>       
-                                </div>
-                                <!-- <div id="diacuenta"> " Hoy tienes 1 medicamento por tomar "</div> -->
-                                <div id="diacuenta">Cargando recordatorio de hoy...</div>
+                             
+
+                                                
 
                             </div>
             </div>
+      
             <!-- DIV 4 VER HISTORIAL DE TOMAS--------------- -->
-            <div class="usuario-div usuario-div-cuatro">
+            <div class="usu-div-cli">
                 <div id="VerMiHistorialAlertas"><a id="verhistorialTomas">VER MI HISTORIAL DE TOMAS</a></div>
             </div>
-            <div class="usuario-div usuario-div-cuatro">
+            <div class="usu-div-cli">
                 <div id="VerMiHistorialAlertas"><a href="cliente_paciente/mismedicamentos.html">MIS medicamentos</a></div>
             </div>
-            <!-- DIV 5 --------------- -->
-            <div class="usuario-div usuario-div-cinco">Cinco
+ <!-- DIV 5 --------------- -->
+<div class="usu-div-cli">
 
 
 <!-- ALTA CONTACTO------------------------------------------------------- -->
@@ -162,28 +193,35 @@
 
 <script src="/cliente_paciente/contactoalta.js">  </script>  
 
-            <div id="tabla-contactos-container">
-                <h2>Contactos de Emergencia</h2>
-                <div id="mensaje"></div>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Teléfono</th>
-                            <th>Relación</th>
-                            <th>Relación Específica</th>
-                            <th>Comentarios</th>
-                            <th>Correo</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-contactos"></tbody>
-                </table>
-              </div>
+
+</div>
+
+<!-- DOS------------------------------------------------------- -->
+<div class="usu-div-cli usu-div-contactos">
+    <h2>Contactos de Emergencia</h2>
+    <div id="paciente-contactos">
+        <div id="mensaje"></div>
+        <table >
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Relación</th>
+                    <th>Relación Específica</th>
+                    <th>Comentarios</th>
+                    <th>Correo</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-contactos"></tbody>
+        </table>
+</div>
 
 <script src="cliente_paciente/contactoseccion.js">  </script>   
 
-            </div>
-            <!-- DIV 6 FOOTER --------------- -->
+</div>
+
+
+<!-- DIV 6 FOOTER --------------- -->
             <div class="usuario-div-seis">
                             <!-- ---------------- RRSS -->
                             <div class="usu-footer" id="rrss"> 

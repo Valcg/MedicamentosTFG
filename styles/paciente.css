@@ -1,0 +1,239 @@
+#VerMisRecetas,#VerMisMedicos,#VerMisAlertas,#saludo {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    /* Distribuye los elementos equitativamente */
+    padding: 0 20px;
+    margin: 20px;
+    height: 200px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: auto;
+    transition:  0.3s ease-in-out;
+}
+
+.icono {
+    display: flex;
+    align-items: center;
+    width: auto;
+    /* Tamaño mediano */
+    height: auto;
+    margin-right: 10px;
+    transition: 0.3s ease-in-out;
+    /* Espacio entre el texto y el icono */
+}
+.icono>img {width: 40px;}
+/* ----------TEXTOS BTN*/
+    .texto {width: 65%;  }
+
+    .texto2 {
+        font-size: 12px;
+        text-align: left;
+        color: rgb(226, 226, 226);
+    }
+    
+/* --------------------------- SALUDO --------------------------- */
+/* --------------------------- CADA DIV DENTRO DE .usuario-div --------------------------- */
+.saludo-item {
+    box-sizing: border-box;
+    width: 25%;
+  }
+
+#hoverr,#hoverm,#hovera, #verperfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    height: 40px;
+    width: 140px;
+    border-radius: 5px;
+    color: rgb(72, 72, 72);
+    font-weight: bold;
+    font-size: 14px;
+    transition: 0.3s ease-in-out;
+}
+
+/* -----------------------------------------SALUDO */
+#saludo{background-color: gray;}  
+#verperfil {
+    color: white;
+    background-color: #84CBF1;
+}
+#verperfil:hover { background-color: #00669C;}  
+/* -----------------------------------------MIS RECETAS*/
+#VerMisRecetas {background-color: #f59d7d;}
+#VerMisRecetas:hover {background-color: #d77957; }
+
+#hoverr:hover {
+    color: #f9a365;
+}
+
+/* -----------------------------------------MIS MEDICOS*/
+#VerMisMedicos {background-color: #66b794f1;}
+#VerMisMedicos:hover {background-color: #449a74f1;}
+#hoverm:hover {
+    color: #66b794f1;  
+}
+/* -----------------------------------------MIS ALERTAS*/
+#VerMisAlertas {background-color: #84CBF1;}
+#VerMisAlertas:hover {background-color: #5aa0c6;  }
+#hovera:hover {
+    color: #84CBF1; 
+}
+
+
+@media screen and (max-width: 1270px) {
+
+    .saludo-item {width: 50%;}
+
+    .hoverr { font-size: 18px;}
+    .texto { width: 50%;}
+    .texto2 { font-size: 14px;}
+
+    #usuario-main {width: 90%; /* El main ocupa el 90% en pantallas más pequeñas */
+    }
+
+    /* Los divs "uno", "dos", "tres", etc. ocupan el 100% en pantallas más pequeñas */
+    .usuario-div { width: 100%;     }
+
+
+    /* Contenedor de los divs "dos" y "tres" apilados en pantallas pequeñas */
+    .usu-dos-tres-container {
+        flex-direction: column; /* Los divs "dos" y "tres" se apilan verticalmente */
+    }
+
+    .usuario-div-dos,
+    .usuario-div-tres {
+        width: 100%; /* Ambos divs ocuparán el 100% del ancho disponible */
+    }
+
+
+    .usuario-div-seis {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .usu-footer {
+        flex-basis: 45%; /* Para que quepan dos en una fila */
+    }
+
+    /*------------------- ICONOS RECETAS*/
+    .icono>img {width: 50px;}
+}
+
+/* --------------------------- MEDIA QUERY PARA RESPONSIVIDAD --------------------------- */
+
+@media (max-width: 770px) {
+    .saludo-item { width: 100%;}
+    .usuario-div {padding: 20px;}
+    .texto { color: yellow;}
+}
+
+
+
+/* --------------------------- DIVS INTERIORES --------------------------- */
+#usuario-divs-container {
+    display: flex;
+    flex-wrap: wrap;
+   /* justify-content: space-between;  Alinea los elementos con espacio entre ellos */
+}
+
+
+/* Div "uno" ocupa 100% */
+.usuario-div-uno {
+    background-color: white;
+    width: 100%;
+}
+
+/* Contenedor de los divs "dos" y "tres" para mantenerlos en la misma línea */
+.usu-dos-tres-container {
+    padding: 20px;
+    margin: 20px;
+    display: flex;
+    gap: 40px; /*espacio entre los divs "dos" y "tres" */
+    width: 100%;
+    background-color: white;
+    border-radius: 8px;
+
+}
+                /* Div "dos" ocupa el 60% (ajustado para que se acomode en la misma línea) */
+                .usuario-div-dos {
+                    background-color: lightgray;
+                    width: 50%;
+                    border-radius: 8px;
+                    text-align: center;
+                    padding: 20px;
+                   
+                }
+
+                /* Div "tres" ocupa el 40% (ajustado para que se acomode en la misma línea) */
+                .usuario-div-tres {
+                    background-color: lightslategray;
+                    border-radius: 8px;
+                    width: 50%;
+
+                    padding: 20px; /*PARA EL CALENDARIO*/
+
+                    max-width: 100%;
+                    box-sizing: border-box;
+            
+                }
+
+
+
+
+
+/* --------------------------- TABA --------------------------- */
+#paciente-contactos{background-color: lightblue;
+width: 100%;}
+#paciente-contactos table{width: 100%;}
+
+#paciente-contactos td{margin: auto;}
+#paciente-contactos td input{border: none;padding: 10px; border-radius: 5px;}
+
+
+
+        #paciente-contactos td button{  all: unset;/*BORRA LOS ESTILOS EXTERIORES*/
+            cursor: pointer; /* opcional: si quieres que siga siendo clickeable */}
+
+            /* Estilo para el botón de eliminar */
+        .eliminar-btn-miscuidadores {
+            background-color: #ff756e; /* Rojo pastel */
+            color: white; /* X en blanco */
+            width: 30px;
+padding: 5px;
+display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 4px; /* Bordes redondeados */
+            cursor: pointer;
+            transition:  0.3s ease;
+        }
+        /* Hover para el botón de eliminar */
+        .eliminar-btn-miscuidadores:hover {
+            background-color: #b63730; /* Un rojo más oscuro al hacer hover */
+        }
+
+/* Centrar el botón de eliminar dentro de la celda */
+#tabmiscuidadores td .eliminar-btn-miscuidadores {
+    margin: 0 auto;
+}
+/* Estilo para el botón de agregar */
+#btnAgregar {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Cambio de color al pasar el mouse sobre el botón de agregar */
+#btnAgregar:hover {
+    background-color: #235726; /* Verde más oscuro */
+}
+
+
+
