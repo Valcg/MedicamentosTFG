@@ -1,17 +1,16 @@
 
-/* 1  Y 2 TEXTO : boton y texto2 de cajas ---------------------------- */
-    .texto {width: 65%;  }
+/*DISEÑO  CAJAS - PERFIl-HISTORIAL y  MED-REC-MEDI-ALERT */
+.usu-div-pa{
+    background-color:white;
+    border: 1px solid RED;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; 
+    border-radius: 8px;
+    margin: 20px;
+}
 
-    .texto2 {
-        font-size: 12px;
-        color: white;
-        margin-left: 10px;
-        height: 60px;
-    }
-/* ICONOS ------------------------------------------------------------ */
-    .icono {display: flex;}
 
-    .icono>img {width: 40px;}
 
 /* 1 -------------- PERFIL Y VER HISTORIAL ----------------------------------------- */
 
@@ -140,11 +139,7 @@
 
 
 /* 3 DOS Y TRES --------------------------- DIVS INTERIORES --------------------------- */
-    #usuario-divs-container {
-        display: flex;
-        flex-wrap: wrap;
-    /* justify-content: space-between;  Alinea los elementos con espacio entre ellos */
-    }
+
 
     /* Contenedor de los divs "dos" y "tres" para mantenerlos en la misma línea */
     .usu-dos-tres-container {

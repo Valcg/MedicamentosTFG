@@ -1,5 +1,111 @@
 /* Div "uno" ocupa 100% */
 .usuario-div-uno {
-    background-color: yellow;
+    background-color: orange;
     width: 100%;
 }
+
+.texto3 {
+    font-size: 12px;
+    color: rgb(72, 72, 72);
+    margin-left: 10px;
+    height: 60px;
+}
+
+
+.usu-div-med{
+
+    background-color:white;
+    border: 1px solid yellow;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; 
+    border-radius: 8px;
+    margin: 20px;
+}
+
+/* 1 -------------- PERFIL Y VER HISTORIAL ----------------------------------------- */
+
+    /* 1  BOXS DE perfil y Historial --------------------------- */
+    .medico-item {box-sizing: border-box; width: 50%;
+    }
+
+    #miperfilmedico ,#nota{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        /* Distribuye los elementos equitativamente */
+        margin: 20px;
+        height: 200px;
+        border-radius: 10px;
+        box-sizing: border-box;
+        transition:  0.3s ease-in-out;
+    }
+            
+            #miperfilmedico{background-color: #F0F0F0;}
+            
+            #miperfilmedico:hover{background-color: #e7e7e7;
+                box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+
+            #nota{background-color: #84CBF1;}  
+            
+            #nota:hover{background-color: #65aed5;
+                        box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}  
+
+    /* 1  CAJA --------------------------- */
+
+            /*BOTON*/
+            #verperfilmedico{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 40px;
+                margin: 20px 0 0 0;
+                /* width: 160px; */
+                border-radius: 20px;
+                font-weight:normal ;
+                font-size: 14px;
+                transition: 0.3s ease-in-out;
+                color: rgb(72, 72, 72);
+                background-color: white;
+            }
+                    #verperfilmedico:hover {box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
+                        color: #84CBF1;}
+        
+/* 2 -------------- PERFIL Y VER HISTORIAL ----------------------------------------- */
+
+    /* 1  BOXS DE perfil y Historial --------------------------- */
+    .medico-item-pacientes,.infomispacientes {box-sizing: border-box; width: 25%;}
+    #vermispacientes{background-color: #00669C;}
+
+    #vermispacientes,.infomispa{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        /* Distribuye los elementos equitativamente */
+        margin: 20px;
+        height: 200px;
+        border-radius: 10px;
+        box-sizing: border-box;
+        transition:  0.3s ease-in-out;
+    }
+
+    /* .infomispa{background-color:lightgray;} */
+        .infotexto{width: 80%;}
+
+            .textotitulo {
+                font-size: 24px;
+                color:#84CBF1;
+                font-weight: bold;
+                margin: 0;
+                padding: 0;
+            
+            }     
+            .texto4 {
+                font-size: 18px;
+                color: white;
+                margin-left: 20px;
+                height: 60px;
+                
+                color: #00669C;
+            }
+            .bold{font-weight: bold;}
