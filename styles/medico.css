@@ -1,0 +1,5 @@
+/* Div "uno" ocupa 100% */
+.usuario-div-uno {
+    background-color: yellow;
+    width: 100%;
+}

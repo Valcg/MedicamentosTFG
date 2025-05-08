@@ -1,183 +1,215 @@
-#VerMisRecetas,#VerMisMedicos,#VerMisAlertas,#VerMisMedicamentos {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    /* Distribuye los elementos equitativamente */
 
-    margin: 20px;
-    height: 200px;
-    border-radius: 10px;
-    box-sizing: border-box;
-
-    transition:  0.3s ease-in-out;
-}
-
-.icono {
-    display: flex;
-}
-.icono>img {width: 40px;}
-/* ----------TEXTOS BTN*/
+/* 1  Y 2 TEXTO : boton y texto2 de cajas ---------------------------- */
     .texto {width: 65%;  }
 
     .texto2 {
         font-size: 12px;
         color: white;
         margin-left: 10px;
+        height: 60px;
+    }
+/* ICONOS ------------------------------------------------------------ */
+    .icono {display: flex;}
+
+    .icono>img {width: 40px;}
+
+/* 1 -------------- PERFIL Y VER HISTORIAL ----------------------------------------- */
+
+    /* 1  BOXS DE perfil y Historial --------------------------- */
+    .paciente-item-dos {
+        box-sizing: border-box;
+        width: 50%;
+    }
+    #hoverr,#hoverm,#hovera,#hovermt {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffff;
+        height: 40px;
+        /* width: 160px; */
+        border-radius: 20px;
+        color: rgb(72, 72, 72);
+        font-weight:normal ;
+        font-size: 14px;
+        transition: 0.3s ease-in-out;
+    }
+    #saludo ,#historial{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        /* Distribuye los elementos equitativamente */
+        margin: 20px;
+        height: 200px;
+        border-radius: 10px;
+        box-sizing: border-box;
+        transition:  0.3s ease-in-out;
+    }
+    #verperfil, #verhisalert{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffff;
+        height: 40px;
+        margin: 20px 0;
+        /* width: 160px; */
+        border-radius: 20px;
+        color: rgb(72, 72, 72);
+        font-weight:normal ;
+        font-size: 14px;
+        transition: 0.3s ease-in-out;
+    }
+        
+        
+    /* 1  INTERIORES --------------------------- */
+            #saludo{background-color: #F0F0F0;}
+            #saludo:hover{background-color: #e7e7e7;}
+            #verperfil:hover { color: #84CBF1;} 
+            #verperfil { /*BOTON*/
+                color: rgb(72, 72, 72);
+                background-color: white;
+            }
+                .texto3 {
+                    font-size: 12px;
+                    color: rgb(72, 72, 72);
+                    margin-left: 10px;
+                    height: 60px;
+                }
+
+            #historial{background-color: #0d7ebb;}  
+            #historial:hover{background-color: #00669C;}  
+            #verhisalert { /*BOTON*/
+                color: rgb(72, 72, 72);
+                background-color: white;
+            }
+
+            #verhisalert:hover { color:#00669C;} 
+
+                #saludo:hover,#historial:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+                #verperfil:hover,#verhisalert:hover {box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+
+
+
+/* 2 -------------- MEDICAMENTOS-RECETAS-MEDICOS-ALERTAS ----------------------------------------- */
+        .paciente-item {
+            box-sizing: border-box;
+            width: 25%;
+        }
+        #VerMisRecetas,#VerMisMedicos,#VerMisAlertas,#VerMisMedicamentos {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;/* Distribuye los elementos equitativamente */
+            margin: 20px;
+            height: 200px;
+            border-radius: 10px;
+            box-sizing: border-box;
+            transition:  0.3s ease-in-out;
+        }
+                    /* sombras BOTONES -----------------------------------------*/
+                    #hoverr:hover,#hoverm:hover,#hovera:hover,#hovermt:hover {
+                        box-shadow:4px 4px 8px rgba(0, 0, 0, 0.1);
+                    }
+            /* MIS MEDICAMENTOS  ----------------------------------------*/
+            #VerMisMedicamentos{background-color: #dac47c;}
+
+            #VerMisMedicamentos:hover{background-color: #c9b268;
+                box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}  
+                #hovermt:hover { color: #dac47c; }
+
+            /* MIS RECETAS -----------------------------------------------*/
+            #VerMisRecetas {background-color: rgb(223, 153, 127);}
+
+            #VerMisRecetas:hover {background-color: #d77957;
+                box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1); }
+
+            #hoverr:hover { color: #f9a365; }
+
+            /* MIS MEDICOS -----------------------------------------------*/
+            #VerMisMedicos {background-color: #66b794f1;}
+
+            #VerMisMedicos:hover {background-color: #449a74f1;
+                box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}
+
+            #hoverm:hover { color: #66b794f1; }
+            /* MIS ALERTAS-------------------------------------------------*/
+            #VerMisAlertas {background-color: #84CBF1;}
+
+            #VerMisAlertas:hover {background-color: #5aa0c6; 
+                box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1); }
+
+            #hovera:hover { color: #84CBF1; }
+
+
+/* 3 DOS Y TRES --------------------------- DIVS INTERIORES --------------------------- */
+    #usuario-divs-container {
+        display: flex;
+        flex-wrap: wrap;
+    /* justify-content: space-between;  Alinea los elementos con espacio entre ellos */
     }
 
+    /* Contenedor de los divs "dos" y "tres" para mantenerlos en la misma línea */
+    .usu-dos-tres-container {
+        padding: 20px;
+        margin: 20px;
+        display: flex;
+        gap: 40px; /*espacio entre los divs "dos" y "tres" */
+        width: 100%;
+        background-color: white;
+        border-radius: 8px;
+        border: 1px solid #ccc;
 
-/* --------------------------- SALUDO --------------------------- */
-.paciente-item {
-    box-sizing: border-box;
-    width: 25%;
-  }
-
-#saludo ,#historial{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    /* Distribuye los elementos equitativamente */
-    margin: 20px;
-    height: 200px;
-    border-radius: 10px;
-    box-sizing: border-box;
-
-    transition:  0.3s ease-in-out;}
-#verperfil, #verhisalert{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    height: 40px;
-    /* width: 160px; */
-    border-radius: 20px;
-    color: rgb(72, 72, 72);
-    font-weight:normal ;
-    font-size: 14px;
-    transition: 0.3s ease-in-out;
-}
-/* --------------------------- CADA DIV DENTRO DE .usuario-div --------------------------- */
-.paciente-item-dos {
-    box-sizing: border-box;
-    width: 50%;
-  }
-
-#hoverr,#hoverm,#hovera,#hovermt {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    height: 40px;
-    /* width: 160px; */
-    border-radius: 20px;
-    color: rgb(72, 72, 72);
-    font-weight:normal ;
-    font-size: 14px;
-    transition: 0.3s ease-in-out;
-
-}
-
-
-/* -----------------------------------------SALUDO */
-#saludo{background-color: lightgray;}  
-#historial{background-color: #00669C;}  
-
-
-#verhisalert {
-    color: white;
-    background-color: #84CBF1;
-}
-#verperfil {
-    color: white;
-    background-color: #00669C;
-}
-#verperfil:hover { background-color: #6fbbe4;}  
-#verhisalert:hover { background-color: lightgrey;} 
-
-#verperfil:hover,#verhisalert:hover {
-    box-shadow:4px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* -----------------------------------------MIS MEDICAMENTOS */
-#hoverr:hover,#hoverm:hover,#hovera:hover,#hovermt:hover {
-    box-shadow:4px 4px 6px rgba(0, 0, 0, 0.1);
-}
-/* -----------------------------------------MIS MEDICAMENTOS */
-#VerMisMedicamentos{background-color: #dac47c;}
-
-#VerMisMedicamentos:hover{background-color: #c9b268;
-    box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}  
-
-
-/* -----------------------------------------MIS RECETAS*/
-#VerMisRecetas {background-color: rgb(223, 153, 127);}
-
-#VerMisRecetas:hover {background-color: #d77957;
-    box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1); }
-
-#hoverr:hover { color: #f9a365; }
-
-/* -----------------------------------------MIS MEDICOS*/
-#VerMisMedicos {background-color: #66b794f1;}
-
-#VerMisMedicos:hover {background-color: #449a74f1;
-    box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}
-
-#hoverm:hover { color: #66b794f1; }
-/* -----------------------------------------MIS ALERTAS*/
-#VerMisAlertas {background-color: #84CBF1;}
-
-#VerMisAlertas:hover {background-color: #5aa0c6; 
-    box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1); }
-
-#hovera:hover { color: #84CBF1; }
-
-
-/* --------------------------- DIVS INTERIORES --------------------------- */
-#usuario-divs-container {
-    display: flex;
-    flex-wrap: wrap;
-   /* justify-content: space-between;  Alinea los elementos con espacio entre ellos */
-}
-
-
-/* Div "uno" ocupa 100% */
-.usuario-div-uno {
-    background-color: white;
-    width: 100%;
-}
-
-/* Contenedor de los divs "dos" y "tres" para mantenerlos en la misma línea */
-.usu-dos-tres-container {
-    padding: 20px;
-    margin: 20px;
-    display: flex;
-    gap: 40px; /*espacio entre los divs "dos" y "tres" */
-    width: 100%;
-    background-color: white;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-
-}
-                /* Div "dos" ocupa el 60% (ajustado para que se acomode en la misma línea) */
+    }
+                /* Div "dos" ocupa el 50% */
                 .usuario-div-dos {
-                    background-color: lightgray;
+                    /* background-color: #F0F0F0; */
                     width: 50%;
                     border-radius: 8px;
                     text-align: center;
                 }
 
-                /* Div "tres" ocupa el 40% (ajustado para que se acomode en la misma línea) */
+                /* Div "tres" ocupa el 50% */
                 .usuario-div-tres {
-                    background-color: lightslategray;
+                    background-color: #F0F0F0;;
                     border-radius: 8px;
                     width: 50%;
-                    padding: 20px; /*PARA EL CALENDARIO*/
+                    /* padding: 20px; PARA EL CALENDARIO */
 
                     max-width: 100%;
                     box-sizing: border-box;
-            
                 }
+
+                /*--------------CALENDARIO*/ 
+
+                #fecha,#diacuenta {
+                    text-align: center;
+                    /* margin:20px; */
+                    padding: 60px 0;
+                    font-size: 16px;
+                    font-family: Arial, sans-serif;
+                    background-color: white;
+                    border-radius: 8px;
+                }
+                        #fecha {
+                            font-family: Arial, sans-serif;
+                            background-color: #F0F0F0;
+                            margin-bottom: 40px;
+                        }
+
+                        #diacuenta {
+                            background-color: #00669C;
+                            /* background-color: rgb(189, 215, 255); */
+                            color: white;
+                        }
+
+                        .calendar-container {
+                            width: 100%;
+                            height: 400px;  /* Ajusta esta altura según el tamaño deseado */
+                        }
+                        .calendar-container iframe {
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                        }
+
 
 
 
@@ -196,9 +228,6 @@
     /* Los divs "uno", "dos", "tres", etc. ocupan el 100% en pantallas más pequeñas */
     .usuario-div { width: 100%; }
 
-
-
-
     .usuario-div-seis {
         flex-direction: row;
         justify-content: center;
@@ -207,7 +236,6 @@
     .usu-footer {
         flex-basis: 45%; /* Para que quepan dos en una fila */
     }
-
     /*------------------- ICONOS RECETAS*/
     .icono>img {width: 50px;}
 }
@@ -234,8 +262,6 @@
     .texto { color: yellow;}
 
 }
-
-
 
 
 

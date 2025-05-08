@@ -355,48 +355,15 @@ border-radius: 8px;}
 
 /* --------------------------- MAIN --------------------------- */
 #usuario-main {
-    width: 90%; /* El main ocupa el 80% del ancho del body */
+    width: 90%; 
     margin: 30px auto; /* Centra el main horizontalmente */
-    background-color: white; /* Fondo gris */
+    background-color: white;
 
     padding: 20px 0px;
     border-radius: 8px;
 }
 
-/*--------------CALENDARIO*/ 
 
-#fecha,#diacuenta {
-    text-align: center;
-    margin:20px;
-    padding: 60px 0;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-    background-color: white;
-    border-radius: 8px;
-  }
-        #fecha {
-            font-family: Arial, sans-serif;
-            background-color: white;
-            color: #333;
-        }
-
-        #diacuenta {
-            background-color: #00669C;
-            /* background-color: rgb(189, 215, 255); */
-            color: white;
-            /* color: #333; */
-        }
-
-        .calendar-container {
-            width: 100%;
-            height: 400px;  /* Ajusta esta altura según el tamaño deseado */
-            margin-top: 10px;
-        }
-        .calendar-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
 
 /* Divs "cuatro", "cinco" y "seis" ocupan el 100% */
 .usu-div-cli{
