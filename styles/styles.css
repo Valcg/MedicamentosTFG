@@ -1,4 +1,49 @@
+    /*01 SECTION PERFIL------------------------------------------------------- */
 
+    /* 1  BOXS DE perfil y Historial --------------------------- */
+
+   /* 1  TARJETA --------------------------- */
+    .seccion-card-duo {box-sizing: border-box; width: 50%;
+    }
+
+    #section-cliente-perfil ,#section-cliente-dos{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        /* Distribuye los elementos equitativamente */
+        margin: 20px;
+        height: auto;
+        border-radius: 10px;
+        transition:  0.3s ease-in-out;
+    }
+            /* CAJA 1 tarjeta ------------------------------------------- */ 
+            #section-cliente-perfil{background-color: #F0F0F0;}
+            
+            #section-cliente-perfil:hover{background-color: #e7e7e7;
+                box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+            /* CAJA 2 ----------------------------------------- */ 
+            #section-cliente-dos{background-color: lightgray;}  
+            
+            #section-cliente-dos:hover{background-color: rgb(185, 185, 185);;
+                        box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}  
+
+
+        /* MI PERFIL---------------------------------------------------------------------- */
+        .perfil-item{
+            border: 1px solid yellow;
+            text-align: right;
+            padding: 40px;}
+
+
+
+#usuario-divs-container {
+    display: flex;
+    flex-wrap: wrap;
+/* justify-content: space-between;  Alinea los elementos con espacio entre ellos */
+}
+            
+            
+            
             /* --------------------------- ESTILOS GENERALES --------------------------- */
             body {
                 margin: 0;
@@ -6,7 +51,9 @@
                 font-family: "Noto Sans", serif;
                 font-optical-sizing: auto;
                 font-style: normal;
-
+                background-color: #F0F0F0;
+                /* background-color: grey; */
+                box-sizing: border-box;
             }
 
             /* --------------------------- SECTION LOGIN --------------------------- */
@@ -271,6 +318,13 @@
                 text-decoration: none;
             }    
 
+
+
+
+
+
+
+            
 /* --------------------------- ESTILOS PARA EL ENLACE VOLVER --------------------------- */
 .volver-link {
     color: #84CBF1; /* Color azul claro */
@@ -315,8 +369,35 @@
     background-color: #84CBF1; /* Color de la línea */
     margin: 20px 0;
     width: 100%; /* Ancho completo */
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* --------------------------- RESPONSIVE --------------------------- */
+/* MAX WIDTH 1270PX----------------------------------------------------------------------------*/
+@media screen and (max-width: 1270px) {
+
+    .seccion-card-duo{width :100%; }
+}
+
+
+
+
 /* TABLET------------------------- */
 @media (max-width: 768px) {
 

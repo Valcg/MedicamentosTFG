@@ -14,13 +14,12 @@ function agregarEvento(id, url) {
 
 // Espera que el DOM esté listo antes de asignar eventos
 document.addEventListener("DOMContentLoaded", function () {
-    agregarEvento("verperfil", "cliente_paciente/miperfil.html");
-    agregarEvento("verhisalert", "cliente_paciente/mihistorialtomas.html");
-
-    agregarEvento("VerMisRecetas", "cliente_paciente/misrecetas.html");
-    agregarEvento("VerMisMedicos", "cliente_paciente/mismedicos.html");
-    agregarEvento("VerMisAlertas", "cliente_paciente/misalertas.html");
-    agregarEvento("vermedicamentos", "cliente_paciente/mismedicamentos.html");
+    agregarEvento("miperfilmedico", "cliente_medico/miperfilmedico.html");
+    agregarEvento("vermispacientes", "cliente_medico/VerMisPacientes.html");
+agregarEvento("verseccionmedicamentos", "cliente_medico/seccionmedicamentos.html");
+    // agregarEvento("", "cliente_medico/mismedicos.html");
+    // agregarEvento("", "cliente_medico/misalertas.html");
+    // agregarEvento("", "cliente_medico/mismedicamentos.html");
 });
 
 
@@ -43,4 +42,3 @@ document.addEventListener("DOMContentLoaded", function () {
     // Insertar el texto en el div con id "fecha"
     document.getElementById("fecha").textContent = textoFecha;
 });
-

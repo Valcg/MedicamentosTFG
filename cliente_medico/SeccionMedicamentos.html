@@ -6,9 +6,9 @@
     <title>HOME MEDICO</title>
     <!-- --------------------------------- -->
     <link rel="stylesheet" href="../styles/styles.css">
-    <link rel="stylesheet" href="../cliente_paciente/cliente.css">
+    <link rel="stylesheet" href="../styles/cliente.css">
 
-    <link rel="stylesheet" href="../styles/botones.css"> 
+    <link rel="stylesheet" href="../styles/medico.css">
     <!-- --------------------------------- -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
     <!-- --------------------------------- -->
 </head>
 
-<body style="background-color:white;">
+<body >
     <!-- HEADER CLIENTE UNO------------------------------------------------------- -->
     <header id="header-cliente-uno">
         <nav class="nav-cliente-uno">
@@ -48,87 +48,109 @@
     </header>
     <!-- MAIN-USUARIO ------------------------------------------------------- -->
     <main id="usuario-main">
+
+        <a href="../HomeMedico.html" class="BtnVolverHome"> ← Volver al inicio</a>
+       
+       <h1 class="cliTitulos">Sección Medicamentos</h1>
+       
         <!-- Sección con los divs de contenido -->
         <section id="usuario-divs-container">
-<!-- DIV 5 ------------------------------------------------------- -->
-            <div class="usuario-div usuario-div-cinco">
-       
-                <div id ="unico"><h1>MEDICO : Alta de Medicamento</h1>
-                                  
-                <!-- Formulario de alta de medicamento -->
-                <form id="formAltaMedicamento">
-                    <label for="nombreMedicamento">Nombre del Medicamento:</label>
-                    <input type="text" id="nombreMedicamento" name="nombreMedicamento" required placeholder="Ej: Paracetamol 600 mg">
-                    <br>
 
-                    <label for="unidadMedicamento">Unidad de Medida:</label>
-                    <select id="unidadMedicamento" name="unidadMedicamento" required>
-                        <option value="">Seleccione una unidad</option>
-                        <option value="mg">mg (miligramos)</option>
-                        <option value="ml">ml (mililitros)</option>
-                        <option value="mg/ml">mg/ml (miligramos por mililitro)</option>
-                        <option value="g">g (gramos)</option>
-                        <option value="%">% (porcentaje de concentración)</option>
-                        <option value="mcg/dosis">mcg/dosis (microgramos por dosis)</option>
-                    </select>
-                    <br>
+<!-- GESTIO MEDICAMENTOS ------------------------------------------------------- -->
 
-                    <label for="cantidadUnidad">Cantidad Total por Caja:</label>
-                    <input type="number" id="cantidadUnidad" name="cantidadUnidad" min="1" required placeholder="Cantidad por caja">
-                    <br>
-
-                    <button type="button" id="btnAltaMedicamento">Registrar Medicamento</button>
-                    <div id="mensajeAlta"></div> <!-- Aquí va el mensaje de validación -->
-                </form>
-
-                <div id="nombreRenderizado" style="margin-top: 5px; font-size: 14px; font-family: arial;"></div>
-
-                <!-- Vinculamos el archivo JS -->
-                    
-                </div>
-            
-                
+<div class="usu-div-med">
 
 
-            </div>
-<!-- DIV 5 ------------------------------------------------------- -->
-<div class="usuario-div usuario-div-cinco">
-   
-    <div id ="unico"><h1>MEDICO : Gestión de Medicamentos</h1>
+                <!--  VER MI PERFIL -------------- -->
+                 <div  class="seccion-card-duo" >         
+                    <div  id="section-cliente-perfil">
+                        <div class="icono">
+                            <img src="img/ico-saludo-48.png" alt="saludo" >
+                        </div>
+                        <div class="textocartilla">
+                           
+                                                <div>
+                    <h1>MEDICO : Alta de Medicamento</h1>            
+                        <!-- Formulario de alta de medicamento -->
+                        <form id="formAltaMedicamento">
+                            <label for="nombreMedicamento">Nombre del Medicamento:</label>
+                            <input type="text" id="nombreMedicamento" name="nombreMedicamento" required placeholder="Ej: Paracetamol 600 mg">
+                            <br>
+
+                            <label for="unidadMedicamento">Unidad de Medida:</label>
+                            <select id="unidadMedicamento" name="unidadMedicamento" required>
+                                <option value="">Seleccione una unidad</option>
+                                <option value="mg">mg (miligramos)</option>
+                                <option value="ml">ml (mililitros)</option>
+                                <option value="mg/ml">mg/ml (miligramos por mililitro)</option>
+                                <option value="g">g (gramos)</option>
+                                <option value="%">% (porcentaje de concentración)</option>
+                                <option value="mcg/dosis">mcg/dosis (microgramos por dosis)</option>
+                            </select>
+                            <br>
+
+                            <label for="cantidadUnidad">Cantidad Total por Caja:</label>
+                            <input type="number" id="cantidadUnidad" name="cantidadUnidad" min="1" required placeholder="Cantidad por caja">
+                            <br>
+
+                            <button type="button" id="btnAltaMedicamento">Registrar Medicamento</button>
+                            <div id="mensajeAlta"></div> <!-- Aquí va el mensaje de validación -->
+                        </form>
+
+                        <div id="nombreRenderizado" style="margin-top: 5px; font-size: 14px; font-family: arial;"></div>
+
+                        <!-- Vinculamos el archivo JS -->        
+                </div>    
+
+                        </div>
+                    </div>
+                 </div>      
+        <!--  ---------------- CAJA 2    -------------- -->  
+                <div  class="seccion-card-duo" >         
+                 <div  id="section-cliente-dos">
+
+                      <div class="textocartilla">
+                                            
                       
+                            <div>
+                                <h1>BUSCADOR</h1>
+                                <!-- Buscador por nombre -->
+                                <section id="buscador">
+                                    <label for="nombreMedicamentoBusqueda">Buscar por nombre:</label>
+                                    <input type="text" id="nombreMedicamentoBusqueda" placeholder="Ej. Paracetamol">
+                                    <button id="btnBuscarMedicamento">Buscar</button>
+                                    <div id="resultadoBusqueda"></div>
+                                </section>
 
-        <!-- Buscador por nombre -->
-        <section id="buscador">
-            <label for="nombreMedicamentoBusqueda">Buscar por nombre:</label>
-            <input type="text" id="nombreMedicamentoBusqueda" placeholder="Ej. Paracetamol">
-            <button id="btnBuscarMedicamento">Buscar</button>
-            <div id="resultadoBusqueda"></div>
-        </section>
-        
+                            <hr>
+                                    <!-- Lista de todos los medicamentos -->
+                                    <section id="listaMedicamentos">
+                                        <h2>Todos los Medicamentos</h2>
+                                        <table id="tablaMedicamentos" border="1">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre del Medicamento</th>
+                                                    <th>Cantidad Total por Caja</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Aquí se insertarán los medicamentos -->
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                
+                            </div>
 
 
-        <hr>
-        <!-- Lista de todos los medicamentos -->
-        <section id="listaMedicamentos">
-            <h2>Todos los Medicamentos</h2>
-            <table id="tablaMedicamentos" border="1">
-                <thead>
-                    <tr>
-                        <th>Nombre del Medicamento</th>
-                        <th>Cantidad Total por Caja</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Aquí se insertarán los medicamentos -->
-                </tbody>
-            </table>
-        </section>
-        
-    </div>
-</div>
 
-<div class="usuario-div usuario-div-cinco">  
-<div ><a href="../HomeMedico.html" style="color: red;" >VOLVER A HOME</a></div>
+
+
+                        
+                        </div>
+                  </div>
+               </div> 
+      
+               
 </div>
 
 <!-- DIV 6 FOOTER --------------- -->
@@ -161,7 +183,7 @@
                             </div>
 
             </div>
-        </section>
+</section>
     </main>
     <!-- FOOTER ------------------------------------------------------- -->
     <footer id="footer-dos">

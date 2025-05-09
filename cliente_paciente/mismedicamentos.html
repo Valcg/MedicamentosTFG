@@ -6,7 +6,7 @@
     <title>Mis Recetas</title>
     <!-- --------------------------------- -->
     <link rel="stylesheet" href="../styles/styles.css">
-    <link rel="stylesheet" href="cliente.css">
+    <link rel="stylesheet" href="../styles/cliente.css">
     <!-- --------------------------------- -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- --------------------------------- -->
@@ -176,19 +176,18 @@
     <script src="../main.js"></script>
 
     <script>
-        // Abrir el modal
         document.getElementById("btnAbrirBajoStock").addEventListener("click", function () {
-    document.getElementById("modalBajoStock").classList.add("show");
-});
-
-document.getElementById("closeModalBajoStockBtn").addEventListener("click", function () {
-    document.getElementById("modalBajoStock").classList.remove("show");
-});
-
-document.getElementById("confirmBtn").addEventListener("click", function () {
-    document.getElementById("modalBajoStock").classList.remove("show");
-});
-
+            document.getElementById("modalBajoStock").classList.add("show");
+        });
+    
+        document.getElementById("closeModalBajoStockBtn").addEventListener("click", function () {
+            document.getElementById("modalBajoStock").classList.remove("show");
+        });
+    
+        document.getElementById("confirmBtn").addEventListener("click", function () {
+            document.getElementById("modalBajoStock").classList.remove("show");
+        });
     </script>
+    
 </body>
 </html>
