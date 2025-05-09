@@ -130,7 +130,6 @@
       
 
 
-
 /* MAX WIDTH 1270PX----------------------------------------------------------------------------*/
 @media screen and (max-width: 1270px) {
 
@@ -141,6 +140,11 @@
     .infotexto{height: 60px;
     margin: 0px;}
     .textotitulo{margin: 0px 10px;}
+
+
+    .medico-item{width :100%; }
+
+
 }
 
 
@@ -155,4 +159,10 @@
         margin: 20px;
         display: flex;}
 
+.perfil-section{width :100%; }
+
 }
+
+
+
+ 

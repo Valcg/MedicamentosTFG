@@ -2,7 +2,17 @@
 /*DISEÑO  CAJAS - PERFIl-HISTORIAL y  MED-REC-MEDI-ALERT */
 .usu-div-pa{
     background-color:white;
-    border: 1px solid RED;
+    border: 1px solid orange;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; 
+    border-radius: 8px;
+    margin: 20px;
+}
+.usu-div-paciente{
+
+    background-color:white;
+    border: 1px solid orange;
     width: 100%;
     display: flex;
     flex-wrap: wrap; 
@@ -294,21 +304,17 @@ display: flex;
         }
 
 
-/* Estilo para el botón de agregar */
-#btnAgregar {
-    background-color: #4CAF50; /* Verde */
-    color: white;
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-/* Cambio de color al pasar el mouse sobre el botón de agregar */
-#btnAgregar:hover {
-    background-color: #235726; /* Verde más oscuro */
-}
-
-
+        /* BTN AGREGAR --------------------------- */
+        #btnAgregar {
+            background-color: #4CAF50; 
+            color: white;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #btnAgregar:hover {
+            background-color: #235726; 
+        }
 

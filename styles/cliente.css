@@ -12,8 +12,6 @@
     height: 60px;
 }
 
-h2{font-weight: normal;margin: auto;}
-
 /* ICONOS ------------------------------------------------------------ */
 .icono {display: flex;}
 .icono>img {width: 40px;}
@@ -224,41 +222,17 @@ h2{font-weight: normal;margin: auto;}
 
 
 
-/* Estilos para el logotipo */
-.logo-about-us {
-    width: 90px;
-}
+                /* Estilos para el logotipo */
+                .logo-about-us {
+                    width: 90px;
+                }
 
-/* Estilos para el nombre de cliente y tipo de cuenta */
-.nombre-cliente, .tipo-cuenta {
-    font-size: 16px;
-    color: #333;
-   
-}
-
-/* Estilos para el botón de cerrar sesión */
-.cerrar-sesion-cliente {
-    width: 200px;
-    padding: 8px;
-    border-radius: 20px;
-    /* box-shadow:4px 4px 6px rgba(0, 0, 0, 0.1); */
-    /* border:1px solid #ccc; */
-    background-color: white; 
-    color: black;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px; /* Espacio entre el ícono y el texto */
-    transition: color 0.3s ease;
-   }
-  
-
-.cerrar-sesion-cliente:hover {
-    background-color: #333;
-    color: white; transition: color 0.3s ease;
-    /* border: 1px solid #333 ; */
-}
+                /* Estilos para el nombre de cliente y tipo de cuenta */
+                .nombre-cliente, .tipo-cuenta {
+                    font-size: 16px;
+                    color: #333;
+                
+                }
 
 
 /* --------------------------- HEADER CLIENTE DOS --------------------------- */
@@ -312,17 +286,9 @@ h2{font-weight: normal;margin: auto;}
 
 /* CLIENTE - USUARIO COMO PACIENTE----------------------------------------------------------*/
 
-.cliTitulos{
-color: black;
-text-align: center;
-background-color: white;
 
-margin: 20px;
-border-radius: 8px;}
-
-.receta-item,.perfil-item,
-#mi-historial-tomas,#mis-alertas-medicas{
-    border: 1px solid white;
+.receta-item,#mi-historial-tomas,#mis-alertas-medicas{
+    border: 1px solid rgb(84, 49, 49);
     text-align: center;
     margin: 40px 20px;
     border-radius: 8px;
@@ -465,3 +431,52 @@ border-radius: 8px;}
 }
 
 
+
+
+
+        /* 1 VOLVER HOME ---------------------------------------*/
+        .BtnVolverHome {
+            width: 200px;
+            padding: 8px;
+            border-radius: 20px;
+            border:1px solid yellow;
+            font-weight: bold; 
+            color: #00669C;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .BtnVolverHome:hover {
+            color: #84CBF1; 
+            font-weight: bold;
+        }
+        /* 2 CERRAR SESION --------------------------------------- */
+        .cerrar-sesion-cliente {
+            width: 200px;
+            padding: 8px;
+            border-radius: 20px;
+            background-color: white; 
+            color: #00669C;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+        }
+        .cerrar-sesion-cliente:hover {
+            background-color: #00669C;
+            color: white;
+            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* H1 TITULOS H2 --------------------------------------- */
+        .cliTitulos,h2{
+        color: rgb(72, 72, 72);
+        text-align: center;
+        background-color: white;
+        font-weight: normal;
+        margin: 20px auto;
+        border-radius: 8px;}
