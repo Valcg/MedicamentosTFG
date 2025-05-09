@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         axios.get(url)
             .then(res => {
                 let historial = res.data;
+                console.log("Historial completo recibido:", res.data); 
                 if (!historial || historial.length === 0) {
                     historialContainer.innerHTML = "<p>No hay historial de tomas disponible.</p>";
                 } else {

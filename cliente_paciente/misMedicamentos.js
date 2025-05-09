@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Cargar los medicamentos al cargar la página
     function cargarMisMedicamentos() {
-        const url = `http://localhost:9050/pacientes/vermedicamentos/paciente/${idPaciente}`;
+        const url = `http://localhost:9050/pacientes/VerMisMedicamentos/paciente/${idPaciente}`;
 
         axios.get(url)
             .then(response => {
