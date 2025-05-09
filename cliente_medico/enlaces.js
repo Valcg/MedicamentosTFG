@@ -16,8 +16,7 @@ function agregarEvento(id, url) {
 document.addEventListener("DOMContentLoaded", function () {
     agregarEvento("miperfilmedico", "cliente_medico/miperfilmedico.html");
     agregarEvento("vermispacientes", "cliente_medico/VerMisPacientes.html");
-
-    // agregarEvento("", "cliente_medico/misrecetas.html");
+agregarEvento("verseccionmedicamentos", "cliente_medico/seccionmedicamentos.html");
     // agregarEvento("", "cliente_medico/mismedicos.html");
     // agregarEvento("", "cliente_medico/misalertas.html");
     // agregarEvento("", "cliente_medico/mismedicamentos.html");
@@ -43,4 +42,3 @@ document.addEventListener("DOMContentLoaded", function () {
     // Insertar el texto en el div con id "fecha"
     document.getElementById("fecha").textContent = textoFecha;
 });
-

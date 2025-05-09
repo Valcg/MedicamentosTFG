@@ -6,7 +6,7 @@
     <title>HOME MEDICO</title>
     <!-- --------------------------------- -->
     <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="cliente_paciente/cliente.css">
+    <link rel="stylesheet" href="styles/cliente.css">
 
     <link rel="stylesheet" href="styles/medico.css">
     <!-- --------------------------------- -->
@@ -51,7 +51,7 @@
        
     <!-- -------------- EN STYLES.CSS -->
     <section id="usuario-divs-container">
-           
+<!--  1 ----------------------------------- -->           
             <div class="usu-div-med">
                 <!--  VER MI PERFIL -------------- -->
                  <div  class="medico-item" >         
@@ -60,7 +60,7 @@
                             <img src="img/ico-saludo-48.png" alt="saludo" >
                         </div>
                         <div class="texto">
-                             <p id="verperfilmedico">VER MI PERFIL</p>   
+                             <p id="btnperfilmedico">VER MI PERFIL</p>   
                             <p class="texto3" >Puedes ver los datos de tu cuenta</p>       
                         </div>
                     </div>
@@ -81,46 +81,73 @@
                </div>    
              </div>
 
+<!--  2 ----------------------------------- -->  
+            <h2 >SECCION PACIENTES</h2>
+            <div class="usu-div-med">
+            <!-- ----------------------------------- -->    
+                    <!-- MIS PACIENTES--------------------- -->                
+                    <div class="medico-item-pacientes">             
+                        <div  id="vermispacientes">
+                            <div class="icono">
+                                <img src="img/ico-pacientes-64.png" alt="saludo" >
+                            </div>
+                            <div class="texto">
+                                <p id="btnmispacientes">MIS PACIENTES</p>   
+                                <p class="texto2" >Puedes ver la lista de tus pacientes</p>       
+                            </div>
+                        </div>
+                    </div>
 
-<h2 style="margin: auto;">SECCION PACIENTES</h2>
+                    <!-- TEXTOS INFORMACION - MIS PACIENTES--------------------- --> 
+                    <div class="infomispacientes">             
+                        <div  class="infomispa">
+                            <div class="infotexto"> 
+                                <div class="textotitulo">1</div>
+                                <p class="texto4"> Puedes ver tu <a class="bold">Lista </a> de pacientes </p>       
+                            </div>
+                            <div class="infotexto">
+                                <div class="textotitulo">2</div>     
+                                <p class="texto4"> Puedes ver el <a class="bold">Historial</a> de cada Paciente</p>
+                            </div>
+                            <div class="infotexto">
+                                <div class="textotitulo">3</div>       
+                                <p class="texto4"> Puedes ver las <a class="bold">Rectas</a> de cada Paciente</p>       
+                            </div>
+                        </div>
+                    </div>
+            </div>
+<!--  3 ----------------------------------- --> 
+
+<h2>SECCION MEDICAMENTOS</h2>
 <div class="usu-div-med">
-
-    <!--  2 ----------------------------------- -->                   
+<!-- ----------------------------------- -->    
+        <!-- MIS PACIENTES--------------------- -->                
         <div class="medico-item-pacientes">             
-            <div  id="vermispacientes">
+            <div  id="verseccionmedicamentos">
                 <div class="icono">
-                    <img src="img/ico-saludo-48.png" alt="saludo" >
+                    <img src="img/ico-seccionmedicamentos-64.png" alt="saludo" >
                 </div>
                 <div class="texto">
-                    <p id="verperfilmedico">MIS PACIENTES</p>   
+                    <p id="btnmedicamentos">    MEDICAMENTOS</p>   
                     <p class="texto2" >Puedes ver la lista de tus pacientes</p>       
                 </div>
             </div>
         </div>
 
-
+        <!-- TEXTOS INFORMACION - MIS PACIENTES--------------------- --> 
         <div class="infomispacientes">             
             <div  class="infomispa">
-                <div class="infotexto">  
-                    <p class="textotitulo" >1</p>       
-                    <p class="texto4" >Puedes ver la <a class="bold">Lista de pacientes</a> que tienes actualmente</p>       
+                <div class="infotexto"> 
+                    <div class="textotitulo">1</div>
+                    <p class="texto4"> Puedes ver todos los medicamentos que hay en la <a class="bold">Lista </a> </p>       
                 </div>
-            </div>
-        </div>
-        <div class="infomispacientes">             
-            <div  class="infomispa">
-                <div class="infotexto">  
-                    <p class="textotitulo">2</p>       
-                    <p class="texto4" >Puedes ver el <a class="bold">Historial</a> de cada PACIENTE</p>       
+                <div class="infotexto">
+                    <div class="textotitulo">2</div>     
+                    <p class="texto4"> Puedes <a class="bold">Dar de Alta </a> un nuevo medicamento que no esté en la Lista </p>
                 </div>
-
-            </div>
-        </div>
-        <div class="infomispacientes">             
-            <div  class="infomispa">
-                <div class="infotexto">  
-                    <p class="textotitulo">3</p>       
-                    <p class="texto4" >Puedes ver las <a class="bold">Rectas</a> de cada PACIENTE</p>       
+                <div class="infotexto">
+                    <div class="textotitulo">3</div>       
+                    <p class="texto4"> Dispones de un <a class="bold">Buscador</a> para la lista de medicamentos</p>       
                 </div>
             </div>
         </div>
@@ -128,19 +155,11 @@
 
 
 <!-- MEDICO LINKS --------------- -->
-        <div class="usu-div-med">
-                         
+        <div class="usu-div-med">               
             <ul>
-<!-- PONER EN UNA SECCION EL ARTA DE MEDICAMENTO Y EL DE BSUCARMEDICAMENTOS: ASI AL ENTRAR ESTAN LOS DOS  -->
                 <li><a href="cliente_medico/AsociarPaciente.html"> -- Asociar Paciente</a></li>
-                <li><a href="cliente_medico/SeccionMedicamentos.html"> -- SECCION Medicamento (Buscar, Lista y Alta)</a></li>
-
-    <!-- EN PROCESO --------------------------------- -->
                 <li><a href="cliente_medico/CrearReceta.html"> -- Crear Receta</a></li>
-                <!-- Dentro del div ya existente, agregar un link para ver el historial -->
             </ul>
-
-            <div id="resultado"></div>
 </div>
 
 
@@ -175,11 +194,9 @@
 
             </div>
         
-        
-
     </section>
     </main>
-    <!-- FOOTER ------------------------------------------------------- -->
+<!-- FOOTER ------------------------------------------------------- -->
     <footer id="footer-dos">
         <ul>
             <li><a>© 2025 All rights reserved.</a></li>

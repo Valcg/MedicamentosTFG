@@ -5,34 +5,35 @@
 
 /* 1  Y 2 TEXTO : boton y texto2 de cajas ---------------------------- */
 .texto {width: 65%;  }
-
 .texto2 {
     font-size: 12px;
     color: white;
     margin-left: 10px;
     height: 60px;
 }
+
+h2{font-weight: normal;margin: auto;}
+
 /* ICONOS ------------------------------------------------------------ */
 .icono {display: flex;}
-
 .icono>img {width: 40px;}
 
 
 
-/* --------------------------- ENLACES SIN SUBRAYADO --------------------------- */
-.sin-subrayado {
-    text-decoration: none; /* Quita el subrayado */
-    color: #00669C;
-}
+        /* --------------------------- ENLACES SIN SUBRAYADO --------------------------- */
+        .sin-subrayado {
+            text-decoration: none; /* Quita el subrayado */
+            color: #00669C;
+        }
 
-.sin-subrayado:hover {
-    text-decoration: none; /* Mantiene sin subrayado al pasar el mouse */
-    color: #84CBF1;
-}
+        .sin-subrayado:hover {
+            text-decoration: none; /* Mantiene sin subrayado al pasar el mouse */
+            color: #84CBF1;
+        }
 
-.sin-subrayadodos {
-    text-decoration: none; /* Quita el subrayado */
-}
+        .sin-subrayadodos {
+            text-decoration: none; /* Quita el subrayado */
+        }
 
 
 /* --------------------------- LINK  INICIAR SESIÓN --------------------------- */

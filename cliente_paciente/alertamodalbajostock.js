@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 180000);
 
     function verificarMedicamentosCliente() {
-        axios.get(`http://localhost:9050/pacientes/VerMisMedicamentos/paciente/${idPaciente}`)
+        axios.get(`http://localhost:9050/pacientes/vermedicamentos/paciente/${idPaciente}`)
             .then(response => {
                 const listaMedicamentos = response.data;
                 if (!listaMedicamentos || listaMedicamentos.length === 0) return;

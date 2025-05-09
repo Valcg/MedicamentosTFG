@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     agregarEvento("VerMisRecetas", "cliente_paciente/misrecetas.html");
     agregarEvento("VerMisMedicos", "cliente_paciente/mismedicos.html");
     agregarEvento("VerMisAlertas", "cliente_paciente/misalertas.html");
-    agregarEvento("VerMisMedicamentos", "cliente_paciente/mismedicamentos.html");
+    agregarEvento("vermedicamentos", "cliente_paciente/mismedicamentos.html");
 });
 
 

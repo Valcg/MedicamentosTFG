@@ -13,8 +13,9 @@
                 font-family: "Noto Sans", serif;
                 font-optical-sizing: auto;
                 font-style: normal;
-               /* background-color: #F0F0F0; */
-                background-color: grey;
+                background-color: #F0F0F0;
+                /* background-color: grey; */
+                box-sizing: border-box;
             }
 
             /* --------------------------- SECTION LOGIN --------------------------- */

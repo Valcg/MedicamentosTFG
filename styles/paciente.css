@@ -93,7 +93,7 @@
             box-sizing: border-box;
             width: 25%;
         }
-        #VerMisRecetas,#VerMisMedicos,#VerMisAlertas,#VerMisMedicamentos {
+        #VerMisRecetas,#VerMisMedicos,#VerMisAlertas,#vermedicamentos {
             display: flex;
             align-items: center;
             justify-content: space-evenly;/* Distribuye los elementos equitativamente */
@@ -108,9 +108,9 @@
                         box-shadow:4px 4px 8px rgba(0, 0, 0, 0.1);
                     }
             /* MIS MEDICAMENTOS  ----------------------------------------*/
-            #VerMisMedicamentos{background-color: #dac47c;}
+            #vermedicamentos{background-color: #dac47c;}
 
-            #VerMisMedicamentos:hover{background-color: #c9b268;
+            #vermedicamentos:hover{background-color: #c9b268;
                 box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}  
                 #hovermt:hover { color: #dac47c; }
 
