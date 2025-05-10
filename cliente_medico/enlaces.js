@@ -1,5 +1,4 @@
 // ------------------- enlaces.js -------------------
-
 // FUNCION PARA AGREGAR EVENTOS A LOS ENLACES
 function agregarEvento(id, url) {
     const elemento = document.getElementById(id);
@@ -11,17 +10,13 @@ function agregarEvento(id, url) {
         console.error(`Elemento '${id}' no encontrado`);
     }
 }
-
 // Espera que el DOM esté listo antes de asignar eventos
 document.addEventListener("DOMContentLoaded", function () {
     agregarEvento("miperfilmedico", "cliente_medico/miperfilmedico.html");
     agregarEvento("vermispacientes", "cliente_medico/VerMisPacientes.html");
 agregarEvento("verseccionmedicamentos", "cliente_medico/seccionmedicamentos.html");
-    // agregarEvento("", "cliente_medico/mismedicos.html");
-    // agregarEvento("", "cliente_medico/misalertas.html");
-    // agregarEvento("", "cliente_medico/mismedicamentos.html");
-});
 
+});
 
 // ------------------- Script 1: Mostrar fecha -------------------
 document.addEventListener("DOMContentLoaded", function () {
