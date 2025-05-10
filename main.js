@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector(".cerrar-sesion-cliente").addEventListener("click", function () {
         // Limpiar localStorage y redirigir a index.html
         localStorage.clear();
-        window.location.href = "index.html"; // Redirige a la página de inicio
+        // RUTA RELATIVA AL MAYOR NIVEL-----------------------------------------------------
+        // redirigir al nivel superior
+        window.location.href = "/index.html"; // Redirige a la página de inicio
     });
 });
