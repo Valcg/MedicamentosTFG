@@ -476,7 +476,5 @@
         .cliTitulos,h2{
         color: rgb(72, 72, 72);
         text-align: center;
-        background-color: white;
         font-weight: normal;
-        margin: 20px auto;
-        border-radius: 8px;}
+        margin: 20px auto;}

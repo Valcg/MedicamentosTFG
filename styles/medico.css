@@ -37,7 +37,6 @@
         margin: 20px;
         height: 200px;
         border-radius: 10px;
-        box-sizing: border-box;
         transition:  0.3s ease-in-out;
     }
             /* 1 -------------- MI PERFIL MEDICO ----------------------------------------- */ 
@@ -102,6 +101,32 @@
             #verseccionmedicamentos:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
                 background-color:  #dac47c;}
 
+/* 4 -------------- PERFIL Y VER HISTORIAL ----------------------------------------- */
+
+    /* 1  BOXS DE perfil y Historial --------------------------- */
+    .medico-item {box-sizing: border-box; width: 50%;
+    }
+
+    #asociarpaciente ,#homecrearreceta{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        /* Distribuye los elementos equitativamente */
+        margin: 20px;
+        height: auto;
+        border-radius: 10px;
+        transition:  0.3s ease-in-out;
+    }
+            /* 1 -------------- MI PERFIL MEDICO ----------------------------------------- */ 
+            #asociarpaciente{background-color: yellowgreen;}
+            
+            #asociarpaciente:hover{background-color: rgb(119, 163, 29);
+                box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+            /* 1 -------------- notas ----------------------------------------- */ 
+            #homecrearreceta{background-color: #8494f1;}  
+            #homecrearreceta:hover{background-color: #4a59ab;
+                        box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}  
+
 
 /* BOTONES DE 1 2 Y 3 --------------------------- */
 
@@ -127,9 +152,7 @@
                     #btnmedicamentos:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
                         color: #dac47c;}
 
-      
-
-
+                     
 /* MAX WIDTH 1270PX----------------------------------------------------------------------------*/
 @media screen and (max-width: 1270px) {
 

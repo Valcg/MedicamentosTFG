@@ -20,8 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // Oculte el numero de colegiado
             resultadoDiv.innerHTML = `
                 <div id="crearRecetaDiv">
-                    <h3>Crear Receta</h3>
-
                     <label>Correo del Paciente:</label>
                     <input type="text" id="correo_paciente">
                     <span id="mensajeCorreo" style="margin-left: 10px;"></span><br>

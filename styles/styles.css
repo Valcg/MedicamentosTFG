@@ -2,9 +2,8 @@
 
     /* 1  BOXS DE perfil y Historial --------------------------- */
 
-   /* 1  TARJETA --------------------------- */
-    .seccion-card-duo {box-sizing: border-box; width: 50%;
-    }
+   /* 1  TARJETA 50% --------------------------- */
+    .seccion-card-duo {width: 50%;}
 
     #section-cliente-perfil ,#section-cliente-dos{
         display: flex;
@@ -33,7 +32,9 @@
             border: 1px solid yellow;
             text-align: right;
             padding: 40px;}
-
+        /* MI PERFIL--------------
+        centra SECCION-CARD DE MI PERFIL EN MEDICO Y PACIENTE */
+        #miperfilcliente{margin:auto;}
 
 
 #usuario-divs-container {
