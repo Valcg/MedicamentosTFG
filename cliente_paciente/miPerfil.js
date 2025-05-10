@@ -30,17 +30,34 @@ document.addEventListener("DOMContentLoaded", function () {
                 div.classList.add("perfil-item");
 
                 // MOSTRAMOS LOS DATOS BÁSICOS DEL PACIENTE EN EL DIV
+                //                          <p>ID del Usuario  <strong> ${paciente.usuario.idUsuario}</strong></p> 
+                //                          <p>ID del PACIENTE <strong> ${paciente.idPaciente}</strong> </p>
+                  
                 div.innerHTML = `
-                    <h3>Los datos de tu cuenta:</h3>
-                    <strong>ID del USUARIO:</strong> ${paciente.usuario.idUsuario} <br>
-                    <strong>ID del PACIENTE:</strong> ${paciente.idPaciente} <br>
-                    <strong>Nombre del Paciente:</strong> ${paciente.usuario.nombre} <br>
-                    <strong>Apellidos del Paciente:</strong> ${paciente.usuario.apellido} <br>
-                    <strong>Correo del Paciente:</strong> ${paciente.usuario.correo} <br>
-                    <strong>DNI:</strong> ${paciente.usuario.dni} <br>
-                    <strong>Estado:</strong> ${paciente.usuario.enabled ? "Activo" : "Inactivo"} <br>
-                    <strong>Tipo de Usuario:</strong> ${paciente.usuario.tipoUsuario} <br>
-                    <strong>Diagnóstico:</strong> ${paciente.diagnostico || "No disponible"} <br>
+
+                    <h3>Los datos de tu cuenta :</h3>
+                    
+                    <p >Nombre </p>
+                    <p class="izq"><strong>${paciente.usuario.nombre}</strong> </p>
+                        <hr>  
+                    <p>Apellidos </p>
+                    <p class="izq">    <strong>${paciente.usuario.apellido}</strong> </p>
+                         <hr>  
+                    <p>Correo electrónico</p>
+                    <p class="izq">    <strong>${paciente.usuario.correo}</strong> </p>
+                         <hr>  
+                    <p>DNI</p>
+                    <p class="izq">    <strong>${paciente.usuario.dni} </strong> </p>
+                         <hr>  
+                    <p>Estado</p>
+                    <p class="izq">    <strong>${paciente.usuario.enabled ? "Activo" : "Inactivo"}</strong> </p>  
+                        <hr>  
+                    <p>Tipo de Usuario</p>
+                    <p class="izq">    <strong>${paciente.usuario.tipoUsuario}</strong> </p>
+                        <hr>    
+                    <p>Diagnóstico</p>
+                    <p class="izq">    <strong>${paciente.diagnostico || "No disponible"}</strong> </p>  
+
                 `;
 
                 // AGREGAMOS EL DIV AL FRAGMENTO PARA OPTIMIZAR EL RENDIMIENTO

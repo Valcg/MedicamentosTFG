@@ -27,14 +27,27 @@
                         box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}  
 
 
+        
+        /* MI PERFIL--------------centra SECCION-CARD DE MI PERFIL EN MEDICO Y PACIENTE */
+         #miperfilcliente{margin:auto;}
+
         /* MI PERFIL---------------------------------------------------------------------- */
-        .perfil-item{
-            border: 1px solid yellow;
-            text-align: right;
-            padding: 40px;}
-        /* MI PERFIL--------------
-        centra SECCION-CARD DE MI PERFIL EN MEDICO Y PACIENTE */
-        #miperfilcliente{margin:auto;}
+                #mi-perfil{
+                     /* background-color: orange; */
+                        width: 60%;}
+                    .perfil-item{
+                        padding: 20px 0;}
+                    .perfil-item p{margin:2px 0;height: auto;text-align: left;}
+                    .perfil-item .izq{margin:2px 0;text-align: right;}
+                
+                #mi-perfil hr{border: none;
+                        height: 1px;
+                        background-color: white;
+                        margin: 10px 0;}
+         
+            
+
+
 
 
 #usuario-divs-container {

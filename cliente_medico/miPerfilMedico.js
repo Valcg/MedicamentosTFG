@@ -31,15 +31,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // MOSTRAMOS LOS DATOS BÁSICOS DEL MEDICO EN EL DIV
                 div.innerHTML = `
-                    <h3>Los datos de tu cuenta:</h3>
-                    <strong>Número de Colegiado:</strong> ${medico.numeroColegiado} <br>
-                    <strong>Nombre del Médico:</strong> ${medico.usuario.nombre} <br>
-                    <strong>Apellidos del Médico:</strong> ${medico.usuario.apellido} <br>
-                    <strong>Correo del Médico:</strong> ${medico.usuario.correo} <br>
-                    <strong>Especialidad:</strong> ${medico.especialidad || "No disponible"} <br>
-                    <strong>Estado:</strong> ${medico.usuario.enabled ? "Activo" : "Inactivo"} <br>
-                    <strong>Tipo de Usuario:</strong> ${medico.usuario.tipoUsuario} <br>
-                   
+                    <h3>Los datos de tu cuenta :</h3>
+                    <p>Tipo de Usuario</p>
+                        <p class="izq"><strong>${medico.usuario.tipoUsuario}</strong> </p> 
+                        <hr>    
+                    <p>Número de Colegiado</p>
+                         <p class="izq"> <strong>${medico.numeroColegiado}</strong> </p>
+                        <hr>
+                    <p>Nombre</p>
+                           <p class="izq"> <strong>${medico.usuario.nombre}</strong> </p>
+                        <hr>              
+                    <p>Apellidos </p>
+                        <p class="izq"> <strong>${medico.usuario.apellido}</strong> </p>
+                        <hr>
+                    <p>Correo electrónico</p>
+                        <p class="izq"> <strong>${medico.usuario.correo}</strong> </p>
+                        <hr>
+                    <p>Especialidad</p>
+                        <p class="izq"> <strong>${medico.especialidad || "No disponible"}</strong> </p>
+                        <hr>
+                    <p>Estado</p>
+                        <p class="izq"> <strong>${medico.usuario.enabled ? "Activo" : "Inactivo"}</strong> </p>
+     
                 `;
 
                 // AGREGAMOS EL DIV AL FRAGMENTO PARA OPTIMIZAR EL RENDIMIENTO
@@ -51,6 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(err => {
             console.error("Hubo un fallo en la petición: " + err);
-            perfilContainer.innerHTML = "<p>Hubo un error al cargar el perfil.</p>";
+            perfilContainer.innerHTML = "<p>Hubo un error al cargar el Perfil Médico</p>";
         });
 });
