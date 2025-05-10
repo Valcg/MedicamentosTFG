@@ -398,7 +398,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #84CBF1;
+    background-color: yellow;
     height: 50px;
     width: 200px;
     border-radius: 5px;
@@ -409,28 +409,6 @@
 #btn-usu-footer:hover {
     background-color: #00669C;  
 }
-/* VOLVER HOME ---------------------------------------*/
-#volverHomeCli {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    background-color: #84CBF1;
-    height: 50px;
-    width: 200px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    transition: 0.3s ease-in-out;
-    margin:auto;
-}
-
-#volverHomeCli:hover {
-    background-color: #00669C; 
-  
-}
-
-
 
 
 
