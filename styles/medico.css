@@ -57,7 +57,7 @@
     .medico-item-pacientes{box-sizing: border-box; width: 25%;}
     .infomispacientes {box-sizing: border-box; width: 75%;}
 
-    #vermispacientes,.infomispa,#verseccionmedicamentos{
+    #seccionpacientes,.infomispa,#verseccionmedicamentos{
         display: flex;
         align-items: center;
         justify-content: space-evenly;
@@ -88,8 +88,8 @@
             .bold{font-weight: bold;}
 
             /* 2 -------------- VER MIS PACIENTES ----------------------------------------- */           
-            #vermispacientes{background-color: #00669C;}
-            #vermispacientes:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
+            #seccionpacientes{background-color: #00669C;}
+            #seccionpacientes:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
                 background-color: #005c8d;}
 
             .infomispa{border: 1px solid yellow;
@@ -101,10 +101,11 @@
             #verseccionmedicamentos:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
                 background-color:  #dac47c;}
 
-/* 4 -------------- PERFIL Y VER HISTORIAL ----------------------------------------- */
+/* 4 -------------- ASOCIAR Y CREAR ----------------------------------------- */
 
-    /* 1  BOXS DE perfil y Historial --------------------------- */
-    .medico-item {box-sizing: border-box; width: 50%;
+    /*TAMAÑOS CAJAS LAS 2 --------------------------- */
+    .asociarcrear {  display: flex;
+         flex-direction: column;
     }
 
     #asociarpaciente ,#homecrearreceta{
@@ -117,14 +118,15 @@
         border-radius: 10px;
         transition:  0.3s ease-in-out;
     }
-            /* 1 -------------- MI PERFIL MEDICO ----------------------------------------- */ 
-            #asociarpaciente{background-color: yellowgreen;}
+            /* 1 -------------- ASOCIAR PACIENTE ----------------------------------------- */ 
+            #asociarpaciente{background-color:lightgrey;
+                               height: 100%;}
             
-            #asociarpaciente:hover{background-color: rgb(119, 163, 29);
+            #asociarpaciente:hover{background-color:yellow;
                 box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
             /* 1 -------------- notas ----------------------------------------- */ 
-            #homecrearreceta{background-color: #8494f1;}  
-            #homecrearreceta:hover{background-color: #4a59ab;
+            #homecrearreceta{background-color:lightgrey;}  
+            #homecrearreceta:hover{background-color: yellow;
                         box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}  
 
 
@@ -146,7 +148,7 @@
                 background-color: white;
             }
                     #btnperfilmedico:hover {box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
-                        color: #f184e8;}
+                        color: #00669C;}
                     #btnmispacientes:hover {box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
                         color: #84CBF1;}
                     #btnmedicamentos:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);

@@ -13,7 +13,7 @@ function agregarEvento(id, url) {
 // Espera que el DOM esté listo antes de asignar eventos
 document.addEventListener("DOMContentLoaded", function () {
     agregarEvento("miperfilmedico", "cliente_medico/miperfilmedico.html");
-    agregarEvento("vermispacientes", "cliente_medico/VerMisPacientes.html");
+    agregarEvento("seccionpacientes", "cliente_medico/seccionpacientes.html");
 agregarEvento("verseccionmedicamentos", "cliente_medico/seccionmedicamentos.html");
 
 });

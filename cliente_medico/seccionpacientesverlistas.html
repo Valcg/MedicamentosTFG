@@ -51,8 +51,8 @@
     </header>
     <!-- MAIN-USUARIO ------------------------------------------------------- -->
     <main id="usuario-main">
-        <a href="../HomeMedico.html" class="BtnVolverHome"> ← Volver al inicio</a>
-        <h1 class="cliTitulos">Ver Mis Pacientes</h1>
+        <a href="seccionpacientes.html" class="BtnVolverHome"> ← Volver A Seccion Pacientes</a>
+        <h1 class="cliTitulos">Sección Pacientes</h1>
         <!-- Sección con los divs de contenido -->
         <section id="usuario-divs-container">
 
@@ -61,62 +61,16 @@
 <div class="usu-div-med">
 
 
-        <!-- ASOCIAR PACIENTE Y CREAR RECETA  ------------------------------ -->
-                 <div  class="seccion-card-duo" >         
-                    <div  id="section-cliente-perfil">
-                        <div class="textocartilla">
-                            
-                            <h2>ASOCIAR PACIENTE</h2>                     
-                            <div id="unico">
-                                <!-- Formulario para asociar paciente -->
-                                <!-- <label for="numeroColegiado">Número de Colegiado:</label> -->
-                                <input type="hidden" id="numeroColegiado" required readonly>
-                                <br>
-                            
-                                <label for="correoPaciente">Correo del Paciente:</label>
-                                <input type="email" id="correoPaciente" required>
-                                <br>
-                            
-                                <button id="btnAsociarPaciente">Asociar Paciente</button>
-                            
-                                <!-- Área para mostrar el mensaje de éxito o error -->
-                                <div id="mensajeAsociacion"></div>
-                            
-                                <!-- Vinculamos el archivo JS -->
-                                <script src="AsociarPaciente.js"></script>
-                            </div>
-                                        
-     
 
-                        </div>
-                    </div>
-                 </div>      
-        <!-- MIS PACIENTES  ------------------------------ -->  
-                <div  class="seccion-card-duo" >         
-                 <div  id="section-cliente-dos">
-
-                      <div class="textocartilla">
-                                            
-                                    <h2>Mis Pacientes</h2>
-                                    <div id="pacientes"></div>          
-                      
-                                    <script src="VerMisPacientes.js"></script>
-                        
-                        </div>
-                  </div>
-               </div> 
-      
-               
-    </div>          
 
 <!--  DIV 5 -------------- -->
 
             <div class="usuario-div usuario-div-cinco">
                     <div id="historial-pacientes"></div>
 
-                    <script src="verHistorialPaciente.js"></script>
-                    
-                    <script src="verRecetasPaciente.js"></script>
+
+
+
                     
             </div> 
 
@@ -151,8 +105,9 @@
 
             </div>
 
-        </section>
-    </main>
+  </section>  
+
+</main>    
     <!-- FOOTER ------------------------------------------------------- -->
     <footer id="footer-dos">
         <ul>
@@ -169,6 +124,27 @@
       
             <!-- Enlazamos al archivo main.js -->
             <script src="../main.js"></script>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const tipoVista = localStorage.getItem("tipoVista");
+    const idPaciente = localStorage.getItem("idPacienteSeleccionado");
+    const nombrePaciente = localStorage.getItem("nombrePacienteSeleccionado");
+
+    if (tipoVista === "historial") {
+        mostrarHistorialDePaciente(idPaciente, nombrePaciente); // definida en verHistorialPaciente.js
+    } else if (tipoVista === "recetas") {
+        verRecetasDePaciente(idPaciente, nombrePaciente); // definida en verRecetasPaciente.js
+    } else {
+        document.getElementById("historial-pacientes").innerHTML = "<p>Tipo de vista no válido.</p>";
+    }
+});
+</script>
+<script src="verHistorialPaciente.js"></script>
+<script src="verRecetasPaciente.js"></script>
+
 
           
 </body>

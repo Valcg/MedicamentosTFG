@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         document.getElementById("mensajeReceta").innerHTML =
                             `<span style="color:red;">Ya existe una receta para este medicamento. Si quieres crear una nueva receta, debes caducar la receta que está dada de alta.</span>`;
                         document.getElementById("mensajeReceta").innerHTML += 
-                            `<br><button id="btnRedirigir" style="background-color: #f44336; color: white; padding: 10px 15px; border: none; cursor: pointer;" onclick="window.location.href='VerMisPacientes.html';">Ir a Ver Mis Pacientes</button>`;
+                            `<br><button id="btnRedirigir" style="background-color: #f44336; color: white; padding: 10px 15px; border: none; cursor: pointer;" onclick="window.location.href='seccionpacientes.html';">Ir a Ver Mis Pacientes</button>`;
                     });
             })
             .catch(error => {

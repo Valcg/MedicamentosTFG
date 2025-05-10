@@ -1,4 +1,4 @@
-// VerMisPacientes.js
+// seccionpacientes.js
 document.addEventListener("DOMContentLoaded", function () {
     const baseURL = "http://localhost:9050/medicos";
     const pacientesContainer = document.getElementById("pacientes");
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <th>Correo</th>
                         <th>ID</th>
                         <th>Historial</th>
-                        <th>Recetas</th> <!-- Nuevo encabezado -->
+                        <th>Recetas</th>
                     </tr>`;
 
                 response.data.forEach(paciente => {
@@ -51,21 +51,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 table += `</table>`;
                 pacientesContainer.innerHTML = table;
 
-                // Historial: delegamos al archivo VerHistorialPaciente.js
+                // Redirigir a seccionpacientesverlistas.html con datos en localStorage
                 document.querySelectorAll(".verHistorial").forEach(button => {
                     button.addEventListener("click", function () {
                         const idPaciente = this.getAttribute("data-id");
                         const nombrePaciente = this.getAttribute("data-nombre");
-                        mostrarHistorialDePaciente(idPaciente, nombrePaciente);
+                        localStorage.setItem("idPacienteSeleccionado", idPaciente);
+                        localStorage.setItem("nombrePacienteSeleccionado", nombrePaciente);
+                        localStorage.setItem("tipoVista", "historial");
+                        window.location.href = "seccionpacientesverlistas.html";
                     });
                 });
 
-                // Recetas: delegamos al archivo VerRecetasPaciente.js
                 document.querySelectorAll(".verRecetas").forEach(button => {
                     button.addEventListener("click", function () {
                         const idPaciente = this.getAttribute("data-id");
                         const nombrePaciente = this.getAttribute("data-nombre");
-                        verRecetasDePaciente(idPaciente, nombrePaciente);
+                        localStorage.setItem("idPacienteSeleccionado", idPaciente);
+                        localStorage.setItem("nombrePacienteSeleccionado", nombrePaciente);
+                        localStorage.setItem("tipoVista", "recetas");
+                        window.location.href = "seccionpacientesverlistas.html";
                     });
                 });
             })

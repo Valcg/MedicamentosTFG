@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/cliente.css">
 
+
+    <link rel="stylesheet" href="../styles/medico.css">
     <!-- --------------------------------- -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,9 +20,11 @@
     <!-- --------------------------------- -->
 </head>
 
-<body style="background-color:white;">
+<body >
+ 
     <!-- HEADER CLIENTE UNO------------------------------------------------------- -->
     <header id="header-cliente-uno">
+
         <nav class="nav-cliente-uno">
             <ul>
                 <li><a href="#about-us"><img src="../img/medicadeblue.png" alt="medicade" class="logo-about-us" style="width: 90px;"></a></li>
@@ -47,40 +51,74 @@
     </header>
     <!-- MAIN-USUARIO ------------------------------------------------------- -->
     <main id="usuario-main">
+        <a href="../HomeMedico.html" class="BtnVolverHome"> ← Volver a Inicio</a>
+        <h1 class="cliTitulos">Sección Pacientes</h1>
         <!-- Sección con los divs de contenido -->
         <section id="usuario-divs-container">
 
-           <!-- DIV 5 --------------- -->
-<div class="usuario-div usuario-div-cinco">
-    
-    
-    
-    MEDICO
-                            <h2>HISTORIAL DE TOMA de :</h2>
+  <!-- GESTIO MEDICAMENTOS ------------------------------------------------------- -->
 
-                            <div id="historial-pacientes"></div>
-                        
-                            <!-- Modal Confirmar Toma -->
-                            <div id="modal-confirmar-toma" class="modal">
-                                <div class="modal-content">
-                                    <span id="closeModalConfirmar" class="close">&times;</span>
-                                    <h2>Confirmar Toma</h2>
-                                    <p>¿Confirmar esta toma?</p>
-                                    <button id="confirmarTomaBtn">Confirmar</button>
-                                </div>
+<div class="usu-div-med">
+
+
+        <!-- ASOCIAR PACIENTE Y CREAR RECETA  ------------------------------ -->
+                 <div  class="seccion-card-duo" >         
+                    <div  id="section-cliente-perfil">
+                        <div class="textocartilla">
+                            
+                            <h2>Asociar Paciente</h2>                     
+                            <div id="unico">
+                                <!-- Formulario para asociar paciente -->
+                                <!-- <label for="numeroColegiado">Número de Colegiado:</label> -->
+                                <input type="hidden" id="numeroColegiado" required readonly>
+                                <br>
+                            
+                                <label for="correoPaciente">Correo del Paciente:</label>
+                                <input type="email" id="correoPaciente" required>
+                                <br>
+                            
+                                <button id="btnAsociarPaciente">Asociar Paciente</button>
+                            
+                                <!-- Área para mostrar el mensaje de éxito o error -->
+                                <div id="mensajeAsociacion"></div>
+                            
+                                <!-- Vinculamos el archivo JS -->
+                                <script src="AsociarPaciente.js"></script>
                             </div>
+                                        
+     
+
+                        </div>
+                    </div>
+                 </div>      
+        <!-- MIS PACIENTES  ------------------------------ -->  
+                <div  class="seccion-card-duo" >         
+                 <div  id="section-cliente-dos">
+
+                      <div class="textocartilla">
+                                            
+                                    <h2>Mis Pacientes</h2>
+                                    <div id="pacientes"></div>          
+                      
+                                    <script src="seccionPacientes.js"></script>
                         
-                            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                        </div>
+                  </div>
+               </div> 
+      
+               
+    </div>          
 
-                            <script src="historial.js"></script>
+<!--  DIV 5 -------------- -->
 
+            <div class="usuario-div usuario-div-cinco">
+                    <div id="historial-pacientes"></div>
 
-
-
-
-
-
-</div>
+                    <script src="verHistorialPaciente.js"></script>
+                    
+                    <script src="verRecetasPaciente.js"></script>
+                    
+            </div> 
 
             <!-- DIV 6 FOOTER --------------- -->
             <div class="usuario-div-seis">
@@ -112,6 +150,7 @@
                             </div>
 
             </div>
+
         </section>
     </main>
     <!-- FOOTER ------------------------------------------------------- -->
@@ -128,11 +167,9 @@
     
 <!--SCRIPTS ------------------------------------------------------- -->
       
- 
-                            <script src="../main.js"></script>
-            
-  
+            <!-- Enlazamos al archivo main.js -->
+            <script src="../main.js"></script>
+
+          
 </body>
 </html>
-
-
