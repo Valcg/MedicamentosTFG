@@ -14,7 +14,7 @@ function agregarEvento(id, url) {
 
 // Espera que el DOM esté listo antes de asignar eventos
 document.addEventListener("DOMContentLoaded", function () {
-    agregarEvento("verperfil", "cliente_paciente/miperfil.html");
+    agregarEvento("verperfil", "cliente_paciente/miperfilpaciente.html");
     agregarEvento("verhisalert", "cliente_paciente/mihistorialtomas.html");
 
     agregarEvento("VerMisRecetas", "cliente_paciente/misrecetas.html");
