@@ -60,7 +60,7 @@
                             <img src="img/ico-saludo-48.png" alt="saludo" >
                         </div>
                         <div class="texto">
-                             <p id="btnperfilmedico">VER MI PERFIL</p>   
+                             <p id="btnperfilmedico" class="hover">VER MI PERFIL</p>   
                             <p class="texto3" >Puedes ver los datos de tu cuenta</p>       
                         </div>
                     </div>
@@ -86,12 +86,12 @@
             <!-- ----------------------------------- -->    
                     <!-- MIS PACIENTES--------------------- -->                
                     <div class="medico-item-pacientes">             
-                        <div  id="seccionpacientes">
+                        <div  id="seccionpacientes"  class="hover">
                             <div class="icono">
                                 <img src="img/ico-pacientes-64.png" alt="saludo" >
                             </div>
                             <div class="texto">
-                                <p id="btnmispacientes">MIS PACIENTES</p>   
+                                <p id="btnmispacientes"  class="hover">MIS PACIENTES</p>   
                                 <p class="texto2" >Puedes ver la lista de tus pacientes</p>       
                             </div>
                         </div>
@@ -126,7 +126,8 @@
                                 <div style="width: 80%;">
                                     
                                     <h2 style="padding-top:20px ;">Asociar Paciente</h2>
-                                    <h4>Una vez Asocies un Paciente a tu cuenta:  Podrás asignarle Recetas, ver su Historial y poder Ver todas sus Recetas </h4>
+                                    <h4>Para asociar un paciente a tu cuenta de médico, primero debe haber creado una cuenta como PACIENTE. Puede registrarse directamente desde la web.</h4>
+                                    <h4>Una vez que asocies un paciente a tu cuenta, podrás asignarle recetas, ver su historial y consultar todas sus recetas, con la posibilidad de cancelarlas</h4>
                                     <!-- -------------- ASOCIAR PACIENTES -------------- -->
                                     <div id="medicoseccionasociarpaciente"></div>
                                     <script src="cliente_medico/AsociarPaciente.js"></script>
@@ -138,9 +139,9 @@
                 <div  class="medico-item" >         
                  <div  id="homecrearreceta" class="hover">
 
-                      <div class="texto">
+                      <div style="width: 80%;">
                           <h2>Crear Receta</h2>     
-                              <div id="resultadoDiv"></div>
+                              <div id="medicoseccioncrearreceta"></div>
 
                             <script src="cliente_medico/CrearReceta.js"></script>
   
@@ -159,12 +160,12 @@
     
          <!-- MIS PACIENTES--------------------- -->                
         <div class="medico-item-pacientes">             
-            <div  id="verseccionmedicamentos">
+            <div  id="verseccionmedicamentos" class="hover">
                 <div class="icono">
                     <img src="img/ico-seccionmedicamentos-64.png" alt="saludo" >
                 </div>
                 <div class="texto">
-                    <p id="btnmedicamentos">MEDICAMENTOS</p>   
+                    <p id="btnmedicamentos" class="hover">MEDICAMENTOS</p>   
                     <p class="texto2" >Puedes ver la lista de tus pacientes</p>       
                 </div>
             </div>

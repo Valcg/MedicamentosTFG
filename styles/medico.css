@@ -84,24 +84,23 @@
             }     
             .texto4 {
                 font-size: 18px;
-                margin-left: 20px;   
-                color: #00669C;
+                margin-left: 20px;  
+                color: rgb(72, 72, 72); 
             }
             .bold{font-weight: bold;}
 
             /* 2 -------------- VER MIS PACIENTES ----------------------------------------- */           
             #seccionpacientes{background-color: #00669C;}
-            #seccionpacientes:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
-                background-color: #005c8d;}
+            #seccionpacientes:hover{background-color: #005c8d;}
 
             .infomispa{border: 1px solid yellow;
                 justify-content: space-evenly;}
               
             /* 3 -------------- VER MEDICAMENTOS ----------------------------------------- */
             .medico-item-medicamentos{box-sizing: border-box; width: 25%;}
+            
             #verseccionmedicamentos{background-color: #dac47c;}
-            #verseccionmedicamentos:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
-                background-color:  #c9b268;}
+            #verseccionmedicamentos:hover{background-color:  #c9b268;}
 
 /* 4 -------------- ASOCIAR Y CREAR ----------------------------------------- */
 
@@ -125,7 +124,7 @@
                             height: 100%;}
             
             /* 1 -------------- notas ----------------------------------------- */ 
-            #homecrearreceta{background-color:yellow;;}  
+            #homecrearreceta{background-color:#F0F0F0;}  
 
 
 /* BOTONES DE 1 2 Y 3 --------------------------- */
@@ -145,12 +144,9 @@
                 color: rgb(72, 72, 72);
                 background-color: white;
             }
-                    #btnperfilmedico:hover {box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
-                        color: #00669C;}
-                    #btnmispacientes:hover {box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
-                        color: #84CBF1;}
-                    #btnmedicamentos:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
-                        color: #c9b268;}
+                    #btnperfilmedico:hover {color: #00669C;}
+                    #btnmispacientes:hover {color: #84CBF1;}
+                    #btnmedicamentos:hover{ color: #c9b268;}
 
                      
 /* MAX WIDTH 1270PX----------------------------------------------------------------------------*/
@@ -164,10 +160,7 @@
     margin: 0px;}
     .textotitulo{margin: 0px 10px;}
 
-
     .medico-item{width :100%; }
-
-
 }
 
 /* MAX WIDTH 1270PX----------------------------------------------------------------------------*/
@@ -214,18 +207,18 @@
                             .tabla-scroll {overflow-x: auto; }
 
 
-                    /*BOTON VER HISTORIAL----------------*/
-                    .btnVerRecetas , .btnVerHistorial, #btnAsociarPaciente{
-                    all: unset; /* Esto quita prácticamente todos los estilos del navegador */
-                    color: white; /* Color del texto */
-                    padding: 6px 12px;
-                    border-radius: 16px;
-                    cursor: pointer;
-                    font-size: 14px;
-                    font-family: inherit;
-                    white-space: nowrap; 
-                    transition: background-color 0.3s;
-                max-width: 200px;}
+    /*BOTON VER HISTORIAL----------------*/
+                    .btnVerRecetas , .btnVerHistorial, #btnAsociarPaciente,#btnCrearReceta,#btnRedirigir{
+                        all: unset; /* Esto quita prácticamente todos los estilos del navegador */
+                        color: white; /* Color del texto */
+                        padding: 6px 12px;
+                        border-radius: 16px;
+                        cursor: pointer;
+                        font-size: 14px;
+                        font-family: inherit;
+                        white-space: nowrap; 
+                        transition: background-color 0.3s;
+                        width: fit-content;}
 
                     .btnVerHistorial{ background-color: #0d7ebb;  }
                             .btnVerHistorial:hover{background-color: #00669C;}
@@ -234,64 +227,68 @@
                     /*BOTON VER HISTORIAL----------------*/
                     .btnVerRecetas{background-color: rgb(223, 153, 127);}
                             .btnVerRecetas:hover{background-color: #d77957;}
+                    
+                    /*BTN ASOCIAR PACIETER-----------------------------------------*/
 
-                       
+                    #btnAsociarPaciente{ background-color: #84CBF1;text-align: center;margin:20px  auto;}
+                            #btnAsociarPaciente:hover{background-color: #4699c5;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+                    
+                    /*BTN CREAR RECETA-----------------------------------------*/
+                    #btnCrearReceta{background-color: rgb(223, 153, 127);margin: auto; }
+                    #btnCrearReceta:hover{background-color: #d77957;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+                            /*BTN redirigir a Seccion PACIENTEA hover  (NO FUNCIONAR .hover en el elemento)-----------------------------------------*/
+                            #btnRedirigir:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+                    
+                    /*MENSAJES DE CREAR RECETA CENTRADOS-----------------------------------------*/
+                    #mensajeReceta,#mensajeCorreo{text-align: center;}
 
 
-        /*MIS PACIENTES-----------------------------------------*/
 
-        #btnAsociarPaciente{ background-color: #84CBF1;text-align: center;margin:20px  auto;}
-                #btnAsociarPaciente:hover{background-color: #4699c5;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
-
-        #medicoseccionasociarpaciente{    
+        #medicoseccionasociarpaciente,#medicoseccioncrearreceta{    
             display: flex;
             flex-direction: column;  /* Alinea los elementos verticalmente */
             justify-content: center;  /* Centrado vertical */
             padding: 20px; }
 
+                    /*MENSAJE DE ASOCIACION- ASOCIAR-----------------------------------------*/
+                            #mensajeAsociacion {
+                                width: 100%;        /* Hace que el mensaje ocupe todo el ancho del contenedor */
+                                height: 60px;       /* Altura fija para evitar desplazamientos */
+                                visibility: hidden; /* Lo hace invisible sin afectar el diseño (manteniendo el espacio ocupado) */
+                                overflow: hidden;   /* Evita que el contenido desborde */
+                                text-align: center; /* Centra el texto */
+                            }
+                            #mensajeAsociacion.visible {
+                                visibility: visible; /* Hace visible el div */
+                                animation: fadeIn 0.5s ease;  /* Puedes usar animaciones para hacer la transición más suave */
+                            }
+
+                            @keyframes fadeIn {
+                                from {   opacity: 0;}
+                                to {opacity: 1;}
+                            }
+
+
+        /*INPUT FORMULARIOS-----------------------------------------*/
+
+            
+        .input {
+            width: 100%;margin: auto;
+        text-align: center;
+            background-color: white; 
+            border: 1px solid white;  
+            border-radius: 20px;         /* Bordes redondeados */
+            padding: 6px 0;              /* Espaciado interno */
+            font-size: 14px;            /* Tamaño de la fuente */
+            color: #333;                /* Color del texto */
+        }
+
+        /* Cambiar el color de fondo cuando el input está enfocado */
+        .input:focus {
+            border-color: #84CBF1;     /* Cambiar el color del borde al hacer focus */
+            outline: none;             /* Eliminar el contorno predeterminado */
+        }
 
 
 
-    
-                #mensajeAsociacion {
-                    width: 100%;        /* Hace que el mensaje ocupe todo el ancho del contenedor */
-                    height: 60px;       /* Altura fija para evitar desplazamientos */
-                    visibility: hidden; /* Lo hace invisible sin afectar el diseño (manteniendo el espacio ocupado) */
-                    overflow: hidden;   /* Evita que el contenido desborde */
-                    text-align: center; /* Centra el texto */
-                }
-
-                #mensajeAsociacion.visible {
-                    visibility: visible; /* Hace visible el div */
-                    animation: fadeIn 0.5s ease;  /* Puedes usar animaciones para hacer la transición más suave */
-                }
-
-                @keyframes fadeIn {
-                    from {
-                        opacity: 0;
-                    }
-                    to {
-                        opacity: 1;
-                    }
-                }
-
-
-
-      
-.input {
-    width: 100%;margin: auto;
-text-align: center;
-    background-color: white; 
-    border: 1px solid white;  
-    border-radius: 20px;         /* Bordes redondeados */
-    padding: 6px;              /* Espaciado interno */
-    font-size: 14px;            /* Tamaño de la fuente */
-    color: #333;                /* Color del texto */
-}
-
-/* Cambiar el color de fondo cuando el input está enfocado */
-.input:focus {
-    border-color: #84CBF1;     /* Cambiar el color del borde al hacer focus */
-    outline: none;             /* Eliminar el contorno predeterminado */
-}
 

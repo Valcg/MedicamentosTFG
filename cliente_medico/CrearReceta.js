@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const resultadoDiv = document.getElementById("resultadoDiv");
+    const resultadoDiv = document.getElementById("medicoseccioncrearreceta");
 
     // OBTENEMOS EL numeroColegiado DESDE localStorage
     const numeroColegiado = localStorage.getItem("idUsuario");
@@ -19,28 +19,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Oculte el numero de colegiado
             resultadoDiv.innerHTML = `
-                <div id="crearRecetaDiv">
-                    <label>Correo del Paciente:</label>
-                    <input type="text" id="correo_paciente">
-                    <span id="mensajeCorreo" style="margin-left: 10px;"></span><br>
-
+              
+                    <label>Correo del Paciente</label>
+                    <input type="text" id="correo_paciente" class="input">
+                    <span id="mensajeCorreo" style="margin-left: 10px;"></span>
+                            <br>
                     <input type="hidden" id="numero_colegiado" value="${numeroColegiado}" readonly>
 
-                    <label>Medicamento:</label>
-                    <select id="id_medicamento">
-                        ${opcionesMedicamentos}
-                    </select><br>
+                    <label>Medicamento</label>
+                    <select id="id_medicamento" class="input">${opcionesMedicamentos}</select>
+                        <br>
 
-                    <label>Dosis Por cada Toma:</label><input type="text" id="dosis"><br>
-                    <label>Frecuencia (cada cuántas horas):</label><input type="text" id="frecuencia"><br>
-                    <label>Duración del Tratamiento (días):</label><input type="text" id="duracion_tratamiento"><br>
+                    <label>Dosis Por cada Toma</label>
+                    <input type="text" id="dosis" class="input">
+                        <br>
+
+                    <label>Frecuencia (cada cuántas horas)</label>
+                    <input type="text" id="frecuencia" class="input">
+                        <br>
+
+                    <label>Duración del Tratamiento (días)</label>
+                    <input type="text" id="duracion_tratamiento" class="input">
+                        <br>
 
                     <label>Estado de la Receta:</label>
-                    <input type="text" id="caducidad" value="Activa" readonly><br>
+                    <input type="text" id="caducidad paciente-text" style="color:#84CBF1; font-weight:bold;" value="Activa" readonly class="input pacientetext">
+                        <br>
 
                     <button id="btnCrearReceta">Aceptar</button>
                     <p id="mensajeReceta"></p>
-                </div>
+         
             `;
 
             // Activamos la validación solo cuando se escribe '@'
@@ -77,31 +85,31 @@ document.addEventListener("DOMContentLoaded", function () {
                             const pacienteAsociado = pacientesAsociados.find(p => p.usuario.correo === correo);
 
                             if (pacienteAsociado) {
-                                mensajeCorreo.style.color = "green";
-                                mensajeCorreo.textContent = "✔ Correo existe como paciente y está asociado al médico";
+                                mensajeCorreo.style.color = " #66b794f1";
+                                mensajeCorreo.textContent = "Es una cuenta Paciente y está asociada al médico";
                                 mensajeCorreo.dataset.valido = "true";
                             } else {
-                                mensajeCorreo.style.color = "red";
+                                mensajeCorreo.style.color = "#f14343";
                                 mensajeCorreo.textContent = "Correo no asociado a este médico";
                                 mensajeCorreo.dataset.valido = "false";
                             }
                         })
                         .catch(error => {
                             console.error("Error al obtener pacientes asociados:", error);
-                            mensajeCorreo.style.color = "red";
+                            mensajeCorreo.style.color = "#f14343";
                             mensajeCorreo.textContent = "Error al verificar la asociación con el médico";
                             mensajeCorreo.dataset.valido = "false";
                         });
                 } else {
-                    mensajeCorreo.style.color = "red";
+                    mensajeCorreo.style.color = "#f14343";
                     mensajeCorreo.textContent = "Correo no asociado a un paciente";
                     mensajeCorreo.dataset.valido = "false";
                 }
             })
             .catch(error => {
                 console.error("Error al buscar paciente:", error);
-                mensajeCorreo.style.color = "red";
-                mensajeCorreo.textContent = "Error al verificar el correo";
+                mensajeCorreo.style.color = "#f14343";
+                mensajeCorreo.textContent = "Error al verificar el correo. No existe como Paciente";
                 mensajeCorreo.dataset.valido = "false";
             });
     }
@@ -110,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const mensajeCorreo = document.getElementById("mensajeCorreo");
 
         if (mensajeCorreo.dataset.valido !== "true") {
-            document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">No se puede crear la receta. El correo no está asociado.</span>`;
+            document.getElementById("mensajeReceta").innerHTML = `<span style="color:#f14343;">No se puede crear la receta. El correo no está asociado</span>`;
             return;
         }
 
@@ -134,13 +142,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 axios.post("http://localhost:9050/medicos/CrearReceta", recetaDto)
                     .then(res => {
-                        document.getElementById("mensajeReceta").innerHTML = `<span style="color:green;">Receta creada correctamente</span>`;
+                        document.getElementById("mensajeReceta").innerHTML = `<span style="color: #66b794f1;">Receta creada correctamente</span>`;
                     })
                     .catch(err => {
                         document.getElementById("mensajeReceta").innerHTML =
-                            `<span style="color:red;">Ya existe una receta para este medicamento. Si quieres crear una nueva receta, debes caducar la receta que está dada de alta.</span>`;
-                        document.getElementById("mensajeReceta").innerHTML += 
-                            `<br><button id="btnRedirigir" style="background-color: #f44336; color: white; padding: 10px 15px; border: none; cursor: pointer;" onclick="window.location.href='seccionpacientes.html';">Ir a Ver Mis Pacientes</button>`;
+                            `<span style="color:#00669C;">Ya existe una receta para este medicamento.<br> Para crear una nueva receta, debes caducar la receta que está dada de alta </span>`;
+                        
+                            document.getElementById("mensajeReceta").innerHTML += 
+                            `<br>
+                            <button id="btnRedirigir" style="background-color:#f14343; cursor: pointer; margin-top:20px;" onclick="window.location.href='cliente_medico/seccionpacientes.html';">Ir a Ver Mis Pacientes</button>`;
                     });
             })
             .catch(error => {

@@ -18,11 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const formularioHtml = `
             <input type="hidden" id="numeroColegiado" value="${numeroColegiado}" required readonly>
 
-            <label for="correoPaciente" style="margin:auto;">Correo del Paciente :</label>
-            <br>
+            <label for="correoPaciente">Correo del Paciente</label>
             <input type="email" class="input" id="correoPaciente" required>
 
-            <button id="btnAsociarPaciente" >Asociar Paciente</button>
+            <button id="btnAsociarPaciente">Asociar Paciente</button>
             <div id="mensajeAsociacion"></div>
         `;
 
@@ -36,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Verificar si el número de colegiado existe en localStorage
         if (!numeroColegiado) {
-            mensajeAsociacion.innerHTML = "<p style='color: #f14343;'>Error: No se encontró el número de colegiado en localStorage.</p>";
+            mensajeAsociacion.innerHTML = "<p style='color: #f14343;'>Error: No se encontró el número de colegiado en localStorage</p>";
             mensajeAsociacion.classList.add('visible'); // Hacer visible el mensaje de error
             return;
         }
@@ -67,11 +66,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (error.response) {
                         if (error.response.status === 409) {
                             // El paciente ya está asociado a este médico
-                            mensajeAsociacion.innerHTML = `<p style="color: #00669C;">Nota: El paciente ya se encuentra asociado a este médico.</p>`;
+                            mensajeAsociacion.innerHTML = `<p style="color: #00669C;">El paciente ya se encuentra asociado a este médico</p>`;
                             mensajeAsociacion.classList.add('visible'); // Mostrar mensaje de nota
                         } else if (error.response.status === 400) {
                             // El paciente no está registrado o no existe
-                            mensajeAsociacion.innerHTML = `<p style="color: #f14343;">Error: Este paciente no está registrado o no existe ninguna cuenta asociada a este correo.</p>`;
+                            mensajeAsociacion.innerHTML = `<p style="color: #f14343;">Error.  Este paciente no está registrado o no existe ninguna cuenta asociada a este correo</p>`;
                             mensajeAsociacion.classList.add('visible'); // Mostrar mensaje de error
                         } else {
                             // Otros errores generales
@@ -80,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     } else {
                         // En caso de que no haya respuesta (error de red o similar)
-                        mensajeAsociacion.innerHTML = `<p style="color: #f14343;">Error al intentar conectar con el servidor.</p>`;
+                        mensajeAsociacion.innerHTML = `<p style="color: #f14343;">Error al intentar conectar con el servidor</p>`;
                         mensajeAsociacion.classList.add('visible'); // Mostrar mensaje de error
                     }
                     console.error(error);
