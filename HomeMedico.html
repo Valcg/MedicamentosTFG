@@ -120,37 +120,23 @@
         <div class="usu-div-med">
                 <!--  ASOCIAR PACIENTE -------------- -->
                  <div  class="medico-item asociarcrear" >         
-                    <div  id="asociarpaciente"> <!--NOMBRE-->
+                    <div  id="asociarpaciente" class="hover"> <!--NOMBRE-->
                         
 
-                        <div class="texto">
-                                 <h2>Asociar Paciente</h2>                     
-                            
-                            <div id="unico">
-                                <!-- Formulario para asociar paciente -->
-                                <!-- <label for="numeroColegiado">Número de Colegiado:</label> -->
-                                <input type="hidden" id="numeroColegiado" required readonly>
-                                <br>
-                            
-                                <label for="correoPaciente">Correo del Paciente:</label>
-                                <input type="email" id="correoPaciente" required>
-                                <br>
-                            
-                                <button id="btnAsociarPaciente">Asociar Paciente</button>
-                            
-                                <!-- Área para mostrar el mensaje de éxito o error -->
-                                <div id="mensajeAsociacion"></div>
-                            
-                                <!-- Vinculamos el archivo JS -->
-                                <script src="cliente_medico/AsociarPaciente.js"></script>
-                            </div>
-                                        
-                        </div>
+                                <div style="width: 80%;">
+                                    
+                                    <h2 style="padding-top:20px ;">Asociar Paciente</h2>
+                                    <h4>Una vez Asocies un Paciente a tu cuenta:  Podrás asignarle Recetas, ver su Historial y poder Ver todas sus Recetas </h4>
+                                    <!-- -------------- ASOCIAR PACIENTES -------------- -->
+                                    <div id="medicoseccionasociarpaciente"></div>
+                                    <script src="cliente_medico/AsociarPaciente.js"></script>
+                                    <!-- -------------- ------------------ -------------- -->        
+                                </div>  
                     </div>
                  </div>      
                  <!--  VER MI PERFIL -------------- -->
                 <div  class="medico-item" >         
-                 <div  id="homecrearreceta">
+                 <div  id="homecrearreceta" class="hover">
 
                       <div class="texto">
                           <h2>Crear Receta</h2>     

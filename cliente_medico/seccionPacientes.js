@@ -1,7 +1,7 @@
 // seccionpacientes.js
 document.addEventListener("DOMContentLoaded", function () {
     const baseURL = "http://localhost:9050/medicos";
-    const pacientesContainer = document.getElementById("pacientes");
+    const pacientesContainer = document.getElementById("medicoseccionpacientes");
 
     function verMisPacientes() {
         const numeroColegiado = localStorage.getItem("idUsuario");
@@ -19,45 +19,43 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 let table = `<table class="tablapaciente">
-                    <tr >
+                <tr>
                         <th colspan="6">   <h2>Mis Pacientes</h2></th>
-
-                    </tr>
+                </tr>
                 
                 <tr>
                         <td>Nombre</th>
                         <td>Apellido</th>
                         <td>Correo</th>
-            
                         <td>Historial</th>
                         <td>Recetas</th>
-                    </tr>`;
+                </tr>`;
 
                 response.data.forEach(paciente => {
                     table += `
-                    <tr class="tablahover">
+                <tr class="tablahover">
                         <td style="    font-weight: bold;">${paciente.usuario.nombre}</td>
                         <td>${paciente.usuario.apellido}</td>
                         <td>${paciente.usuario.correo}</td>
                 
                         <td>
-                            <button class="verHistorial" data-id="${paciente.idPaciente}" data-nombre="${paciente.usuario.nombre}">
+                            <button class="btnVerHistorial hover" data-id="${paciente.idPaciente}" data-nombre="${paciente.usuario.nombre}">
                                 Ver Historial
                             </button>
                         </td>
                         <td>
-                            <button class="verRecetas" data-id="${paciente.idPaciente}" data-nombre="${paciente.usuario.nombre}">
+                            <button class="btnVerRecetas hover" data-id="${paciente.idPaciente}" data-nombre="${paciente.usuario.nombre}">
                                 Ver Recetas
                             </button>
                         </td>
-                    </tr>`;
+                </tr>`;
                 });
 
                 table += `</table>`;
                 pacientesContainer.innerHTML = table;
 
                 // Redirigir a seccionpacientesverlistas.html con datos en localStorage
-                document.querySelectorAll(".verHistorial").forEach(button => {
+                document.querySelectorAll(".btnVerHistorial").forEach(button => {
                     button.addEventListener("click", function () {
                         const idPaciente = this.getAttribute("data-id");
                         const nombrePaciente = this.getAttribute("data-nombre");
@@ -68,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                 });
 
-                document.querySelectorAll(".verRecetas").forEach(button => {
+                document.querySelectorAll(".btnVerRecetas").forEach(button => {
                     button.addEventListener("click", function () {
                         const idPaciente = this.getAttribute("data-id");
                         const nombrePaciente = this.getAttribute("data-nombre");

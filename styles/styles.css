@@ -1,5 +1,8 @@
-    /*01 SECTION PERFIL------------------------------------------------------- */
+  .hover:hover{ box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
 
+  
+    /*01 SECTION PERFIL------------------------------------------------------- */
+ 
     /* 1  BOXS DE perfil y Historial --------------------------- */
 
    /* 1  TARJETA 50% --------------------------- */
@@ -18,8 +21,6 @@
             /* CAJA 1 tarjeta ------------------------------------------- */ 
             #section-cliente-perfil{background-color: #F0F0F0;}
             
-            #section-cliente-perfil:hover{background-color: #e7e7e7;
-                box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
             /* CAJA 2 ----------------------------------------- */ 
             #section-cliente-dos{background-color: lightgray;}  
             

@@ -1,3 +1,4 @@
+
 /* Div "uno" ocupa 100% */
 .usuario-div-uno {
     background-color: orange;
@@ -10,6 +11,7 @@
     margin-left: 10px;
     height: 60px;
 }
+
 
 
 .usu-div-med{
@@ -99,7 +101,7 @@
             .medico-item-medicamentos{box-sizing: border-box; width: 25%;}
             #verseccionmedicamentos{background-color: #dac47c;}
             #verseccionmedicamentos:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
-                background-color:  #dac47c;}
+                background-color:  #c9b268;}
 
 /* 4 -------------- ASOCIAR Y CREAR ----------------------------------------- */
 
@@ -119,15 +121,11 @@
         transition:  0.3s ease-in-out;
     }
             /* 1 -------------- ASOCIAR PACIENTE ----------------------------------------- */ 
-            #asociarpaciente{background-color:lightgrey;
-                               height: 100%;}
+            #asociarpaciente{background-color:#F0F0F0;
+                            height: 100%;}
             
-            #asociarpaciente:hover{background-color:yellow;
-                box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
             /* 1 -------------- notas ----------------------------------------- */ 
-            #homecrearreceta{background-color:lightgrey;}  
-            #homecrearreceta:hover{background-color: yellow;
-                        box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}  
+            #homecrearreceta{background-color:yellow;;}  
 
 
 /* BOTONES DE 1 2 Y 3 --------------------------- */
@@ -152,7 +150,7 @@
                     #btnmispacientes:hover {box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
                         color: #84CBF1;}
                     #btnmedicamentos:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);
-                        color: #dac47c;}
+                        color: #c9b268;}
 
                      
 /* MAX WIDTH 1270PX----------------------------------------------------------------------------*/
@@ -172,9 +170,7 @@
 
 }
 
-
 /* MAX WIDTH 1270PX----------------------------------------------------------------------------*/
-
 @media (max-width: 770px) {
     .medico-item-pacientes,.medico-item-medicamentos{width :100%;} 
     .infomispacientes{width :100%;} 
@@ -189,75 +185,113 @@
 }
 
 
-
- 
-
-
 /* SECCION PACIENTES----------------------------------------------------------------------------*/
 
-/*MIS PACIENTES----------------*/
-.tablapaciente{ width: 100%;
-               
-          border-collapse: collapse;/**/    
-                 
-            }
-/* .tablapaciente th{padding: 8px 0;} */
-.tablapaciente tr td{border-bottom: 1px solid  white;
-padding: 10px 8px;}
-.tablahover:hover{background-color: white;}
+        /*MIS PACIENTES-----------------------------------------*/
+                .tablapaciente{ width: 100%;
+                            
+                border-collapse: collapse;}
+
+                .tablapaciente tr td{border-bottom: 1px solid  white;
+                padding: 10px 8px;}
+
+                .tablahover:hover{background-color: white;}
+
+                #section-paciente-mispacientes{
+                        /* display: flex; */
+                        align-items: center;
+                        justify-content: space-evenly;
+                        /* Distribuye los elementos equitativamente */
+                        margin: 20px;
+                        padding: 20px 0 ;
+                        height: auto;
+                        border-radius: 10px;
+                        transition:  0.3s ease-in-out; }
+
+                            /*DIV MIS PACIENTES COLOR Y HOVER---------- */ 
+                            #section-paciente-mispacientes{background-color: #F0F0F0; text-align: center;}  
+                            
+                            .tabla-scroll {overflow-x: auto; }
 
 
-#section-paciente-mispacientes{
-        /* display: flex; */
-        align-items: center;
-        justify-content: space-evenly;
-        /* Distribuye los elementos equitativamente */
-        margin: 20px;
-        padding: 20px 0 ;
-        height: auto;
-        border-radius: 10px;
-        transition:  0.3s ease-in-out;
+                    /*BOTON VER HISTORIAL----------------*/
+                    .btnVerRecetas , .btnVerHistorial, #btnAsociarPaciente{
+                    all: unset; /* Esto quita prácticamente todos los estilos del navegador */
+                    color: white; /* Color del texto */
+                    padding: 6px 12px;
+                    border-radius: 16px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-family: inherit;
+                    white-space: nowrap; 
+                    transition: background-color 0.3s;
+                max-width: 200px;}
+
+                    .btnVerHistorial{ background-color: #0d7ebb;  }
+                            .btnVerHistorial:hover{background-color: #00669C;}
+
+
+                    /*BOTON VER HISTORIAL----------------*/
+                    .btnVerRecetas{background-color: rgb(223, 153, 127);}
+                            .btnVerRecetas:hover{background-color: #d77957;}
+
+                       
+
+
+        /*MIS PACIENTES-----------------------------------------*/
+
+        #btnAsociarPaciente{ background-color: #84CBF1;text-align: center;margin:20px  auto;}
+                #btnAsociarPaciente:hover{background-color: #4699c5;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+
+        #medicoseccionasociarpaciente{    
+            display: flex;
+            flex-direction: column;  /* Alinea los elementos verticalmente */
+            justify-content: center;  /* Centrado vertical */
+            padding: 20px; }
+
+
+
+
     
-    }
+                #mensajeAsociacion {
+                    width: 100%;        /* Hace que el mensaje ocupe todo el ancho del contenedor */
+                    height: 60px;       /* Altura fija para evitar desplazamientos */
+                    visibility: hidden; /* Lo hace invisible sin afectar el diseño (manteniendo el espacio ocupado) */
+                    overflow: hidden;   /* Evita que el contenido desborde */
+                    text-align: center; /* Centra el texto */
+                }
 
-            /*DIV MIS PACIENTES COLOR Y HOVER----------------------------------------- */ 
-            #section-paciente-mispacientes{background-color: #F0F0F0;}  
-            
-            #section-paciente-mispacientes:hover{
-                        box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}  
+                #mensajeAsociacion.visible {
+                    visibility: visible; /* Hace visible el div */
+                    animation: fadeIn 0.5s ease;  /* Puedes usar animaciones para hacer la transición más suave */
+                }
 
-
-            .tabla-scroll {
-                overflow-x: auto;
-           
-            }
-
-
-    /*BOTON VER HISTORIAL----------------*/
-    .verHistorial{ all: unset; /* Esto quita prácticamente todos los estilos del navegador */
-    background-color: #0d7ebb; 
-    color: white;
-    padding: 6px 12px;
-    border-radius: 16px;
-    cursor: pointer;
-    font-size: 14px;
-    font-family: inherit;
-     white-space: nowrap; 
-    transition: background-color 0.3s;}
-        .verHistorial:hover{background-color: #00669C;
-         box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                    }
+                    to {
+                        opacity: 1;
+                    }
+                }
 
 
-    /*BOTON VER HISTORIAL----------------*/
-    .verRecetas{ all: unset; 
-    background-color: rgb(223, 153, 127);
-    color: white; /* Color del texto */
-    padding: 6px 12px;
-    border-radius: 16px;
-    cursor: pointer;
-    font-size: 14px;
-    font-family: inherit;
-     white-space: nowrap; 
-    transition: background-color 0.3s;}
-        .verRecetas:hover{background-color: #d77957;
-         box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+
+      
+.input {
+    width: 100%;margin: auto;
+text-align: center;
+    background-color: white; 
+    border: 1px solid white;  
+    border-radius: 20px;         /* Bordes redondeados */
+    padding: 6px;              /* Espaciado interno */
+    font-size: 14px;            /* Tamaño de la fuente */
+    color: #333;                /* Color del texto */
+}
+
+/* Cambiar el color de fondo cuando el input está enfocado */
+.input:focus {
+    border-color: #84CBF1;     /* Cambiar el color del borde al hacer focus */
+    outline: none;             /* Eliminar el contorno predeterminado */
+}
+
