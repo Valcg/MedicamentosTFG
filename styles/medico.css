@@ -191,3 +191,73 @@
 
 
  
+
+
+/* SECCION PACIENTES----------------------------------------------------------------------------*/
+
+/*MIS PACIENTES----------------*/
+.tablapaciente{ width: 100%;
+               
+          border-collapse: collapse;/**/    
+                 
+            }
+/* .tablapaciente th{padding: 8px 0;} */
+.tablapaciente tr td{border-bottom: 1px solid  white;
+padding: 10px 8px;}
+.tablahover:hover{background-color: white;}
+
+
+#section-paciente-mispacientes{
+        /* display: flex; */
+        align-items: center;
+        justify-content: space-evenly;
+        /* Distribuye los elementos equitativamente */
+        margin: 20px;
+        padding: 20px 0 ;
+        height: auto;
+        border-radius: 10px;
+        transition:  0.3s ease-in-out;
+    
+    }
+
+            /*DIV MIS PACIENTES COLOR Y HOVER----------------------------------------- */ 
+            #section-paciente-mispacientes{background-color: #F0F0F0;}  
+            
+            #section-paciente-mispacientes:hover{
+                        box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}  
+
+
+            .tabla-scroll {
+                overflow-x: auto;
+           
+            }
+
+
+    /*BOTON VER HISTORIAL----------------*/
+    .verHistorial{ all: unset; /* Esto quita prácticamente todos los estilos del navegador */
+    background-color: #0d7ebb; 
+    color: white;
+    padding: 6px 12px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+     white-space: nowrap; 
+    transition: background-color 0.3s;}
+        .verHistorial:hover{background-color: #00669C;
+         box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+
+
+    /*BOTON VER HISTORIAL----------------*/
+    .verRecetas{ all: unset; 
+    background-color: rgb(223, 153, 127);
+    color: white; /* Color del texto */
+    padding: 6px 12px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+     white-space: nowrap; 
+    transition: background-color 0.3s;}
+        .verRecetas:hover{background-color: #d77957;
+         box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             pacientesContainer.innerHTML = "<p>No se encontró el número de colegiado. Asegúrate de iniciar sesión.</p>";
             return;
         }
-
+        //  ---------- PARA VER ID si hace falta          <td>ID</th> ------------------    <td style="background-color:yellow;">${paciente.idPaciente}</td>
         axios.get(`${baseURL}/VerMisPacientes/${numeroColegiado}`)
             .then(response => {
                 if (response.data.length === 0) {
@@ -18,23 +18,28 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-                let table = `<table border='1'>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Correo</th>
-                        <th>ID</th>
-                        <th>Historial</th>
-                        <th>Recetas</th>
+                let table = `<table class="tablapaciente">
+                    <tr >
+                        <th colspan="6">   <h2>Mis Pacientes</h2></th>
+
+                    </tr>
+                
+                <tr>
+                        <td>Nombre</th>
+                        <td>Apellido</th>
+                        <td>Correo</th>
+            
+                        <td>Historial</th>
+                        <td>Recetas</th>
                     </tr>`;
 
                 response.data.forEach(paciente => {
                     table += `
-                    <tr>
-                        <td>${paciente.usuario.nombre}</td>
+                    <tr class="tablahover">
+                        <td style="    font-weight: bold;">${paciente.usuario.nombre}</td>
                         <td>${paciente.usuario.apellido}</td>
                         <td>${paciente.usuario.correo}</td>
-                        <td style="background-color: #D3D3D3;">${paciente.idPaciente}</td>
+                
                         <td>
                             <button class="verHistorial" data-id="${paciente.idPaciente}" data-nombre="${paciente.usuario.nombre}">
                                 Ver Historial

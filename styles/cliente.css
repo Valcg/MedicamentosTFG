@@ -416,8 +416,8 @@
         .BtnVolverHome {
             width: 200px;
             padding: 8px;
-            border-radius: 20px;
-            border:1px solid yellow;
+            /* border-radius: 20px;
+            border:1px solid yellow; */
             font-weight: bold; 
             color: #00669C;
             cursor: pointer;

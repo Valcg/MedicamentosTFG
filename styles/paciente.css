@@ -271,50 +271,49 @@
 
 
 
-/* --------------------------- TABA --------------------------- */
-#paciente-contactos{background-color: lightblue;
-width: 100%;}
-#paciente-contactos table{width: 100%;}
+            /* --------------------------- TABA --------------------------- */
+            #paciente-contactos{background-color: lightblue;
+            width: 100%;}
+            #paciente-contactos table{width: 100%;}
 
-#paciente-contactos td{margin: auto;}
-#paciente-contactos td input{border: none;padding: 10px; border-radius: 5px;}
-
-
-
-        #paciente-contactos td button{  all: unset;/*BORRA LOS ESTILOS EXTERIORES*/
-            cursor: pointer; /* opcional: si quieres que siga siendo clickeable */}
-
-            /* Estilo para el botón de eliminar */
-        .eliminar-btn-miscuidadores {
-            background-color: #ff756e; /* Rojo pastel */
-            color: white; /* X en blanco */
-            width: 30px;
-padding: 5px;
-display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border-radius: 4px; /* Bordes redondeados */
-            cursor: pointer;
-            transition:  0.3s ease;
-        }
-        /* Hover para el botón de eliminar */
-        .eliminar-btn-miscuidadores:hover {
-            background-color: #b63730; /* Un rojo más oscuro al hacer hover */
-        }
+            #paciente-contactos td{margin: auto;}
+            #paciente-contactos td input{border: none;padding: 10px; border-radius: 5px;}
 
 
-        /* BTN AGREGAR --------------------------- */
-        #btnAgregar {
-            background-color: #4CAF50; 
-            color: white;
+
+                    #paciente-contactos td button{  all: unset;/*BORRA LOS ESTILOS EXTERIORES*/
+                        cursor: pointer; /* opcional: si quieres que siga siendo clickeable */}
+
+                        /* Estilo para el botón de eliminar */
+                    .eliminar-btn-miscuidadores {
+                        background-color: #ff756e; /* Rojo pastel */
+                        color: white; /* X en blanco */
+                        width: 30px;
             padding: 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        #btnAgregar:hover {
-            background-color: #235726; 
-        }
+            display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: bold;
+                        border-radius: 4px; /* Bordes redondeados */
+                        cursor: pointer;
+                        transition:  0.3s ease;
+                    }
+                    /* Hover para el botón de eliminar */
+                    .eliminar-btn-miscuidadores:hover {
+                        background-color: #b63730; /* Un rojo más oscuro al hacer hover */
+                    }
 
+
+                    /* BTN AGREGAR --------------------------- */
+                    #btnAgregar {
+                        background-color: #4CAF50; 
+                        color: white;
+                        padding: 5px;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 16px;
+                    }
+                    #btnAgregar:hover {
+                        background-color: #235726; 
+                    }

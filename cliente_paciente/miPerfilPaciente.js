@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 div.innerHTML = `
                     <h3>Los datos de tu cuenta :</h3>
                     <p>Tipo de Usuario</p>
-                    <p class="izq" style="color:#84CBF1;">    <strong>${paciente.usuario.tipoUsuario}</strong> </p>
+                    <p class="izq" style="color:#84CBF1;">  <strong>${paciente.usuario.tipoUsuario}</strong> </p>
                     <hr> 
                     <p>Nombre </p>
                     <p class="izq">     <strong>${paciente.usuario.nombre}</strong> </p>

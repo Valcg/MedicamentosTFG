@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
     agregarEvento("vermedicamentos", "cliente_paciente/mismedicamentos.html");
 });
 
-
 // ------------------- Script 1: Mostrar fecha -------------------
 document.addEventListener("DOMContentLoaded", function () {
     // Obtener la fecha actual
