@@ -8,7 +8,7 @@
    /* 1  TARJETA 50% --------------------------- */
     .seccion-card-duo {width: 50%;}
 
-    #section-cliente-perfil ,#section-cliente-dos{
+    #section-cliente-perfil {
         display: flex;
         align-items: center;
         justify-content: space-evenly;
@@ -21,13 +21,8 @@
             /* CAJA 1 tarjeta ------------------------------------------- */ 
             #section-cliente-perfil{background-color: #F0F0F0;}
             
-            /* CAJA 2 ----------------------------------------- */ 
-            #section-cliente-dos{background-color: lightgray;}  
+
             
-            #section-cliente-dos:hover{background-color: rgb(185, 185, 185);;
-                        box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}  
-
-
         
         /* MI PERFIL--------------centra SECCION-CARD DE MI PERFIL EN MEDICO Y PACIENTE */
          #miperfilcliente{margin:auto;}

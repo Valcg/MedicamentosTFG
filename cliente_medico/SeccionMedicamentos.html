@@ -61,54 +61,55 @@
 <div class="usu-div-med">
 
 
-                <!--  VER MI PERFIL -------------- -->
-                 <div  class="seccion-card-duo" >         
+            <!--  VER MI PERFIL -------------- -->
+            <div  class="seccion-card-duo" >         
+                    
+                <div  id="section-cliente-perfil"  class="hover">
+
+                            <div style="width: 80%;">                   
+                                    <h2>BUSCADOR</h2>            
+                                    <!-- BUSCADOR POR NOMBRE--------------- -->
+                           <div id="busquedaMedicamentosContainer"></div>
+                                    <!-- ------------------------------------- -->        
+                            </div>
+
+                    </div>
+                    <!-- ------------------------------------- -->
                     <div  id="section-cliente-perfil"  class="hover">
-
-                 <div style="width: 80%;">
-                                               
-                            <h2>Alta de Medicamento</h2>            
-                            <!-- MEDICOALTAMEDICAMENTO--------------- -->
-                            <div id="medicoaltamedicamento"></div>
-                            <!-- ------------------------------------- -->        
+                            
+                            <div style="width: 80%;">                   
+                                    <h2>Alta de Medicamento</h2>            
+                                    <!-- MEDICOALTAMEDICAMENTO--------------- -->
+                                    <div id="medicoaltamedicamento"></div>
+                                    <!-- ------------------------------------- -->  
+                                                 <script src="seccionmedicamentosalta.js"></script>      
+                            </div>
                     </div>
 
-                    </div>
-                 </div>      
+            </div>      
         <!--  ---------------- CAJA 2    -------------- -->  
                 <div  class="seccion-card-duo" >         
-                 <div  id="section-cliente-dos">
+                 <div  id="section-cliente-dos" class="hover">
 
-                  <div class="textocartilla">
-                                            
-                            <div>
-                                <h2>Buscador</h2>
-                                <!-- Buscador por nombre -->
-                                <section id="buscador">
-                                    <label for="nombreMedicamentoBusqueda">Buscar por nombre:</label>
-                                    <input type="text" id="nombreMedicamentoBusqueda" placeholder="Ej. Paracetamol">
-                                    <button id="btnBuscarMedicamento">Buscar</button>
-                                    <div id="resultadoBusqueda"></div>
-                                </section>
+                  <div style="width: 100%; " class="tabla-scroll">
 
-                            <hr>
-                                    <!-- Lista de todos los medicamentos -->
-                                    <section id="listaMedicamentos">
-                                        <h2>Todos los Medicamentos</h2>
-                                        <table id="tablaMedicamentos" border="1">
+                                        <table class="tablaMedicamentos" >
                                             <thead>
                                                 <tr>
-                                                    <th>Nombre del Medicamento</th>
-                                                    <th>Cantidad Total por Caja</th>
+                                                        <td colspan="3"> <h2>Todos los Medicamentos</h2></th>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: right;">Nombre del Medicamento</th>
+                                                        <td style="text-align: center;">Unidad de Medida</th>
+                                                    <td style="text-align: left;">Cantidad Total por Caja</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <!-- Aquí se insertarán los medicamentos -->
+                                            <tbody id="cuerpoTabla">
+                                                
                                             </tbody>
                                         </table>
-                                    </section>
-                                
-                            </div>
+                                  
+                         
             </div>
 
                   </div>

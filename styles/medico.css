@@ -13,11 +13,9 @@
 }
 
 
-
 .usu-div-med{
-
     background-color:white;
-    border: 1px solid yellow;
+    /* border: 1px solid yellow; */
     width: 100%;
     display: flex;
     flex-wrap: wrap; 
@@ -93,7 +91,8 @@
             #seccionpacientes{background-color: #00669C;}
             #seccionpacientes:hover{background-color: #005c8d;}
 
-            .infomispa{border: 1px solid yellow;
+            .infomispa{
+                /* border: 1px solid yellow; */
                 justify-content: space-evenly;}
               
             /* 3 -------------- VER MEDICAMENTOS ----------------------------------------- */
@@ -181,12 +180,13 @@
 /* SECCION PACIENTES----------------------------------------------------------------------------*/
 
         /*MIS PACIENTES-----------------------------------------*/
-                .tablapaciente{ width: 100%;
+                .tablapaciente,.tablaMedicamentos{ width: 100%;
                             
                 border-collapse: collapse;}
 
-                .tablapaciente tr td{border-bottom: 1px solid  white;
-                padding: 10px 8px;}
+                .tablapaciente tr td,.tablaMedicamentos tr td
+                    {border-bottom: 1px solid  white;
+                    padding: 10px 8px;}
 
                 .tablahover:hover{background-color: white;}
 
@@ -203,12 +203,11 @@
 
                             /*DIV MIS PACIENTES COLOR Y HOVER---------- */ 
                             #section-paciente-mispacientes{background-color: #F0F0F0; text-align: center;}  
-                            
                             .tabla-scroll {overflow-x: auto; }
 
 
     /*BOTON VER HISTORIAL----------------*/
-                    .btnVerRecetas , .btnVerHistorial, #btnAsociarPaciente,#btnCrearReceta,#btnRedirigir,#btnAltaMedicamento{
+                    .btnVerRecetas , .btnVerHistorial, #btnAsociarPaciente,#btnCrearReceta,#btnRedirigir,#btnAltaMedicamento,#btnBuscarMedicamento{
                         all: unset; /* Esto quita prácticamente todos los estilos del navegador */
                         color: white; /* Color del texto */
                         padding: 6px 12px;
@@ -221,34 +220,40 @@
                         width: fit-content;}
 
                     .btnVerHistorial{ background-color: #0d7ebb;  }
-                            .btnVerHistorial:hover{background-color: #00669C;}
+                                    .btnVerHistorial:hover{background-color: #00669C;}
 
 
                     /*BOTON VER HISTORIAL----------------*/
                     .btnVerRecetas{background-color: rgb(223, 153, 127);}
-                            .btnVerRecetas:hover{background-color: #d77957;}
+                                    .btnVerRecetas:hover{background-color: #d77957;}
                     
                     /*BTN ASOCIAR PACIETER-----------------------------------------*/
 
                     #btnAsociarPaciente{ background-color: #84CBF1;text-align: center;margin:20px  auto;}
-                            #btnAsociarPaciente:hover{background-color: #4699c5;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+                                    #btnAsociarPaciente:hover{background-color: #4699c5;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
                     
                     /*BTN CREAR RECETA-----------------------------------------*/
                     #btnCrearReceta{background-color: rgb(223, 153, 127);margin: auto; }
                     #btnCrearReceta:hover{background-color: #d77957;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
-                            /*BTN redirigir a Seccion PACIENTEA hover  (NO FUNCIONAR .hover en el elemento)-----------------------------------------*/
-                            #btnRedirigir:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
-                    
+                                    /*BTN redirigir a Seccion PACIENTEA hover  (NO FUNCIONAR .hover en el elemento)-----------------------------------------*/
+                                    #btnRedirigir:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+                                    /*MENSAJES DE CREAR RECETA CENTRADOS-----------------------------------------*/
+                                    #mensajeReceta,#mensajeCorreo{text-align: center;}
+
                     /*BTN ALTA MEDICAMENTO-----------------------------------------*/
                     #btnAltaMedicamento{background-color: #dac47c;margin: auto;}
-                        #btnAltaMedicamento:hover{background-color: #c9b268;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
-                            #nombreRenderizado,#mensajeAlta{text-align: center;}
-                    /*MENSAJES DE CREAR RECETA CENTRADOS-----------------------------------------*/
-                    #mensajeReceta,#mensajeCorreo{text-align: center;}
+                                    #btnAltaMedicamento:hover{background-color: #c9b268;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+                                            #nombreRenderizado,#mensajeAlta{text-align: center;}
+                    /*BTN ALTA MEDICAMENTO-----------------------------------------*/
+                    #btnBuscarMedicamento{background-color: #dac47c;margin: auto;}
+                                    #btnBuscarMedicamento:hover{background-color: #c9b268;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+                                        /*MENSAJES DE CREAR RECETA CENTRADOS-----------------------------------------*/
+                                        #resultadoBusqueda{text-align: center;}
+                   
 
 
 
-        #medicoseccionasociarpaciente,#medicoseccioncrearreceta,#formAltaMedicamento{    
+        #medicoseccionasociarpaciente,#medicoseccioncrearreceta,#formAltaMedicamento,#formBusquedaMedicamento{    
             display: flex;
             flex-direction: column;  /* Alinea los elementos verticalmente */
             justify-content: center;  /* Centrado vertical */
@@ -272,7 +277,6 @@
                                 to {opacity: 1;}
                             }
 
-
         /*INPUT FORMULARIOS-----------------------------------------*/
 
             
@@ -293,4 +297,24 @@
             outline: none;             /* Eliminar el contorno predeterminado */
         }
 
+.caja{color: #f14343;color:#66b794f1;color:#00669C;}
 
+#cuerpotabla{background-color: red;}
+
+
+
+#section-cliente-dos{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        /* Distribuye los elementos equitativamente */
+        margin: 20px;
+        height: auto;
+        border-radius: 10px;
+        transition:  0.3s ease-in-out;
+ 
+    }
+
+            
+            /* CAJA 2 ----------------------------------------- */ 
+            #section-cliente-dos{background-color: #F0F0F0;}  
