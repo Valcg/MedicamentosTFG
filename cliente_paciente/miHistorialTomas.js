@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const url = `http://localhost:9050/pacientes/Vermihistorial/${idPaciente}`;
+    const url = `http://medicade.involux.es/pacientes/Vermihistorial/${idPaciente}`;
 
     // ---------- INICIO TRANSFORMACIÓN DE FECHA ----------
     function obtenerFechaYHoraFormateada(fechaStr) {
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     confirmarTomaBtn.addEventListener("click", function () {
         if (idAlertaAConfirmar) {
-            const urlConfirmar = `http://localhost:9050/pacientes/confirmarToma/${idAlertaAConfirmar}`;
+            const urlConfirmar = `http://medicade.involux.es/pacientes/confirmarToma/${idAlertaAConfirmar}`;
             axios.post(urlConfirmar)
                 .then(response => {
                     if (response.status === 200) {

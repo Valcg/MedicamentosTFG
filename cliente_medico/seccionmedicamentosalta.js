@@ -45,7 +45,7 @@
                 let medicamentoExiste = false;
 
                 function cargarMedicamentos() {
-                    axios.get("http://localhost:9050/medicos/BuscarTodosLosMedicamentos")
+                    axios.get("http://medicade.involux.es/medicos/BuscarTodosLosMedicamentos")
                         .then(response => {
                             medicamentosExistentes = response.data || [];
                         })
@@ -179,7 +179,7 @@
                         cantidadUnidad: parseInt(cantidadUnidad)
                     };
 
-                    axios.post("http://localhost:9050/medicos/AltaMedicamentos", medicamento)
+                    axios.post("http://medicade.involux.es/medicos/AltaMedicamentos", medicamento)
                         .then(response => {
                             mensajeAlta.innerHTML = `<p style="color: #66b794f1;">✅ Medicamento creado: ${response.data.nombreMedicamento}</p>`;
                             setTimeout(() => location.reload(), 1000);

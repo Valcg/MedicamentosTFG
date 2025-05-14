@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Enviar la solicitud de creación de usuario
-        axios.post("http://localhost:9050/usuarios/alta2", usuario, {
+        axios.post("http://medicade.involux.es/usuarios/alta2", usuario, {
             headers: { "Content-Type": "application/json" }
         })
         .then(response => {

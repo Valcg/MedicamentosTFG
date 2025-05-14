@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // HACEMOS UNA PETICIÓN GET PARA OBTENER LOS MEDICAMENTOS
-    axios.get("http://localhost:9050/medicos/BuscarTodosLosMedicamentos")
+    axios.get("http://medicade.involux.es/medicos/BuscarTodosLosMedicamentos")
         .then(response => {
             const medicamentos = response.data;
             let opcionesMedicamentos = medicamentos.map(med =>
@@ -73,13 +73,13 @@ document.addEventListener("DOMContentLoaded", function () {
     function validarCorreoPaciente(correo) {
         const mensajeCorreo = document.getElementById("mensajeCorreo");
 
-        axios.get(`http://localhost:9050/medicos/buscarPorCorreo?correo=${correo}`)
+        axios.get(`http://medicade.involux.es/medicos/buscarPorCorreo?correo=${correo}`)
             .then(response => {
                 const paciente = response.data;
 
                 if (paciente) {
                     // Verificar si el paciente está asociado al médico
-                    axios.get(`http://localhost:9050/medicos/VerMisPacientes/${numeroColegiado}`)
+                    axios.get(`http://medicade.involux.es/medicos/VerMisPacientes/${numeroColegiado}`)
                         .then(pacientesAsociadosResponse => {
                             const pacientesAsociados = pacientesAsociadosResponse.data;
                             const pacienteAsociado = pacientesAsociados.find(p => p.usuario.correo === correo);
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const correoPaciente = document.getElementById("correo_paciente").value;
 
-        axios.get(`http://localhost:9050/medicos/buscarPorCorreo?correo=${correoPaciente}`)
+        axios.get(`http://medicade.involux.es/medicos/buscarPorCorreo?correo=${correoPaciente}`)
             .then(response => {
                 const paciente = response.data;
 
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     caducidad: "Activa"
                 };
 
-                axios.post("http://localhost:9050/medicos/CrearReceta", recetaDto)
+                axios.post("http://medicade.involux.es/medicos/CrearReceta", recetaDto)
                     .then(res => {
                         document.getElementById("mensajeReceta").innerHTML = `<span style="color: #66b794f1;">Receta creada correctamente</span>`;
                     })

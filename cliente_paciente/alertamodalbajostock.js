@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 180000);
 
     function verificarMedicamentosCliente() {
-        axios.get(`http://localhost:9050/pacientes/vermedicamentos/paciente/${idPaciente}`)
+        axios.get(`http://medicade.involux.es/pacientes/vermedicamentos/paciente/${idPaciente}`)
             .then(response => {
                 const listaMedicamentos = response.data;
                 if (!listaMedicamentos || listaMedicamentos.length === 0) return;
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function verificarStockMedicamento(idMedicamento, esUltimo) {
-        axios.post(`http://localhost:9050/pacientes/verificar-stock/${idPaciente}/${idMedicamento}`)
+        axios.post(`http://medicade.involux.es/pacientes/verificar-stock/${idPaciente}/${idMedicamento}`)
             .then(response => {
                 const mensaje = response.data;
 
@@ -87,14 +87,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     window.confirmarAlertaBajoStock = function(idAlerta) {
-        axios.post(`http://localhost:9050/pacientes/confirmarAlertaBajoStock/${idAlerta}`)
+        axios.post(`http://medicade.involux.es/pacientes/confirmarAlertaBajoStock/${idAlerta}`)
             .then(() => {
                 window.location.href = "mismedicamentos.html";
             });
     };
 
     window.posponerAlertaBajoStock = function(idAlerta) {
-        axios.post(`http://localhost:9050/pacientes/posponerAlertaBajoStock/${idAlerta}`, {})
+        axios.post(`http://medicade.involux.es/pacientes/posponerAlertaBajoStock/${idAlerta}`, {})
             .then(res => {
                 alert(res.data);
                 modalBajoStock.classList.remove("show");

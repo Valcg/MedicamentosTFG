@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const url = `http://localhost:9050/pacientes/VerMisRecetas/${idPaciente}`;
+    const url = `http://medicade.involux.es/pacientes/VerMisRecetas/${idPaciente}`;
 
     axios.get(url)
         .then(res => {

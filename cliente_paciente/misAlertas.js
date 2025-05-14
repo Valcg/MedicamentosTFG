@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const url = `http://localhost:9050/pacientes/VermisAlertas/${idPaciente}`;
+    const url = `http://medicade.involux.es/pacientes/VermisAlertas/${idPaciente}`;
 
     axios.get(url)
         .then(res => {
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     const celdaAccion = document.createElement("td");
                     if (idMedicamento) {
-                        const urlCantidad = `http://localhost:9050/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
+                        const urlCantidad = `http://medicade.involux.es/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
 
                         axios.get(urlCantidad)
                             .then(response => {
