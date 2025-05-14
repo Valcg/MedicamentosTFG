@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <td style="font-weight:bold;text-align:right;">${nombre}</td>
                                 
                                 <td style="${estiloUnidad}; text-align:center;">${unidadEncontrada ? unidadEncontrada : "-"}</td>
-                                <td style="text-align:left;">${cantidad}</td>
+                                <td style="text-align:center;">${cantidad}</td>
                             </tr>
                         `;
                     }).join("");
