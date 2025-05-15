@@ -2,6 +2,8 @@ const recetasContainer = document.getElementById("historial-pacientes");
 
 function verRecetasDePaciente(idPaciente, nombrePaciente) {
     const numeroColegiado = localStorage.getItem("idUsuario");
+    const correoSesion = localStorage.getItem("correo");  // Obtener correo de sesión
+
     if (!numeroColegiado) {
         recetasContainer.innerHTML = "<p>Error: no se encontró el número de colegiado.</p>";
         return;
@@ -9,10 +11,7 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
 
     recetasContainer.innerHTML = `<h3>Recetas de ${nombrePaciente}</h3><p>Cargando...</p>`;
 
-    //axios.get(`http://medicade.involux.es/medicos/VerRecetasDeMisPacientes/paciente/${idPaciente}/medico/${numeroColegiado}`)
     axios.get(`http://medicade.involux.es/pacientes/VerMisRecetas/${idPaciente}`)
-    
-
         .then(response => {
             const recetas = response.data;
             console.log(recetas);
@@ -31,10 +30,10 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
                         <th>Frecuencia (h)</th>
                         <th>Duración (días)</th>
                         <th>Estado</th>
-                         <th>Medico</th>
-                          <th>especialidad del Medico</th>
-                           <th>email de Medico</th>
-                        <th>Acción</th> <!-- Nueva columna para el botón -->
+                        <th>Medico</th>
+                        <th>Especialidad del Medico</th>
+                        <th>Email de Medico</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>`;
@@ -50,14 +49,20 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
                 const especialidad = receta.medico.especialidad ?? "Desconocido";
                 const emailMedico = receta.medico.usuario.correo ?? "Desconocido";
 
-
-                // Verificar si la receta tiene alertas pendientes
                 const tieneAlertasPendientes = receta.alertas && receta.alertas.some(alerta => alerta.estado === 'sinConfirmar');
 
-                // Agregar el botón de caducar solo si no hay alertas pendientes
-                const caducarButton = estado !== "Caducada" && !tieneAlertasPendientes ? 
-                    `<button class="btnCaducar" data-id="${receta.idReceta}">Caducar</button>` : 
-                    `<span>${estado === "Caducada" ? "Receta caducada" : "Tiene alertas pendientes"}</span>`;
+                let caducarButton = '';
+                if (estado !== "Caducada" && !tieneAlertasPendientes) {
+                    if (emailMedico === correoSesion) {
+                        // Mismo médico, botón habilitado
+                        caducarButton = `<button class="btnCaducar" data-id="${receta.idReceta}">Caducar</button>`;
+                    } else {
+                        // Otro médico, botón deshabilitado
+                        caducarButton = `<button class="btnCaducar" disabled title="Solo el médico que firmó puede caducar esta receta" data-id="${receta.idReceta}">Caducar</button>`;
+                    }
+                } else {
+                    caducarButton = `<span>${estado === "Caducada" ? "Receta caducada" : "Tiene alertas pendientes"}</span>`;
+                }
 
                 tabla += `
                     <tr>
@@ -67,9 +72,9 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
                         <td>${frecuencia}</td>
                         <td>${duracion}</td>
                         <td id="estado_${receta.idReceta}">${estado}</td>
-                         <td>${medico}</td>
-                         <td>${especialidad}</td>
-                         <td>${emailMedico}</td>
+                        <td>${medico}</td>
+                        <td>${especialidad}</td>
+                        <td>${emailMedico}</td>
                         <td>${caducarButton}</td>
                     </tr>`;
             });
@@ -77,8 +82,8 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
             tabla += `</tbody></table>`;
             recetasContainer.innerHTML = `<h3>Recetas de ${nombrePaciente}</h3>${tabla}`;
 
-            // Asignar el evento a cada botón de caducar
-            document.querySelectorAll(".btnCaducar").forEach(button => {
+            // Solo asignar evento a botones habilitados
+            document.querySelectorAll(".btnCaducar:not([disabled])").forEach(button => {
                 button.addEventListener("click", function() {
                     const idReceta = this.getAttribute("data-id");
                     caducarReceta(idReceta);
@@ -96,17 +101,13 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
 function caducarReceta(idReceta) {
     axios.post(`http://medicade.involux.es/medicos/CaducarReceta/${idReceta}`)
         .then(response => {
-            // Si la respuesta es exitosa, actualizamos el estado en la tabla
             if (response.status === 200) {
-                // Actualizar el estado de la receta a "Caducada" en la tabla
                 const estadoCell = document.getElementById(`estado_${idReceta}`);
                 estadoCell.textContent = "Caducada";
 
-                // Deshabilitar el botón después de caducar
                 const button = document.querySelector(`button[data-id='${idReceta}']`);
                 button.disabled = true;
 
-                // Mostrar mensaje de éxito
                 alert("Receta caducada correctamente");
             }
         })
