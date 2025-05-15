@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // HACEMOS UNA PETICIÓN GET PARA OBTENER LOS MEDICAMENTOS
+    // Cargamos medicamentos
     axios.get("http://medicade.involux.es/medicos/BuscarTodosLosMedicamentos")
         .then(response => {
             const medicamentos = response.data;
@@ -17,52 +17,93 @@ document.addEventListener("DOMContentLoaded", function () {
                 `<option value="${med.idMedicamento}">${med.nombreMedicamento}</option>`
             ).join("");
 
-            // Oculte el numero de colegiado
             resultadoDiv.innerHTML = `
-              
-                    <label>Correo del Paciente</label>
-                    <input type="text" id="correo_paciente" class="input">
-                    <span id="mensajeCorreo" style="margin-left: 10px;"></span>
-                            <br>
-                    <input type="hidden" id="numero_colegiado" value="${numeroColegiado}" readonly>
+                <label>Correo del Paciente</label>
+                <input type="text" id="correo_paciente" class="input" autocomplete="off">
+                
+                <span id="mensajeCorreo" style="margin-top: 10px;"></span>
+                <div id="sugerenciasCorreo" style="color:#00669C;"></div>
+                <br>
+                <input type="hidden" id="numero_colegiado" value="${numeroColegiado}" readonly>
 
-                    <label>Medicamento</label>
-                    <select id="id_medicamento" class="input">${opcionesMedicamentos}</select>
-                        <br>
+                <label>Medicamento</label>
+                <select id="id_medicamento" class="input">${opcionesMedicamentos}</select><br>
 
-                    <label>Dosis Por cada Toma</label>
-                    <input type="text" id="dosis" class="input">
-                        <br>
+                <label>Dosis Por cada Toma</label>
+                <input type="text" id="dosis" class="input"><br>
 
-                    <label>Frecuencia (cada cuántas horas)</label>
-                    <input type="text" id="frecuencia" class="input">
-                        <br>
+                <label>Frecuencia (cada cuántas horas)</label>
+                <input type="text" id="frecuencia" class="input"><br>
 
-                    <label>Duración del Tratamiento (días)</label>
-                    <input type="text" id="duracion_tratamiento" class="input">
-                        <br>
+                <label>Duración del Tratamiento (días)</label>
+                <input type="text" id="duracion_tratamiento" class="input"><br>
 
-                    <label>Estado de la Receta:</label>
-                    <input type="text" id="caducidad paciente-text" style="color:#84CBF1; font-weight:bold;" value="Activa" readonly class="input pacientetext">
-                        <br>
+                <label>Estado de la Receta:</label>
+                <input type="text" id="caducidad paciente-text" style="color:#84CBF1; font-weight:bold;" value="Activa" readonly class="input pacientetext"><br>
 
-                    <button id="btnCrearReceta">Aceptar</button>
-                    <p id="mensajeReceta"></p>
-         
+                <button id="btnCrearReceta">Aceptar</button>
+                <p id="mensajeReceta"></p>
             `;
 
-            // Activamos la validación solo cuando se escribe '@'
-            document.getElementById("correo_paciente").addEventListener("input", function () {
-                const valorCorreo = this.value;
-                if (valorCorreo.includes("@")) {
-                    validarCorreoPaciente(valorCorreo);
+            let pacientesAsociadosCorreos = [];
+
+            // Traemos lista de pacientes asociados para sugerencias
+            axios.get(`http://medicade.involux.es/medicos/VerMisPacientes/${numeroColegiado}`)
+                .then(resp => {
+                    pacientesAsociadosCorreos = resp.data.map(p => p.usuario.correo);
+                });
+
+            const correoInput = document.getElementById("correo_paciente");
+            const mensajeCorreo = document.getElementById("mensajeCorreo");
+            const sugerenciasDiv = document.getElementById("sugerenciasCorreo");
+
+            correoInput.addEventListener("input", () => {
+                const valor = correoInput.value.trim();
+                mensajeCorreo.textContent = "";
+                mensajeCorreo.dataset.valido = "false";
+                sugerenciasDiv.innerHTML = "";
+
+                const atIndex = valor.indexOf("@");
+
+                if (atIndex === -1) {
+                    // Usuario está escribiendo la parte antes del @
+                    const nombreCorreo = valor.toLowerCase();
+
+                    // Buscar correos que empiecen con lo escrito en la parte antes del @
+                    const sugerencias = pacientesAsociadosCorreos.filter(correo => {
+                        const nombrePaciente = correo.split("@")[0].toLowerCase();
+                       return nombrePaciente.includes(nombreCorreo);
+
+                    });
+
+                    if (sugerencias.length > 0) {
+                        mensajeCorreo.style.color = "#84CBF1";
+                        mensajeCorreo.textContent = "Sugerencias de correos:";
+                        sugerenciasDiv.innerHTML = sugerencias.map(correo => 
+                            `<div style="cursor:pointer; background:#eee; padding:5px; margin:2px; border-radius:5px;" onclick="seleccionarCorreoSugerido('${correo}')">${correo}</div>`
+                        ).join("");
+                    } else {
+                        mensajeCorreo.style.color = "#f14343";
+                        mensajeCorreo.textContent = "No se encontraron sugerencias.";
+                    }
                 } else {
-                    const mensajeCorreo = document.getElementById("mensajeCorreo");
-                    mensajeCorreo.textContent = "";
-                    mensajeCorreo.dataset.valido = "false";
+                    // Ya escribió el @, validar el correo completo
+                    sugerenciasDiv.innerHTML = "";
+                    const correoCompleto = valor.toLowerCase();
+
+                    const exactMatch = pacientesAsociadosCorreos.find(c => c.toLowerCase() === correoCompleto);
+
+                    if (exactMatch) {
+                        correoInput.value = exactMatch; // autocompletar con mayúsculas originales
+                        validarCorreoPaciente(exactMatch);
+                    } else {
+                        mensajeCorreo.style.color = "#f14343";
+                        mensajeCorreo.textContent = "Correo no encontrado.";
+                    }
                 }
             });
 
+            // Evento para enviar receta
             document.getElementById("btnCrearReceta").addEventListener("click", enviarReceta);
         })
         .catch(error => {
@@ -70,22 +111,27 @@ document.addEventListener("DOMContentLoaded", function () {
             resultadoDiv.innerHTML = `<p style="color:red;">Error al cargar medicamentos: ${error.message}</p>`;
         });
 
+    window.seleccionarCorreoSugerido = function(correo) {
+        const correoInput = document.getElementById("correo_paciente");
+        correoInput.value = correo;
+        document.getElementById("sugerenciasCorreo").innerHTML = "";
+        validarCorreoPaciente(correo);
+    }
+
     function validarCorreoPaciente(correo) {
         const mensajeCorreo = document.getElementById("mensajeCorreo");
 
         axios.get(`http://medicade.involux.es/medicos/buscarPorCorreo?correo=${correo}`)
             .then(response => {
                 const paciente = response.data;
-
                 if (paciente) {
-                    // Verificar si el paciente está asociado al médico
                     axios.get(`http://medicade.involux.es/medicos/VerMisPacientes/${numeroColegiado}`)
                         .then(pacientesAsociadosResponse => {
                             const pacientesAsociados = pacientesAsociadosResponse.data;
-                            const pacienteAsociado = pacientesAsociados.find(p => p.usuario.correo === correo);
+                            const pacienteAsociado = pacientesAsociados.find(p => p.usuario.correo.toLowerCase() === correo.toLowerCase());
 
                             if (pacienteAsociado) {
-                                mensajeCorreo.style.color = " #66b794f1";
+                                mensajeCorreo.style.color = "#66b794f1";
                                 mensajeCorreo.textContent = "Es una cuenta Paciente y está asociada al médico";
                                 mensajeCorreo.dataset.valido = "true";
                             } else {
@@ -94,8 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 mensajeCorreo.dataset.valido = "false";
                             }
                         })
-                        .catch(error => {
-                            console.error("Error al obtener pacientes asociados:", error);
+                        .catch(() => {
                             mensajeCorreo.style.color = "#f14343";
                             mensajeCorreo.textContent = "Error al verificar la asociación con el médico";
                             mensajeCorreo.dataset.valido = "false";
@@ -106,8 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     mensajeCorreo.dataset.valido = "false";
                 }
             })
-            .catch(error => {
-                console.error("Error al buscar paciente:", error);
+            .catch(() => {
                 mensajeCorreo.style.color = "#f14343";
                 mensajeCorreo.textContent = "Error al verificar el correo. No existe como Paciente";
                 mensajeCorreo.dataset.valido = "false";
@@ -141,21 +185,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 };
 
                 axios.post("http://medicade.involux.es/medicos/CrearReceta", recetaDto)
-                    .then(res => {
+                    .then(() => {
                         document.getElementById("mensajeReceta").innerHTML = `<span style="color: #66b794f1;">Receta creada correctamente</span>`;
                     })
-                    .catch(err => {
-                        document.getElementById("mensajeReceta").innerHTML =
-                            `<span style="color:#00669C;">Ya existe una receta para este medicamento.<br> Para crear una nueva receta, debes caducar la receta que está dada de alta </span>`;
-                        
-                            document.getElementById("mensajeReceta").innerHTML += 
-                            `<br>
+                    .catch(() => {
+                        document.getElementById("mensajeReceta").innerHTML = `
+                            <span style="color:#00669C;">Ya existe una receta para este medicamento.<br> Para crear una nueva receta, debes caducar la receta que está dada de alta</span>
+                            <br>
                             <button id="btnRedirigir" style="background-color:#f14343; cursor: pointer; margin-top:20px;" onclick="window.location.href='cliente_medico/seccionpacientes.html';">Ir a Ver Mis Pacientes</button>`;
                     });
             })
-            .catch(error => {
+            .catch(() => {
                 document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">Paciente no encontrado</span>`;
-                console.error("Error al buscar paciente:", error);
             });
     }
 });

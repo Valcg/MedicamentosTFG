@@ -143,23 +143,26 @@
                 padding: 8px 0 ;
                 border-radius: 20px;
                 border: none;
-                background-color: #00669C;
+        
                 color: white;
                 cursor: pointer;
-                font-weight: bold;
                 width: 200px; /* Ancho fijo */
-
+                    font-size: 16px;
                 display: flex;
                 justify-content: center;
                 margin: 0 auto; /* Centra el botón */
                 transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
             }
-
-            .login-cliente .inicio-sesion:hover,
-                .nuevacuenta-cliente .crear-cuenta-cliente:hover {
-                background-color: #004d76; /* Color más oscuro al hacer hover */
-                color: #84CBF1;
-            }
+                    .login-cliente button.inicio-sesion {background-color: #84CBF1;}
+                    .login-cliente .inicio-sesion:hover{
+                            background-color: #4699c5; /* Color más oscuro al hacer hover */
+                            color: white;}
+                    
+                    .nuevacuenta-cliente button.crear-cuenta-cliente {background-color: #00669C;}
+                            .nuevacuenta-cliente .crear-cuenta-cliente:hover {
+                            background-color: #004d76; /* Color más oscuro al hacer hover */
+                            color: white;
+                            }
         /* HAS OLVIDADO TU CONTRASEÑA---------------------------------------------------- */
         .sin-subrayado {
             text-decoration: none; /* Quita el subrayado */
@@ -177,14 +180,14 @@
                 /*2 Btn ---INFERIORES  --------------------------- */
                 .crear-cuenta-cliente,.iniciar-sesion-cliente {
                     width: 200px;
-                    padding: 8px 0;
+                    padding: 4px 0;
                     border-radius: 20px;
                    
                     background-color: white; /* Fondo blanco */
                     color: #333; /* Texto oscuro */
                     cursor: pointer;
                     margin: auto;
-                    font-weight: bold;
+                        font-size: 16px;
                     display: flex;
                     text-decoration: none; 
                     align-items: center;
@@ -199,7 +202,8 @@
                 }
                 /*CREATE COUNT --------------------------- */
                 .iniciar-sesion-cliente:hover {
-                    background-color: #84CBF1; /* Fondo blanco al hacer hover */  
+                    background-color: #84CBF1; /* Fondo blanco al hacer hover */
+                    color: white;  
                 }
 
 
