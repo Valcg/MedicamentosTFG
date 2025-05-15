@@ -2,6 +2,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const correoInput = document.getElementById("correo");
     const contrasenaInput = document.getElementById("contrasena");
     const btnIniciarSesion = document.getElementById("btnIniciarSesion");
+    const togglePassword = document.getElementById("togglePassword");
+
+    // Mostrar/Ocultar contraseña 🟡​
+    if (togglePassword) {
+        togglePassword.addEventListener("click", function () {
+            const tipo = contrasenaInput.getAttribute("type") === "password" ? "text" : "password";
+            contrasenaInput.setAttribute("type", tipo);
+            this.textContent = tipo === "password" ? "🔐 ⚪" : "🔓 🔵​";
+        });
+    }
 
     btnIniciarSesion.addEventListener("click", function (event) {
         event.preventDefault();
@@ -30,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStorage.setItem("correo", correo);
                 localStorage.setItem("tipoUsuario", tipoUsuario);
 
-                // Redirigir según el tipo de usuario
                 if (tipoUsuario === "PACIENTE") {
                     window.location.href = "HomeCliente.html";
                 } else if (tipoUsuario === "MEDICO") {

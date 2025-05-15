@@ -2,6 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form");
     const userTypeSelect = document.getElementById("user-type");
     const extraFieldsContainer = document.getElementById("extra-fields");
+    const contrasenaInput = document.getElementById("contrasena");
+    const togglePassword = document.getElementById("togglePassword");
+
+    // Mostrar/ocultar contraseña
+    if (togglePassword) {
+        togglePassword.addEventListener("click", function () {
+            const tipo = contrasenaInput.getAttribute("type") === "password" ? "text" : "password";
+            contrasenaInput.setAttribute("type", tipo);
+            this.textContent = tipo === "password" ? "🔐 ⚪" : "🔓 🔵​";
+        });
+    }
 
     // Función para actualizar los campos según el tipo de usuario
     function actualizarCamposExtra() {
@@ -35,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const apellido = document.getElementById("apellido").value;
         const dni = document.getElementById("dni").value;
         const correo = document.getElementById("correo").value;
-        const contrasena = document.getElementById("contrasena").value;
+        const contrasena = contrasenaInput.value;
         const tipoUsuario = userTypeSelect.value;
 
         let usuario = {
@@ -71,12 +82,10 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: { "Content-Type": "application/json" }
         })
         .then(response => {
-            // Respuesta exitosa
             alert(response.data); // Muestra la respuesta del servidor
-            window.location.href = "LoginCount.html"; // Redirigir a la página de login después de registro exitoso
+            window.location.href = "LoginCount.html"; // Redirigir a login
         })
         .catch(error => {
-            // Manejo de error
             console.error("Error al registrar:", error);
             alert("Error al registrar el usuario.");
         });

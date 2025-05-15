@@ -42,49 +42,50 @@
             </div>
         </section>
         <section id="nuevacuenta">
-            <div class="nuevacuenta-cliente">
-                <a href="index.html" class="volver-link-dos">. . . VOLVER</a>
+            <div class="nuevacuenta-cliente hover">
+                <a href="../index.html" class="volver-link"> ← VOLVER</a>
                 <h2>CREAR CUENTA </h2>
 
 
                 <form>
-                    <label for="name">NOMBRE</label>
+                    <label for="name">Nombre</label>
                     <input type="text" id="name" name="name" required>
-                
-                    <label for="apellido">APELLIDO</label>
+                   <br>
+                    <label for="apellido">Apellidos</label>
                     <input type="text" id="apellido" name="apellido" required>
-                
+                   <br>
                     <label for="dni">DNI</label>
                     <input type="text" id="dni" name="dni" required>
-                
-                    <label for="correo">CORREO</label>
+                   <br>
+                    <label for="correo">Correo</label>
                     <input type="email" id="correo" name="correo" required>
-                
-                    <label for="contrasena">CONTRASEÑA</label>
-                    <input type="password" id="contrasena" name="contrasena" required>
-                
-                    <label for="user-type">TIPO DE USUARIO</label>
+                   <br>
+
+                    <label for="contrasena">Contraseña</label>
+                    <div style="position: relative;">
+                        <input type="password" id="contrasena" name="contrasena" required>
+                        <span id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+                            🔐 ⚪
+                        </span>
+                    </div>
+                   <br>
+
+                    <label for="user-type">Tipo de Usuario</label>
                     <select id="user-type" name="user-type" required>
                         <option value="PACIENTE">Paciente</option>
                         <option value="MEDICO">Médico</option>
                     </select>
-                
+                   <br>
                     <div id="extra-fields"></div>
-                
-                    <button type="submit" class="crear-cuenta-cliente">CREAR CUENTA</button>
+                   <br>
+                    <button type="submit" class="crear-cuenta-cliente hover">CREAR CUENTA</button>
                 </form>
                 
-                
-                
-
-
-                <p><a href="#forgot-contrasena" class="sin-subrayado-blanco">¿Has olvidado tu contraseña?</a></p> <!-- Texto en blanco -->
-    
                 <!------------LINEA -->
                 <div class="lseparadora-blanca"></div> <!-- Línea en blanco -->
         
-                <p><a class="sin-subrayado-blancodos">¿Ya tienes una cuenta?</a></p> <!-- Texto en blanco -->
-                <a href="LoginCount.html" class="iniciar-sesion-cliente">INICIAR SESIÓN</a>
+                <p><a class="sin-subrayadodos">¿Ya tienes una cuenta?</a></p> <!-- Texto en blanco -->
+                <a href="LoginCount.html" class="iniciar-sesion-cliente hover">INICIAR SESIÓN</a>
             </div>
         </section>
     </main>

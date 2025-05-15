@@ -42,8 +42,8 @@
             </div>
         </section>
         <section id="login">
-            <div class="login-cliente">
-                <a href="index.html" class="volver-link">. . . VOLVER</a>
+            <div class="login-cliente hover">
+                <a href="../index.html" class="volver-link"> ← VOLVER</a>
                 <h2>INICIAR SESION</h2>
                 <form>
                     <!-- <label for="user-type">TIPO DE USUARIO</label>
@@ -51,18 +51,26 @@
                         <option value="paciente">Paciente</option>
                         <option value="cuidador">Cuidador</option>
                     </select> -->
-                    <label for="correo">CORREO</label>
+
+                    <label for="correo">Correo</label>
                     <input type="text" id="correo" name="correo" required>
-                    
+                    <br>
+
                     <label for="contrasena">CONTRASEÑA</label>
-                    <input type="contrasena" id="contrasena" name="contrasena" required>
-                    
-                    <button type="submit" class="inicio-sesion" id="btnIniciarSesion">INICIAR SESIÓN</button>
+                    <div style="position: relative;">
+                        <input type="password" id="contrasena" name="contrasena" required>
+                        <span id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+                        🔐 ⚪ 
+                        </span>
+                    </div>
+                     <br>
+                     
+                    <button type="submit" class="inicio-sesion hover" id="btnIniciarSesion">INICIAR SESIÓN</button>
                 </form>
                 <p><a href="#forgot-contrasena" class="sin-subrayado">¿Has olvidado tu contraseña?</a></p>
                 <div class="lseparadora"></div>
                 <p><a class="sin-subrayadodos">¿No tienes una cuenta?</a></p>
-                <a href="CreateCount.html" class="crear-cuenta-cliente">CREAR CUENTA</a>
+                <a href="CreateCount.html" class="crear-cuenta-cliente hover">CREAR CUENTA</a>
             </div>
         </section>
     </main>
