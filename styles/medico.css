@@ -192,11 +192,17 @@
 /* SECCION PACIENTES----------------------------------------------------------------------------*/
 
         /*MIS PACIENTES-----------------------------------------*/
-                .tablapaciente,.tablaMedicamentos,.tablaRecetas
+                .tablapaciente,
+                .tablaMedicamentos,
+                .tablaRecetas,
+                .tablaHistorial
                 { width: 100%;                           
                 border-collapse: collapse;}
 
-                .tablapaciente tr td,.tablaMedicamentos tr td,.tablaRecetas tr td
+                .tablapaciente tr td,
+                .tablaMedicamentos tr td,
+                .tablaRecetas tr td,
+                .tablaHistorial tr td
                     {border-bottom: 1px solid  white;
                     padding: 10px 8px;}
 
@@ -271,7 +277,13 @@
                     .btnMCaducarReceta{background-color: rgb(223, 153, 127);}
                                     .btnMCaducarReceta:hover{background-color: #d77957;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
             /* RECETAS------------------------------*/
-            .infoReceta{
+                    /*RECETASL*/
+                .activa {color: #66b794f1;}
+                .caducada {color: #f14343;}
+        /* RECTAS Y HISTOIRAL------------------------------*/
+        .infoReceta,
+        .estConfirmado,.estSinConf,.estTarde
+        {
                         all: unset; /* Esto quita prácticamente todos los estilos del navegador */
                         background-color: white; /* Color del texto */
                         padding: 4px 14px;
@@ -279,10 +291,10 @@
                         white-space: nowrap; 
                         width: fit-content;border: 1px solid;}
                 
-                    /*RECETASL*/
-                .activa {color: #66b794f1;}
-                .caducada {color: #f14343;}
-
+            /* RECETAS------------------------------*/
+            .estConfirmado{color: #66b794f1;}
+            .estSinConf{color: #f14343;}
+            .estTarde{color: orange;}
 
         #medicoseccionasociarpaciente,#medicoseccioncrearreceta,#formAltaMedicamento,#formBusquedaMedicamento{    
             display: flex;

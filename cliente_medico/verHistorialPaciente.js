@@ -64,39 +64,66 @@ function mostrarHistorialDePaciente(idPaciente, nombrePaciente) {
             console.error(error);
         });
 }
-
 function renderTabla(historial) {
     const tbody = historial.map(toma => {
         const fechaHora = new Date(toma.fechaHoraToma);
-        const fecha = fechaHora.toLocaleDateString();
-        const hora = fechaHora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        const estado = toma.alerta?.estadoAlerta || "Sin estado";
+
+        const opcionesFecha = { day: '2-digit', month: 'long', year: 'numeric' };
+        const opcionesHora = { hour: '2-digit', minute: '2-digit', hour12: false };
+
+        const fechaTexto = fechaHora.toLocaleDateString('es-ES', opcionesFecha);
+        const horaTexto = fechaHora.toLocaleTimeString('es-ES', opcionesHora);
+
         const medicamento = toma.alerta?.medicamento?.nombreMedicamento || "Sin medicamento";
 
-        const estadoHTML = estado === "confirmado"
-            ? `<td style="color: green;">${estado}</td>`
-            : `<td>${estado}</td>`;
+        const estadoRaw = toma.alerta?.estadoAlerta || "sinConfirmar";
+        let claseEstado = "";
+        let estadoFormateado = "";
+
+        switch (estadoRaw.toLowerCase()) {
+            case "confirmado":
+                claseEstado = "estConfirmado";
+                estadoFormateado = "Confirmado";
+                break;
+            case "sinconfirmar":
+                claseEstado = "estSinConf";
+                estadoFormateado = "Sin Confirmar";
+                break;
+            case "confirmadatarde":
+                claseEstado = "estTarde";
+                estadoFormateado = "Confirmada Tarde";
+                break;
+            default:
+                claseEstado = "estDesconocido";
+                estadoFormateado = estadoRaw;
+        }
+
+        const estadoHTML = `<td><a class="infoHistorial ${claseEstado}">${estadoFormateado}</a></td>`;
 
         return `
-            <tr>
-                <td>${fecha} ${hora}</td>
+            <tr class="tablahover">
+                <td>${fechaTexto}</td>
+                <td>${horaTexto}</td>
                 ${estadoHTML}
-                <td>${medicamento}</td>
+                <td style="font-weight: bold;">${medicamento}</td>
             </tr>`;
     }).join("");
 
     document.getElementById("tabla-historial").innerHTML = `
-        <table border="1">
+        <table class="tablaHistorial">
             <thead>
                 <tr>
-                    <th>Fecha y Hora</th>
-                    <th>Estado</th>
-                    <th>Medicamento</th>
+                    <td>Fecha</td>
+                    <td>Hora</td>
+                    <td>Estado</td>
+                    <td>Medicamento</td>
                 </tr>
             </thead>
             <tbody>${tbody}</tbody>
         </table>`;
 }
+
+
 
 function aplicarFiltros(historial) {
     const desde = document.getElementById("filtro-desde").value;
