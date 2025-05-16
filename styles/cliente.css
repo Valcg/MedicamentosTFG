@@ -61,7 +61,7 @@
 
 #header-cliente-uno  .nombre-usuario , #paciente-text{
     font-weight: bold;
-    color: #00669C;
+    color: #84CBF1;
 ;
 }
 
@@ -263,16 +263,14 @@
 
         /* 1 VOLVER HOME ---------------------------------------*/
         .BtnVolverHome {
-            width: 200px;
-            padding: 8px;
-            /* border-radius: 20px;
-            border:1px solid yellow; */
+            width: 250px;
+            margin-left: 40px;
+            /* border-radius: 20px;*/
+            border:1px solid yellow; 
             font-weight: bold; 
             color: #00669C;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
             text-decoration: none;
         }
 

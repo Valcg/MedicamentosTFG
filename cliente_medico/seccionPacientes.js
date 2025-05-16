@@ -27,8 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>Nombre</th>
                         <td>Apellido</th>
                         <td>Correo</th>
-                        <td>Historial</th>
-                        <td>Recetas</th>
+                        <td> </th>
+                        <td> </th>
+                        <td> </td> 
                 </tr>`;
 
                 response.data.forEach(paciente => {
@@ -46,6 +47,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>
                             <button class="btnVerRecetas hover" data-id="${paciente.idPaciente}" data-nombre="${paciente.usuario.nombre}">
                                 Ver Recetas
+                            </button>
+                        </td>
+
+                        <td>
+                            <button class="btnVerContactos hover" ">
+                                Ver Contactos
                             </button>
                         </td>
                 </tr>`;

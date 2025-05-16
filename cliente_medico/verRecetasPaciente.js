@@ -17,30 +17,51 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
             console.log(recetas);
 
             if (!recetas || recetas.length === 0) {
-                recetasContainer.innerHTML = `<h3>Recetas de ${nombrePaciente}</h3><p>No hay recetas disponibles.</p>`;
+                recetasContainer.innerHTML = `<h2>Recetas de ${nombrePaciente}</h2><p>No hay recetas disponibles.</p>`;
                 return;
             }
 
-            let tabla = `<table border="1">
+            let tabla = `<table class="tablaRecetas">
                 <thead>
                     <tr>
-                        <th>Fecha de Inicio</th>
-                        <th>Medicamento</th>
-                        <th>Dosis(cantidad ml o mg)</th>
-                        <th>Frecuencia (h)</th>
-                        <th>Duración (días)</th>
-                        <th>Estado</th>
-                        <th>Medico</th>
-                        <th>Especialidad del Medico</th>
-                        <th>Email de Medico</th>
-                        <th>Acción</th>
+                        <td>Fecha de Inicio 
+                            <br> Hora</td>
+                        <td>Medicamento 
+                            <br> (Nom. Cant. U.Med.) </td>
+                        <td>Cantidad 
+                            <br> ( Dosis ) </td>
+                        <td>Frecuencia
+                            <br>( H ) </td>
+                        <td>Días</td>
+                        <td>Estado</td>
+                        <td>Medico</td>
+                        <td>Especialidad</td>
+                        <td>Email de Medico</td>
+                        <td>    </td>
                     </tr>
                 </thead>
                 <tbody>`;
 
             recetas.forEach(receta => {
-                const fecha = new Date(receta.fechaInicio).toLocaleString();
-                const medicamento = receta.medicamento?.nombreMedicamento || "Sin medicamento";
+                const fechaObj = new Date(receta.fechaInicio);
+                const opcionesFecha = { day: '2-digit', month: 'long', year: 'numeric' };
+                const opcionesHora = { hour: '2-digit', minute: '2-digit', hour12: false };
+
+                const fechaTexto = fechaObj.toLocaleDateString('es-ES', opcionesFecha);
+                const horaTexto = fechaObj.toLocaleTimeString('es-ES', opcionesHora);
+
+                const fecha = `<div>${fechaTexto}</div><div style="font-size: smaller;">${horaTexto}</div>`;
+
+                // MEDICAMENTO FORMATEADO EN DOS LÍNEAS
+                const nombreCompleto = receta.medicamento?.nombreMedicamento || "Sin medicamento";
+                const match = nombreCompleto.match(/^(.+?)\s(\d+.*)$/);
+                let medicamento = '';
+                if (match) {
+                    medicamento = `<div>${match[1]}</div><div style="font-size: smaller;">${match[2]}</div>`;
+                } else {
+                    medicamento = `<div>${nombreCompleto}</div>`;
+                }
+
                 const dosis = receta.dosis ?? "No especificada";
                 const frecuencia = receta.frecuencia ?? "No especificada";
                 const duracion = receta.duracionTratamiento ?? "No especificada";
@@ -49,42 +70,43 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
                 const especialidad = receta.medico.especialidad ?? "Desconocido";
                 const emailMedico = receta.medico.usuario.correo ?? "Desconocido";
 
+                const claseEstado = estado === "Activa" ? "activa" : (estado === "Caducada" ? "caducada" : "desconocido");
+
                 const tieneAlertasPendientes = receta.alertas && receta.alertas.some(alerta => alerta.estado === 'sinConfirmar');
 
                 let caducarButton = '';
                 if (estado !== "Caducada" && !tieneAlertasPendientes) {
                     if (emailMedico === correoSesion) {
-                        // Mismo médico, botón habilitado
-                        caducarButton = `<button class="btnCaducar" data-id="${receta.idReceta}">Caducar</button>`;
+                        caducarButton = `<button class="btnCaducar btnMCaducarReceta" data-id="${receta.idReceta}">Caducar</button>`;
                     } else {
-                        // Otro médico, botón deshabilitado
-                        caducarButton = `<button class="btnCaducar" disabled title="Solo el médico que firmó puede caducar esta receta" data-id="${receta.idReceta}">Caducar</button>`;
+                        caducarButton = `<button class="btnCaducar btnMCaducarReceta" style="opacity:0.2;" disabled title="Solo el médico que firmó puede caducar esta receta" data-id="${receta.idReceta}">Caducar</button>`;
                     }
                 } else {
-                    caducarButton = `<span>${estado === "Caducada" ? "Receta caducada" : "Tiene alertas pendientes"}</span>`;
+                    caducarButton = `<span>${estado === "Caducada" ? "<a style='color:white'>  </a>" : "Tiene alertas pendientes"}</span>`;
                 }
 
                 tabla += `
-                    <tr>
+                    <tr class="tablahover">
                         <td>${fecha}</td>
-                        <td>${medicamento}</td>
+                        <td style="font-weight:bold;">${medicamento}</td>
                         <td>${dosis}</td>
                         <td>${frecuencia}</td>
                         <td>${duracion}</td>
-                        <td id="estado_${receta.idReceta}">${estado}</td>
-                        <td>${medico}</td>
-                        <td>${especialidad}</td>
-                        <td>${emailMedico}</td>
+                        <td id="estado_${receta.idReceta}">
+                            <a class="${claseEstado}">${estado}</a>
+                        </td>
+                        <td style="color:#00669C;"><a class="infoReceta">${medico}</a></td>
+                        <td style="color:#84CBF1;"><a class="infoReceta">${especialidad}</a></td>
+                        <td style="color:#00669C;">${emailMedico}</td>
                         <td>${caducarButton}</td>
                     </tr>`;
             });
 
             tabla += `</tbody></table>`;
-            recetasContainer.innerHTML = `<h3>Recetas de ${nombrePaciente}</h3>${tabla}`;
+            recetasContainer.innerHTML = `<h2>Recetas de ${nombrePaciente}</h2>${tabla}`;
 
-            // Solo asignar evento a botones habilitados
             document.querySelectorAll(".btnCaducar:not([disabled])").forEach(button => {
-                button.addEventListener("click", function() {
+                button.addEventListener("click", function () {
                     const idReceta = this.getAttribute("data-id");
                     caducarReceta(idReceta);
                 });
@@ -97,13 +119,16 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
         });
 }
 
-// Función para caducar la receta
 function caducarReceta(idReceta) {
     axios.post(`http://medicade.involux.es/medicos/CaducarReceta/${idReceta}`)
         .then(response => {
             if (response.status === 200) {
                 const estadoCell = document.getElementById(`estado_${idReceta}`);
-                estadoCell.textContent = "Caducada";
+                const linkEstado = estadoCell.querySelector("a");
+                linkEstado.textContent = "Caducada";
+
+                linkEstado.classList.remove("activa", "desconocido");
+                linkEstado.classList.add("caducada");
 
                 const button = document.querySelector(`button[data-id='${idReceta}']`);
                 button.disabled = true;

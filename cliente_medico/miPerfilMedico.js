@@ -21,11 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 const div = document.createElement("div");
                 div.classList.add("perfil-item");
 
-                // HTML estático (sin "Estado")
                 div.innerHTML = `
                     <h3>Los datos de tu cuenta :</h3>
                     <p>Tipo de Usuario</p>
-                    <p class="izq" style="color:#84CBF1;">     <strong>${medico.usuario.tipoUsuario}</strong> </p> 
+                    <p class="izq" style="color: #00669C;"> <strong>${medico.usuario.tipoUsuario}</strong> </p> 
                         <hr>    
                     <p>Número de Colegiado</p>
                     <p class="izq">    <strong>${medico.numeroColegiado}</strong> </p>
@@ -41,34 +40,45 @@ document.addEventListener("DOMContentLoaded", function () {
                         <hr>
                 `;
 
-                // Estado dinámico con color
+                // Estado con <a class="infoReceta">
                 const estadoTitulo = document.createElement("p");
                 estadoTitulo.textContent = "Estado";
 
                 const estadoValor = document.createElement("p");
                 estadoValor.classList.add("izq");
 
+                const estadoLink = document.createElement("a");
+
+
                 const estadoTexto = document.createElement("strong");
                 estadoTexto.textContent = medico.usuario.enabled ? "Activo" : "Inactivo";
-                estadoTexto.style.color = medico.usuario.enabled ? "#66b794f1" : "#f14343";
+                estadoTexto.classList.add(medico.usuario.enabled ? "activo" : "inactivo");
 
-                estadoValor.appendChild(estadoTexto);
+
+                estadoLink.appendChild(estadoTexto);
+                estadoValor.appendChild(estadoLink);
+
                 div.appendChild(estadoTitulo);
                 div.appendChild(estadoValor);
                 div.appendChild(document.createElement("hr"));
 
-                // Especialidad
+                // Especialidad con <a class="infoReceta">
                 const especialidadTitulo = document.createElement("p");
                 especialidadTitulo.textContent = "Especialidad";
 
                 const especialidadValor = document.createElement("p");
                 especialidadValor.classList.add("izq");
-                especialidadValor.style.color = "#00669C";
+
+                const especialidadLink = document.createElement("a");
+                especialidadLink.classList.add("infoReceta");
+                especialidadLink.style.color = "#84CBF1";
 
                 const especialidadTexto = document.createElement("strong");
                 especialidadTexto.textContent = medico.especialidad || "No disponible";
 
-                especialidadValor.appendChild(especialidadTexto);
+                especialidadLink.appendChild(especialidadTexto);
+                especialidadValor.appendChild(especialidadLink);
+
                 div.appendChild(especialidadTitulo);
                 div.appendChild(especialidadValor);
 

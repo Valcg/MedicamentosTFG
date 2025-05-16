@@ -15,7 +15,7 @@
 
 .usu-div-med{
     background-color:white;
-    /* border: 1px solid yellow; */
+    border: 1px solid yellow;
     width: 100%;
     display: flex;
     flex-wrap: wrap; 
@@ -50,7 +50,19 @@
             #nota:hover{background-color: #65aed5;
                         box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}  
 
-  
+            .activo,.inactivo,.tipoUsu,.activa,.caducada{
+                    background-color: white; /* Color del texto */
+                    padding: 4px 14px;
+                    border-radius: 16px;
+                    white-space: nowrap; 
+                    width: fit-content;
+                    border: 1px solid;
+                
+                }
+                /*PERFIL*/
+                .activo{color:#66b794f1; }
+                .inactivo{color: #f14343;}
+
 /* 2 -------------- VER PACIENTES Y PUNTOS ----------------------------------------- */
 
     /* 1  BOXS DE perfil y Historial --------------------------- */
@@ -180,11 +192,11 @@
 /* SECCION PACIENTES----------------------------------------------------------------------------*/
 
         /*MIS PACIENTES-----------------------------------------*/
-                .tablapaciente,.tablaMedicamentos{ width: 100%;
-                            
+                .tablapaciente,.tablaMedicamentos,.tablaRecetas
+                { width: 100%;                           
                 border-collapse: collapse;}
 
-                .tablapaciente tr td,.tablaMedicamentos tr td
+                .tablapaciente tr td,.tablaMedicamentos tr td,.tablaRecetas tr td
                     {border-bottom: 1px solid  white;
                     padding: 10px 8px;}
 
@@ -206,8 +218,12 @@
                             .tabla-scroll {overflow-x: auto; }
 
 
-    /*BOTON VER HISTORIAL----------------*/
-                    .btnVerRecetas , .btnVerHistorial, #btnAsociarPaciente,#btnCrearReceta,#btnRedirigir,#btnAltaMedicamento,#btnBuscarMedicamento{
+    /*BOTON------------------------------------------------*/
+                    .btnVerRecetas , .btnVerHistorial,.btnVerContactos,
+                    #btnAsociarPaciente,#btnCrearReceta,
+                    #btnRedirigir,
+                    #btnAltaMedicamento,#btnBuscarMedicamento
+                    ,.btnMCaducarReceta{
                         all: unset; /* Esto quita prácticamente todos los estilos del navegador */
                         color: white; /* Color del texto */
                         padding: 6px 12px;
@@ -218,20 +234,23 @@
                         white-space: nowrap; 
                         transition: background-color 0.3s;
                         width: fit-content;}
+                    /*TABLA MIS PACIENTES-----------------------------------------*/
+                                    /*BOTON VER HISTORIAL----------------*/
+                                    .btnVerHistorial{ background-color: #0d7ebb;  }
+                                                    .btnVerHistorial:hover{background-color: #00669C;}
+                                    
+                                    /*BOTON VER RECETAS----------------*/
+                                    .btnVerRecetas{background-color: rgb(223, 153, 127);}
+                                                    .btnVerRecetas:hover{background-color: #d77957;}
+                                    /*BOTON VER CONTACTOS----------------*/
+                                    .btnVerContactos{ background-color: #dac47c;  }
+                                                    .btnVerContactos:hover{background-color: #c9b268;}
 
-                    .btnVerHistorial{ background-color: #0d7ebb;  }
-                                    .btnVerHistorial:hover{background-color: #00669C;}
-
-
-                    /*BOTON VER HISTORIAL----------------*/
-                    .btnVerRecetas{background-color: rgb(223, 153, 127);}
-                                    .btnVerRecetas:hover{background-color: #d77957;}
-                    
-                    /*BTN ASOCIAR PACIETER-----------------------------------------*/
+                    /*BTN ASOCIAR PACIENTE-----------------------------------------*/
 
                     #btnAsociarPaciente{ background-color: #84CBF1;text-align: center;margin:20px  auto;}
                                     #btnAsociarPaciente:hover{background-color: #4699c5;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
-                    
+                            
                     /*BTN CREAR RECETA-----------------------------------------*/
                     #btnCrearReceta{background-color: rgb(223, 153, 127);margin: auto; }
                     #btnCrearReceta:hover{background-color: #d77957;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
@@ -244,13 +263,25 @@
                     #btnAltaMedicamento{background-color: #dac47c;margin: auto;}
                                     #btnAltaMedicamento:hover{background-color: #c9b268;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
                                             #nombreRenderizado,#mensajeAlta{text-align: center;}
-                    /*BTN ALTA MEDICAMENTO-----------------------------------------*/
+                    /*BTN BUSCAR MEDICAMENTO-----------------------------------------*/
                     #btnBuscarMedicamento{background-color: #dac47c;margin: auto;}
                                     #btnBuscarMedicamento:hover{background-color: #c9b268;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
                                         /*MENSAJES DE CREAR RECETA CENTRADOS-----------------------------------------*/
                                         #resultadoBusqueda{text-align: center;}
-                   
-
+                    .btnMCaducarReceta{background-color: rgb(223, 153, 127);}
+                                    .btnMCaducarReceta:hover{background-color: #d77957;box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+            /* RECETAS------------------------------*/
+            .infoReceta{
+                        all: unset; /* Esto quita prácticamente todos los estilos del navegador */
+                        background-color: white; /* Color del texto */
+                        padding: 4px 14px;
+                        border-radius: 16px;
+                        white-space: nowrap; 
+                        width: fit-content;border: 1px solid;}
+                
+                    /*RECETASL*/
+                .activa {color: #66b794f1;}
+                .caducada {color: #f14343;}
 
 
         #medicoseccionasociarpaciente,#medicoseccioncrearreceta,#formAltaMedicamento,#formBusquedaMedicamento{    
