@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 div.innerHTML = `
                     <h3>Los datos de tu cuenta :</h3>
                     <p>Tipo de Usuario</p>
-                    <p class="izq" style="color:#84CBF1;">  <strong>${paciente.usuario.tipoUsuario}</strong> </p>
+                    <p class="izq" style="color: #00669C;">  <strong>${paciente.usuario.tipoUsuario}</strong> </p>
                     <hr> 
                     <p>Nombre </p>
                     <p class="izq">     <strong>${paciente.usuario.nombre}</strong> </p>
@@ -47,10 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const estadoValor = document.createElement("p");
                 estadoValor.classList.add("izq");
+                
 
                 const estadoTexto = document.createElement("strong");
                 estadoTexto.textContent = paciente.usuario.enabled ? "Activo" : "Inactivo";
-                estadoTexto.style.color = paciente.usuario.enabled ? "#66b794f1" : "#f14343";
+                estadoTexto.classList.add(paciente.usuario.enabled ? "activo" : "inactivo");
 
                 estadoValor.appendChild(estadoTexto);
                 div.appendChild(estadoTitulo);
@@ -58,19 +59,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 div.appendChild(document.createElement("hr"));
 
                 // Diagnóstico
-                const diagnosticoTitulo = document.createElement("p");
-                diagnosticoTitulo.textContent = "Diagnóstico";
+// Diagnóstico
+const diagnosticoTitulo = document.createElement("p");
+diagnosticoTitulo.textContent = "Diagnóstico";
 
-                const diagnosticoValor = document.createElement("p");
-                diagnosticoValor.classList.add("izq");
-                diagnosticoValor.style.color = "#00669C";
+const diagnosticoValor = document.createElement("p");
+diagnosticoValor.classList.add("izq");
+diagnosticoValor.style.color = "#84CBF1";
 
-                const diagnosticoTexto = document.createElement("strong");
-                diagnosticoTexto.textContent = paciente.diagnostico || "No disponible";
+const diagnosticoTexto = document.createElement("strong");
+diagnosticoTexto.textContent = paciente.diagnostico || "No disponible";
+diagnosticoTexto.classList.add("infoReceta"); // <-- AQUÍ AÑADIMOS LA CLASE
 
-                diagnosticoValor.appendChild(diagnosticoTexto);
-                div.appendChild(diagnosticoTitulo);
-                div.appendChild(diagnosticoValor);
+diagnosticoValor.appendChild(diagnosticoTexto);
+div.appendChild(diagnosticoTitulo);
+div.appendChild(diagnosticoValor);
+
 
                 fragment.appendChild(div);
             }

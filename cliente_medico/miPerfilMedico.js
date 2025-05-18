@@ -41,46 +41,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
 
                 // Estado con <a class="infoReceta">
-                const estadoTitulo = document.createElement("p");
-                estadoTitulo.textContent = "Estado";
+              // Estado sin <a>, conservando clase activa/inactiva
+const estadoTitulo = document.createElement("p");
+estadoTitulo.textContent = "Estado";
 
-                const estadoValor = document.createElement("p");
-                estadoValor.classList.add("izq");
+const estadoValor = document.createElement("p");
+estadoValor.classList.add("izq");
 
-                const estadoLink = document.createElement("a");
+const estadoTexto = document.createElement("strong");
+estadoTexto.textContent = medico.usuario.enabled ? "Activo" : "Inactivo";
+estadoTexto.classList.add(medico.usuario.enabled ? "activo" : "inactivo");
 
+estadoValor.appendChild(estadoTexto);
+div.appendChild(estadoTitulo);
+div.appendChild(estadoValor);
+div.appendChild(document.createElement("hr"));
 
-                const estadoTexto = document.createElement("strong");
-                estadoTexto.textContent = medico.usuario.enabled ? "Activo" : "Inactivo";
-                estadoTexto.classList.add(medico.usuario.enabled ? "activo" : "inactivo");
+// Especialidad sin <a>, manteniendo clase infoReceta
+const especialidadTitulo = document.createElement("p");
+especialidadTitulo.textContent = "Especialidad";
 
+const especialidadValor = document.createElement("p");
+especialidadValor.classList.add("izq");
 
-                estadoLink.appendChild(estadoTexto);
-                estadoValor.appendChild(estadoLink);
+const especialidadTexto = document.createElement("strong");
+especialidadTexto.textContent = medico.especialidad || "No disponible";
+especialidadTexto.classList.add("infoReceta");
+especialidadTexto.style.color = "#84CBF1";
 
-                div.appendChild(estadoTitulo);
-                div.appendChild(estadoValor);
-                div.appendChild(document.createElement("hr"));
-
-                // Especialidad con <a class="infoReceta">
-                const especialidadTitulo = document.createElement("p");
-                especialidadTitulo.textContent = "Especialidad";
-
-                const especialidadValor = document.createElement("p");
-                especialidadValor.classList.add("izq");
-
-                const especialidadLink = document.createElement("a");
-                especialidadLink.classList.add("infoReceta");
-                especialidadLink.style.color = "#84CBF1";
-
-                const especialidadTexto = document.createElement("strong");
-                especialidadTexto.textContent = medico.especialidad || "No disponible";
-
-                especialidadLink.appendChild(especialidadTexto);
-                especialidadValor.appendChild(especialidadLink);
-
-                div.appendChild(especialidadTitulo);
-                div.appendChild(especialidadValor);
+especialidadValor.appendChild(especialidadTexto);
+div.appendChild(especialidadTitulo);
+div.appendChild(especialidadValor);
 
                 fragment.appendChild(div);
             }

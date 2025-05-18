@@ -64,7 +64,21 @@
                         height: 1px;
                         background-color: white;
                         margin: 10px 0;}
-         
+
+
+        /*PERFIL ESTADO/ESPECIALIDAD------------------------*/
+                     .activo,.inactivo,.infoReceta{
+                    background-color: white; /* Color del texto */
+                    padding: 4px 14px;
+                    border-radius: 16px;
+                    white-space: nowrap; 
+                    width: fit-content;
+                    border: 1px solid;
+                
+                }
+                /*PERFIL*/
+                .activo{color:#66b794f1; }
+                .inactivo{color: #f14343;}
             
 #usuario-divs-container {
     display: flex;
