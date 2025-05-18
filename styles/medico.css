@@ -213,6 +213,7 @@
                     padding: 10px 8px;}
 
                 .tablahover:hover{background-color: white;}
+                .tabla-scroll {overflow-x: auto; }
 
                 #section-paciente-mispacientes{
                         /* display: flex; */
@@ -227,7 +228,7 @@
 
                             /*DIV MIS PACIENTES COLOR Y HOVER---------- */ 
                             #section-paciente-mispacientes{background-color: #F0F0F0; text-align: center;}  
-                            .tabla-scroll {overflow-x: auto; }
+                            
 
 
     /*BOTON------------------------------------------------*/
@@ -328,23 +329,7 @@
 
         /*INPUT FORMULARIOS-----------------------------------------*/
 
-            
-        .input {
-            width: 100%;margin: auto;
-        text-align: center;
-            background-color: white; 
-            border: 1px solid white;  
-            border-radius: 20px;         /* Bordes redondeados */
-            padding: 6px 0;              /* Espaciado interno */
-            font-size: 14px;            /* Tamaño de la fuente */
-            color: #333;                /* Color del texto */
-        }
-
-        /* Cambiar el color de fondo cuando el input está enfocado */
-        .input:focus {
-            border-color: #84CBF1;     /* Cambiar el color del borde al hacer focus */
-            outline: none;             /* Eliminar el contorno predeterminado */
-        }
+    
 
 .caja{color: #f14343;color:#66b794f1;color:#00669C;}
 
@@ -352,6 +337,9 @@
 
 
 
+            
+/* CAJA 2 ----------------------------------------- */ 
+ 
 #section-cliente-dos{
         display: flex;
         align-items: center;
@@ -363,7 +351,7 @@
         transition:  0.3s ease-in-out;
  
     }
+           
 
-            
-            /* CAJA 2 ----------------------------------------- */ 
-            #section-cliente-dos{background-color: #F0F0F0;}  
+
+#section-cliente-dos{background-color: #F0F0F0;}  

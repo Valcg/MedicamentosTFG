@@ -2,12 +2,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const idPaciente = localStorage.getItem("idUsuario");
     if (!idPaciente) {
         console.error("Error: No se encontró el ID del paciente en localStorage.");
-        return;  // Detener la ejecución si no se encuentra el idPaciente
+        return;
     }
-  
-    const tablaBody = document.querySelector("#tablaMedicamentosPaciente tbody");  // Referencia al tbody de la tabla
 
-    // Cargar los medicamentos al cargar la página
+    const contenedor = document.getElementById("pacienteMisMedicamentos");
+
     function cargarMisMedicamentos() {
         const url = `http://medicade.involux.es/pacientes/VerMisMedicamentos/paciente/${idPaciente}`;
 
@@ -15,93 +14,76 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => {
                 const medicamentos = response.data;
 
-                // Limpiar el contenido actual de la tabla
-                tablaBody.innerHTML = "";
-
                 if (!medicamentos || medicamentos.length === 0) {
-                    const row = document.createElement("tr");
-                    const td = document.createElement("td");
-                    td.setAttribute("colspan", "4");
-                    td.textContent = "No tienes medicamentos registrados.";
-                    row.appendChild(td);
-                    tablaBody.appendChild(row);
+                    contenedor.innerHTML = "<p>No tienes medicamentos registrados.</p>";
                     return;
                 }
 
-                // Crear filas de la tabla para cada medicamento
+                let html = `
+                    <table id="tablaMedicamentosPaciente">
+                        <tbody>
+                            <tr>
+                                <td>Nombre del Medicamento</td>
+                                <td>Cantidad Disponible</td>
+                                <td>Acciones</td>
+                            </tr>
+                `;
+
                 medicamentos.forEach(item => {
-                    const row = document.createElement("tr");
-
-                    // Columna del nombre del medicamento
-                    const nombreTd = document.createElement("td");
-                    nombreTd.textContent = item.medicamento.nombreMedicamento;
-                    row.appendChild(nombreTd);
-
-                    // Columna de la cantidad disponible
-                    const cantidadTd = document.createElement("td");
-                    cantidadTd.setAttribute("id", `cantidad-${item.medicamento.idMedicamento}`);
-                    cantidadTd.textContent = item.cantidadDisponible;
-                    row.appendChild(cantidadTd);
-
-                    // Columna de acciones (para agregar stock)
-                    const accionesTd = document.createElement("td");
-
-                    const input = document.createElement("input");
-                    input.setAttribute("type", "number");
-                    input.setAttribute("min", "1");
-                    input.setAttribute("value", "1");
-                    input.setAttribute("id", `input-${item.medicamento.idMedicamento}`);
-                    input.style.width = "50px";
-
-                    const button = document.createElement("button");
-                    button.textContent = "Agregar Stock";
-                    button.onclick = function() {
-                        agregarStock(idPaciente, item.medicamento.idMedicamento);
-                    };
-
-                    accionesTd.appendChild(input);
-                    accionesTd.appendChild(button);
-                    row.appendChild(accionesTd);
-
-                    // Añadir la fila creada al cuerpo de la tabla
-                    tablaBody.appendChild(row);
+                    html += `
+                        <tr class="tablahover">
+                            <td>${item.medicamento.nombreMedicamento}</td>
+                            <td id="cantidad-${item.medicamento.idMedicamento}">${item.cantidadDisponible}</td>
+                            <td>
+                                <input type="number" min="1" value="1" id="input-${item.medicamento.idMedicamento}" style="width: 50px;color:#dac47c;font-weight:bold;" class="input"/>
+                                <button class="btnAgregarStock hover" onclick="agregarStock('${idPaciente}', '${item.medicamento.idMedicamento}')">Agregar Stock</button>
+                            </td>
+                        </tr>
+                    `;
                 });
+
+                html += `
+                        </tbody>
+                    </table>
+                `;
+
+                contenedor.innerHTML = html;
             })
             .catch(error => {
-                tablaBody.innerHTML = "<tr><td colspan='4'>Error al cargar tus medicamentos.</td></tr>";
+                contenedor.innerHTML = "<p>Error al cargar tus medicamentos.</p>";
                 console.error("Error al obtener medicamentos del paciente:", error);
             });
     }
 
-    cargarMisMedicamentos();  // Cargar los medicamentos cuando la página se cargue
+    // Llama a la función al cargar
+    cargarMisMedicamentos();
 
-    // Función para agregar stock de un medicamento
-    window.agregarStock = function(idPaciente, idMedicamento) {
+    // Función global para agregar stock
+    window.agregarStock = function (idPaciente, idMedicamento) {
         const input = document.getElementById(`input-${idMedicamento}`);
         const cantidadCajas = parseInt(input.value);
-    
+
         if (isNaN(cantidadCajas) || cantidadCajas <= 0) {
             alert("Ingresa una cantidad válida.");
             return;
         }
-    
+
         const url = `http://medicade.involux.es/pacientes/${idPaciente}/medicamentos/${idMedicamento}/agregar-stock?cantidadCajas=${cantidadCajas}`;
-    
+
         axios.post(url)
             .then(response => {
-                alert(response.data);  // Stock agregado correctamente
-    
-                // Recargar stock actualizado
+                alert(response.data);
+
                 return axios.get(`http://medicade.involux.es/pacientes/vermedicamentos/paciente/${idPaciente}`);
             })
             .then(res => {
                 const listaMedicamentos = res.data;
-                const actualizado = listaMedicamentos.find(med => med.medicamento.idMedicamento === idMedicamento);
+                const actualizado = listaMedicamentos.find(med => med.medicamento.idMedicamento === parseInt(idMedicamento));
                 if (!actualizado) return;
-    
+
                 const cantidadCell = document.getElementById(`cantidad-${idMedicamento}`);
                 cantidadCell.textContent = actualizado.cantidadDisponible;
-                input.value = "1";  // Reset input
+                input.value = "1";
             })
             .catch(error => {
                 if (error.response && error.response.status === 304) {
@@ -111,6 +93,5 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error(error);
                 }
             });
-    };   
-    
-}); 
+    };
+});

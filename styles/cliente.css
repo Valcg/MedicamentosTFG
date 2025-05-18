@@ -3,18 +3,39 @@
 }
 
 
-/* 1  Y 2 TEXTO : boton y texto2 de cajas ---------------------------- */
-.texto {width: 65%;  }
-.texto2 {
-    font-size: 12px;
-    color: white;
-    margin-left: 10px;
-    height: 60px;
-}
+        /* 1  Y 2 TEXTO : boton y texto2 de cajas ---------------------------- */
+        .texto {width: 65%;  }
+        .texto2 {
+            font-size: 12px;
+            color: white;
+            margin-left: 10px;
+            height: 60px;
+        }
 
-/* ICONOS ------------------------------------------------------------ */
-.icono {display: flex;}
-.icono>img {width: 40px;}
+        /* ICONOS ------------------------------------------------------------ */
+        .icono {display: flex;}
+        .icono>img {width: 40px;}
+
+
+        /*INPUT FORMULARIOS-----------------------------------------*/
+
+            
+        .input {
+            width: 100%;margin: auto;
+        text-align: center;
+            background-color: white; 
+            border: 1px solid white;  
+            border-radius: 20px;         /* Bordes redondeados */
+            padding: 6px 0;              /* Espaciado interno */
+            font-size: 14px;            /* Tamaño de la fuente */
+            color: #333;                /* Color del texto */
+        }
+
+        /* Cambiar el color de fondo cuando el input está enfocado */
+        .input:focus {
+            border-color: #84CBF1;     /* Cambiar el color del borde al hacer focus */
+            outline: none;             /* Eliminar el contorno predeterminado */
+        }
 
 
 

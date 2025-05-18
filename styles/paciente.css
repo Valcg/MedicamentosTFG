@@ -268,10 +268,37 @@
 
 }
 
+/* TABLA :      MIS MEDICAMENTOS-------------------------------------------------------------------------- */
+#pacienteMisMedicamentos{width: 100%;}
+#tablaMedicamentosPaciente
+                { width: 100%;                           
+                border-collapse: collapse;}
+
+#tablaMedicamentosPaciente tr td
+
+                    {border-bottom: 1px solid  white;
+                    padding: 10px 8px;}
+
+                .tablahover:hover{background-color: white;}
+                .tabla-scroll {overflow-x: auto; }
 
 
+                .btnAgregarStock{
+                        all: unset; /* Esto quita prácticamente todos los estilos del navegador */
+                        color: white; /* Color del texto */
+                        padding: 6px 12px;
+                        border-radius: 16px;
+                        cursor: pointer;
+                        font-size: 14px;
+                        font-family: inherit;
+                        white-space: nowrap; 
+                        transition: background-color 0.3s;
+                        width: fit-content;}
+                .btnAgregarStock{ background-color: #dac47c;  }
+                        .btnVerContactos:hover{background-color: #c9b268;}
 
-            /* --------------------------- TABA --------------------------- */
+
+            /* --------------------------- TABLA --------------------------- */
             #paciente-contactos{background-color: lightblue;
             width: 100%;}
             #paciente-contactos table{width: 100%;}
