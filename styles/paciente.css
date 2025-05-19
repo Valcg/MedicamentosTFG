@@ -270,15 +270,20 @@
 
 /* TABLA :      MIS MEDICAMENTOS-------------------------------------------------------------------------- */
         #pacienteMisMedicamentos,
-        #mis-alertas-medicas{width: 100%;}
+        #mis-alertas-medicas,
+        #mi-historial-tomas
+        {width: 100%;}
 
         #tablaMedicamentosPaciente,
-        #tablapacienteMisAlertas
+        #tablapacienteMisAlertas,
+        #tablapacienteMiHistorial
                 { width: 100%;                           
                 border-collapse: collapse;}
 
+        
         #tablaMedicamentosPaciente tr td,
-        #tablapacienteMisAlertas tr td
+        #tablapacienteMisAlertas tr td,
+        #tablapacienteMiHistorial tr td
                     {border-bottom: 1px solid  white;
                     padding: 10px 8px;}
 
@@ -348,7 +353,7 @@
                         background-color: #235726; 
                     }
 /* TABLA : MIS ALERTAS MEDICAS-------------------------------------------------------------------------- */
-                    .estadoact,.estadoinact,
+                    .estadoact,.estadoinact,.estadotarde,
                      .infoTabla,
                      .alertunidades{
                     background-color: white; /* Color del texto */
@@ -363,6 +368,7 @@
 
                 .estadoact{color:#66b794f1; }
                 .estadoinact{color: #f14343;}
+                 .estadotarde{color: #f1e043;}
 
                     /*UNIDADES*/
                     .alertunidades{color: #dac47c;}

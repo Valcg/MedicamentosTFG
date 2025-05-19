@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>Tipo de Alerta</td>
                         <td>Medicamento</td>
                         <td>Total por Blister/Caja</td>
-                        <td>TUS UNIDADES</td>
+                        <td> STOCK</td>
                     </tr>
                 </thead>
                 <tbody></tbody>

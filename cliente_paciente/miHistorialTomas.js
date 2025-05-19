@@ -1,7 +1,7 @@
-// historial.js
 document.addEventListener("DOMContentLoaded", function () {
     const historialContainer = document.getElementById("mi-historial-tomas");
     const tabla = document.createElement("table");
+    tabla.id = "tablapacienteMiHistorial";
     const modal = document.getElementById("modal-confirmar-toma");
     const closeModalBtn = document.getElementById("closeModalConfirmar");
     const confirmarTomaBtn = document.getElementById("confirmarTomaBtn");
@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", function () {
     tabla.innerHTML = `
         <thead>
             <tr>
-                <th>Fecha y Hora de Toma</th>
-                <th>Estado de Alerta</th>
-                <th>Nombre del Medicamento</th>
-                <th>Acción</th>
+                <td>Fecha y Hora de Toma</td>
+                <td>Estado de Alerta</td>
+                <td>Nombre del Medicamento</td>
+                <td>Acción</td>
             </tr>
         </thead>
         <tbody></tbody>
@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const url = `http://medicade.involux.es/pacientes/Vermihistorial/${idPaciente}`;
 
-    // ---------- INICIO TRANSFORMACIÓN DE FECHA ----------
     function obtenerFechaYHoraFormateada(fechaStr) {
         const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
         const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
@@ -45,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const fechaTexto = `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)} ${dia} de ${mes} de ${año}`;
         const horaTexto = `${hora}:${minutos}`;
-
         const claveAgrupacion = `${año}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
 
         return {
@@ -54,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
             claveAgrupacion
         };
     }
-    // ---------- FIN TRANSFORMACIÓN DE FECHA ----------
 
     function cargarHistorial() {
         axios.get(url)
@@ -85,9 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     for (const clave in historialAgrupado) {
                         const grupo = historialAgrupado[clave];
 
-                        // Fila de fecha agrupada (separación por días)
                         const filaTitulo = document.createElement("tr");
-                        filaTitulo.innerHTML = `<td colspan="4" style="background-color: white; font-weight: bold; padding: 10px;">${grupo.fechaTexto}</td>`;
+                        filaTitulo.innerHTML = `<td colspan="4" style="background-color: white; padding: 10px;">${grupo.fechaTexto}</td>`;
                         cuerpoTabla.appendChild(filaTitulo);
 
                         grupo.tomas.forEach(toma => {
@@ -97,13 +93,16 @@ document.addEventListener("DOMContentLoaded", function () {
                             const estadoAlerta = toma.alerta ? toma.alerta.estadoAlerta : 'No disponible';
                             const nombreMedicamento = toma.alerta?.medicamento?.nombreMedicamento || 'No disponible';
 
+                            // NUEVO: span con clases según estado
                             let estadoHTML = "";
                             if (estadoAlerta === "confirmado") {
-                                estadoHTML = `<td style="color: green; font-weight: bold;">Confirmada</td>`;
+                                estadoHTML = `<td><span class="estadoact">Confirmado</span></td>`;
                             } else if (estadoAlerta === "sinConfirmar") {
-                                estadoHTML = `<td style="color: red; font-weight: bold;">Sin Confirmar</td>`;
+                                estadoHTML = `<td><span class="estadoinact">Sin Confirmar</span></td>`;
+                            } else if (estadoAlerta === "confirmadaTarde") {
+                                estadoHTML = `<td><span class="estadotarde">Confirmado Tarde</span></td>`;
                             } else {
-                                estadoHTML = `<td>${estadoAlerta}</td>`;
+                                estadoHTML = `<td><span>${estadoAlerta}</span></td>`;
                             }
 
                             let accionHTML = "<td></td>";
@@ -112,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
 
                             fila.innerHTML = `
-                                <td style="font-weight: bold; ">${fechaHoraFormateada}</td>
+                                <td >${fechaHoraFormateada}</td>
                                 ${estadoHTML}
                                 <td>${nombreMedicamento}</td>
                                 ${accionHTML}

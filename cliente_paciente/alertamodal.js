@@ -30,10 +30,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const tiempoRestante = fechaProx - new Date();
         const puedeConfirmar = tiempoRestante <= 10 * 60 * 1000;
 
+        // Mostrar texto legible
+        const estadoTextoLegible = alertaProxima.estadoAlerta === "confirmado" ? "Confirmado" :
+                                   alertaProxima.estadoAlerta === "sinConfirmar" ? "Sin Confirmar" :
+                                   alertaProxima.estadoAlerta;
+
         let contenido = `
             <table style="width: 100%; text-align: center; border-collapse: collapse;" class="tabla-alerta-modal">
                 <tr>
-                    <td colspan="2" style="font-size: 18px; color: #84CBF1; font-weight: bold; padding: 10px; border-bottom: 1px solid white;">${fechaTexto}</td>
+                    <td colspan="2" border-bottom: 1px solid white;"> 
+                      <h2>${fechaTexto} </h2>
+                    </td>
                 </tr>
                 <tr>
                     <td style="font-weight: normal; padding: 10px; text-align: right;">Medicamento:</td>
@@ -41,13 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 </tr>
                 <tr>
                     <td style="font-weight: normal; padding: 10px; text-align: right;">Estado:</td>
-
-                <td style="padding: 5px; text-align: left;">
-                <a id="estadoAlerta" class="${alertaProxima.estadoAlerta === 'Confirmada' ? '' : (esSinConfirmar ? 'estadoinact' : 'estadoact')}">
-                    ${alertaProxima.estadoAlerta}
-                </a>
-                </td>
-
+                    <td style="padding: 5px; text-align: left;">
+                        <a id="estadoAlerta" class="${alertaProxima.estadoAlerta === 'Confirmada' ? '' : (esSinConfirmar ? 'estadoinact' : 'estadoact')}">
+                            ${estadoTextoLegible}
+                        </a>
+                    </td>
                 </tr>
                 <tr>
                     <td style="font-weight: normal; padding: 10px; text-align: right;">Hora de la toma:</td>
@@ -62,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td style="font-weight: normal; padding: 10px; text-align: right;">Cantidad por unidad:</td>
                     <td style="padding: 5px; text-align: left;">${cantidadUnidad}</td>
                 </tr>
-
                 <tr>
                     <td style="font-weight: normal; padding: 10px; text-align: right;">Mi STOCK actual :</td>
                     <td id="cantidad-stock" style="padding: 10px; text-align: left;">Cargando...</td>
@@ -89,7 +93,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         ` : `<strong>YA CONFIRMASTE LA TOMA</strong>`}
                     </td>
                 </tr>
-                
             </table>
             <p id="mensajeConfirmacion" style="margin-top:10px;"></p>
         `;
@@ -110,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         mensaje.textContent = `✅ La toma fue confirmada a las ${horaConfirmada}.`;
                         mensaje.style.color = "green";
 
-                        document.getElementById("estadoAlerta").textContent = "Confirmada";
+                        document.getElementById("estadoAlerta").textContent = "Confirmado";
                         btnConfirmar.remove();
 
                         alertaProxima.estadoAlerta = "Confirmada";
@@ -156,10 +159,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .catch(error => {
                     console.error("Error al obtener la cantidad:", error);
-                    document.getElementById("cantidad-stock").innerHTML = `<span style="color: red; font-weight: bold;">Error al obtener</span>`;
+                    document.getElementById("cantidad-stock").innerHTML = `<span class="alertunidades" style="color: red; font-weight: bold;">Error al obtener</span>`;
                 });
         } else {
-            document.getElementById("cantidad-stock").innerHTML = "<span style='color: red;'>ID de medicamento no válido</span>";
+            document.getElementById("cantidad-stock").innerHTML = "<span class='alertunidades' style='color: red;'>ID de medicamento no válido</span>";
         }
     }
 
@@ -186,7 +189,6 @@ document.addEventListener("DOMContentLoaded", function () {
         axios.get(url)
             .then(res => {
                 const alertas = res.data;
-                console.log(alertas)
                 const ahora = new Date();
 
                 const alertasFuturas = alertas.filter(alerta => {
