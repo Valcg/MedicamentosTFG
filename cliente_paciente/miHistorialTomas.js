@@ -2,11 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const historialContainer = document.getElementById("mi-historial-tomas");
     const tabla = document.createElement("table");
     tabla.id = "tablapacienteMiHistorial";
-    const modal = document.getElementById("modal-confirmar-toma");
-    const closeModalBtn = document.getElementById("closeModalConfirmar");
-    const confirmarTomaBtn = document.getElementById("confirmarTomaBtn");
-
-    let idAlertaAConfirmar = null;
+    const toast = document.getElementById("toast-confirmacion");
 
     tabla.innerHTML = `
         <thead>
@@ -14,13 +10,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>Fecha y Hora de Toma</td>
                 <td>Estado de Alerta</td>
                 <td>Nombre del Medicamento</td>
-                <td>Acción</td>
+                <td>  </td>
             </tr>
         </thead>
         <tbody></tbody>
     `;
-    const cuerpoTabla = tabla.querySelector("tbody");
 
+    const cuerpoTabla = tabla.querySelector("tbody");
     const idPaciente = localStorage.getItem("idUsuario");
 
     if (!idPaciente) {
@@ -42,14 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const hora = fecha.getHours().toString().padStart(2, '0');
         const minutos = fecha.getMinutes().toString().padStart(2, '0');
 
-        const fechaTexto = `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)} ${dia} de ${mes} de ${año}`;
-        const horaTexto = `${hora}:${minutos}`;
-        const claveAgrupacion = `${año}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
-
         return {
-            fechaTexto,
-            horaTexto,
-            claveAgrupacion
+            fechaTexto: `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)} ${dia} de ${mes} de ${año}`,
+            horaTexto: `${hora}:${minutos}`,
+            claveAgrupacion: `${año}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`
         };
     }
 
@@ -57,81 +49,134 @@ document.addEventListener("DOMContentLoaded", function () {
         axios.get(url)
             .then(res => {
                 let historial = res.data;
-                console.log("Historial completo recibido:", res.data); 
                 if (!historial || historial.length === 0) {
                     historialContainer.innerHTML = "<p>No hay historial de tomas disponible.</p>";
-                } else {
-                    const historialAgrupado = {};
+                    return;
+                }
 
-                    historial.forEach(toma => {
-                        const { fechaTexto, horaTexto, claveAgrupacion } = obtenerFechaYHoraFormateada(toma.fechaHoraToma);
-                        if (!historialAgrupado[claveAgrupacion]) {
-                            historialAgrupado[claveAgrupacion] = {
-                                fechaTexto,
-                                tomas: []
-                            };
-                        }
-                        historialAgrupado[claveAgrupacion].tomas.push({
-                            ...toma,
-                            horaTexto
-                        });
-                    });
+                const historialAgrupado = {};
 
-                    cuerpoTabla.innerHTML = '';
-
-                    for (const clave in historialAgrupado) {
-                        const grupo = historialAgrupado[clave];
-
-                        const filaTitulo = document.createElement("tr");
-                        filaTitulo.innerHTML = `<td colspan="4" style="background-color: white; padding: 10px;">${grupo.fechaTexto}</td>`;
-                        cuerpoTabla.appendChild(filaTitulo);
-
-                        grupo.tomas.forEach(toma => {
-                            const fila = document.createElement("tr");
-
-                            const fechaHoraFormateada = `${toma.horaTexto}`;
-                            const estadoAlerta = toma.alerta ? toma.alerta.estadoAlerta : 'No disponible';
-                            const nombreMedicamento = toma.alerta?.medicamento?.nombreMedicamento || 'No disponible';
-
-                            // NUEVO: span con clases según estado
-                            let estadoHTML = "";
-                            if (estadoAlerta === "confirmado") {
-                                estadoHTML = `<td><span class="estadoact">Confirmado</span></td>`;
-                            } else if (estadoAlerta === "sinConfirmar") {
-                                estadoHTML = `<td><span class="estadoinact">Sin Confirmar</span></td>`;
-                            } else if (estadoAlerta === "confirmadaTarde") {
-                                estadoHTML = `<td><span class="estadotarde">Confirmado Tarde</span></td>`;
-                            } else {
-                                estadoHTML = `<td><span>${estadoAlerta}</span></td>`;
-                            }
-
-                            let accionHTML = "<td></td>";
-                            if (estadoAlerta === "sinConfirmar") {
-                                accionHTML = `<td><button class="confirm-btn" style="background-color: #4CAF50; color: white; border: none; padding: 5px 10px; cursor: pointer;">Confirmar</button></td>`;
-                            }
-
-                            fila.innerHTML = `
-                                <td >${fechaHoraFormateada}</td>
-                                ${estadoHTML}
-                                <td>${nombreMedicamento}</td>
-                                ${accionHTML}
-                            `;
-
-                            cuerpoTabla.appendChild(fila);
-
-                            const confirmarBtn = fila.querySelector(".confirm-btn");
-                            if (confirmarBtn) {
-                                confirmarBtn.addEventListener("click", function () {
-                                    idAlertaAConfirmar = toma.alerta.idAlerta;
-                                    modal.style.display = "flex";
-                                });
-                            }
-                        });
+                historial.forEach(toma => {
+                    const { fechaTexto, horaTexto, claveAgrupacion } = obtenerFechaYHoraFormateada(toma.fechaHoraToma);
+                    if (!historialAgrupado[claveAgrupacion]) {
+                        historialAgrupado[claveAgrupacion] = {
+                            fechaTexto,
+                            tomas: []
+                        };
                     }
+                    historialAgrupado[claveAgrupacion].tomas.push({
+                        ...toma,
+                        horaTexto
+                    });
+                });
+
+                cuerpoTabla.innerHTML = '';
+
+                for (const clave in historialAgrupado) {
+                    const grupo = historialAgrupado[clave];
+
+                    const filaTitulo = document.createElement("tr");
+                    filaTitulo.innerHTML = `<td colspan="4" style="background-color: #fafafa; padding: 10px;">${grupo.fechaTexto}</td>`;
+                    cuerpoTabla.appendChild(filaTitulo);
+
+                    grupo.tomas.forEach(toma => {
+                        const fila = document.createElement("tr");
+                        const estadoAlerta = toma.alerta ? toma.alerta.estadoAlerta : 'No disponible';
+                        const nombreMedicamento = toma.alerta?.medicamento?.nombreMedicamento || 'No disponible';
+
+                        let estadoHTML = "";
+                        if (estadoAlerta === "confirmado") {
+                            estadoHTML = `<td><span class="estadoact">Confirmado</span></td>`;
+                        } else if (estadoAlerta === "sinConfirmar") {
+                            estadoHTML = `<td><span class="estadoinact">Sin Confirmar</span></td>`;
+                        } else if (estadoAlerta === "confirmadaTarde") {
+                            estadoHTML = `<td><span class="estadotarde">Confirmado Tarde</span></td>`;
+                        } else {
+                            estadoHTML = `<td><span>${estadoAlerta}</span></td>`;
+                        }
+
+                        let accionHTML = "<td></td>";
+                        if (estadoAlerta === "sinConfirmar") {
+                            accionHTML = `<td><button class="btnpaconfirmhistorial hover">Confirmar</button></td>`;
+                        }
+
+                        fila.id = `alerta-${toma.alerta?.idAlerta || toma.id}`;
+                        fila.innerHTML = `
+                            <td>${toma.horaTexto}</td>
+                            ${estadoHTML}
+                            <td>${nombreMedicamento}</td>
+                            ${accionHTML}
+                        `;
+
+                        cuerpoTabla.appendChild(fila);
+
+                        const confirmarBtn = fila.querySelector(".btnpaconfirmhistorial");
+                        if (confirmarBtn) {
+                            confirmarBtn.addEventListener("click", function () {
+                                const idAlerta = toma.alerta.idAlerta;
+                                const urlConfirmar = `http://medicade.involux.es/pacientes/confirmarToma/${idAlerta}`;
+
+                                axios.post(urlConfirmar)
+                                    .then(() => {
+                                        let filaMensaje = document.createElement("tr");
+                                        filaMensaje.classList.add("mensaje-confirmacion");
+                                        filaMensaje.innerHTML = `<td colspan="4" style="color: green; font-weight: bold; text-align: center;">
+                                            CONFIRMADO CORRECTAMENTE
+                                        </td>`;
+                                        fila.parentNode.insertBefore(filaMensaje, fila.nextSibling);
+
+                                        confirmarBtn.disabled = true;
+                                        confirmarBtn.textContent = "Confirmado";
+
+                                        const estadoCelda = fila.querySelector("td:nth-child(2)");
+                                        if (estadoCelda) {
+                                            estadoCelda.innerHTML = `<span class="estadotarde">Confirmado Tarde</span>`;
+                                        }
+
+                                        localStorage.setItem("idAlertaConfirmada", idAlerta);
+
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 1000);
+                                    })
+                                    .catch(error => {
+                                        console.error("Error al confirmar la toma:", error);
+
+                                        // Guardar el ID antes de recargar
+                                        localStorage.setItem("idAlertaConfirmada", idAlerta);
+
+                                        let filaError = document.createElement("tr");
+                                        filaError.classList.add("mensaje-error");
+                                        filaError.innerHTML = `<td colspan="4" style="color: red; font-weight: bold; text-align: center;">
+                                            Error al confirmar la toma. ${error.response?.data?.message || 'Intente más tarde.'}
+                                        </td>`;
+                                        fila.parentNode.insertBefore(filaError, fila.nextSibling);
+
+                                        // Recargar igualmente
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 1000);
+                                    });
+                            });
+                        }
+                    });
                 }
 
                 if (!historialContainer.contains(tabla)) {
                     historialContainer.appendChild(tabla);
+                }
+
+                const idAlertaConfirmada = localStorage.getItem("idAlertaConfirmada");
+                if (idAlertaConfirmada) {
+                    const elemento = document.getElementById("alerta-" + idAlertaConfirmada);
+                    if (elemento) {
+                        elemento.scrollIntoView({ behavior: "smooth", block: "center" });
+                        elemento.style.backgroundColor = "#fffce3";
+                        setTimeout(() => {
+                            elemento.style.backgroundColor = "";
+                        }, 8000);
+                    }
+                    localStorage.removeItem("idAlertaConfirmada");
                 }
             })
             .catch(err => {
@@ -140,32 +185,13 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    closeModalBtn.addEventListener("click", function () {
-        modal.style.display = "none";
-        idAlertaAConfirmar = null;
-    });
-
-    confirmarTomaBtn.addEventListener("click", function () {
-        if (idAlertaAConfirmar) {
-            const urlConfirmar = `http://medicade.involux.es/pacientes/confirmarToma/${idAlertaAConfirmar}`;
-            axios.post(urlConfirmar)
-                .then(response => {
-                    if (response.status === 200) {
-                        console.log("Toma confirmada y registrada correctamente.");
-                        modal.style.display = "none";
-                        idAlertaAConfirmar = null;
-                        cargarHistorial();
-                    } else {
-                        console.error("Error al confirmar la toma. Código de estado:", response.status);
-                        alert("No se pudo confirmar la toma. Intente de nuevo.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error al confirmar la toma:", error);
-                    alert("Hubo un error al confirmar la toma. Intente de nuevo.");
-                });
-        }
-    });
+    if (localStorage.getItem("tomaConfirmada")) {
+        toast.style.display = "block";
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 8000);
+        localStorage.removeItem("tomaConfirmada");
+    }
 
     cargarHistorial();
 });

@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Fila de fecha
 const filaTitulo = document.createElement("tr");
 
-filaTitulo.innerHTML = `<td colspan="6" style="background-color: white;opacity:0.5; padding: 10px;">${grupo.fechaTexto}</td>`;
+filaTitulo.innerHTML = `<td colspan="6" style="background-color:#fafafa; padding: 10px;">${grupo.fechaTexto}</td>`;
    cuerpoTabla.appendChild(filaTitulo);
 
                 grupo.alertas.forEach(alerta => {

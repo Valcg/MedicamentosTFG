@@ -268,7 +268,7 @@
 
 }
 
-/* TABLA :      MIS MEDICAMENTOS-------------------------------------------------------------------------- */
+/* TABLA :      MIS MEDICAMENTOS, MI HISTORIAL DE LAS TOMAS-------------------------------------------------------------------------- */
         #pacienteMisMedicamentos,
         #mis-alertas-medicas,
         #mi-historial-tomas
@@ -291,7 +291,8 @@
                 .tabla-scroll {overflow-x: auto; }
 
 
-                .btnAgregarStock{
+                .btnAgregarStock,
+                .btnpaconfirmhistorial,.btnpaconfirmhistorialModal{
                         all: unset; /* Esto quita prácticamente todos los estilos del navegador */
                         color: white; /* Color del texto */
                         padding: 6px 12px;
@@ -302,11 +303,79 @@
                         white-space: nowrap; 
                         transition: background-color 0.3s;
                         width: fit-content;}
+                /*MIS MEDICAMENTOS*/
                 .btnAgregarStock{ background-color: #dac47c;  }
                         .btnVerContactos:hover{background-color: #c9b268;}
 
+                /*1 ----- MI HISTORIAL*/
+                .btnpaconfirmhistorial{ background-color:   #0d7ebb;  }
+                        .btnpaconfirmhistorial:hover{background-color: #00669C;}
 
-            /* --------------------------- TABLA --------------------------- */
+                /* TABLA : MIS ALERTAS MEDICAS-------------------------------------------------------------------------- */
+                    .estadoact,.estadoinact,.estadotarde,
+                     .infoTabla,
+                     .alertunidades{
+                    background-color: white; /* Color del texto */
+                    padding: 4px 14px;
+                    border-radius: 16px;
+                    white-space: nowrap; 
+                    width: fit-content;
+                    border: 1px solid;
+                
+                }
+                /*MIS ALERTAS MEDICDAS*/
+
+                .estadoact{color:#66b794f1; }
+                .estadoinact{color: #f14343;}
+                 .estadotarde{color: #f1e043;}
+
+               
+                    /*UNIDADES*/
+                    .alertunidades{color: #dac47c;}
+
+/* BOTONES -------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* --------------------------- TABLA --------------------------- */
             #paciente-contactos{background-color: lightblue;
             width: 100%;}
             #paciente-contactos table{width: 100%;}
@@ -352,23 +421,3 @@
                     #btnAgregar:hover {
                         background-color: #235726; 
                     }
-/* TABLA : MIS ALERTAS MEDICAS-------------------------------------------------------------------------- */
-                    .estadoact,.estadoinact,.estadotarde,
-                     .infoTabla,
-                     .alertunidades{
-                    background-color: white; /* Color del texto */
-                    padding: 4px 14px;
-                    border-radius: 16px;
-                    white-space: nowrap; 
-                    width: fit-content;
-                    border: 1px solid;
-                
-                }
-                /*MIS ALERTAS MEDICDAS*/
-
-                .estadoact{color:#66b794f1; }
-                .estadoinact{color: #f14343;}
-                 .estadotarde{color: #f1e043;}
-
-                    /*UNIDADES*/
-                    .alertunidades{color: #dac47c;}

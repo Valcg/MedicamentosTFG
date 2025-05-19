@@ -38,38 +38,38 @@ document.addEventListener("DOMContentLoaded", function () {
         let contenido = `
             <table style="width: 100%; text-align: center; border-collapse: collapse;" class="tabla-alerta-modal">
                 <tr>
-                    <td colspan="2" border-bottom: 1px solid white;"> 
+                    <td colspan="2" style="border-bottom: 1px solid white;"> 
                       <h2>${fechaTexto} </h2>
                     </td>
                 </tr>
                 <tr>
-                    <td style="font-weight: normal; padding: 10px; text-align: right;">Medicamento:</td>
-                    <td style="font-weight: bold; padding: 10px; text-align: left;">${nombreProx}</td>
+                    <td style=" padding: 10px; text-align: right;" class="right">Medicamento</td>
+                    <td style="font-weight: bold;  padding-left: 10px; text-align: left;">${nombreProx}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: normal; padding: 10px; text-align: right;">Estado:</td>
-                    <td style="padding: 5px; text-align: left;">
+                    <td style="padding: 10px; text-align: right;">Estado</td>
+                    <td style=" padding-left: 10px; text-align: left;">
                         <a id="estadoAlerta" class="${alertaProxima.estadoAlerta === 'Confirmada' ? '' : (esSinConfirmar ? 'estadoinact' : 'estadoact')}">
                             ${estadoTextoLegible}
                         </a>
                     </td>
                 </tr>
                 <tr>
-                    <td style="font-weight: normal; padding: 10px; text-align: right;">Hora de la toma:</td>
-                    <td style="padding: 5px; text-align: left;"><strong>${horaTexto}</strong></td>
+                    <td style="padding: 10px; text-align: right;">Hora de la toma</td>
+                    <td style=" padding-left: 10px; text-align: left;"><strong>${horaTexto}</strong></td>
                 </tr>
                 ${horaConfirmada ? `
                 <tr>
-                    <td style="font-weight: normal; padding: 10px; text-align: right;">Hora de confirmación:</td>
-                    <td style="padding: 5px; text-align: left;"><strong>${horaConfirmada}</strong></td>
+                    <td style=" padding: 10px; text-align: right;">Hora de confirmación</td>
+                    <td style=" padding-left: 10px; text-align: left;"><strong>${horaConfirmada}</strong></td>
                 </tr>` : ''}
                 <tr>
-                    <td style="font-weight: normal; padding: 10px; text-align: right;">Cantidad por unidad:</td>
-                    <td style="padding: 5px; text-align: left;">${cantidadUnidad}</td>
+                    <td style="padding: 10px; text-align: right;">Cantidad por unidad</td>
+                    <td style=" padding-left: 10px; text-align: left;">${cantidadUnidad}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: normal; padding: 10px; text-align: right;">Mi STOCK actual :</td>
-                    <td id="cantidad-stock" style="padding: 10px; text-align: left;">Cargando...</td>
+                    <td style=" padding: 10px; text-align: right;">Mi STOCK actual</td>
+                    <td id="cantidad-stock" style=" padding-left: 10px; text-align: left;">Cargando...</td>
                 </tr>
                 <tr>
                     <td colspan="2" style="padding: 20px;">
