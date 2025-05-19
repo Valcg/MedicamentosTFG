@@ -138,55 +138,45 @@
         <h1 >Mis Medicamentos</h1>
 
     <section id="usuario-divs-container">
-<!--  1 ----------------------------------- -->      
+    <!--  1 ----------------------------------- -->      
     
-<div class="usu-div-one">
+    <div class="usu-div-one">
 
-    <div class="seccion-card-one">
-                <div id="section-cliente-one" class="hover tabla-scroll" >
+        <div class="seccion-card-one">
+                    <div id="section-cliente-one" class="hover tabla-scroll" > 
+                    
+                        <div id="pacienteMisMedicamentos"></div>
 
-            
+                    </div>
+        </div>
 
-                
- <div id="pacienteMisMedicamentos"></div>
-
-                </div>
     </div>
 
-</div>
-
-
-
         
+    <!-- BTN --------------------------------------- -->
 
-        <div>
-                <div id="modalBajoStock" class="modal">
-                    <div class="modal-content">
-                        <span id="closeModalBajoStockBtn" class="close">&times;</span>
-                        <h2 style="color: #d9534f;">⚠ Alerta de Bajo Stock</h2>
-                        <div id="contenidoBajoStock">
-                            Cargando alerta...
+            <div>
+                    <div id="modalBajoStock" class="modal">
+                        <div class="modal-content">
+                            <span id="closeModalBajoStockBtn" class="close">&times;</span>
+                            <h2 style="color: #d9534f;">⚠ Alerta de Bajo Stock</h2>
+                            <div id="contenidoBajoStock">
+                                Cargando alerta...
+                            </div>
+                            <button id="confirmBtn" class="confirm-btn">Leído</button>
                         </div>
-                        <button id="confirmBtn" class="confirm-btn">Leído</button>
                     </div>
-                </div>
 
-                <!-- Botón para probar la apertura manual del modal -->
-                <button id="btnAbrirBajoStock" class="open-modal-btn">
-                    Ver Alerta de Bajo Stock
-                </button>
-    
-    </div>   
+                    <!-- Botón para probar la apertura manual del modal -->
+                    <button id="btnAbrirBajoStock" class="open-modal-btn">
+                        Ver Alerta de Bajo Stock
+                    </button>
+        
+            </div>   
 
- 
 
-  
     </section>
-
     </main>
-
-
-    <!-- Modal de Bajo Stock (fuera del <main>, más limpio) -->
 
     <!-- FOOTER ------------------------------------------------------- -->
     <footer id="footer-dos">
@@ -200,6 +190,7 @@
         </ul>
     </footer>
 
+    <!-- Modal de Bajo Stock (fuera del <main>, más limpio) -->
 
 
     <!-- JS de funcionalidades -->

@@ -1,12 +1,11 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     const alertasContainer = document.getElementById("mis-alertas-medicas");
 
     // ---------- INICIO TRANSFORMACIÓN DE FECHA ----------
     function obtenerFechaYHoraFormateada(fechaStr) {
         const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
-        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 
-                       'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+            'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
         const fecha = new Date(fechaStr);
         const diaSemana = dias[fecha.getDay()];
@@ -40,13 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     axios.get(url)
         .then(res => {
-
-            //const alertas = res.data; // DATOS DE LAS ALERTAS
-            //console.log("data", res.data);
-           // console.log("alertas",alertas); // Verifica los datos que estás recibiendo
-
             let alertas = res.data;
-
 
             if (!alertas || alertas.length === 0) {
                 alertasContainer.innerHTML = "<p>No hay alertas disponibles.</p>";
@@ -84,16 +77,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
 
-            const tabla = document.createElement("table");
+           const tabla = document.createElement("table");
+            tabla.id = "tablapacienteMisAlertas";
             tabla.innerHTML = `
                 <thead>
                     <tr>
-                        <th>Fecha y Hora</th>
-                        <th>Estado</th>
-                        <th>Tipo de Alerta</th>
-                        <th>Medicamento</th>
-                        <th>Cantidad por Unidad de cada caja/blister/frasco</th>
-                        <th>Acción</th>
+                        <td>Fecha y Hora</td>
+                        <td>Estado</td>
+                        <td>Tipo de Alerta</td>
+                        <td>Medicamento</td>
+                        <td>Total por Blister/Caja</td>
+                        <td>TUS UNIDADES</td>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -104,29 +98,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 const grupo = alertasAgrupadas[clave];
 
                 // Fila de fecha
-                const filaTitulo = document.createElement("tr");
-                filaTitulo.innerHTML = `<td colspan="6" style="background-color: white; font-weight: bold; padding: 10px;">${grupo.fechaTexto}</td>`;
-                cuerpoTabla.appendChild(filaTitulo);
+const filaTitulo = document.createElement("tr");
+
+filaTitulo.innerHTML = `<td colspan="6" style="background-color: white;opacity:0.5; padding: 10px;">${grupo.fechaTexto}</td>`;
+   cuerpoTabla.appendChild(filaTitulo);
 
                 grupo.alertas.forEach(alerta => {
                     const fila = document.createElement("tr");
-
+                    fila.classList.add("tablahover"); // <-- Clase añadida
                     const nombreMedicamento = alerta.medicamento ? alerta.medicamento.nombreMedicamento : 'No disponible';
                     const cantidadUnidad = alerta.medicamento ? alerta.medicamento.cantidadUnidad : 'No disponible';
                     const idMedicamento = alerta.medicamento ? alerta.medicamento.idMedicamento : null;
 
                     const estadoAlerta = alerta.estadoAlerta === 'sinConfirmar'
-                        ? `<span style="color: red; font-weight: bold;">Sin Confirmar</span>`
+                        ? `<span class="estadoinact">Sin Confirmar</span>`
                         : alerta.estadoAlerta === 'confirmado'
-                        ? `<span style="color: green; font-weight: bold;">Confirmado</span>`
-                        : `<span>${alerta.estadoAlerta}</span>`;
+                            ? `<span class="estadoact">Confirmado</span>`
+                            : `<span>${alerta.estadoAlerta}</span>`;
 
                     fila.innerHTML = `
-                        <td><strong>${alerta.horaTexto}</strong></td>
+                        <td>${alerta.horaTexto}</td>
                         <td>${estadoAlerta}</td>
-                        <td>${alerta.tipoAlerta}</td>
-                        <td><strong>${nombreMedicamento}</strong></td>
-                        <td>${cantidadUnidad === 20 ? '20' : cantidadUnidad}</td>
+                        <td> <a class="infoTabla"> ${alerta.tipoAlerta}</a></td>
+                        <td>${nombreMedicamento}</td>
+                        <td> ${cantidadUnidad === 20 ? '20' : cantidadUnidad}</td>
                     `;
 
                     const celdaAccion = document.createElement("td");
@@ -136,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         axios.get(urlCantidad)
                             .then(response => {
                                 const stock = response.data ? response.data.cantidadDisponible : "No disponible";
-                                celdaAccion.innerHTML = `<span style="font-weight: bold; color: orange;">${stock} unidades</span>`;
+                                celdaAccion.innerHTML = `<span class="alertunidades">${stock} unidades</span>`;
                             })
                             .catch(error => {
                                 console.error("Error al obtener la cantidad:", error);
@@ -158,4 +153,3 @@ document.addEventListener("DOMContentLoaded", function () {
             alertasContainer.innerHTML = "<p>Error al cargar las alertas.</p>";
         });
 });
-

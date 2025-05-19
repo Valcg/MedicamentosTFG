@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let contenido = `
             <table style="width: 100%; text-align: center; border-collapse: collapse;" class="tabla-alerta-modal">
                 <tr>
-                    <td colspan="2" style="font-size: 18px; color: #84CBF1; font-weight: bold; padding: 10px; border-bottom: 1px solid rgb(0, 0, 0);">${fechaTexto}</td>
+                    <td colspan="2" style="font-size: 18px; color: #84CBF1; font-weight: bold; padding: 10px; border-bottom: 1px solid white;">${fechaTexto}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: normal; padding: 10px; text-align: right;">Medicamento:</td>
@@ -41,7 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 </tr>
                 <tr>
                     <td style="font-weight: normal; padding: 10px; text-align: right;">Estado:</td>
-                    <td id="estadoAlerta" style="color: ${alertaProxima.estadoAlerta === "Confirmada" ? 'yellow' : (esSinConfirmar ? 'red' : 'green')}; padding: 5px; text-align: left;">${alertaProxima.estadoAlerta}</td>
+
+                <td style="padding: 5px; text-align: left;">
+                <a id="estadoAlerta" class="${alertaProxima.estadoAlerta === 'Confirmada' ? '' : (esSinConfirmar ? 'estadoinact' : 'estadoact')}">
+                    ${alertaProxima.estadoAlerta}
+                </a>
+                </td>
+
                 </tr>
                 <tr>
                     <td style="font-weight: normal; padding: 10px; text-align: right;">Hora de la toma:</td>
@@ -58,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </tr>
 
                 <tr>
-                    <td style="font-weight: normal; padding: 10px; text-align: right;">Acción(mi stock actual):</td>
+                    <td style="font-weight: normal; padding: 10px; text-align: right;">Mi STOCK actual :</td>
                     <td id="cantidad-stock" style="padding: 10px; text-align: left;">Cargando...</td>
                 </tr>
                 <tr>
@@ -83,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         ` : `<strong>YA CONFIRMASTE LA TOMA</strong>`}
                     </td>
                 </tr>
+                
             </table>
             <p id="mensajeConfirmacion" style="margin-top:10px;"></p>
         `;
@@ -145,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
             axios.get(urlCantidad)
                 .then(response => {
                     const stock = response.data ? response.data.cantidadDisponible : "No disponible";
-                    document.getElementById("cantidad-stock").innerHTML = `<span style="font-weight: bold; color: orange;">${stock} unidades disponibles</span>`;
+                    document.getElementById("cantidad-stock").innerHTML = `<span class="alertunidades">${stock} unidades</span>`;
                 })
                 .catch(error => {
                     console.error("Error al obtener la cantidad:", error);

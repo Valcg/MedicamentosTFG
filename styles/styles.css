@@ -67,7 +67,8 @@
 
 
         /*PERFIL ESTADO/ESPECIALIDAD------------------------*/
-                     .activo,.inactivo,.infoReceta{
+                     .activo,.inactivo,.infoReceta
+                     {
                     background-color: white; /* Color del texto */
                     padding: 4px 14px;
                     border-radius: 16px;
@@ -79,6 +80,8 @@
                 /*PERFIL*/
                 .activo{color:#66b794f1; }
                 .inactivo{color: #f14343;}
+
+
             
 #usuario-divs-container {
     display: flex;
