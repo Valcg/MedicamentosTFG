@@ -1,4 +1,26 @@
 document.addEventListener("DOMContentLoaded", async function () {
+    // Crear e insertar el HTML dinámicamente
+    const contenedor = document.createElement("div");
+    contenedor.id = "paciente-contactos-tabla";
+    contenedor.innerHTML = `
+        <div id="mensaje"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Relación</th>
+                    <th>Relación Específica</th>
+                    <th>Comentarios</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-contactos"></tbody>
+        </table>
+    `;
+    document.body.appendChild(contenedor);
+
     const correo = localStorage.getItem("correo");
     const idPaciente = localStorage.getItem("idUsuario");
     const mensaje = document.getElementById("mensaje");
@@ -60,7 +82,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             `;
 
             fila.querySelector(".select-container").appendChild(selectRelacion);
-
             tabla.appendChild(fila);
         });
 
@@ -114,7 +135,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Función para eliminar
     function eliminarContacto(id) {
-        // Primero, obtener el contacto completo
         const contactoAEliminar = {
             idContacto: parseInt(id),
             paciente: {
@@ -125,7 +145,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         axios.delete("http://medicade.involux.es/pacientes/eliminar-contacto-emergencia", { data: contactoAEliminar })
             .then(() => {
                 alert("Contacto eliminado con éxito.");
-                location.reload(); // Recargar para actualizar la tabla
+                location.reload();
             })
             .catch(error => {
                 console.error("Error al eliminar el contacto:", error);

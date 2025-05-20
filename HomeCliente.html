@@ -10,6 +10,8 @@
 
 
     <link rel="stylesheet" href="styles/paciente.css">
+    <link rel="stylesheet" href="styles/modal.css">
+    
     <!-- --------------------------------- -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -177,30 +179,20 @@
  <!-- DIV 5 --------------- -->
 <div class="usu-div-pa">
 
+        <div style="background-color: yellow;">
+        <!-- ALTA CONTACTO------------------------------------------------------- -->
+<div id="paciente-contactos"></div>
 
-<!-- ALTA CONTACTO------------------------------------------------------- -->
-<form id="form-contacto">
-    <input type="text" id="nombre" placeholder="Nombre del contacto" required />
-    <input type="number" id="telefono" placeholder="Teléfono" required />
-    <select id="relacionEnum" required>
-        <option value="">Seleccione una relación</option>
-    </select>
-        <input type="text" id="relacionEspecifica" placeholder="Relación específica" />
-    <input type="text" id="comentarios" placeholder="Comentarios" />
-    <input type="email" id="correo" placeholder="Correo electrónico" />
-    <button type="submit">Guardar contacto</button>
-  </form>
-  
-  <div id="mensaje"></div>
+        <script src="/cliente_paciente/contactoalta.js">  </script>  
+        </div>
 
-<script src="/cliente_paciente/contactoalta.js">  </script>  
 
 </div>
 
 <!-- DOS------------------------------------------------------- -->
 <div class="usu-div-pa usu-div-contactos">
     <h2>Contactos de Emergencia</h2>
-    <div id="paciente-contactos">
+    <div id="paciente-contactos-tabla">
         <div id="mensaje"></div>
         <table >
             <thead>
@@ -221,6 +213,25 @@
 
 </div>
 
+
+<div class="usu-div-pa"> 
+        <button id="openModalBtn" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 15px;">Ver Alertas</button>
+TEXTO
+    <div id="modalalerta" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+    background: rgba(0,0,0,0.7); display:flex; justify-content:center; align-items:center; z-index:9999;">
+    <div style="background:white; padding:20px; border-radius:8px; width: 90%; max-width: 450px; position: relative;">
+        <!-- Botón cerrar modal con X en negro -->
+        <button id="closeModalBtn" 
+            style="position:absolute; top:10px; right:15px; background:none; border:none; font-size: 24px; color:#000; cursor:pointer;">
+            &times;
+        </button>
+        <p></p>
+    </div>
+</div>
+
+
+</div>
+    <!-- Aquí va el modal -->
 
 <!-- DIV 6 FOOTER --------------- -->
             <div class="usuario-div-seis">
@@ -272,7 +283,8 @@
         
         <script src="cliente_paciente/enlaces.js"></script>
 
-       
+       <script src="cliente_paciente/alertamodal.js"></script>
+
 
 </body>
 </html>

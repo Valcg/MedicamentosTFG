@@ -379,9 +379,9 @@ gap: 20px; /* espacio entre filas y columnas */
             .der{margin:2px 0;text-align: left;}
             
 
-/* MIS RECETAS -------------------------------------------------------------------------- */
+/* CONTACTO ALTA -------------------------------------------------------------------------- */
 
-
+.contacto-emergencia{padding: 20px;}
 
 
 
@@ -415,7 +415,7 @@ gap: 20px; /* espacio entre filas y columnas */
 
 
         /* --------------------------- TABLA --------------------------- */
-            #paciente-contactos{background-color: lightblue;
+            #paciente-contactos,#paciente-contactos-tabla{background-color: lightblue;
             width: 100%;}
             #paciente-contactos table{width: 100%;}
 
