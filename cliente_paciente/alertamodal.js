@@ -39,7 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
             <table style="width: 100%; text-align: center; border-collapse: collapse;" class="tabla-alerta-modal">
                 <tr>
                     <td colspan="2" style="border-bottom: 1px solid white;"> 
-                      <h2>${fechaTexto} </h2>
+                      <h2>
+                        ${fechaTexto} 
+                        <br>
+                       <strong> ${horaTexto} h</strong>
+                      </h2>
                     </td>
                 </tr>
                 <tr>
@@ -64,8 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td style=" padding-left: 10px; text-align: left;"><strong>${horaConfirmada}</strong></td>
                 </tr>` : ''}
                 <tr>
-                    <td style="padding: 10px; text-align: right;">Cantidad por unidad</td>
-                    <td style=" padding-left: 10px; text-align: left;">${cantidadUnidad}</td>
+                    <td style="padding: 10px; text-align: right;">Total Uds/Stk</td>
+                    <td style=" padding-left: 10px; text-align: left;"> <strong>${cantidadUnidad} </strong></td>
                 </tr>
                 <tr>
                     <td style=" padding: 10px; text-align: right;">Mi STOCK actual</td>
@@ -155,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
             axios.get(urlCantidad)
                 .then(response => {
                     const stock = response.data ? response.data.cantidadDisponible : "No disponible";
-                    document.getElementById("cantidad-stock").innerHTML = `<span class="alertunidades">${stock} unidades</span>`;
+                    document.getElementById("cantidad-stock").innerHTML = `<span class="alertunidades">${stock} Uds/Stk</span>`;
                 })
                 .catch(error => {
                     console.error("Error al obtener la cantidad:", error);

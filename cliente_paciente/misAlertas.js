@@ -83,11 +83,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <thead>
                     <tr>
                         <td>Fecha y Hora</td>
+                        <td>Medicamento</td>
                         <td>Estado</td>
                         <td>Tipo de Alerta</td>
-                        <td>Medicamento</td>
-                        <td>Total por Blister/Caja</td>
-                        <td> STOCK</td>
+                        <td>Total Uds/Stk</td>
+                        <td>    </td>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -103,47 +103,57 @@ const filaTitulo = document.createElement("tr");
 filaTitulo.innerHTML = `<td colspan="6" style="background-color:#fafafa; padding: 10px;">${grupo.fechaTexto}</td>`;
    cuerpoTabla.appendChild(filaTitulo);
 
-                grupo.alertas.forEach(alerta => {
-                    const fila = document.createElement("tr");
-                    fila.classList.add("tablahover"); // <-- Clase añadida
-                    const nombreMedicamento = alerta.medicamento ? alerta.medicamento.nombreMedicamento : 'No disponible';
-                    const cantidadUnidad = alerta.medicamento ? alerta.medicamento.cantidadUnidad : 'No disponible';
-                    const idMedicamento = alerta.medicamento ? alerta.medicamento.idMedicamento : null;
+grupo.alertas.forEach(alerta => {
+    const fila = document.createElement("tr");
+    fila.classList.add("tablahover");
+    const nombreMedicamento = alerta.medicamento ? alerta.medicamento.nombreMedicamento : 'No disponible';
+    const cantidadUnidad = alerta.medicamento ? alerta.medicamento.cantidadUnidad : 'No disponible';
+    const idMedicamento = alerta.medicamento ? alerta.medicamento.idMedicamento : null;
 
-                    const estadoAlerta = alerta.estadoAlerta === 'sinConfirmar'
-                        ? `<span class="estadoinact">Sin Confirmar</span>`
-                        : alerta.estadoAlerta === 'confirmado'
-                            ? `<span class="estadoact">Confirmado</span>`
-                            : `<span>${alerta.estadoAlerta}</span>`;
+    const estadoAlerta = alerta.estadoAlerta === 'sinConfirmar'
+        ? `<span class="estadoinact">Sin Confirmar</span>`
+        : alerta.estadoAlerta === 'confirmado'
+            ? `<span class="estadoact">Confirmado</span>`
+            : `<span>${alerta.estadoAlerta}</span>`;
 
-                    fila.innerHTML = `
-                        <td>${alerta.horaTexto}</td>
-                        <td>${estadoAlerta}</td>
-                        <td> <a class="infoTabla"> ${alerta.tipoAlerta}</a></td>
-                        <td>${nombreMedicamento}</td>
-                        <td> ${cantidadUnidad === 20 ? '20' : cantidadUnidad}</td>
-                    `;
+    fila.innerHTML = `
+        <td>${alerta.horaTexto}</td>
+        <td>${nombreMedicamento}</td>
+        <td>${estadoAlerta}</td>
+        <td> <a class="infoTabla"> ${alerta.tipoAlerta}</a></td>
+        <td> ${cantidadUnidad === 20 ? '20' : cantidadUnidad}</td>
+    `;
 
-                    const celdaAccion = document.createElement("td");
-                    if (idMedicamento) {
-                        const urlCantidad = `http://medicade.involux.es/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
+    const celdaAccion = document.createElement("td");
+    if (idMedicamento) {
+        const urlCantidad = `http://medicade.involux.es/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
 
-                        axios.get(urlCantidad)
-                            .then(response => {
-                                const stock = response.data ? response.data.cantidadDisponible : "No disponible";
-                                celdaAccion.innerHTML = `<span class="alertunidades">${stock} unidades</span>`;
-                            })
-                            .catch(error => {
-                                console.error("Error al obtener la cantidad:", error);
-                                celdaAccion.innerHTML = `<span style="color: red; font-weight: bold;">Error al obtener</span>`;
-                            });
-                    } else {
-                        celdaAccion.innerHTML = `<span style="color: red; font-weight: bold;">ID inválido</span>`;
-                    }
+        axios.get(urlCantidad)
+            .then(response => {
+                const stock = response.data ? response.data.cantidadDisponible : "No disponible";
+                celdaAccion.innerHTML = `<span class="alertunidades">${stock} Uds/Stk</span>`;
+            })
+            .catch(error => {
+                console.error("Error al obtener la cantidad:", error);
+                celdaAccion.innerHTML = `<span style="color: red; font-weight: bold;">Error al obtener</span>`;
+            });
+    } else {
+        celdaAccion.innerHTML = `<span style="color: red; font-weight: bold;">ID inválido</span>`;
+    }
 
-                    fila.appendChild(celdaAccion);
-                    cuerpoTabla.appendChild(fila);
-                });
+    fila.appendChild(celdaAccion);
+
+    // 🔥 NUEVO: Resaltado si es el medicamento con alerta reciente
+    const idResaltado = localStorage.getItem("alertaResaltarId");
+    if (idResaltado && idMedicamento && idMedicamento.toString() === idResaltado) {
+        fila.style.backgroundColor = "#fff3cd"; // Amarillo claro
+        fila.style.border = "2px solid #ffc107"; // Borde ámbar
+        localStorage.removeItem("alertaResaltarId");
+    }
+
+    cuerpoTabla.appendChild(fila);
+});
+
             }
 
             alertasContainer.appendChild(tabla);

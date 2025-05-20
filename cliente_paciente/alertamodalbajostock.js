@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const idPaciente = localStorage.getItem("idUsuario");
 
     if (!idPaciente) {
-        console.error("Error: No se encontró el ID del paciente en localStorage.");
+        console.error("❌ Error: No se encontró el ID del paciente en localStorage.");
         return;
     }
 
@@ -12,21 +12,23 @@ document.addEventListener("DOMContentLoaded", () => {
     let huboAlerta = false;
     let mostrarMensajeFin = false;
 
-    // Primera verificación
     verificarMedicamentosCliente();
-    iniciarTemporizadorConsola(180); // Inicia el temporizador desde 180s
+    iniciarTemporizadorConsola(180);
 
-    // Verificar cada 3 minutos
     setInterval(() => {
         verificarMedicamentosCliente();
-        iniciarTemporizadorConsola(180); // Reinicia cada 3 min
+        iniciarTemporizadorConsola(180);
     }, 180000);
 
     function verificarMedicamentosCliente() {
-        axios.get(`http://medicade.involux.es/pacientes/vermedicamentos/paciente/${idPaciente}`)
+        axios.get(`http://medicade.involux.es/pacientes/VerMisMedicamentos/paciente/${idPaciente}`)
             .then(response => {
                 const listaMedicamentos = response.data;
-                if (!listaMedicamentos || listaMedicamentos.length === 0) return;
+
+                if (!listaMedicamentos || listaMedicamentos.length === 0) {
+                    console.warn("⚠️ No se encontraron medicamentos para este paciente.");
+                    return;
+                }
 
                 let total = listaMedicamentos.length;
                 let procesados = 0;
@@ -37,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             })
             .catch(err => {
-                console.error("Error al obtener medicamentos:", err);
+                console.error("❌ Error al obtener medicamentos:", err);
             });
     }
 
@@ -47,10 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const mensaje = response.data;
 
                 if (mensaje.includes("alerta de bajostock")) {
+                    console.log(`🚨 Alerta: Medicamento ${idMedicamento} tiene bajo stock.`);
                     huboAlerta = true;
                     mostrarModalBajoStock(idMedicamento, "El stock se ha comprobado correctamente. Tienes bajo stock. NECESITAS AGREGAR STOCK.");
                 } else if (esUltimo && !huboAlerta) {
                     if (!mostrarMensajeFin) {
+                        console.log("✅ Todos los medicamentos tienen suficiente stock.");
                         mostrarMensajeFin = true;
                         mostrarModalSinAlerta();
                     } else {
@@ -59,11 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             })
             .catch(err => {
-                console.error("Error al verificar stock:", err);
+                console.error("❌ Error al verificar stock del medicamento:", err);
             });
     }
 
     function mostrarModalBajoStock(idMedicamento, mensaje) {
+        console.log(`📢 Mostrando modal de bajo stock para ID ${idMedicamento}`);
         const idAlerta = idMedicamento;
 
         contenidoBajoStock.innerHTML = `
@@ -73,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
         modalBajoStock.classList.add("show");
-        mostrarMensajeFin = false; // Reinicia si hay alerta activa
+        mostrarMensajeFin = false;
     }
 
     function mostrarModalSinAlerta() {
@@ -83,29 +88,36 @@ document.addEventListener("DOMContentLoaded", () => {
         modalBajoStock.classList.add("show");
         setTimeout(() => {
             modalBajoStock.classList.remove("show");
-        }, 5000); // Oculta automáticamente después de 5 segundos
+        }, 5000);
     }
 
     window.confirmarAlertaBajoStock = function(idAlerta) {
+        console.log(`🟢 Confirmando alerta para medicamento ID ${idAlerta}`);
         axios.post(`http://medicade.involux.es/pacientes/confirmarAlertaBajoStock/${idAlerta}`)
             .then(() => {
+                localStorage.setItem("alertaResaltarId", idAlerta); // Guardamos ID para resaltar en la siguiente vista
                 window.location.href = "mismedicamentos.html";
             });
     };
 
     window.posponerAlertaBajoStock = function(idAlerta) {
+        console.log(`🟠 Posponiendo alerta para medicamento ID ${idAlerta}`);
         axios.post(`http://medicade.involux.es/pacientes/posponerAlertaBajoStock/${idAlerta}`, {})
             .then(res => {
-                alert(res.data);
+                alert("La alerta se pospondrá 1 minuto.");
                 modalBajoStock.classList.remove("show");
+
+                // Reaparece después de 1 minuto
+                setTimeout(() => {
+                    mostrarModalBajoStock(idAlerta, "Recordatorio: Tienes bajo stock. NECESITAS AGREGAR STOCK.");
+                }, 60000);
             })
             .catch(err => {
-                alert(err.response?.data || "Error al posponer");
+                alert(err.response?.data || "❌ Error al posponer");
                 console.error(err);
             });
     };
 
-    // ⏳ TEMPORIZADOR EN CONSOLA
     function iniciarTemporizadorConsola(segundos) {
         let tiempoRestante = segundos;
 
