@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         */ 
                     
                     const recetaHTML = `
-                        <div class="packUnaReceta hover" style="padding:20px 0;">
+                        <div class="pacUnaReceta hover" style="padding:20px 0;">
                             <h3>Receta
                             <br>
                             <span style="font-weight: bold;"> ${receta.medicamento.nombreMedicamento}</span>

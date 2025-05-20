@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // ELEMENTOS DE MANEJO DE DOM
-    const medicosContainer = document.getElementById("VerMisMedicos");
+    const medicosContainer = document.getElementById("pacVerMisMedicos");
     const fragment = document.createDocumentFragment();
 
     // OBTENER EL idPaciente DESDE localStorage
@@ -29,19 +29,43 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 // RECORREMOS CADA MÉDICO OBTENIDO
                 medicos.forEach(medico => {
-                    const div = document.createElement("div");
-                    div.classList.add("medico-item");
-
                     // ACCEDER A `medico.usuario` PARA OBTENER DATOS PERSONALES
-                    div.innerHTML = `
-                        <strong>Nombre:</strong> ${medico.usuario.nombre} ${medico.usuario.apellido} <br>
-                        <strong>Número Colegiado:</strong> ${medico.numeroColegiado} <br>
-                        <strong>Especialidad:</strong> ${medico.especialidad} <br>
-                        <strong>Email:</strong> ${medico.usuario.correo}
+
+                    /* <p>Nombre:</p> 
+                       <p>${medico.usuario.nombre} ${medico.usuario.apellido} </p>*/
+
+                    const medicoHTML = `
+                    <div class="pacUnMedico hover" style="padding:20px 0;">
+                        <div style="width:70%">
+                         <h3>
+                            Médico
+                            <br>
+                            <strong> ${medico.usuario.nombre} ${medico.usuario.apellido} </strong>
+                         </h3>
+                                
+                            <p>Especialidad</p> 
+                            <p class="izq"> <span class="infoReceta">${medico.especialidad} <span></p>
+                                <hr>
+                            <p>Email</p> 
+                            <p class="izq"> <strong> ${medico.usuario.correo} </strong></p>
+                              <hr>
+                            <p>Nombre</p> 
+                            <p class="izq"> <strong>${medico.usuario.nombre}  </strong> </p>
+                              <hr>
+                            <p>Apellido</p> 
+                            <p class="izq"> <strong>${medico.usuario.apellido}  </strong> </p>
+                                <hr>
+                            <p>Número Colegiado</p> 
+                            <p class="izq"> <strong  style ="color:#00669C;">${medico.numeroColegiado}  </strong> </p>
+
+                       
+                     <div>
+                     </div>
                     `;
 
-                    // AGREGAMOS AL FRAGMENTO PARA OPTIMIZAR RENDIMIENTO
-                    fragment.appendChild(div);
+                    const template = document.createElement("template");
+                    template.innerHTML = medicoHTML;
+                    fragment.appendChild(template.content);
                 });
             }
 

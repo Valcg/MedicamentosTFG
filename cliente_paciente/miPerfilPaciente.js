@@ -26,19 +26,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     <h3>Los datos de tu cuenta :</h3>
                     <p>Tipo de Usuario</p>
                     <p class="izq" style="color: #00669C;">  <strong>${paciente.usuario.tipoUsuario}</strong> </p>
-                    <hr> 
+                        <hr> 
                     <p>Nombre </p>
                     <p class="izq">     <strong>${paciente.usuario.nombre}</strong> </p>
-                    <hr>  
+                        <hr>  
                     <p>Apellidos </p>
                     <p class="izq">    <strong>${paciente.usuario.apellido}</strong> </p>
-                    <hr>  
+                        <hr>  
                     <p>Correo electrónico</p>
                     <p class="izq">    <strong>${paciente.usuario.correo}</strong> </p>
-                    <hr>  
+                        <hr>  
                     <p>DNI</p>
                     <p class="izq">    <strong>${paciente.usuario.dni} </strong> </p>
-                    <hr>  
+                        <hr>  
                 `;
 
                 // Campo "Estado" dinámico con color según valor

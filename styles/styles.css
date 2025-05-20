@@ -1,8 +1,20 @@
-  .hover:hover{ box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
-    
-  
-  
-  
+ 
+/* --------------------------- ESTILOS GENERALES --------------------------- */
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Noto Sans", serif;
+                font-optical-sizing: auto;
+                font-style: normal;
+                background-color: #F0F0F0;
+                box-sizing: border-box;
+                color: rgb(72, 72, 72);
+            }
+
+
+        .hover:hover{ box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+
+
   /* div 100% MEDICO SECCION PACIENTES- Recetas de ------------------------------------------- */ 
   .usu-div-one{
     border: 1px solid yellow;
@@ -13,23 +25,21 @@
     margin: 20px;}
     .seccion-card-one{width: 100%; }
 
-    #section-cliente-one {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    margin: 20px;
-    height: auto;
-    border-radius: 10px;
-    transition:  0.3s ease-in-out;
-    background-color: #F0F0F0;
-
-    }
-        /*TABLA RECETAS Y HISTORIA / SECCION PACIENTES ------------------------------------------- */ 
-        #historial-pacientes{width: 100%;}
-
 
     /*01 SECTION PERFIL------------------------------------------------------- */
+
+                    #section-cliente-one {
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-evenly;
+                    margin: 20px;
+                    height: auto;
+                    border-radius: 10px;
+                    transition:  0.3s ease-in-out;
+                    background-color: #F0F0F0;
+
+                    }
         /* 1  BOXS DE perfil y Historial --------------------------- */
         /* 1  TARJETA 50% --------------------------- */
             .seccion-card-duo {width: 50%;}
@@ -52,7 +62,7 @@
          #miperfilcliente{margin:auto;}
 
         /* MI PERFIL---------------------------------------------------------------------- */
-                #mi-perfil{
+                #mi-perfil,#pacVerMisMedicos{
                      /* background-color: orange; */
                         width: 60%;}
                     .perfil-item{
@@ -89,17 +99,7 @@
 /* justify-content: space-between;  Alinea los elementos con espacio entre ellos */
 }
                    
-            /* --------------------------- ESTILOS GENERALES --------------------------- */
-            body {
-                margin: 0;
-                padding: 0;
-                font-family: "Noto Sans", serif;
-                font-optical-sizing: auto;
-                font-style: normal;
-                background-color: #F0F0F0;
-                /* background-color: grey; */
-                box-sizing: border-box;
-            }
+
 /* --------------------------- SECTION NUEVA CUENTA CLIENTE --------------------------- */
 
             /* --------------------------- SECTION LOGIN --------------------------- */
