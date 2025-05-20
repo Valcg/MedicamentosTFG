@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Obtener relaciones posibles para el select
     try {
-        const resRelaciones = await axios.get("http://medicade.involux.es/pacientes/relacionesContactoEmergencia");
+        const resRelaciones = await axios.get("http://medicade-back.involux.es/pacientes/relacionesContactoEmergencia");
         relacionesEnumGlobal = resRelaciones.data;
         
     } catch (error) {
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Obtener contactos
     try {
-        const resContactos = await axios.get(`http://medicade.involux.es/pacientes/contacto-emergencia-por-paciente/${correo}`);
+        const resContactos = await axios.get(`http://medicade-back.involux.es/pacientes/contacto-emergencia-por-paciente/${correo}`);
         const contactos = resContactos.data;
 
         tabla.innerHTML = ""; // Limpiar contenido previo
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         };
 
-        axios.put("http://medicade.involux.es/pacientes/modificar-contacto-emergencia", contactoModificado)
+        axios.put("http://medicade-back.involux.es/pacientes/modificar-contacto-emergencia", contactoModificado)
             .then(() => {
                 alert("Contacto actualizado correctamente.");
             })
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         };
 
-        axios.delete("http://medicade.involux.es/pacientes/eliminar-contacto-emergencia", { data: contactoAEliminar })
+        axios.delete("http://medicade-back.involux.es/pacientes/eliminar-contacto-emergencia", { data: contactoAEliminar })
             .then(() => {
                 alert("Contacto eliminado con éxito.");
                 location.reload();

@@ -1,4 +1,4 @@
-const baseURL = "http://medicade.involux.es/medicos";
+const baseURL = "http://medicade-back.involux.es/medicos";
 const resultadoDiv = document.getElementById("resultado");
 
 // Función para ver los pacientes de un médico

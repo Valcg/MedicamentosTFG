@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Construir la URL con el idPaciente
-    const url = `http://medicade.involux.es/pacientes/VermisMedicos/${idPaciente}`;
+    const url = `http://medicade-back.involux.es/pacientes/VermisMedicos/${idPaciente}`;
 
     // PETICIÓN GET CON AXIOS PARA OBTENER LOS MÉDICOS DEL PACIENTE
     axios.get(url)

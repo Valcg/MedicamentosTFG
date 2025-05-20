@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Cargamos medicamentos
-    axios.get("http://medicade.involux.es/medicos/BuscarTodosLosMedicamentos")
+    axios.get("http://medicade-back.involux.es/medicos/BuscarTodosLosMedicamentos")
         .then(response => {
             const medicamentos = response.data;
             let opcionesMedicamentos = medicamentos.map(med =>
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let pacientesAsociadosCorreos = [];
 
             // Traemos lista de pacientes asociados para sugerencias
-            axios.get(`http://medicade.involux.es/medicos/VerMisPacientes/${numeroColegiado}`)
+            axios.get(`http://medicade-back.involux.es/medicos/VerMisPacientes/${numeroColegiado}`)
                 .then(resp => {
                     pacientesAsociadosCorreos = resp.data.map(p => p.usuario.correo);
                 });
@@ -121,11 +121,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function validarCorreoPaciente(correo) {
         const mensajeCorreo = document.getElementById("mensajeCorreo");
 
-        axios.get(`http://medicade.involux.es/medicos/buscarPorCorreo?correo=${correo}`)
+        axios.get(`http://medicade-back.involux.es/medicos/buscarPorCorreo?correo=${correo}`)
             .then(response => {
                 const paciente = response.data;
                 if (paciente) {
-                    axios.get(`http://medicade.involux.es/medicos/VerMisPacientes/${numeroColegiado}`)
+                    axios.get(`http://medicade-back.involux.es/medicos/VerMisPacientes/${numeroColegiado}`)
                         .then(pacientesAsociadosResponse => {
                             const pacientesAsociados = pacientesAsociadosResponse.data;
                             const pacienteAsociado = pacientesAsociados.find(p => p.usuario.correo.toLowerCase() === correo.toLowerCase());
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const correoPaciente = document.getElementById("correo_paciente").value;
 
-        axios.get(`http://medicade.involux.es/medicos/buscarPorCorreo?correo=${correoPaciente}`)
+        axios.get(`http://medicade-back.involux.es/medicos/buscarPorCorreo?correo=${correoPaciente}`)
             .then(response => {
                 const paciente = response.data;
 
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     caducidad: "Activa"
                 };
 
-                axios.post("http://medicade.involux.es/medicos/CrearReceta", recetaDto)
+                axios.post("http://medicade-back.involux.es/medicos/CrearReceta", recetaDto)
                     .then(() => {
                         document.getElementById("mensajeReceta").innerHTML = `<span style="color: #66b794f1;">Receta creada correctamente</span>`;
                     })

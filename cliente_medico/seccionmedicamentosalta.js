@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let medicamentoExiste = false;
 
     function cargarMedicamentos() {
-        axios.get("http://medicade.involux.es/medicos/BuscarTodosLosMedicamentos")
+        axios.get("http://medicade-back.involux.es/medicos/BuscarTodosLosMedicamentos")
             .then(response => {
                 medicamentosExistentes = response.data || [];
             })
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cantidadUnidad: parseInt(cantidadUnidad)
         };
 
-        axios.post("http://medicade.involux.es/medicos/AltaMedicamentos", medicamento)
+        axios.post("http://medicade-back.involux.es/medicos/AltaMedicamentos", medicamento)
             .then(response => {
                 mensajeAlta.innerHTML = `<p style="color: #66b794f1;">✅ Medicamento creado: ${response.data.nombreMedicamento}</p>`;
                 setTimeout(() => location.reload(), 1000);

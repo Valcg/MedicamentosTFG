@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const url = `http://medicade.involux.es/pacientes/VerMisRecetas/${idPaciente}`;
+    const url = `http://medicade-back.involux.es/pacientes/VerMisRecetas/${idPaciente}`;
 
     // Función para formatear la fecha como: Martes 20 de mayo de 2025 — 05:25
     function formatearFechaHora(fechaStr) {

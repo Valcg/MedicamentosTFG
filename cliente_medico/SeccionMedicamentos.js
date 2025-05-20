@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Lista de abreviaturas válidas
         const unidades = ["mg/ml", "mcg/dosis", "mg", "ml", "g", "%"];
 
-        axios.get("http://medicade.involux.es/medicos/BuscarTodosLosMedicamentos")
+        axios.get("http://medicade-back.involux.es/medicos/BuscarTodosLosMedicamentos")
             .then(response => {
                 const medicamentos = response.data;
                 let contenido = "";
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function cargarTodosLosMedicamentos() {
-        axios.get("http://medicade.involux.es/medicos/BuscarTodosLosMedicamentos")
+        axios.get("http://medicade-back.involux.es/medicos/BuscarTodosLosMedicamentos")
             .then(response => {
                 medicamentosCargados = response.data || [];
                 tablaBody.innerHTML = "";

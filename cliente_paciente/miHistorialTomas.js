@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const url = `http://medicade.involux.es/pacientes/Vermihistorial/${idPaciente}`;
+    const url = `http://medicade-back.involux.es/pacientes/Vermihistorial/${idPaciente}`;
 
     function obtenerFechaYHoraFormateada(fechaStr) {
         const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (confirmarBtn) {
                             confirmarBtn.addEventListener("click", function () {
                                 const idAlerta = toma.alerta.idAlerta;
-                                const urlConfirmar = `http://medicade.involux.es/pacientes/confirmarToma/${idAlerta}`;
+                                const urlConfirmar = `http://medicade-back.involux.es/pacientes/confirmarToma/${idAlerta}`;
 
                                 axios.post(urlConfirmar)
                                     .then(() => {
