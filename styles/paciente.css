@@ -22,6 +22,7 @@
 
 
 
+
 /* 1 -------------- PERFIL Y VER HISTORIAL ----------------------------------------- */
 
     /* 1  BOXS DE perfil y Historial --------------------------- */
@@ -269,28 +270,28 @@
 }
 
 /* TABLA :      MIS MEDICAMENTOS, MI HISTORIAL DE LAS TOMAS-------------------------------------------------------------------------- */
-        #pacienteMisMedicamentos,
-        #mis-alertas-medicas,
-        #mi-historial-tomas
-        {width: 100%;}
+                #pacienteMisMedicamentos,
+                #mis-alertas-medicas,
+                #mi-historial-tomas
+                {width: 100%;}
 
-        #tablaMedicamentosPaciente,
-        #tablapacienteMisAlertas,
-        #tablapacienteMiHistorial
-                { width: 100%;                           
-                border-collapse: collapse;}
+                #tablaMedicamentosPaciente,
+                #tablapacienteMisAlertas,
+                #tablapacienteMiHistorial
+                        { width: 100%;                           
+                        border-collapse: collapse;}
 
-        
-        #tablaMedicamentosPaciente tr td,
-        #tablapacienteMisAlertas tr td,
-        #tablapacienteMiHistorial tr td
-                    {border-bottom: 1px solid  white;
-                    padding: 10px 8px;}
+                
+                #tablaMedicamentosPaciente tr td,
+                #tablapacienteMisAlertas tr td,
+                #tablapacienteMiHistorial tr td,
+                #tablaPacMisRecetas tr td
+                            {border-bottom: 1px solid  white;
+                            padding: 10px 8px;}
 
-                .tablahover:hover{background-color: white;}
-                .tabla-scroll {overflow-x: auto; }
-
-
+                        .tablahover:hover{background-color: white;}
+                        .tabla-scroll {overflow-x: auto; }
+/* BOTONES -------------------------------------------------------------------------- */
                 .btnAgregarStock,
                 .btnpaconfirmhistorial,.btnpaconfirmhistorialModal{
                         all: unset; /* Esto quita prácticamente todos los estilos del navegador */
@@ -336,11 +337,45 @@
 /* BOTONES -------------------------------------------------------------------------- */
 
 
+          
+
+#pacMisRecetas{  
+margin: 20px;
+display: flex;
+flex-wrap: wrap;   /* Esto permite que los items salten a la siguiente fila */
+overflow-x: visible; /* Quita el scroll horizontal porque ahora va a haber varias filas */
+width: 100%;
+gap: 20px; /* espacio entre filas y columnas */
+}
 
 
 
+        .packUnaReceta{
+            background-color: orange;
+
+            flex: 0 0 calc(50% - 10px); /* restamos la mitad del gap */
+            box-sizing: border-box;
+           
+            background-color: #eee;
+            border-radius: 10px;
+        }
 
 
+        .packUnaReceta hr{
+        border: none;
+        height: 1px;
+        background-color: white;
+        margin: 10px 0;
+        }
+
+        /* TABLA : MIS ALERTAS MEDICAS-------------------------------------------------------------------------- */
+            #tablaPacMisRecetas{width: 100%;border-collapse: collapse;}
+            #tablaPacMisRecetas td{width: 50%;}
+            .izq{margin:2px 0;text-align: right;}
+            .der{margin:2px 0;text-align: left;}
+            
+
+/* MIS RECETAS -------------------------------------------------------------------------- */
 
 
 

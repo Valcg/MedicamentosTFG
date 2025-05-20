@@ -80,7 +80,7 @@
                 /*PERFIL*/
                 .activo{color:#66b794f1; }
                 .inactivo{color: #f14343;}
-
+                .infoReceta{color:#84CBF1 ;}
 
             
 #usuario-divs-container {
@@ -250,7 +250,7 @@
     align-items: center;
 
     padding: 10px 0 ; /* derecha e izq 20px*/
-    border-bottom: 1px solid white; 
+    border-top: 1px solid white; 
     background-color: transparent; 
     flex-shrink: 0; /* Evita que el header se encoja */
 

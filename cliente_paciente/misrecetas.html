@@ -7,6 +7,8 @@
     <!-- --------------------------------- -->
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/cliente.css">
+
+        <link rel="stylesheet" href="../styles/paciente.css">
     <!-- --------------------------------- -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- --------------------------------- -->
@@ -51,15 +53,19 @@
     <main id="usuario-main">
         
         <a href="../HomeCliente.html" class="BtnVolverHome"> ← Volver al inicio</a>
-        <!-- Aquí está el contenedor donde se mostrarán las recetas -->
         <h1 >Mis Recetas</h1>
-        <div id="axios">
-            <!-- Mensaje de carga mientras se obtienen las recetas -->
-            <!-- <p id="loadingMessage">Cargando recetas...</p> -->
-        </div>
+        <section id="usuario-divs-container">
+        <!--  1 ----------------------------------- -->           
+                    <div class="usu-div-pa">
+
+                        <!-- MIS RECETAS -------------- --> 
+                                            <div id="pacMisRecetas"> </div>
+                                            <script src="misRecetas.js"></script>
+                  
+                    </div>
+        </section>
 
 
-        <script src="misRecetas.js"></script><!-- style en CLIENTE  -->
     </main>
     
     <!-- FOOTER ------------------------------------------------------- -->

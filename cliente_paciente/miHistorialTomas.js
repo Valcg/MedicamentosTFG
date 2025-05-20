@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     grupo.tomas.forEach(toma => {
                         const fila = document.createElement("tr");
+                        fila.classList.add("tablahover");  
                         const estadoAlerta = toma.alerta ? toma.alerta.estadoAlerta : 'No disponible';
                         const nombreMedicamento = toma.alerta?.medicamento?.nombreMedicamento || 'No disponible';
 
@@ -103,8 +104,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         fila.id = `alerta-${toma.alerta?.idAlerta || toma.id}`;
                         fila.innerHTML = `
                             <td>${toma.horaTexto}</td>
-                            ${estadoHTML}
+
                             <td>${nombreMedicamento}</td>
+
+                            ${estadoHTML}
+                          
                             ${accionHTML}
                         `;
 

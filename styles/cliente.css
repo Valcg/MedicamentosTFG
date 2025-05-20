@@ -157,14 +157,6 @@
 /* CLIENTE - USUARIO COMO PACIENTE----------------------------------------------------------*/
 
 
-.receta-item{
-    border: 1px solid rgb(84, 49, 49);
-    text-align: center;
-    margin: 40px 20px;
-    border-radius: 8px;
-    padding: 40px;}
-
-
 /*----------------------------------------------------------*/
 @media screen and (max-width: 1270px) {
 }
