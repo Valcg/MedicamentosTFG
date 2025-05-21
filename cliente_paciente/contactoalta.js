@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     seccion.innerHTML = `
       <form id="form-contacto">
 
-            <h2><strong style="color:white;"> Dar de Alta Nuevo Contacto</strong></h2>
+            <h2>Dar de Alta <br> <strong ">  Nuevo Contacto</strong></h2>
             <table id="tablapacAltaContacto">
                 <tbody>
                     <tr>

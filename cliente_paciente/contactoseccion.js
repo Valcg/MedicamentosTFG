@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", async function () {
     const correo = localStorage.getItem("correo");
-    const idPaciente = localStorage.getItem("idUsuario"); // para enviar en modificar/eliminar si quieres
-    const divAlta = document.querySelector(".pacUnContactoAlta");
-
-    // Limpiar contactos previos
-    document.querySelectorAll(".pacUnContacto").forEach(e => e.remove());
+    const idPaciente = localStorage.getItem("idUsuario");
+    
+const divAlta = document.querySelector(".contactos-container"); //l contenedor real de todos
+    
+    // ✅ Limpiar contenido sin eliminar el contenedor
+    divAlta.innerHTML = "";
 
     let relacionesEnumGlobal = [];
     let contactos = [];
@@ -29,9 +30,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         const divContacto = document.createElement("div");
         divContacto.className = "pacUnContacto";
 
-        // Crear select dinámico para relacionEnum con clase para buscar después
+        // Crear select dinámico para relacionEnum
         const selectRelacion = document.createElement("select");
-        selectRelacion.classList.add("input-relacionEnum", "input"); // <-- aquí el cambio
+        selectRelacion.classList.add("input-relacionEnum", "input");
         relacionesEnumGlobal.forEach(rel => {
             const option = document.createElement("option");
             option.value = rel;
@@ -40,89 +41,79 @@ document.addEventListener("DOMContentLoaded", async function () {
             selectRelacion.appendChild(option);
         });
 
-       divContacto.innerHTML = `
-    <div class="mensaje"></div>
-    <h3>
-        CONTACTO
-        <br>
-       <strong> ${contacto.nombre} </strong>
-    </h3>
-    <table  id="tablapacUnContacto" >
-        <tbody>
-            <tr>
-                <td>
-                    Nombre
-                    <br>
-                    <input type="text" class="input-nombre input" value="${contacto.nombre}" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Teléfono
-                    <br>
-                    <input type="number" class="input-telefono input" value="${contacto.telefono}" />
-                    </td>
-            </tr>
-            <tr>
-                <tr>
-                    <td>
-                        Relación
-                        <br>
-                        <div class="select-container"></div>
-                    </td>
-                </tr>
-
-            </tr>
-            <tr>
-                <td>
-                    Relación Específica
-                    <br>
-                    <input type="text" class="input-relacionEspecifica input" value="${contacto.relacionEspecifica || ''}" /></td>
-            </tr>
-            <tr>
-                <td>
-                    Comentarios
-                    <br>
-                    <input type="text" class="input-comentarios input" value="${contacto.comentarios || ''}" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Correo
-                    <br>
-                    <input type="text" class="input-correo input" value="${contacto.correo || ''}" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align:center;">
-                    <button class="btn-guardar" data-id="${contacto.idContacto}">Guardar Cambios</button>
-                    <button class="btn-eliminar" data-id="${contacto.idContacto}"> Eliminar </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-`;
+        divContacto.innerHTML = `
+            <div class="mensaje"></div>
+            <h3>
+                CONTACTO<br>
+                <strong>${contacto.nombre}</strong>
+            </h3>
+            <table id="tablapacUnContacto">
+                <tbody>
+                    <tr>
+                        <td>
+                            Nombre<br>
+                            <input type="text" class="input-nombre input" value="${contacto.nombre}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Teléfono<br>
+                            <input type="number" class="input-telefono input" value="${contacto.telefono}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Relación<br>
+                            <div class="select-container"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Relación Específica<br>
+                            <input type="text" class="input-relacionEspecifica input" value="${contacto.relacionEspecifica || ''}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Comentarios<br>
+                            <input type="text" class="input-comentarios input" value="${contacto.comentarios || ''}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Correo<br>
+                            <input type="text" class="input-correo input" value="${contacto.correo || ''}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:center;">
+                            <button class="btn-guardar" data-id="${contacto.idContacto}">Guardar Cambios</button>
+                            <button class="btn-eliminar" data-id="${contacto.idContacto}">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
 
         divContacto.querySelector(".select-container").appendChild(selectRelacion);
 
-        // Insertar después del formulario de alta
-        divAlta.insertAdjacentElement("afterend", divContacto);
+        // ✅ Insertar en el contenedor (ya no usamos insertAdjacentElement)
+        divAlta.appendChild(divContacto);
 
-        // Eventos para guardar (aquí cambio el closest)
+        // Guardar cambios
         divContacto.querySelector(".btn-guardar").addEventListener("click", function () {
-            const contenedorContacto = this.closest(".pacUnContacto");  // cambiar tr por div contenedor
+            const contenedorContacto = this.closest(".pacUnContacto");
             const id = this.getAttribute("data-id");
             modificarContactoEnTabla(id, contenedorContacto);
         });
 
-        // Eventos para eliminar
+        // Eliminar contacto
         divContacto.querySelector(".btn-eliminar").addEventListener("click", function () {
             const id = this.getAttribute("data-id");
             eliminarContacto(id);
         });
     });
 
-    // Función para modificar contacto
     function modificarContactoEnTabla(id, contenedor) {
         const contactoActualizado = {
             idContacto: parseInt(id),
@@ -147,7 +138,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             });
     }
 
-    // Función para eliminar contacto
     function eliminarContacto(id) {
         if (!confirm("¿Seguro que deseas eliminar este contacto?")) return;
 

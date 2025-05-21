@@ -339,8 +339,7 @@
 
           
 
-#pacMisRecetas, #pacVerMisMedicos,
-#pacMisContactos
+#pacMisRecetas, #pacVerMisMedicos
 {  
 margin: 20px;
 display: flex;
@@ -349,7 +348,13 @@ overflow-x: visible; /* Quita el scroll horizontal porque ahora va a haber varia
 width: 100%;
 gap: 20px; /* espacio entre filas y columnas */
 }
-
+#pacContactoAlta{  
+margin: 20px;
+flex-wrap: wrap;   /* Esto permite que los items salten a la siguiente fila */
+overflow-x: visible; /* Quita el scroll horizontal porque ahora va a haber varias filas */
+width: 100%;
+gap: 20px; /* espacio entre filas y columnas */
+}
 
 
         .pacUnaReceta,.pacUnMedico
@@ -385,75 +390,94 @@ gap: 20px; /* espacio entre filas y columnas */
 /* CONTACTOS -------------------------------------------------------------------------- */
 
     /*  CONTACTO ALTA------------ */ 
-    .pacUnContactoAlta{background-color: #00669C;  }
+
+
+    .pacUnContactoAlta{background-color: #F0F0F0;
+            border-radius: 10px;}
     .pacUnContactoAlta:hover{ 
             transition: background-color 0.3s;
             box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}
    
             #tablapacAltaContacto{
-                    width: 100%;
+                    width: 40%;
                     margin: auto;
                     text-align: center;
-                    color: white;}
+                    }
 
             #paciente-contactos{padding: 20px 0;
                     width: 80%;
                     margin: auto;}
-    /*  UN CONTACTO-------------- */ 
-    .pacUnContacto{background-color: #84CBF1;} 
-    .pacUnContacto:hover{ 
+
+
+   /*  UN CONTACTO -------------- */
+/* Contenedor de todos los contactos */
+.contactos-container {
+    padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espacio entre cajas */
+  justify-content: flex-start;
+}
+
+/* Cada contacto */
+.pacUnContacto {
+  width: calc((100% - 40px) / 3); /* 3 por fila con 2 gaps de 20px */
+  background-color: #84CBF1;
+  border-radius: 10px;
+  box-sizing: border-box;
+
+}
+
+
+
+.contactos-container .pacUnContacto:hover {
+  box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+#tablapacUnContacto {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  color: white;
+}
+
+#tablapacUnContacto td button {
+  all: unset;           /* borra estilos por defecto */
+  cursor: pointer;
+}
+
+
+
+        /*  FILAS DE TABLAS ------------ */
+        #tablapacAltaContacto tr td,
+        #tablapacUnContacto tr td { padding: 10px 0;}
+
+            /*  BOTONES ------------ */
+            .btnAñadirContacto,
+            #tablapacUnContacto .btn-eliminar,
+            #tablapacUnContacto .btn-guardar {
+            all: unset;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: inherit;
+            white-space: nowrap;
             transition: background-color 0.3s;
-            box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}
+            width: fit-content;
+            }
 
-            #tablapacUnContacto{
-                    width: 80%;
-                    margin: auto;
-                    text-align: center;}
+            /* AÑADIR CONTACTOS */
+            .btnAñadirContacto {background-color: #84CBF1;}
+                    .btnAñadirContacto:hover {background-color: #4699c5;}
 
+            /* ELIMINAR CONTACTO */
+            #tablapacUnContacto .btn-eliminar {background-color: #ff756e;}
+                    #tablapacUnContacto .btn-eliminar:hover {background-color: #b63730;box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.1);}
 
-            #tablapacUnContacto td button{  all: unset;/*BORRA LOS ESTILOS EXTERIORES*/
-             cursor: pointer; /* opcional: si quieres que siga siendo clickeable */}
-
-
-        
-     /*  UN CONTACTO  + ALTA ---------------------- */  
-    #tablapacAltaContacto tr td,#tablapacUnContacto tr td{
-        padding: 10px 0;}
-
-    .pacUnContactoAlta,.pacUnContacto
-        {flex: 0 0 calc(50% - 10px); /* restamos la mitad del gap */
-        box-sizing: border-box;   
-        border-radius: 10px;}
-
-/* BOTONNN -------------------------------------------------------------------------- */
-                
-                .btnAñadirContacto,
-                #tablapacUnContacto .btn-eliminar,
-                #tablapacUnContacto .btn-guardar{
-                        all: unset; /* Esto quita prácticamente todos los estilos del navegador */
-                        color: white; /* Color del texto */
-                        padding: 6px 12px;
-                        border-radius: 16px;
-                        cursor: pointer;
-                        font-size: 14px;
-                        font-family: inherit;
-                        white-space: nowrap; 
-                        transition: background-color 0.3s;
-                        width: fit-content;}
-
-                /*AÑADIR CONTACTOS*/
-                    .btnAñadirContacto{ background-color: #84CBF1;  }
-                    .btnAñadirContacto:hover{background-color: #4699c5;}
-                /*ELIMINAR CONTACTO*/
-                #tablapacUnContacto .btn-eliminar{ background-color: #ff756e;}                  
-                    #tablapacUnContacto .btn-eliminar:hover {background-color: #b63730;
-                                     box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1); }
-                
-                #tablapacUnContacto .btn-guardar{ background-color: #66b794f1;}
-                    #tablapacUnContacto .btn-guardar:hover {background-color: #449a74f1;
-                                     box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}
-
-
-
+            /* GUARDAR CONTACTO */
+            #tablapacUnContacto .btn-guardar {background-color: #66b794f1; }
+                    #tablapacUnContacto .btn-guardar:hover {background-color: #449a74f1; box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.1);}
 
 
