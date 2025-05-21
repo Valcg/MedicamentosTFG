@@ -11,19 +11,31 @@ import medicamentos.entities.Alerta;
 import medicamentos.entities.EstadoAlerta;
 import medicamentos.entities.Medicamento;
 import medicamentos.entities.Paciente;
+import medicamentos.entities.TipoAlerta;
 
 public interface AlertaRepository extends JpaRepository<Alerta, Integer>{
 	
-	@Query("SELECT COUNT(a) FROM Alerta a WHERE a.medicamento = :medicamento AND a.paciente = :paciente AND a.fechaHoraAlerta > :fechaActual AND a.estadoAlerta = 'sinConfirmar'")
-	long countByMedicamentoAndPacienteAndFechaHoraAlertaAfter(@Param("medicamento") Medicamento medicamento, 
-	                                                          @Param("paciente") Paciente paciente, 
-	                                                          @Param("fechaActual") LocalDateTime fechaActual);
+	@Query("SELECT COUNT(a) FROM Alerta a WHERE a.medicamento = :medicamento AND a.paciente = :paciente AND a.fechaHoraAlerta > :fechaActual AND a.estadoAlerta = :estadoAlerta AND a.tipoAlerta = :tipoAlerta")
+	long countByMedicamentoAndPacienteAndFechaHoraAlertaAfterAndTipoAlerta(
+	        @Param("medicamento") Medicamento medicamento,
+	        @Param("paciente") Paciente paciente,
+	        @Param("fechaActual") LocalDateTime fechaActual,
+	        @Param("estadoAlerta") EstadoAlerta estadoAlerta,
+	        @Param("tipoAlerta") TipoAlerta tipoAlerta
+	);
+
 	
 	List<Alerta> findByEstadoAlertaAndFechaHoraAlertaBefore(EstadoAlerta estado, LocalDateTime fecha);
 	
 	 List<Alerta> findByPaciente(Paciente paciente);
 
+	 @Query("SELECT a FROM Alerta a WHERE a.paciente = :paciente AND a.medicamento = :medicamento AND a.estadoAlerta = :estado AND a.tipoAlerta = :tipo")
+	 Alerta findAlertasBajoStock(
+	     @Param("paciente") Paciente paciente,
+	     @Param("medicamento") Medicamento medicamento,
+	     @Param("estado") EstadoAlerta estado,
+	     @Param("tipo") TipoAlerta tipo
+	 );
 
-	
 
 }

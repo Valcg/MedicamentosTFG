@@ -12,6 +12,7 @@ import medicamentos.entities.EstadoAlerta;
 import medicamentos.entities.Medicamento;
 import medicamentos.entities.PacienteMedicamento;
 import medicamentos.entities.TipoAlerta;
+import medicamentos.medicamentosDto.ResultadoVerificacionStockDTO;
 import medicamentos.repository.AlertaRepository;
 import medicamentos.repository.MedicamentoRepository;
 import medicamentos.repository.PacienteMedicamentoRepository;
@@ -27,6 +28,9 @@ public class MedicamentoServiceImpl implements MedicamentoService {
 
 	@Autowired
 	private AlertaRepository alertaRepository;
+	
+	@Autowired
+	private AlertaService alertaService;
 
 	@Override
 	public Medicamento alta(Medicamento entidad) {
@@ -96,8 +100,10 @@ public class MedicamentoServiceImpl implements MedicamentoService {
 			int stockActual = pacienteMedicamento.getCantidadDisponible();
 
 			// If stock is less than half a box and there are pending alerts
-			long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfter(medicamento,
-					pacienteMedicamento.getPaciente(), LocalDateTime.now());
+			long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfterAndTipoAlerta(medicamento,
+					pacienteMedicamento.getPaciente(), LocalDateTime.now(), 
+	    		    EstadoAlerta.sinConfirmar, 
+	    		    TipoAlerta.medicacion);
 
 // If stock is less than half a box and there are pending alerts
 			if (stockActual < cantidadUnidadPorCaja / 2 && alertasPendientes > 0) {
@@ -111,46 +117,128 @@ public class MedicamentoServiceImpl implements MedicamentoService {
 		return false; // No update necessary
 	}
 
+	
 	@Override
-	 public boolean verificarStockPorPacienteYMedicamento(int idPaciente, int idMedicamento) {
-        // Obtener el registro de paciente-medicamento
-        PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepository
-                .findByPacienteIdAndMedicamentoId(idPaciente, idMedicamento);
-        
-        // Verificar si existe el medicamento
-        Optional<Medicamento> medicamentoOptional = medicamentoRepository.findById(idMedicamento);
+	public ResultadoVerificacionStockDTO verificarStockPorPacienteYMedicamento(int idPaciente, int idMedicamento) {
+	    ResultadoVerificacionStockDTO resultado = new ResultadoVerificacionStockDTO();
 
-        // Si no existe el registro o el medicamento, retornamos false
-        if (pacienteMedicamento == null || !medicamentoOptional.isPresent()) {
-            return false; // No se puede verificar, ya sea porque no existe la relación o el medicamento
-        }
+	    PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepository
+	            .findByPacienteIdAndMedicamentoId(idPaciente, idMedicamento);
+	    Optional<Medicamento> medicamentoOptional = medicamentoRepository.findById(idMedicamento);
 
-        Medicamento medicamento = medicamentoOptional.get();
-        int cantidadUnidadPorCaja = medicamento.getCantidadUnidad(); // Unidades por caja
-        int stockActual = pacienteMedicamento.getCantidadDisponible(); // Stock disponible en paciente
+	    if (pacienteMedicamento == null || !medicamentoOptional.isPresent()) {
+	        resultado.setStockSuficiente(true); // No hay relación, no aplica
+	        return resultado;
+	    }
 
-        // Verificar si el stock es menor a la mitad de una caja
-        if (stockActual < cantidadUnidadPorCaja / 2) {
-            // Comprobar si hay alertas pendientes para este medicamento y paciente
-            long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfter(
-                    medicamento, pacienteMedicamento.getPaciente(), LocalDateTime.now());
+	    Medicamento medicamento = medicamentoOptional.get();
 
-            // Si hay alertas pendientes, crear una nueva alerta de "bajostock"
-            if (alertasPendientes > 0) {
-                Alerta alertaBajoStock = Alerta.builder()
-                        .paciente(pacienteMedicamento.getPaciente())
-                        .medicamento(medicamento)
-                        .fechaHoraAlerta(LocalDateTime.now()) // Fecha de la alerta
-                        .estadoAlerta(EstadoAlerta.sinConfirmar)
-                        .tipoAlerta(TipoAlerta.bajo_stock)
-                        .build();
-                alertaRepository.save(alertaBajoStock); // Guardar la alerta
-                return true; // Alerta creada y stock verificado
-            }
-        }
+	    // ¿Ya existe una alerta sin confirmar?
+	  
+	    Alerta alertaExistente = alertaService.buscarAlertaBajoStockExistente(idPaciente, idMedicamento);
+	    if (alertaExistente != null) {
+	        resultado.setYaExisteAlerta(true);
+	        resultado.setIdAlertaGenerada(alertaExistente.getIdAlerta());
+	        resultado.setMensaje("Ya existe una alerta de bajo stock sin confirmar.");
 
-        return false; // No es necesario crear alerta, el stock es suficiente o no hay alertas pendientes
-    }
+	        return resultado;
+	    }
+
+	    int cantidadUnidadPorCaja = medicamento.getCantidadUnidad();
+	    int stockActual = pacienteMedicamento.getCantidadDisponible();
+	    // Verificar si el stock es bajo
+	    if (stockActual < cantidadUnidadPorCaja / 2) {
+	        long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfterAndTipoAlerta(
+	                medicamento,
+	                pacienteMedicamento.getPaciente(),
+	                LocalDateTime.now(),
+	                EstadoAlerta.sinConfirmar,
+	                TipoAlerta.medicacion
+	        );
+
+	        if (alertasPendientes > 0) {
+	            Alerta alertaBajoStock = Alerta.builder()
+	                    .paciente(pacienteMedicamento.getPaciente())
+	                    .medicamento(medicamento)
+	                    .fechaHoraAlerta(LocalDateTime.now())
+	                    .estadoAlerta(EstadoAlerta.sinConfirmar)
+	                    .tipoAlerta(TipoAlerta.bajo_stock)
+	                    .build();
+
+	            alertaRepository.save(alertaBajoStock);
+
+	            resultado.setAlertaGenerada(true);
+	            resultado.setIdAlertaGenerada(alertaBajoStock.getIdAlerta());
+	            resultado.setMensaje("Se ha generado una nueva alerta de bajo stock.");
+
+	            return resultado;
+	        }
+	    }
+
+	    resultado.setStockSuficiente(true);
+	    resultado.setMensaje("Stock suficiente, no es necesario generar alerta.");
+
+	    return resultado;
+	}
+
+	/*@Override
+	public boolean verificarStockPorPacienteYMedicamento(int idPaciente, int idMedicamento) {
+	    // Obtener la relación paciente-medicamento
+	    PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepository
+	            .findByPacienteIdAndMedicamentoId(idPaciente, idMedicamento);
+
+	    // Obtener el medicamento como Optional
+	    Optional<Medicamento> medicamentoOptional = medicamentoRepository.findById(idMedicamento);
+
+	    // Si no existe la relación o el medicamento, salimos
+	    if (pacienteMedicamento == null || !medicamentoOptional.isPresent()) {
+	        return false;
+	    }
+
+	    Medicamento medicamento = medicamentoOptional.get();
+
+	    // Verificar si ya hay una alerta de bajo stock sin confirmar
+	    boolean yaExisteAlerta = alertaService.buscarAlertasBajoStock(idPaciente, idMedicamento);
+	    if (yaExisteAlerta) {
+	        return false;
+	        // Ya hay una alerta activa
+	    }
+
+	    int cantidadUnidadPorCaja = medicamento.getCantidadUnidad();
+	    int stockActual = pacienteMedicamento.getCantidadDisponible();
+
+	    // Verificar si el stock es bajo
+	    if (stockActual < cantidadUnidadPorCaja / 2) {
+	        // Verificar si hay alertas de medicación futuras pendientes
+	    	
+	    	long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfterAndTipoAlerta(
+	    		    medicamento, 
+	    		    pacienteMedicamento.getPaciente(), 
+	    		    LocalDateTime.now(), 
+	    		    EstadoAlerta.sinConfirmar, 
+	    		    TipoAlerta.medicacion
+	    		);
+	    	System.out.println("alertas pendeintes"+alertasPendientes);
+
+
+	        // Si hay alertas de medicación pendientes, crear alerta de bajo stock
+	        if (alertasPendientes > 0) {
+	            Alerta alertaBajoStock = Alerta.builder()
+	                    .paciente(pacienteMedicamento.getPaciente())
+	                    .medicamento(medicamento)
+	                    .fechaHoraAlerta(LocalDateTime.now())
+	                    .estadoAlerta(EstadoAlerta.sinConfirmar)
+	                    .tipoAlerta(TipoAlerta.bajo_stock)
+	                    .build();
+	            alertaRepository.save(alertaBajoStock);
+	            return true;
+	        }
+	    }
+
+	    return false; // No cumple condiciones
+	}
+
+	*/
 }
 
 

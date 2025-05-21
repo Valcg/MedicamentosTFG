@@ -18,12 +18,21 @@ import medicamentos.entities.Paciente;
 import medicamentos.entities.Receta;
 import medicamentos.entities.TipoAlerta;
 import medicamentos.repository.AlertaRepository;
+import medicamentos.repository.MedicamentoRepository;
+import medicamentos.repository.PacienteRepository;
 
 @Service
 public class AlertaServiceImpl implements AlertaService {
 	
 	@Autowired
     private AlertaRepository alertaRepository;
+	
+
+	@Autowired
+    private PacienteRepository pacienteRepository;
+	
+	@Autowired
+    private MedicamentoRepository medicamentoRepository;
 
 	@Override
 	public Alerta alta(Alerta entidad) {
@@ -151,6 +160,34 @@ public class AlertaServiceImpl implements AlertaService {
 	            return false;
 	        }
 	    }
+
+	@Override
+	public Alerta buscarAlertaBajoStockExistente(int idPaciente, int idMedicamento) {
+	    try {
+	        Paciente paciente = pacienteRepository.findById(idPaciente).orElse(null);
+	        Medicamento medicamento = medicamentoRepository.findById(idMedicamento).orElse(null);
+
+	        if (paciente == null || medicamento == null) {
+	            return null;
+	        }
+
+	        // Buscar alerta sin confirmar y de tipo bajo_stock
+	        return alertaRepository.findAlertasBajoStock(
+	                paciente,
+	                medicamento,
+	                EstadoAlerta.sinConfirmar,
+	                TipoAlerta.bajo_stock
+	        );
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+
+
+
+
 
 
 

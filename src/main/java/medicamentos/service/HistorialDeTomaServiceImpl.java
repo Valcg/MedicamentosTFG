@@ -14,6 +14,7 @@ import medicamentos.entities.EstadoAlerta;
 import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.PacienteMedicamento;
 import medicamentos.entities.Receta;
+import medicamentos.entities.TipoAlerta;
 import medicamentos.repository.AlertaRepository;
 import medicamentos.repository.HistorialDeTomaRepository;
 import medicamentos.repository.PacienteMedicamentoRepository;
@@ -134,11 +135,13 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	        alertaRepository.save(alerta);
 	        
 	        // Contar las alertas pendientes para este medicamento y paciente
-	        long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfter(
-	                alerta.getMedicamento(),
+	        
+	    	long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfterAndTipoAlerta( 
+	    			alerta.getMedicamento(),
 	                alerta.getPaciente(),
-	                LocalDateTime.now()
-	        );
+	                LocalDateTime.now(), 
+	    		    EstadoAlerta.sinConfirmar, 
+	    		    TipoAlerta.medicacion);
 
 	        // Si no hay más alertas pendientes, caducar la receta
 	        if (alertasPendientes == 0) {
@@ -163,13 +166,9 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	                .orElseThrow(() -> new RuntimeException("Alerta no encontrada"));
 
 	        // Verificar si ya fue confirmada
-	        if (alerta.getEstadoAlerta() == EstadoAlerta.confirmado) {
+	        if (alerta.getEstadoAlerta() == EstadoAlerta.confirmado || alerta.getEstadoAlerta() == EstadoAlerta.confirmadaTarde) {
 	            return false; // Ya estaba confirmada
 	        }
-
-	        // Marcar la alerta como confirmada (aunque fue tarde)
-	        alerta.setEstadoAlerta(EstadoAlerta.confirmadaTarde);
-	        alertaRepository.save(alerta);
 
 	        // Buscar receta activa
 	        Receta receta = recetaRepository.findByPacienteIdAndMedicamentoIdAndCaducidadActiva(
@@ -178,7 +177,8 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	        );
 
 	        if (receta == null) {
-	            throw new RuntimeException("No se encontró receta activa para este medicamento y paciente");
+	            System.out.println("Receta no activa. No se puede confirmar.");
+	            return false;
 	        }
 
 	        // Buscar stock del paciente
@@ -188,28 +188,29 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	                        alerta.getMedicamento().getIdMedicamento()
 	                );
 
-	        if (pacienteMedicamento == null) {
-	            throw new RuntimeException("No se encontró stock del paciente para este medicamento");
-	        }
-	        
-	        if (pacienteMedicamento.getCantidadDisponible() < receta.getDosis()) {
+	        if (pacienteMedicamento == null || pacienteMedicamento.getCantidadDisponible() < receta.getDosis()) {
 	            System.out.println("No hay suficiente medicamento para confirmar la toma.");
-	            throw new RuntimeException("No hay suficiente medicamento para confirmar la toma.");
+	            return false;
 	        }
 
-	        // Restar dosis
+	        // Restar dosis del stock
 	        int cantidadNueva = pacienteMedicamento.getCantidadDisponible() - receta.getDosis();
 	        pacienteMedicamento.setCantidadDisponible(cantidadNueva);
 	        pacienteMedicamentoRepository.save(pacienteMedicamento);
-	        
-	     // Contar las alertas pendientes para este medicamento y paciente
-	        long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfter(
+
+	        // Marcar la alerta como confirmada tarde
+	        alerta.setEstadoAlerta(EstadoAlerta.confirmadaTarde);
+	        alertaRepository.save(alerta);
+
+	        // Verificar si ya no quedan más alertas pendientes
+	        long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfterAndTipoAlerta(
 	                alerta.getMedicamento(),
 	                alerta.getPaciente(),
-	                LocalDateTime.now()
+	                LocalDateTime.now(),
+	                EstadoAlerta.sinConfirmar,
+	                TipoAlerta.medicacion
 	        );
 
-	        // Si no hay más alertas pendientes, caducar la receta
 	        if (alertasPendientes == 0) {
 	            receta.setCaducidad(Caducidad.Caducada);
 	            recetaRepository.save(receta);
@@ -222,6 +223,7 @@ public class HistorialDeTomaServiceImpl implements HistorialDeTomaService{
 	        return false;
 	    }
 	}
+
 	
 	@Transactional
 	public void registrarTomasNoConfirmadas() {

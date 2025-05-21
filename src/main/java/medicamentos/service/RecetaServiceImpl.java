@@ -196,8 +196,15 @@ public class RecetaServiceImpl implements RecetaService {
 		            .orElseThrow(() -> new RuntimeException("Receta no encontrada"));
 
 		    // Verificar si hay alertas pendientes (futuras)
-		    long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfter(
-		            receta.getMedicamento(), receta.getPaciente(), LocalDateTime.now());
+		  
+		    
+			long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfterAndTipoAlerta( 
+					receta.getMedicamento(),
+					receta.getPaciente(),
+	                LocalDateTime.now(), 
+	    		    EstadoAlerta.sinConfirmar, 
+	    		    TipoAlerta.medicacion);
+
 
 		    if (alertasPendientes > 0) {
 		        throw new IllegalStateException("No puede caducar la receta, aún hay alertas pendientes.");

@@ -27,6 +27,7 @@ import medicamentos.entities.Paciente;
 import medicamentos.entities.PacienteMedicamento;
 import medicamentos.entities.Receta;
 import medicamentos.entities.RelacionEnum;
+import medicamentos.medicamentosDto.ResultadoVerificacionStockDTO;
 import medicamentos.service.AlertaService;
 import medicamentos.service.ContactoEmergenciaService;
 import medicamentos.service.HistorialDeTomaService;
@@ -210,19 +211,19 @@ public class PacienteRestController {
 	    }
 	 
 	 @PostMapping("/verificar-stock/{idPaciente}/{idMedicamento}")
-	    public ResponseEntity<String> verificarStock(@PathVariable int idPaciente, @PathVariable int idMedicamento) {
-	        try {
-	            boolean stockVerificado = medicamentoService.verificarStockPorPacienteYMedicamento(idPaciente, idMedicamento);
-	            
-	            if (stockVerificado) {
-	                return ResponseEntity.ok("Stock verificado correctamente. Se ha generado una alerta de bajostock si es necesario.");
-	            } else {
-	                return ResponseEntity.ok("Stock suficiente, no es necesario generar alerta.");
-	            }
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al verificar stock");
-	        }
-	    }
+	 public ResponseEntity<ResultadoVerificacionStockDTO> verificarStock(
+	         @PathVariable int idPaciente, @PathVariable int idMedicamento) {
+	     try {
+	         ResultadoVerificacionStockDTO resultado = medicamentoService.verificarStockPorPacienteYMedicamento(idPaciente, idMedicamento);
+	         return ResponseEntity.ok(resultado);
+	     } catch (Exception e) {
+	         ResultadoVerificacionStockDTO errorDTO = ResultadoVerificacionStockDTO.builder()
+	                 .mensaje("Error al verificar stock: " + e.getMessage())
+	                 .build();
+	         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDTO);
+	     }
+	 }
+
 	 
 	 
 	    // Confirmar alerta bajo stock (cambia estado a confirmado)
