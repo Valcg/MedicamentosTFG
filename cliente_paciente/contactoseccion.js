@@ -41,52 +41,62 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
        divContacto.innerHTML = `
-    <div class="mensaje" ></div>
+    <div class="mensaje"></div>
     <h3>
         CONTACTO
         <br>
-        ${contacto.nombre}
+       <strong> ${contacto.nombre} </strong>
     </h3>
-    <table  id="tablapacUnContacto" style="border: solid 1px yellow;">
+    <table  id="tablapacUnContacto" >
         <tbody>
             <tr>
-                <td>Nombre:
-                <br>
-                <input type="text" class="input-nombre input" value="${contacto.nombre}" /></td>
+                <td>
+                    Nombre
+                    <br>
+                    <input type="text" class="input-nombre input" value="${contacto.nombre}" />
+                </td>
             </tr>
             <tr>
-                <td>Teléfono
-                <br>
-                <input type="number" class="input-telefono input" value="${contacto.telefono}" /></td>
+                <td>
+                    Teléfono
+                    <br>
+                    <input type="number" class="input-telefono input" value="${contacto.telefono}" />
+                    </td>
             </tr>
             <tr>
                 <tr>
-                    <td>Relación
-                    <br>
-                    <div class="select-container"></div>
+                    <td>
+                        Relación
+                        <br>
+                        <div class="select-container"></div>
                     </td>
                 </tr>
 
             </tr>
             <tr>
-                <td>Relación Específica
-                <br>
-                <input type="text" class="input-relacionEspecifica input" value="${contacto.relacionEspecifica || ''}" /></td>
+                <td>
+                    Relación Específica
+                    <br>
+                    <input type="text" class="input-relacionEspecifica input" value="${contacto.relacionEspecifica || ''}" /></td>
             </tr>
             <tr>
-                <td>Comentarios
-                <br>
-                <input type="text" class="input-comentarios input" value="${contacto.comentarios || ''}" /></td>
+                <td>
+                    Comentarios
+                    <br>
+                    <input type="text" class="input-comentarios input" value="${contacto.comentarios || ''}" />
+                </td>
             </tr>
             <tr>
-                <td>Correo
-                <br>
-                <input type="text" class="input-correo input" value="${contacto.correo || ''}" /></td>
+                <td>
+                    Correo
+                    <br>
+                    <input type="text" class="input-correo input" value="${contacto.correo || ''}" />
+                </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align:center;">
-                    <button class="btn-guardar" data-id="${contacto.idContacto}">GUARDAR</button>
-                    <button class="btn-eliminar" data-id="${contacto.idContacto}">X</button>
+                    <button class="btn-guardar" data-id="${contacto.idContacto}">Guardar Cambios</button>
+                    <button class="btn-eliminar" data-id="${contacto.idContacto}"> Eliminar </button>
                 </td>
             </tr>
         </tbody>

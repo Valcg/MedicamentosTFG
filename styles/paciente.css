@@ -277,22 +277,22 @@
                 #tablapacienteMisAlertas,
                 #tablapacienteMiHistorial
                 { width: 100%;                           
-                        border-collapse: collapse;}
+                border-collapse: collapse;}
 
                 
                 #tablaMedicamentosPaciente tr td,
                 #tablapacienteMisAlertas tr td,
                 #tablapacienteMiHistorial tr td,
                 #tablaPacMisRecetas tr td
-                            {border-bottom: 1px solid  white;
-                            padding: 10px 8px;}
+                {border-bottom: 1px solid  white;
+                padding: 10px 8px;}
 
                         .tablahover:hover{background-color: white;}
                         .tabla-scroll {overflow-x: auto; }
 /* BOTONES -------------------------------------------------------------------------- */
                 .btnAgregarStock,
-                .btnpaconfirmhistorial,.btnpaconfirmhistorialModal,
-                .btnAñadirContacto{
+                .btnpaconfirmhistorial,
+                .btnpaconfirmhistorialModal{
                         all: unset; /* Esto quita prácticamente todos los estilos del navegador */
                         color: white; /* Color del texto */
                         padding: 6px 12px;
@@ -311,9 +311,6 @@
                 .btnpaconfirmhistorial{ background-color:   #0d7ebb;  }
                         .btnpaconfirmhistorial:hover{background-color: #00669C;}
 
-                /*MIS MEDICAMENTOS*/
-                .btnAñadirContacto{ background-color: #dac47c;  }
-                        .btnAñadirContacto:hover{background-color: #c9b268;}
 
                 /* TABLA : MIS ALERTAS MEDICAS-------------------------------------------------------------------------- */
                     .estadoact,.estadoinact,.estadotarde,
@@ -385,70 +382,78 @@ gap: 20px; /* espacio entre filas y columnas */
             .der{margin:2px 0;text-align: left;}
             
 
-        /* CONTACTO ALTA -------------------------------------------------------------------------- */
+/* CONTACTOS -------------------------------------------------------------------------- */
 
-        #paciente-contactos{padding: 20px 0;
-            width: 80%;
-            margin: auto;}
+    /*  CONTACTO ALTA------------ */ 
+    .pacUnContactoAlta{background-color: #00669C;  }
+    .pacUnContactoAlta:hover{ 
+            transition: background-color 0.3s;
+            box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}
+   
+            #tablapacAltaContacto{
+                    width: 100%;
+                    margin: auto;
+                    text-align: center;
+                    color: white;}
 
-        .pacUnContactoAlta{background-color: #00669C;}
-        .pacUnContacto{background-color: #84CBF1;}
-        .pacUnContactoAlta,.pacUnContacto
-        {   
-            flex: 0 0 calc(50% - 10px); /* restamos la mitad del gap */
-            box-sizing: border-box;   
-            border-radius: 10px;
-        }
+            #paciente-contactos{padding: 20px 0;
+                    width: 80%;
+                    margin: auto;}
+    /*  UN CONTACTO-------------- */ 
+    .pacUnContacto{background-color: #84CBF1;} 
+    .pacUnContacto:hover{ 
+            transition: background-color 0.3s;
+            box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}
 
-/* CONTACTO  UN CONTACTO -------------------------------------------------------------------------- */
+            #tablapacUnContacto{
+                    width: 80%;
+                    margin: auto;
+                    text-align: center;}
+
+
+            #tablapacUnContacto td button{  all: unset;/*BORRA LOS ESTILOS EXTERIORES*/
+             cursor: pointer; /* opcional: si quieres que siga siendo clickeable */}
+
+
+        
+     /*  UN CONTACTO  + ALTA ---------------------- */  
+    #tablapacAltaContacto tr td,#tablapacUnContacto tr td{
+        padding: 10px 0;}
+
+    .pacUnContactoAlta,.pacUnContacto
+        {flex: 0 0 calc(50% - 10px); /* restamos la mitad del gap */
+        box-sizing: border-box;   
+        border-radius: 10px;}
+
+/* BOTONNN -------------------------------------------------------------------------- */
                 
-        #tablapacUnContacto{width: 80%;
-            margin: auto;}
-
-        #tablapacUnContacto tr td /* MIS CONTACTOS -- UN CONTACTO MINITABLA*/
-            {border-top: 1px solid  white;
-            padding: 10px 0;}
-
-
-
-
-        /* --------------------------- TABLA --------------------------- */
-
-
-
-                    #tabla td button{  all: unset;/*BORRA LOS ESTILOS EXTERIORES*/
-                        cursor: pointer; /* opcional: si quieres que siga siendo clickeable */}
-
-                        /* Estilo para el botón de eliminar */
-                    .eliminar-btn-miscuidadores {
-                        background-color: #ff756e; /* Rojo pastel */
-                        color: white; /* X en blanco */
-                        width: 30px;
-            padding: 5px;
-            display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-weight: bold;
-                        border-radius: 4px; /* Bordes redondeados */
+                .btnAñadirContacto,
+                #tablapacUnContacto .btn-eliminar,
+                #tablapacUnContacto .btn-guardar{
+                        all: unset; /* Esto quita prácticamente todos los estilos del navegador */
+                        color: white; /* Color del texto */
+                        padding: 6px 12px;
+                        border-radius: 16px;
                         cursor: pointer;
-                        transition:  0.3s ease;
-                    }
-                    /* Hover para el botón de eliminar */
-                    .eliminar-btn-miscuidadores:hover {
-                        background-color: #b63730; /* Un rojo más oscuro al hacer hover */
-                    }
+                        font-size: 14px;
+                        font-family: inherit;
+                        white-space: nowrap; 
+                        transition: background-color 0.3s;
+                        width: fit-content;}
+
+                /*AÑADIR CONTACTOS*/
+                    .btnAñadirContacto{ background-color: #84CBF1;  }
+                    .btnAñadirContacto:hover{background-color: #4699c5;}
+                /*ELIMINAR CONTACTO*/
+                #tablapacUnContacto .btn-eliminar{ background-color: #ff756e;}                  
+                    #tablapacUnContacto .btn-eliminar:hover {background-color: #b63730;
+                                     box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1); }
+                
+                #tablapacUnContacto .btn-guardar{ background-color: #66b794f1;}
+                    #tablapacUnContacto .btn-guardar:hover {background-color: #449a74f1;
+                                     box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}
 
 
-                    /* BTN AGREGAR --------------------------- */
-                    #btnAgregar {
-                        background-color: #4CAF50; 
-                        color: white;
-                        padding: 5px;
-                        border: none;
-                        border-radius: 5px;
-                        cursor: pointer;
-                        font-size: 16px;
-                    }
-                    #btnAgregar:hover {
-                        background-color: #235726; 
-                    }
+
+
+

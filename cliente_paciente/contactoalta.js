@@ -4,25 +4,69 @@ document.addEventListener("DOMContentLoaded", function () {
     // 📌 Crear el HTML del formulario desde JS
     const seccion = document.createElement("div");
 
-
     seccion.innerHTML = `
-        <form id="form-contacto" style="text-align:center;">
-            <h2> Dar de Alta Nuevo Contacto</h2>
-            <input type="text" id="nombre" class="input" placeholder="Nombre del contacto" required />
-            <hr>
-            <input type="number" id="telefono" class="input" placeholder="Teléfono" required />
-            <hr>
-            <select id="relacionEnum" required class="input">
-                <option value="">Seleccione una relación</option>
-            </select>
-            <hr>
-            <input type="text" id="relacionEspecifica" class="input" placeholder="Relación específica" />
-            <hr>
-            <input type="text" id="comentarios" class="input" placeholder="Comentarios" />
-            <hr>
-            <input type="email" id="correo" class="input" placeholder="Correo electrónico" />
-            <hr>
-            <button type="submit" class="btnAñadirContacto hover">Guardar contacto</button>
+      <form id="form-contacto">
+
+            <h2><strong style="color:white;"> Dar de Alta Nuevo Contacto</strong></h2>
+            <table id="tablapacAltaContacto">
+                <tbody>
+                    <tr>
+                        <td>
+                            Nombre
+                            <br>
+                            <input type="text" id="nombre" class="input" placeholder="Nombre del contacto" required />
+                        </td>
+                    </tr>
+               
+                    <tr>
+                        <td>
+                            Teléfono
+                            <br>
+                            <input type="number" id="telefono" class="input" placeholder="Teléfono" required />
+                        </td>
+                    </tr>
+           
+                    <tr>
+                        <td>
+                            Relación
+                            <br>
+                            <select id="relacionEnum" required class="input">
+                                <option value="">Seleccione una relación</option>
+                            </select>
+                        </td>
+                    </tr>
+      
+                    <tr>
+                        <td>
+                            Relación Específica
+                            <br>
+                            <input type="text" id="relacionEspecifica" class="input" placeholder="Relación específica" />
+                        </td>
+                    </tr>
+                 
+                    <tr>
+                        <td>
+                            Comentarios
+                            <br>
+                            <input type="text" id="comentarios" class="input" placeholder="Comentarios" />
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            Correo
+                            <br>
+                            <input type="email" id="correo" class="input" placeholder="Correo electrónico" />
+                        </td>
+                    </tr>
+                  
+                    <tr>
+                        <td style="text-align:center;">
+                            <button type="submit" class="btnAñadirContacto hover">Guardar contacto</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </form>
         <div id="mensaje" class="mensaje-contacto mt-2"></div>
     `;
@@ -48,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             relaciones.forEach(rel => {
                 const option = document.createElement("option");
                 option.value = rel;
-                option.textContent = rel.charAt(0) + rel.slice(1).toLowerCase();
+                option.textContent = rel.charAt(0).toUpperCase() + rel.slice(1).toLowerCase();
                 selectRelacion.appendChild(option);
             });
         })
