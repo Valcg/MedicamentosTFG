@@ -93,10 +93,8 @@
              </div>
 
 
-
         <div class="usu-div-pa">
-       <!---------------- 4 DIVS -->
-                            
+       <!---------------- 4 DIVS -->         
         
                             <!--  VER MI PERFIL -------------- -->
                             <div  class="paciente-item" >
@@ -147,7 +145,8 @@
                                             </div> 
                                     </div>
                             </div>
-            </div><!-- FIN DIV UNO---------------------------- -->
+            </div>
+            <!-- FIN DIV UNO---------------------------- -->
 
 
               <!-- DIV 3 VER MIS CUIDADORES Y  CALENDAR --------------- -->
@@ -172,53 +171,42 @@
 
                 </div>
 
-
 </div>
 
+<!-- CONTACTOS DE EMERGENCIA------------------------------------------------------- -->
 
- <!-- DIV 5 --------------- -->
+           <h1>Contactos de Emergencia</h1>
+
+<!-- CONTACTOS DE EMERGENCIA------------------------------------------------------- -->
+
 <div class="usu-div-pa">
+    <div id="pacMisContactos">
 
-        <div style="background-color: yellow;">
-        <!-- ALTA CONTACTO------------------------------------------------------- -->
-<div id="paciente-contactos"></div>
 
-        <script src="/cliente_paciente/contactoalta.js">  </script>  
+        <div class="pacUnContactoAlta">
+        
+            <!-- ALTA CONTACTO---------------------------------- -->
+            <div id="paciente-contactos" ></div>
+            <script src="/cliente_paciente/contactoalta.js">  </script> 
+
         </div>
+        
+        
+        <script src="cliente_paciente/contactoseccion.js"></script>
 
-
-</div>
-
-<!-- DOS------------------------------------------------------- -->
-<div class="usu-div-pa usu-div-contactos">
-    <h2>Contactos de Emergencia</h2>
-    <div id="paciente-contactos-tabla">
-        <div id="mensaje"></div>
-        <table >
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Teléfono</th>
-                    <th>Relación</th>
-                    <th>Relación Específica</th>
-                    <th>Comentarios</th>
-                    <th>Correo</th>
-                </tr>
-            </thead>
-            <tbody id="tabla-contactos"></tbody>
-        </table>
-</div>
-
-<script src="cliente_paciente/contactoseccion.js">  </script>   
+    </div>
 
 </div>
+
+<!-- MODAL------------------------------------------------------- -->
 
 
 <div class="usu-div-pa"> 
         <button id="openModalBtn" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 15px;">Ver Alertas</button>
 TEXTO
-    <div id="modalalerta" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
-    background: rgba(0,0,0,0.7); display:flex; justify-content:center; align-items:center; z-index:9999;">
+ <div id="modalalerta" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+    background: rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:9999;">
+
     <div style="background:white; padding:20px; border-radius:8px; width: 90%; max-width: 450px; position: relative;">
         <!-- Botón cerrar modal con X en negro -->
         <button id="closeModalBtn" 
@@ -279,12 +267,9 @@ TEXTO
     
 <!--SCRIPTS ------------------------------------------------------- -->
         <script src="main.js"></script>
-
-        
+   
         <script src="cliente_paciente/enlaces.js"></script>
-
        <script src="cliente_paciente/alertamodal.js"></script>
-
 
 </body>
 </html>

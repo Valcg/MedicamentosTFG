@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const url = `http://medicade-back.involux.es/medicos/VerMiPerfilMedico/${numeroColegiado}`;
+    const url = `http://localhost:9050/medicos/VerMiPerfilMedico/${numeroColegiado}`;
 
     axios.get(url)
         .then(res => {

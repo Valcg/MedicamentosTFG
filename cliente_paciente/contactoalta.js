@@ -3,24 +3,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 📌 Crear el HTML del formulario desde JS
     const seccion = document.createElement("div");
-    seccion.id = "seccion-contacto-emergencia";
-    seccion.className = "contacto-emergencia";
+
 
     seccion.innerHTML = `
-    
-        <form id="form-contacto" class="formulario-contacto" style="background-color: yellow; padding: 1rem; border-radius: 8px;">
-            <input type="text" id="nombre" placeholder="Nombre del contacto" required />
-            <input type="number" id="telefono" placeholder="Teléfono" required />
-            <select id="relacionEnum" required>
+        <form id="form-contacto" style="text-align:center;">
+            <h2> Dar de Alta Nuevo Contacto</h2>
+            <input type="text" id="nombre" class="input" placeholder="Nombre del contacto" required />
+            <hr>
+            <input type="number" id="telefono" class="input" placeholder="Teléfono" required />
+            <hr>
+            <select id="relacionEnum" required class="input">
                 <option value="">Seleccione una relación</option>
             </select>
-            <input type="text" id="relacionEspecifica" placeholder="Relación específica" />
-            <input type="text" id="comentarios" placeholder="Comentarios" />
-            <input type="email" id="correo" placeholder="Correo electrónico" />
-            <button type="submit">Guardar contacto</button>
+            <hr>
+            <input type="text" id="relacionEspecifica" class="input" placeholder="Relación específica" />
+            <hr>
+            <input type="text" id="comentarios" class="input" placeholder="Comentarios" />
+            <hr>
+            <input type="email" id="correo" class="input" placeholder="Correo electrónico" />
+            <hr>
+            <button type="submit" class="btnAñadirContacto hover">Guardar contacto</button>
         </form>
         <div id="mensaje" class="mensaje-contacto mt-2"></div>
     `;
+
     contenedor.appendChild(seccion);
 
     // 📌 Lógica del formulario
@@ -36,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // 🔄 Cargar opciones del enum desde el backend
-    axios.get("http://medicade-back.involux.es/pacientes/relacionesContactoEmergencia")
+    axios.get("http://localhost:9050/pacientes/relacionesContactoEmergencia")
         .then(res => {
             const relaciones = res.data;
             relaciones.forEach(rel => {
@@ -67,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
 
-        axios.post("http://medicade-back.involux.es/pacientes/alta-contacto-emergencia", contactoEmergencia)
+        axios.post("http://localhost:9050/pacientes/alta-contacto-emergencia", contactoEmergencia)
             .then(res => {
                 mensaje.innerHTML = "<p style='color: green;'>Contacto de emergencia guardado con éxito.</p>";
                 form.reset();

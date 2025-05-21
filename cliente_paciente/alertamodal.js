@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const url = `http://medicade-back.involux.es/pacientes/VermisAlertas/${idPaciente}`;
+    const url = `http://localhost:9050/pacientes/VermisAlertas/${idPaciente}`;
 
     function mostrarModal(alertaProxima = null) {
         if (!alertaProxima) {
@@ -26,54 +26,46 @@ document.addEventListener("DOMContentLoaded", function () {
         const esSinConfirmar = alertaProxima.estadoAlerta === "sinConfirmar";
         const { fechaTexto, horaTexto } = obtenerFechaYHoraFormateada(alertaProxima.fechaHoraAlerta);
         const horaConfirmada = alertaProxima.horaConfirmacion ? new Date(alertaProxima.horaConfirmacion).toLocaleTimeString() : null;
-
         const tiempoRestante = fechaProx - new Date();
         const puedeConfirmar = tiempoRestante <= 10 * 60 * 1000;
 
-        // Mostrar texto legible
         const estadoTextoLegible = alertaProxima.estadoAlerta === "confirmado" ? "Confirmado" :
-                                   alertaProxima.estadoAlerta === "sinConfirmar" ? "Sin Confirmar" :
-                                   alertaProxima.estadoAlerta;
+            alertaProxima.estadoAlerta === "sinConfirmar" ? "Sin Confirmar" :
+                alertaProxima.estadoAlerta;
 
         let contenido = `
             <table style="width: 100%; text-align: center; border-collapse: collapse;" class="tabla-alerta-modal">
                 <tr>
                     <td colspan="2" style="border-bottom: 1px solid white;"> 
-                      <h2>
-                        ${fechaTexto} 
-                        <br>
-                       <strong> ${horaTexto} h</strong>
-                      </h2>
+                      <h2>${fechaTexto}<br><strong>${horaTexto} h</strong></h2>
                     </td>
                 </tr>
                 <tr>
-                    <td style=" padding: 10px; text-align: right;" class="right">Medicamento</td>
-                    <td style="font-weight: bold;  padding-left: 10px; text-align: left;">${nombreProx}</td>
+                    <td class="right" style="padding: 10px; text-align: right;">Medicamento</td>
+                    <td style="font-weight: bold; padding-left: 10px; text-align: left;">${nombreProx}</td>
                 </tr>
                 <tr>
                     <td style="padding: 10px; text-align: right;">Estado</td>
-                    <td style=" padding-left: 10px; text-align: left;">
-                        <a id="estadoAlerta" class="${alertaProxima.estadoAlerta === 'Confirmada' ? '' : (esSinConfirmar ? 'estadoinact' : 'estadoact')}">
-                            ${estadoTextoLegible}
-                        </a>
+                    <td style="padding-left: 10px; text-align: left;">
+                        <a id="estadoAlerta" class="${esSinConfirmar ? 'estadoinact' : 'estadoact'}">${estadoTextoLegible}</a>
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 10px; text-align: right;">Hora de la toma</td>
-                    <td style=" padding-left: 10px; text-align: left;"><strong>${horaTexto}</strong></td>
+                    <td style="padding-left: 10px; text-align: left;"><strong>${horaTexto}</strong></td>
                 </tr>
                 ${horaConfirmada ? `
                 <tr>
-                    <td style=" padding: 10px; text-align: right;">Hora de confirmación</td>
-                    <td style=" padding-left: 10px; text-align: left;"><strong>${horaConfirmada}</strong></td>
+                    <td style="padding: 10px; text-align: right;">Hora de confirmación</td>
+                    <td style="padding-left: 10px; text-align: left;"><strong>${horaConfirmada}</strong></td>
                 </tr>` : ''}
                 <tr>
                     <td style="padding: 10px; text-align: right;">Total Uds/Stk</td>
-                    <td style=" padding-left: 10px; text-align: left;"> <strong>${cantidadUnidad} </strong></td>
+                    <td style="padding-left: 10px; text-align: left;"><strong>${cantidadUnidad}</strong></td>
                 </tr>
                 <tr>
-                    <td style=" padding: 10px; text-align: right;">Mi STOCK actual</td>
-                    <td id="cantidad-stock" style=" padding-left: 10px; text-align: left;">Cargando...</td>
+                    <td style="padding: 10px; text-align: right;">Mi STOCK actual</td>
+                    <td id="cantidad-stock" style="padding-left: 10px; text-align: left;">Cargando...</td>
                 </tr>
                 <tr>
                     <td colspan="2" style="padding: 20px;">
@@ -87,14 +79,12 @@ document.addEventListener("DOMContentLoaded", function () {
                                 border: none;
                                 cursor: ${puedeConfirmar ? 'pointer' : 'not-allowed'};
                             "
-                            class="confirmar-alerta-btn"
                             ${!puedeConfirmar ? 'disabled' : ''}
                         >Confirmar Toma</button>
                         ${!puedeConfirmar ? `
                         <p style="color: #999; font-style: italic; margin-top: 10px;">
                             El botón se habilitará cuando queden 10 minutos antes de la hora de la toma.
-                        </p>` : ''}
-                        ` : `<strong>YA CONFIRMASTE LA TOMA</strong>`}
+                        </p>` : ''}` : `<strong>YA CONFIRMASTE LA TOMA</strong>`}
                     </td>
                 </tr>
             </table>
@@ -105,30 +95,18 @@ document.addEventListener("DOMContentLoaded", function () {
         modal.style.display = "flex";
 
         if (esSinConfirmar && puedeConfirmar) {
-            const btnConfirmar = document.getElementById("confirmarAlertaBtn");
-            const mensaje = document.getElementById("mensajeConfirmacion");
-
-            btnConfirmar.addEventListener("click", function () {
-                const urlConfirmar = `http://medicade-back.involux.es/pacientes/aceptarToma/${alertaProxima.idAlerta}`;
-
+            document.getElementById("confirmarAlertaBtn").addEventListener("click", function () {
+                const urlConfirmar = `http://localhost:9050/pacientes/aceptarToma/${alertaProxima.idAlerta}`;
                 axios.post(urlConfirmar)
-                    .then(res => {
+                    .then(() => {
                         const horaConfirmada = new Date().toLocaleTimeString();
-                        mensaje.textContent = `✅ La toma fue confirmada a las ${horaConfirmada}.`;
-                        mensaje.style.color = "green";
-
+                        document.getElementById("mensajeConfirmacion").textContent = `✅ La toma fue confirmada a las ${horaConfirmada}.`;
+                        document.getElementById("mensajeConfirmacion").style.color = "green";
                         document.getElementById("estadoAlerta").textContent = "Confirmado";
-                        btnConfirmar.remove();
-
+                        this.remove();
                         alertaProxima.estadoAlerta = "Confirmada";
                         alertaProxima.horaConfirmacion = new Date().toISOString();
-
-                        ultimaAlerta.estadoAlerta = "Confirmada";
-                        ultimaAlerta.horaConfirmacion = alertaProxima.horaConfirmacion;
-
-                        setTimeout(() => {
-                            location.reload();
-                        }, 1500);
+                        setTimeout(() => location.reload(), 1500);
                     })
                     .catch(err => {
                         alert("Hubo un error al confirmar la toma.");
@@ -138,10 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (puedeConfirmar) {
-            if (intervaloActualizacion) {
-                clearInterval(intervaloActualizacion);
-            }
-
+            if (intervaloActualizacion) clearInterval(intervaloActualizacion);
             intervaloActualizacion = setInterval(() => {
                 mostrarModal(alertaProxima);
                 actualizarCantidadStock(alertaProxima);
@@ -154,26 +129,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function actualizarCantidadStock(alertaProxima) {
-        if (alertaProxima.medicamento && alertaProxima.medicamento.idMedicamento) {
-            const urlCantidad = `http://medicade-back.involux.es/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${alertaProxima.medicamento.idMedicamento}`;
-            axios.get(urlCantidad)
+        if (alertaProxima.medicamento?.idMedicamento) {
+            const urlStock = `http://localhost:9050/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${alertaProxima.medicamento.idMedicamento}`;
+            axios.get(urlStock)
                 .then(response => {
-                    const stock = response.data ? response.data.cantidadDisponible : "No disponible";
+                    const stock = response.data?.cantidadDisponible ?? "No disponible";
                     document.getElementById("cantidad-stock").innerHTML = `<span class="alertunidades">${stock} Uds/Stk</span>`;
                 })
-                .catch(error => {
-                    console.error("Error al obtener la cantidad:", error);
-                    document.getElementById("cantidad-stock").innerHTML = `<span class="alertunidades" style="color: red; font-weight: bold;">Error al obtener</span>`;
+                .catch(() => {
+                    document.getElementById("cantidad-stock").innerHTML = `<span class="alertunidades" style="color: red;">Error</span>`;
                 });
         } else {
-            document.getElementById("cantidad-stock").innerHTML = "<span class='alertunidades' style='color: red;'>ID de medicamento no válido</span>";
+            document.getElementById("cantidad-stock").innerHTML = `<span class="alertunidades" style="color: red;">ID inválido</span>`;
         }
     }
 
     function obtenerFechaYHoraFormateada(fechaStr) {
         const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
-        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 
-                       'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+            'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
         const fecha = new Date(fechaStr);
         const diaSemana = dias[fecha.getDay()];
@@ -183,10 +157,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const hora = fecha.getHours().toString().padStart(2, '0');
         const minutos = fecha.getMinutes().toString().padStart(2, '0');
 
-        const fechaTexto = `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)} ${dia} de ${mes} de ${año}`;
-        const horaTexto = `${hora}:${minutos}`;
-
-        return { fechaTexto, horaTexto };
+        return {
+            fechaTexto: `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)} ${dia} de ${mes} de ${año}`,
+            horaTexto: `${hora}:${minutos}`
+        };
     }
 
     function verificarAlertas() {
@@ -195,10 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const alertas = res.data;
                 const ahora = new Date();
 
-                const alertasFuturas = alertas.filter(alerta => {
-                    const fechaAlerta = new Date(alerta.fechaHoraAlerta);
-                    return fechaAlerta > ahora;
-                });
+                const alertasFuturas = alertas.filter(alerta => new Date(alerta.fechaHoraAlerta) > ahora);
 
                 const alertaProxima = alertasFuturas.sort((a, b) =>
                     new Date(a.fechaHoraAlerta) - new Date(b.fechaHoraAlerta)
@@ -206,13 +177,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (alertaProxima) {
                     ultimaAlerta = alertaProxima;
+                    const tiempoRestanteMin = Math.floor((new Date(alertaProxima.fechaHoraAlerta) - ahora) / 60000);
+                    const esSinConfirmar = alertaProxima.estadoAlerta === "sinConfirmar";
 
-                    if (!modal.classList.contains("yaMostrada")) {
-                        modal.classList.add("yaMostrada");
+                    if ((tiempoRestanteMin === 60 || tiempoRestanteMin === 30) && esSinConfirmar) {
                         mostrarModal(alertaProxima);
                     }
 
-                    mostrarModal(alertaProxima);
+                    if (tiempoRestanteMin <= 10 && tiempoRestanteMin >= 0 && esSinConfirmar) {
+                        mostrarModal(alertaProxima);
+                    }
                 }
             })
             .catch(error => {

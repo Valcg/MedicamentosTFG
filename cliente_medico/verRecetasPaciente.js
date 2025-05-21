@@ -11,7 +11,7 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
 
     recetasContainer.innerHTML = `<h3>Recetas de ${nombrePaciente}</h3><p>Cargando...</p>`;
 
-    axios.get(`http://medicade-back.involux.es/pacientes/VerMisRecetas/${idPaciente}`)
+    axios.get(`http://localhost:9050/pacientes/VerMisRecetas/${idPaciente}`)
         .then(response => {
             const recetas = response.data;
             console.log(recetas);
@@ -120,7 +120,7 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
 }
 
 function caducarReceta(idReceta) {
-    axios.post(`http://medicade-back.involux.es/medicos/CaducarReceta/${idReceta}`)
+    axios.post(`http://localhost:9050/medicos/CaducarReceta/${idReceta}`)
         .then(response => {
             if (response.status === 200) {
                 const estadoCell = document.getElementById(`estado_${idReceta}`);

@@ -1,154 +1,139 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    // Crear e insertar el HTML dinámicamente
-    const contenedor = document.createElement("div");
-    contenedor.id = "paciente-contactos-tabla";
-    contenedor.innerHTML = `
-        <div id="mensaje"></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Teléfono</th>
-                    <th>Relación</th>
-                    <th>Relación Específica</th>
-                    <th>Comentarios</th>
-                    <th>Correo</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tabla-contactos"></tbody>
-        </table>
-    `;
-    document.body.appendChild(contenedor);
-
     const correo = localStorage.getItem("correo");
-    const idPaciente = localStorage.getItem("idUsuario");
-    const mensaje = document.getElementById("mensaje");
-    const tabla = document.getElementById("tabla-contactos");
+    const idPaciente = localStorage.getItem("idUsuario"); // para enviar en modificar/eliminar si quieres
+    const divAlta = document.querySelector(".pacUnContactoAlta");
+
+    // Limpiar contactos previos
+    document.querySelectorAll(".pacUnContacto").forEach(e => e.remove());
+
     let relacionesEnumGlobal = [];
+    let contactos = [];
 
-    if (!correo || !idPaciente) {
-        mensaje.innerText = "No se encontró el correo o ID del usuario.";
-        return;
-    }
-
-    // Obtener relaciones posibles para el select
     try {
-        const resRelaciones = await axios.get("http://medicade-back.involux.es/pacientes/relacionesContactoEmergencia");
+        const resRelaciones = await axios.get("http://localhost:9050/pacientes/relacionesContactoEmergencia");
         relacionesEnumGlobal = resRelaciones.data;
-        
-    } catch (error) {
-        console.error("Error al obtener relacionesEnum:", error);
-        mensaje.innerText = "Error al cargar opciones de relación.";
+    } catch (err) {
+        console.error("Error al obtener relaciones:", err);
         return;
     }
 
-    // Obtener contactos
     try {
-        const resContactos = await axios.get(`http://medicade-back.involux.es/pacientes/contacto-emergencia-por-paciente/${correo}`);
-        const contactos = resContactos.data;
-
-        tabla.innerHTML = ""; // Limpiar contenido previo
-
-        if (contactos.length === 0) {
-            mensaje.innerText = "No hay contactos de emergencia.";
-            return;
-        }
-
-        contactos.forEach(contacto => {
-            const fila = document.createElement("tr");
-
-            // Crear select dinámico para relacionEnum
-            const selectRelacion = document.createElement("select");
-            relacionesEnumGlobal.forEach(rel => {
-                const option = document.createElement("option");
-                option.value = rel;
-                option.text = rel.charAt(0) + rel.slice(1).toLowerCase();
-                if (rel === contacto.relacionEnum) option.selected = true;
-                selectRelacion.appendChild(option);
-            });
-
-            fila.innerHTML = `
-                <td><input type="text" value="${contacto.nombre}" /></td>
-                <td><input type="number" value="${contacto.telefono}" /></td>
-                <td class="select-container"></td>
-                <td><input type="text" value="${contacto.relacionEspecifica || ''}" /></td>
-                <td><input type="text" value="${contacto.comentarios || ''}" /></td>
-                <td><input type="text" value="${contacto.correo || ''}" /></td>
-                <td>
-                    <button class="btn-guardar" data-id="${contacto.idContacto}" ><div id="btnAgregar" class="btn-agregar">GUARDAR</div></button>
-                    <button class="btn-eliminar" data-id="${contacto.idContacto}"><div class="eliminar-btn-miscuidadores">X</div></button>
-                </td>
-            `;
-
-            fila.querySelector(".select-container").appendChild(selectRelacion);
-            tabla.appendChild(fila);
-        });
-
-        // Guardar contacto
-        document.querySelectorAll(".btn-guardar").forEach(button => {
-            button.addEventListener("click", function () {
-                const fila = this.closest("tr");
-                const id = this.getAttribute("data-id");
-                modificarContactoEnTabla(id, fila);
-            });
-        });
-
-        // Eliminar contacto
-        document.querySelectorAll(".btn-eliminar").forEach(button => {
-            button.addEventListener("click", function () {
-                const id = this.getAttribute("data-id");
-                eliminarContacto(id);
-            });
-        });
-    } catch (error) {
-        console.error("Error al obtener los contactos de emergencia:", error);
-        mensaje.innerText = "Error al cargar los contactos de emergencia.";
+        const resContactos = await axios.get(`http://localhost:9050/pacientes/contacto-emergencia-por-paciente/${correo}`);
+        contactos = resContactos.data;
+    } catch (err) {
+        console.error("Error al obtener contactos:", err);
+        return;
     }
 
-    // Función para modificar
-    function modificarContactoEnTabla(id, fila) {
-        const celdas = fila.querySelectorAll("td");
+    contactos.forEach(contacto => {
+        const divContacto = document.createElement("div");
+        divContacto.className = "pacUnContacto";
 
-        const contactoModificado = {
+        // Crear select dinámico para relacionEnum con clase para buscar después
+        const selectRelacion = document.createElement("select");
+        selectRelacion.classList.add("input-relacionEnum");
+        relacionesEnumGlobal.forEach(rel => {
+            const option = document.createElement("option");
+            option.value = rel;
+            option.text = rel.charAt(0).toUpperCase() + rel.slice(1).toLowerCase();
+            if (rel === contacto.relacionEnum) option.selected = true;
+            selectRelacion.appendChild(option);
+        });
+
+        // Construir tabla con inputs con clases iguales a las del antiguo JS
+        divContacto.innerHTML = `
+            <div class="mensaje"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Relación</th>
+                        <th>Relación Específica</th>
+                        <th>Comentarios</th>
+                        <th>Correo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" class="input-nombre" value="${contacto.nombre}" /></td>
+                        <td><input type="number" class="input-telefono" value="${contacto.telefono}" /></td>
+                        <td class="select-container"></td>
+                        <td><input type="text" class="input-relacionEspecifica" value="${contacto.relacionEspecifica || ''}" /></td>
+                        <td><input type="text" class="input-comentarios" value="${contacto.comentarios || ''}" /></td>
+                        <td><input type="text" class="input-correo" value="${contacto.correo || ''}" /></td>
+                        <td>
+                            <button class="btn-guardar" data-id="${contacto.idContacto}">GUARDAR</button>
+                            <button class="btn-eliminar" data-id="${contacto.idContacto}">X</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
+
+        divContacto.querySelector(".select-container").appendChild(selectRelacion);
+
+        // Insertar después del formulario de alta
+        divAlta.insertAdjacentElement("afterend", divContacto);
+
+        // Eventos para guardar (corregido para obtener fila correcta)
+        divContacto.querySelector(".btn-guardar").addEventListener("click", function () {
+            const fila = this.closest("tr");  // <---- aquí el cambio
+            const id = this.getAttribute("data-id");
+            modificarContactoEnTabla(id, fila);
+        });
+
+        // Eventos para eliminar
+        divContacto.querySelector(".btn-eliminar").addEventListener("click", function () {
+            const id = this.getAttribute("data-id");
+            eliminarContacto(id);
+        });
+    });
+
+    // Función para modificar contacto
+    function modificarContactoEnTabla(id, fila) {
+        const contactoActualizado = {
             idContacto: parseInt(id),
-            nombre: celdas[0].querySelector("input").value,
-            telefono: parseInt(celdas[1].querySelector("input").value),
-            relacionEnum: celdas[2].querySelector("select").value,
-            relacionEspecifica: celdas[3].querySelector("input").value,
-            comentarios: celdas[4].querySelector("input").value,
-            correo: celdas[5].querySelector("input").value,
+            nombre: fila.querySelector(".input-nombre").value,
+            telefono: parseInt(fila.querySelector(".input-telefono").value),
+            relacionEnum: fila.querySelector(".input-relacionEnum").value,
+            relacionEspecifica: fila.querySelector(".input-relacionEspecifica").value,
+            comentarios: fila.querySelector(".input-comentarios").value,
+            correo: fila.querySelector(".input-correo").value,
             paciente: {
-                idPaciente: parseInt(idPaciente)
+                idPaciente: idPaciente ? parseInt(idPaciente) : null
             }
         };
 
-        axios.put("http://medicade-back.involux.es/pacientes/modificar-contacto-emergencia", contactoModificado)
+        axios.put("http://localhost:9050/pacientes/modificar-contacto-emergencia", contactoActualizado)
             .then(() => {
                 alert("Contacto actualizado correctamente.");
             })
-            .catch(error => {
-                console.error("Error al modificar el contacto:", error);
-                alert("Error al modificar el contacto.");
+            .catch(err => {
+                console.error("Error al actualizar contacto:", err);
+                alert("Error al actualizar el contacto.");
             });
     }
 
-    // Función para eliminar
+    // Función para eliminar contacto
     function eliminarContacto(id) {
+        if (!confirm("¿Seguro que deseas eliminar este contacto?")) return;
+
         const contactoAEliminar = {
             idContacto: parseInt(id),
             paciente: {
-                idPaciente: parseInt(idPaciente)
+                idPaciente: idPaciente ? parseInt(idPaciente) : null
             }
         };
 
-        axios.delete("http://medicade-back.involux.es/pacientes/eliminar-contacto-emergencia", { data: contactoAEliminar })
+        axios.delete("http://localhost:9050/pacientes/eliminar-contacto-emergencia", { data: contactoAEliminar })
             .then(() => {
-                alert("Contacto eliminado con éxito.");
+                alert("Contacto eliminado.");
                 location.reload();
             })
-            .catch(error => {
-                console.error("Error al eliminar el contacto:", error);
+            .catch(err => {
+                console.error("Error al eliminar contacto:", err);
                 alert("Error al eliminar el contacto.");
             });
     }

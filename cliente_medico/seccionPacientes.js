@@ -1,6 +1,6 @@
 // seccionpacientes.js
 document.addEventListener("DOMContentLoaded", function () {
-    const baseURL = "http://medicade-back.involux.es/medicos";
+    const baseURL = "http://localhost:9050/medicos";
     const pacientesContainer = document.getElementById("medicoseccionpacientes");
 
     function verMisPacientes() {

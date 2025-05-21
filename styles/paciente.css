@@ -291,7 +291,8 @@
                         .tabla-scroll {overflow-x: auto; }
 /* BOTONES -------------------------------------------------------------------------- */
                 .btnAgregarStock,
-                .btnpaconfirmhistorial,.btnpaconfirmhistorialModal{
+                .btnpaconfirmhistorial,.btnpaconfirmhistorialModal,
+                .btnAñadirContacto{
                         all: unset; /* Esto quita prácticamente todos los estilos del navegador */
                         color: white; /* Color del texto */
                         padding: 6px 12px;
@@ -309,6 +310,10 @@
                 /*1 ----- MI HISTORIAL*/
                 .btnpaconfirmhistorial{ background-color:   #0d7ebb;  }
                         .btnpaconfirmhistorial:hover{background-color: #00669C;}
+
+                /*MIS MEDICAMENTOS*/
+                .btnAñadirContacto{ background-color: #dac47c;  }
+                        .btnAñadirContacto:hover{background-color: #c9b268;}
 
                 /* TABLA : MIS ALERTAS MEDICAS-------------------------------------------------------------------------- */
                     .estadoact,.estadoinact,.estadotarde,
@@ -337,7 +342,9 @@
 
           
 
-#pacMisRecetas, #pacVerMisMedicos{  
+#pacMisRecetas, #pacVerMisMedicos,
+#pacMisContactos
+{  
 margin: 20px;
 display: flex;
 flex-wrap: wrap;   /* Esto permite que los items salten a la siguiente fila */
@@ -348,7 +355,9 @@ gap: 20px; /* espacio entre filas y columnas */
 
 
 
-        .pacUnaReceta,.pacUnMedico{
+        .pacUnaReceta,.pacUnMedico,
+        .pacUnContactoAlta,.pacUnContacto
+        {
             
             flex: 0 0 calc(50% - 10px); /* restamos la mitad del gap */
             box-sizing: border-box;   
@@ -357,8 +366,7 @@ gap: 20px; /* espacio entre filas y columnas */
         }
 
 
-
-        .pacUnaReceta hr,.pacUnMedico hr{
+        .pacUnaReceta hr,.pacUnMedico hr,#paciente-contactos hr{
             border: none;
             height: 1px;
             background-color: white;
@@ -381,15 +389,8 @@ gap: 20px; /* espacio entre filas y columnas */
 
 /* CONTACTO ALTA -------------------------------------------------------------------------- */
 
-.contacto-emergencia{padding: 20px;}
-
-
-
-
-
-
-
-
+#paciente-contactos{padding: 20px 0;
+            width: 80%;margin: auto;}
 
 
 
@@ -415,16 +416,13 @@ gap: 20px; /* espacio entre filas y columnas */
 
 
         /* --------------------------- TABLA --------------------------- */
-            #paciente-contactos,#paciente-contactos-tabla{background-color: lightblue;
-            width: 100%;}
-            #paciente-contactos table{width: 100%;}
-
-            #paciente-contactos td{margin: auto;}
-            #paciente-contactos td input{border: none;padding: 10px; border-radius: 5px;}
+#paciente-contactos-tabla{background-color: lightblue;
+            width: 50%;}
 
 
 
-                    #paciente-contactos td button{  all: unset;/*BORRA LOS ESTILOS EXTERIORES*/
+
+                    #paciente-contactos-tabla td button{  all: unset;/*BORRA LOS ESTILOS EXTERIORES*/
                         cursor: pointer; /* opcional: si quieres que siga siendo clickeable */}
 
                         /* Estilo para el botón de eliminar */

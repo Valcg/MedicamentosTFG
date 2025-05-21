@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        axios.post("http://medicade-back.involux.es/usuarios/inicioSesion", 
+        axios.post("http://localhost:9050/usuarios/inicioSesion", 
             { correo: correo, contrasena: contrasena },
             { headers: { "Content-Type": "application/json" } }
         )
