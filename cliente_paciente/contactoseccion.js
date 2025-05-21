@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Crear select dinámico para relacionEnum con clase para buscar después
         const selectRelacion = document.createElement("select");
-        selectRelacion.classList.add("input-relacionEnum");
+        selectRelacion.classList.add("input-relacionEnum", "input"); // <-- aquí el cambio
         relacionesEnumGlobal.forEach(rel => {
             const option = document.createElement("option");
             option.value = rel;
@@ -40,48 +40,69 @@ document.addEventListener("DOMContentLoaded", async function () {
             selectRelacion.appendChild(option);
         });
 
-        // Construir tabla con inputs con clases iguales a las del antiguo JS
-        divContacto.innerHTML = `
-            <div class="mensaje"></div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Teléfono</th>
-                        <th>Relación</th>
-                        <th>Relación Específica</th>
-                        <th>Comentarios</th>
-                        <th>Correo</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="text" class="input-nombre" value="${contacto.nombre}" /></td>
-                        <td><input type="number" class="input-telefono" value="${contacto.telefono}" /></td>
-                        <td class="select-container"></td>
-                        <td><input type="text" class="input-relacionEspecifica" value="${contacto.relacionEspecifica || ''}" /></td>
-                        <td><input type="text" class="input-comentarios" value="${contacto.comentarios || ''}" /></td>
-                        <td><input type="text" class="input-correo" value="${contacto.correo || ''}" /></td>
-                        <td>
-                            <button class="btn-guardar" data-id="${contacto.idContacto}">GUARDAR</button>
-                            <button class="btn-eliminar" data-id="${contacto.idContacto}">X</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        `;
+       divContacto.innerHTML = `
+    <div class="mensaje" ></div>
+    <h3>
+        CONTACTO
+        <br>
+        ${contacto.nombre}
+    </h3>
+    <table  id="tablapacUnContacto" style="border: solid 1px yellow;">
+        <tbody>
+            <tr>
+                <td>Nombre:
+                <br>
+                <input type="text" class="input-nombre input" value="${contacto.nombre}" /></td>
+            </tr>
+            <tr>
+                <td>Teléfono
+                <br>
+                <input type="number" class="input-telefono input" value="${contacto.telefono}" /></td>
+            </tr>
+            <tr>
+                <tr>
+                    <td>Relación
+                    <br>
+                    <div class="select-container"></div>
+                    </td>
+                </tr>
+
+            </tr>
+            <tr>
+                <td>Relación Específica
+                <br>
+                <input type="text" class="input-relacionEspecifica input" value="${contacto.relacionEspecifica || ''}" /></td>
+            </tr>
+            <tr>
+                <td>Comentarios
+                <br>
+                <input type="text" class="input-comentarios input" value="${contacto.comentarios || ''}" /></td>
+            </tr>
+            <tr>
+                <td>Correo
+                <br>
+                <input type="text" class="input-correo input" value="${contacto.correo || ''}" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;">
+                    <button class="btn-guardar" data-id="${contacto.idContacto}">GUARDAR</button>
+                    <button class="btn-eliminar" data-id="${contacto.idContacto}">X</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+`;
 
         divContacto.querySelector(".select-container").appendChild(selectRelacion);
 
         // Insertar después del formulario de alta
         divAlta.insertAdjacentElement("afterend", divContacto);
 
-        // Eventos para guardar (corregido para obtener fila correcta)
+        // Eventos para guardar (aquí cambio el closest)
         divContacto.querySelector(".btn-guardar").addEventListener("click", function () {
-            const fila = this.closest("tr");  // <---- aquí el cambio
+            const contenedorContacto = this.closest(".pacUnContacto");  // cambiar tr por div contenedor
             const id = this.getAttribute("data-id");
-            modificarContactoEnTabla(id, fila);
+            modificarContactoEnTabla(id, contenedorContacto);
         });
 
         // Eventos para eliminar
@@ -92,15 +113,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     // Función para modificar contacto
-    function modificarContactoEnTabla(id, fila) {
+    function modificarContactoEnTabla(id, contenedor) {
         const contactoActualizado = {
             idContacto: parseInt(id),
-            nombre: fila.querySelector(".input-nombre").value,
-            telefono: parseInt(fila.querySelector(".input-telefono").value),
-            relacionEnum: fila.querySelector(".input-relacionEnum").value,
-            relacionEspecifica: fila.querySelector(".input-relacionEspecifica").value,
-            comentarios: fila.querySelector(".input-comentarios").value,
-            correo: fila.querySelector(".input-correo").value,
+            nombre: contenedor.querySelector(".input-nombre").value,
+            telefono: parseInt(contenedor.querySelector(".input-telefono").value),
+            relacionEnum: contenedor.querySelector(".input-relacionEnum").value,
+            relacionEspecifica: contenedor.querySelector(".input-relacionEspecifica").value,
+            comentarios: contenedor.querySelector(".input-comentarios").value,
+            correo: contenedor.querySelector(".input-correo").value,
             paciente: {
                 idPaciente: idPaciente ? parseInt(idPaciente) : null
             }

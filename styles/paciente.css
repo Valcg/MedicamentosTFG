@@ -276,7 +276,7 @@
                 #tablaMedicamentosPaciente,
                 #tablapacienteMisAlertas,
                 #tablapacienteMiHistorial
-                        { width: 100%;                           
+                { width: 100%;                           
                         border-collapse: collapse;}
 
                 
@@ -355,10 +355,8 @@ gap: 20px; /* espacio entre filas y columnas */
 
 
 
-        .pacUnaReceta,.pacUnMedico,
-        .pacUnContactoAlta,.pacUnContacto
-        {
-            
+        .pacUnaReceta,.pacUnMedico
+        {   
             flex: 0 0 calc(50% - 10px); /* restamos la mitad del gap */
             box-sizing: border-box;   
             background-color: #F0F0F0;
@@ -387,42 +385,38 @@ gap: 20px; /* espacio entre filas y columnas */
             .der{margin:2px 0;text-align: left;}
             
 
-/* CONTACTO ALTA -------------------------------------------------------------------------- */
+        /* CONTACTO ALTA -------------------------------------------------------------------------- */
 
-#paciente-contactos{padding: 20px 0;
-            width: 80%;margin: auto;}
+        #paciente-contactos{padding: 20px 0;
+            width: 80%;
+            margin: auto;}
 
+        .pacUnContactoAlta{background-color: #00669C;}
+        .pacUnContacto{background-color: #84CBF1;}
+        .pacUnContactoAlta,.pacUnContacto
+        {   
+            flex: 0 0 calc(50% - 10px); /* restamos la mitad del gap */
+            box-sizing: border-box;   
+            border-radius: 10px;
+        }
 
+/* CONTACTO  UN CONTACTO -------------------------------------------------------------------------- */
+                
+        #tablapacUnContacto{width: 80%;
+            margin: auto;}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        #tablapacUnContacto tr td /* MIS CONTACTOS -- UN CONTACTO MINITABLA*/
+            {border-top: 1px solid  white;
+            padding: 10px 0;}
 
 
 
 
         /* --------------------------- TABLA --------------------------- */
-#paciente-contactos-tabla{background-color: lightblue;
-            width: 50%;}
 
 
 
-
-                    #paciente-contactos-tabla td button{  all: unset;/*BORRA LOS ESTILOS EXTERIORES*/
+                    #tabla td button{  all: unset;/*BORRA LOS ESTILOS EXTERIORES*/
                         cursor: pointer; /* opcional: si quieres que siga siendo clickeable */}
 
                         /* Estilo para el botón de eliminar */
