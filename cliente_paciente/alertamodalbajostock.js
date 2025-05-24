@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let huboAlerta = false;
     let mostrarMensajeFin = false;
-    let modalAbierto = false; // NUEVO: para evitar abrir modal repetidamente
+    let modalAbierto = false; // para evitar abrir modal repetidamente
 
     verificarMedicamentosCliente();
     iniciarTemporizadorConsola(180);
@@ -50,41 +50,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("❌ Error al obtener medicamentos:", err);
             });
     }
-function verificarStockMedicamento(idMedicamento, esUltimo) {
-    console.log(`🔄 Verificando stock medicamento ID ${idMedicamento}...`);
-    axios.post(`https://medicade-back.involux.es/pacientes/verificar-stock/${idPaciente}/${idMedicamento}`)
-        .then(response => {
-            console.log(`✅ Respuesta stock medicamento ${idMedicamento}:`, response.data);
-            const mensaje = response.data;
 
-            if (mensaje.mensaje && mensaje.mensaje.includes("alerta de bajostock")) {
-                console.log(`🚨 Alerta: Medicamento ${idMedicamento} tiene bajo stock.`);
-                huboAlerta = true;
-                mostrarModalBajoStock(idMedicamento, "El stock se ha comprobado correctamente. Tienes bajo stock. NECESITAS AGREGAR STOCK.");
-            } else if (esUltimo && !huboAlerta) {
-                if (!mostrarMensajeFin) {
-                    console.log("✅ Todos los medicamentos tienen suficiente stock.");
-                    mostrarMensajeFin = true;
-                    mostrarModalSinAlerta();
+    function verificarStockMedicamento(idMedicamento, esUltimo) {
+        console.log(`🔄 Verificando stock medicamento ID ${idMedicamento}...`);
+        axios.post(`https://medicade-back.involux.es/pacientes/verificar-stock/${idPaciente}/${idMedicamento}`)
+            .then(response => {
+                console.log(`✅ Respuesta stock medicamento ${idMedicamento}:`, response.data);
+                const data = response.data;
+
+                // Detecta si el mensaje contiene alerta de bajo stock y si hay idAlertaGenerada
+                if (data.mensaje && data.mensaje.toLowerCase().includes("alerta de bajo stock") && data.idAlertaGenerada) {
+                    console.log(`🚨 Alerta: Medicamento ${idMedicamento} tiene bajo stock.`);
+                    huboAlerta = true;
+                    mostrarModalBajoStock(data.idAlertaGenerada, data.mensaje);
+                } else if (esUltimo && !huboAlerta) {
+                    if (!mostrarMensajeFin) {
+                        console.log("✅ Todos los medicamentos tienen suficiente stock.");
+                        mostrarMensajeFin = true;
+                        mostrarModalSinAlerta();
+                    } else {
+                        console.log("ℹ️ No hay alertas y mensaje fin ya mostrado. Ocultando modal.");
+                        modalBajoStock.classList.remove("show");
+                        modalAbierto = false;
+                    }
                 } else {
-                    console.log("ℹ️ No hay alertas y mensaje fin ya mostrado. Ocultando modal.");
-                    modalBajoStock.classList.remove("show");
+                    console.log(`ℹ️ Medicamento ${idMedicamento} tiene stock suficiente.`);
                 }
-            } else {
-                console.log(`ℹ️ Medicamento ${idMedicamento} tiene stock suficiente.`);
-            }
-        })
-        .catch(err => {
-            console.error(`❌ Error al verificar stock del medicamento ${idMedicamento}:`, err);
-        });
-}
+            })
+            .catch(err => {
+                console.error(`❌ Error al verificar stock del medicamento ${idMedicamento}:`, err);
+            });
+    }
 
+    function mostrarModalBajoStock(idAlerta, mensaje) {
+        if (modalAbierto) return;  // Evita abrir más de un modal a la vez
 
-    function mostrarModalBajoStock(idMedicamento, mensaje) {
-        if(modalAbierto) return;  // Evita abrir más de un modal a la vez
-
-        console.log(`📢 Mostrando modal de bajo stock para ID ${idMedicamento}`);
-        const idAlerta = idMedicamento;
+        console.log(`📢 Mostrando modal de bajo stock para alerta ID ${idAlerta}`);
 
         contenidoBajoStock.innerHTML = `
             <p>${mensaje}</p>
@@ -97,7 +98,7 @@ function verificarStockMedicamento(idMedicamento, esUltimo) {
     }
 
     function mostrarModalSinAlerta() {
-        if(modalAbierto) return;
+        if (modalAbierto) return;
 
         console.log("ℹ️ Mostrando modal sin alertas de bajo stock.");
         contenidoBajoStock.innerHTML = `
@@ -114,15 +115,15 @@ function verificarStockMedicamento(idMedicamento, esUltimo) {
     }
 
     window.confirmarAlertaBajoStock = function(idAlerta) {
-        console.log(`🟢 Confirmando alerta para medicamento ID ${idAlerta}`);
+        console.log(`🟢 Confirmando alerta para ID alerta ${idAlerta}`);
         axios.post(`https://medicade-back.involux.es/pacientes/confirmarAlertaBajoStock/${idAlerta}`)
             .then(() => {
-                console.log(`✅ Alerta confirmada para medicamento ID ${idAlerta}. Redirigiendo...`);
+                console.log(`✅ Alerta confirmada para ID alerta ${idAlerta}. Redirigiendo...`);
                 localStorage.setItem("alertaResaltarId", idAlerta);
                 window.location.href = "mismedicamentos.html";
             })
             .catch(err => {
-                console.error(`❌ Error al confirmar alerta para medicamento ${idAlerta}:`, err);
+                console.error(`❌ Error al confirmar alerta para ID alerta ${idAlerta}:`, err);
             });
     };
 
