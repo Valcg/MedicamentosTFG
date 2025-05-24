@@ -174,9 +174,10 @@
                         }
 
                         #diacuenta {
-                            background-color: #00669C;
+                            background-color: #dac47c;
                             /* background-color: rgb(189, 215, 255); */
                             color: white;
+                            font-weight: bold;
                         }
 
                         .calendar-container {

@@ -12,16 +12,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Realiza la solicitud GET para obtener las alertas de hoy
     axios.get(`http://localhost:9050/pacientes/alertasDeHoy/${idPaciente}/alertas/hoy`)
-    
         .then(res => {
             const cantidad = res.data;
             console.log(cantidad);
+
             const mensaje = cantidad === 0
                 ? "Hoy no tienes ningún medicamento por tomar"
-                : `Hoy tienes ${cantidad} medicamentos por tomar`;
+                : ` ¡ Hoy tienes <span style="color:#0d7ebb; font-weight:bold;">${cantidad}</span> medicamento${cantidad > 1 ? 's' : ''} por tomar! `;
 
-            // Actualiza el contenido de la página con la respuesta
-            document.getElementById("diacuenta").textContent = mensaje;
+            // Usa innerHTML para poder aplicar estilos al número
+            document.getElementById("diacuenta").innerHTML = mensaje;
         })
         .catch(err => {
             console.error("Error al obtener el conteo de alertas de hoy:", err);
