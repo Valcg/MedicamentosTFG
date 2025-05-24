@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btnBuscarMedicamento").addEventListener("click", function () {
         const codigoMedicamento = document.getElementById("codigoMedicamento").value;
 
-        axios.get(`https://medicade-back.involux.es/medicos/BuscarUnMedicamento/${codigoMedicamento}`)
+        axios.get(`http://localhost:9050/medicos/BuscarUnMedicamento/${codigoMedicamento}`)
             .then(response => {
                 if (response.data) {
                     medicamentoContainer.innerHTML = `

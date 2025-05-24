@@ -1,5 +1,5 @@
 // VerHistorialPaciente.js
-const baseURL = "https://medicade-back.involux.es/medicos";
+const baseURL = "http://localhost:9050/medicos";
 const historialContainer = document.getElementById("historial-pacientes");
 
 function mostrarHistorialDePaciente(idPaciente, nombrePaciente) {
@@ -17,7 +17,7 @@ function mostrarHistorialDePaciente(idPaciente, nombrePaciente) {
             historial.sort((a, b) => new Date(b.fechaHoraToma) - new Date(a.fechaHoraToma));
 
             // Primero pedimos los estados disponibles para el filtro
-            axios.get("https://medicade-back.involux.es/medicos/estadoBuscador")
+            axios.get("http://localhost:9050/medicos/estadoBuscador")
                 .then(enumResponse => {
                     const estados = enumResponse.data;
                     let opcionesEstado = `<option value="">Todos</option>`;

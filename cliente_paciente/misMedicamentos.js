@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const contenedor = document.getElementById("pacienteMisMedicamentos");
 
     function cargarMisMedicamentos() {
-        const url = `https://medicade-back.involux.es/pacientes/VerMisMedicamentos/paciente/${idPaciente}`;
+        const url = `http://localhost:9050/pacientes/VerMisMedicamentos/paciente/${idPaciente}`;
 
         axios.get(url)
             .then(response => {
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const url = `https://medicade-back.involux.es/pacientes/${idPaciente}/medicamentos/${idMedicamento}/agregar-stock?cantidadCajas=${cantidadCajas}`;
+        const url = `http://localhost:9050/pacientes/${idPaciente}/medicamentos/${idMedicamento}/agregar-stock?cantidadCajas=${cantidadCajas}`;
 
         axios.post(url)
             .then(response => {
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStorage.setItem("medicamentoResaltado", idMedicamento);
 
                 // Actualizar cantidad sin esperar la recarga aún
-                return axios.get(`https://medicade-back.involux.es/pacientes/VerMisMedicamentos/paciente/${idPaciente}`);
+                return axios.get(`http://localhost:9050/pacientes/VerMisMedicamentos/paciente/${idPaciente}`);
             })
             .then(res => {
                 const listaMedicamentos = res.data;

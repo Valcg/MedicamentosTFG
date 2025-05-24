@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let medicamentoExiste = false;
 
     function cargarMedicamentos() {
-        axios.get("https://medicade-back.involux.es/medicos/BuscarTodosLosMedicamentos")
+        axios.get("http://localhost:9050/medicos/BuscarTodosLosMedicamentos")
             .then(response => {
                 medicamentosExistentes = response.data || [];
             })
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const nombreFinal = nombreMedicamento.replace(/\s?(mg|ml|mg\/ml|g|%|mcg\/dosis)$/i, "") + " " + unidad;
 
         if (medicamentoExiste) {
-            mensajeAlta.innerHTML += `<p style="color:#f14343;">❌ No puedes registrar este medicamento porque ya existe.</p>`;
+            mensajeAlta.innerHTML += `<p style="color:#f14343;"> No puedes registrar este medicamento porque ya existe.</p>`;
             return;
         }
 
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cantidadUnidad: parseInt(cantidadUnidad)
         };
 
-        axios.post("https://medicade-back.involux.es/medicos/AltaMedicamentos", medicamento)
+        axios.post("http://localhost:9050/medicos/AltaMedicamentos", medicamento)
             .then(response => {
                 mensajeAlta.innerHTML = `<p style="color: #66b794f1;">✅ Medicamento creado: ${response.data.nombreMedicamento}</p>`;
                 setTimeout(() => location.reload(), 1000);

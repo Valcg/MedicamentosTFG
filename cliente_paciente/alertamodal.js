@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const url = `https://medicade-back.involux.es/pacientes/VermisAlertas/${idPaciente}`;
+    const url = `http://localhost:9050/pacientes/VermisAlertas/${idPaciente}`;
 
     function mostrarModal(alertaProxima = null) {
         if (!alertaProxima) {
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (esSinConfirmar && puedeConfirmar) {
             document.getElementById("confirmarAlertaBtn").addEventListener("click", function () {
-                const urlConfirmar = `https://medicade-back.involux.es/pacientes/aceptarToma/${alertaProxima.idAlerta}`;
+                const urlConfirmar = `http://localhost:9050/pacientes/aceptarToma/${alertaProxima.idAlerta}`;
                 axios.post(urlConfirmar)
                     .then(() => {
                         const horaConfirmada = new Date().toLocaleTimeString();
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function actualizarCantidadStock(alertaProxima) {
         if (alertaProxima.medicamento?.idMedicamento) {
-            const urlStock = `https://medicade-back.involux.es/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${alertaProxima.medicamento.idMedicamento}`;
+            const urlStock = `http://localhost:9050/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${alertaProxima.medicamento.idMedicamento}`;
             axios.get(urlStock)
                 .then(response => {
                     const stock = response.data?.cantidadDisponible ?? "No disponible";

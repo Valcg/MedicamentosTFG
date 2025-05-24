@@ -3,8 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const contrasenaInput = document.getElementById("contrasena");
     const btnIniciarSesion = document.getElementById("btnIniciarSesion");
     const togglePassword = document.getElementById("togglePassword");
+    const mensajeLogin = document.getElementById("mensajeLogin"); // 🔴 Asegúrate de tener este div en tu HTML
 
-    // Mostrar/Ocultar contraseña 🟡​
+    // Mostrar/Ocultar contraseña
     if (togglePassword) {
         togglePassword.addEventListener("click", function () {
             const tipo = contrasenaInput.getAttribute("type") === "password" ? "text" : "password";
@@ -16,15 +17,19 @@ document.addEventListener("DOMContentLoaded", function () {
     btnIniciarSesion.addEventListener("click", function (event) {
         event.preventDefault();
         
+        mensajeLogin.textContent = "";
+        mensajeLogin.style.color = "";
+
         const correo = correoInput.value;
         const contrasena = contrasenaInput.value;
 
         if (!correo || !contrasena) {
-            alert("Por favor, ingrese su correo y contraseña.");
+            mensajeLogin.textContent = "Por favor, ingrese su correo y contraseña.";
+            mensajeLogin.style.color = "#f14343";
             return;
         }
 
-        axios.post("https://medicade-back.involux.es/usuarios/inicioSesion", 
+        axios.post("http://localhost:9050/usuarios/inicioSesion", 
             { correo: correo, contrasena: contrasena },
             { headers: { "Content-Type": "application/json" } }
         )
@@ -45,15 +50,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else if (tipoUsuario === "MEDICO") {
                     window.location.href = "HomeMedico.html";
                 } else {
-                    alert("Error: Tipo de usuario desconocido.");
+                    mensajeLogin.textContent = "Error: Tipo de usuario desconocido.";
+                    mensajeLogin.style.color = "#f14343";
                 }
             } else {
-                alert("Error en el inicio de sesión: " + data);
+                mensajeLogin.textContent = "Error de credenciales";
+                mensajeLogin.style.color = "#f14343";
             }
         })
         .catch(err => {
             console.error("Error en la petición:", err);
-            alert("Error al iniciar sesión. Verifique sus credenciales.");
+            mensajeLogin.textContent = "Error de credenciales";
+            mensajeLogin.style.color = "#f14343";
         });
     });
 });

@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const extraFieldsContainer = document.getElementById("extra-fields");
     const contrasenaInput = document.getElementById("contrasena");
     const togglePassword = document.getElementById("togglePassword");
+    const mensajeRegistro = document.getElementById("mensajeRegistro");
 
     // Mostrar/ocultar contraseña
     if (togglePassword) {
@@ -35,12 +36,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Escuchar cambios en el select para mostrar los campos correspondientes
+    // Escuchar cambios en el select
     userTypeSelect.addEventListener("change", actualizarCamposExtra);
     actualizarCamposExtra(); // Ejecutar al cargar la página
 
     form.addEventListener("submit", function (event) {
         event.preventDefault();
+
+        // Limpiar mensaje previo
+        mensajeRegistro.textContent = "";
+        mensajeRegistro.style.color = "";
 
         const nombre = document.getElementById("name").value;
         const apellido = document.getElementById("apellido").value;
@@ -58,11 +63,11 @@ document.addEventListener("DOMContentLoaded", function () {
             tipoUsuario: tipoUsuario
         };
 
-        // Validación adicional dependiendo del tipo de usuario
         if (tipoUsuario === "PACIENTE") {
             const diagnostico = document.getElementById("diagnostico").value;
             if (!diagnostico) {
-                alert("Por favor, ingrese el diagnóstico.");
+                mensajeRegistro.textContent = "Por favor, ingrese el diagnóstico.";
+                mensajeRegistro.style.color = "#f14343";
                 return;
             }
             usuario.diagnostico = diagnostico;
@@ -70,24 +75,33 @@ document.addEventListener("DOMContentLoaded", function () {
             const numeroColegiado = document.getElementById("numeroColegiado").value;
             const especialidad = document.getElementById("especialidad").value;
             if (!numeroColegiado || !especialidad) {
-                alert("Por favor, complete los datos del médico.");
+                mensajeRegistro.textContent = "Por favor, complete los datos del médico.";
+                mensajeRegistro.style.color = "#f14343";
                 return;
             }
             usuario.numeroColegiado = numeroColegiado;
             usuario.especialidad = especialidad;
         }
 
-        // Enviar la solicitud de creación de usuario
-        axios.post("https://medicade-back.involux.es/usuarios/alta2", usuario, {
+        axios.post("http://localhost:9050/usuarios/alta2", usuario, {
             headers: { "Content-Type": "application/json" }
         })
         .then(response => {
-            alert(response.data); // Muestra la respuesta del servidor
-            window.location.href = "LoginCount.html"; // Redirigir a login
+            mensajeRegistro.textContent = "✅ Usuario creado correctamente.";
+            mensajeRegistro.style.color = "#28a745";
+            // Redirigir después de 1 segundo
+            setTimeout(() => {
+                window.location.href = "LoginCount.html";
+            }, 1000);
         })
         .catch(error => {
             console.error("Error al registrar:", error);
-            alert("Error al registrar el usuario.");
+            if (error.response && error.response.status === 409) {
+                mensajeRegistro.textContent = "❌ Ya hay un usuario registrado con estos datos.";
+            } else {
+                mensajeRegistro.textContent = "❌ Error al registrar el usuario.";
+            }
+            mensajeRegistro.style.color = "#f14343";
         });
     });
 });

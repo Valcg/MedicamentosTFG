@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const url = `https://medicade-back.involux.es/pacientes/VermisAlertas/${idPaciente}`;
+    const url = `http://localhost:9050/pacientes/VermisAlertas/${idPaciente}`;
 
     axios.get(url)
         .then(res => {
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     const celdaAccion = document.createElement("td");
                     if (idMedicamento) {
-                        const urlCantidad = `https://medicade-back.involux.es/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
+                        const urlCantidad = `http://localhost:9050/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
 
                         axios.get(urlCantidad)
                             .then(response => {
@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ FUNCIONALIDAD NUEVA: registrar tomas vencidas automáticamente
     function registrarTomasVencidas() {
-        const urlVencidas = "https://medicade-back.involux.es/pacientes/registrar-tomas-vencidas";
+        const urlVencidas = "http://localhost:9050/pacientes/registrar-tomas-vencidas";
         axios.post(urlVencidas)
             .then(response => {
                 console.log("✅ Tomas vencidas registradas correctamente.", response.data);
