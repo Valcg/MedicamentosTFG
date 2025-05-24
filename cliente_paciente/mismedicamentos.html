@@ -43,16 +43,13 @@
             padding: 30px;
             border-radius: 15px;
             border: 1px solid #84CBF1; /*  #84CBF1 */
-            width: 50%;
+            width: 70%;
             max-width: 700px; /* Increased max-width for larger modal */
-            min-width: 400px; /* Set a minimum width for better responsiveness */
             text-align: left;
             position: relative;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
             overflow-y: auto; /* Allow scrolling if content is too large */
         }
-
-
         /* Close Button */
         .close {
             position: absolute;
@@ -64,37 +61,8 @@
             font-weight: bold;
         }
 
-        /* Confirm Button */
-        .confirm-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 15px;
-            font-size: 16px;
-        }
 
-        .confirm-btn:hover {
-            background-color: #0056b3;
-        }
 
-        /* Open Modal Button */
-        .open-modal-btn {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 20px;
-            font-size: 16px;
-        }
-
-        .open-modal-btn:hover {
-            background-color: #218838;
-        }
 
         /* Ensure spacing between content */
         .modal-content p {
@@ -135,7 +103,7 @@
     <!-- MAIN-USUARIO ------------------------------------------------------- -->
     <main id="usuario-main">
         <a href="../HomeCliente.html" class="BtnVolverHome"> ← Volver al inicio</a>
-        <h1 >Mis Medicamentos</h1>
+        <h1>Mis Medicamentos</h1>
 
     <section id="usuario-divs-container">
     <!--  1 ----------------------------------- -->      
@@ -155,8 +123,10 @@
         
     <!-- BTN --------------------------------------- -->
 
-            <div>
-                    <div id="modalBajoStock" class="modal">
+           <!-- Botón para probar la apertura manual del modal -->
+        <button id="btnAbrirBajoStock" class="open-modal-btn hover"> Ver Alerta de Bajo Stock</button>
+        <!-- Modal BAJO STOCK -->
+                <div id="modalBajoStock" class="modal">
                         <div class="modal-content">
                             <span id="closeModalBajoStockBtn" class="close">&times;</span>
                             <h2 style="color: #d9534f;">⚠ Alerta de Bajo Stock</h2>
@@ -165,17 +135,11 @@
                             </div>
                             <button id="confirmBtn" class="confirm-btn">Leído</button>
                         </div>
-                    </div>
-
-                    <!-- Botón para probar la apertura manual del modal -->
-                    <button id="btnAbrirBajoStock" class="open-modal-btn">
-                        Ver Alerta de Bajo Stock
-                    </button>
-        
-            </div>   
+                </div>
 
 
     </section>
+     
     </main>
 
     <!-- FOOTER ------------------------------------------------------- -->

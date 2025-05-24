@@ -58,31 +58,68 @@
         <section id="usuario-divs-container" >
 
 
+
+
+        <!-- MODAL +  FECHAS------------------------------------------------------- -->
+
+                <div class="usu-div-pa">
+
+                        <!--  MEDICAMENTOS PRO TOMAR-------------- -->
+                        <script src="cliente_paciente/medicamentosDeHoy.js">  </script>    
+                        <div id="diacuenta">Cargando recordatorio de hoy...</div>
+                        
+                        <!--  FECHA DE HOY-------------- -->
+                         <div id="fecha"></div>
+
+
+
+                     <button id="openModalBtn" class="paHomeOpenModalBtVerAlert  hover">Ver Mis Alertas</button>
+                    
+                     <!-- MODAL VER MIS ALERTAS-->
+                    <div id="modalalerta" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+                    background: rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:9999;">
+
+                            <div style="background:white; padding:20px; border-radius:8px; width: 90%; max-width: 450px; position: relative;">
+                                <!-- Botón cerrar modal con X en negro -->
+                                <button id="closeModalBtn" 
+                                    style="position:absolute; top:10px; right:15px; background:none; border:none; font-size: 24px; color:#000; cursor:pointer;">
+                                    &times;
+                                </button>
+                                <p></p>
+                            </div>
+                    </div>
+
+
+                </div>
+ 
+
+
+<!-- USUARIO------------------------------------------------------- -->
+
             <div class="usu-div-pa">
 
                 <!--  VER MI PERFIL -------------- -->
                  <div  class="paciente-item-dos" >         
-                    <div  id="saludo">
+                    <div  id="saludo" class="hover">
          
                         <div class="icono">
                             <img src="img/ico-saludo-48.png" alt="saludo" >
                         </div>
                         <div class="texto">
-                             <p id="verperfil">VER MI PERFIL</p>   
-                            <p class="texto3" >Puedes ver los datos de tu cuenta</p>       
+                             <p id="verperfil" class="hover">VER MI PERFIL</p>   
+                            <p class="texto3" >Puedes toda la información de los datos de tu cuenta</p>       
                         </div>
                     </div>
                  </div>      
  
                  <!--  VER MI PERFIL -------------- -->
                    <div  class="paciente-item-dos" >         
-                 <div  id="historial">
+                 <div  id="infocuenta">
          
                          <div class="icono">
                          <img src="img/ico-historial-64.png" alt="historial" >
                      </div>
                       <div class="texto">
-                         <p id="verhisalert">VER HISTORIAL</p>   
                          <p class="texto2">Puedes ver Las Alertas que ya han pasado de la hora actual</p>       
                       </div>
                   </div>
@@ -95,15 +132,26 @@
 
         <div class="usu-div-pa">
        <!---------------- 4 DIVS -->         
-        
+                            <!-- VER MIS ALERTAS -------------- -->
+                            <div class="paciente-item">
+                                    <div id="VerMisAlertas"class="hover">
+                                            <div class="icono">
+                                                <img  src="img/icons8-alarm-50.png" alt="">  
+                                            </div>
+                                            <div class="texto">
+                                                <p id="hovera" class="hover">VER MIS ALERTAS</p>
+                                                <p class="texto2"> Puedes ver todas tus alertas programadas que aun quedan y su información</p>
+                                            </div> 
+                                    </div>
+                            </div>
                             <!--  VER MI PERFIL -------------- -->
                             <div  class="paciente-item" >
-                                    <div  id="vermedicamentos" >
+                                    <div  id="vermedicamentos" class="hover">
                                         <div class="icono" >
                                             <img src="img/ico-medicamentos-64.png" alt="" style="padding: 4px;">
                                         </div>
                                         <div class="texto">
-                                            <p id="hovermt">MIS MEDICAMENTOS</p>   
+                                            <p id="hovermt" class="hover">MIS MEDICAMENTOS</p>   
                                             <p class="texto2">Puedes ver tus medicamentos, tu cantidad disponible y agregar stock</p>
                                         </div>
                                     </div>
@@ -111,40 +159,29 @@
                             </div> 
                             <!--  VER MIS RECETAS -------------- -->
                             <div  class="paciente-item">
-                                        <div id="VerMisRecetas">
+                                        <div id="VerMisRecetas" class="hover">
                                             <div class="icono">
                                                 <img  src="img/ico-rec-64.png" alt="">  
                                             </div>
                                             <div class="texto">
-                                                <p id="hoverr">VER MIS RECETAS</p>
+                                                <p id="hoverr" class="hover">VER MIS RECETAS</p>
                                                 <p class="texto2">Puedes ver las recetas que esten ACTIVAS en este momento </p>
                                             </div>
                                         </div>
                             </div>
                             <!--  VER MIS MEDICOS -------------- -->
                             <div  class="paciente-item">
-                                    <div id="VerMisMedicos">
+                                    <div id="VerMisMedicos" class="hover">
                                         <div class="icono">
                                                 <img  src="img/ico-med-64.png" alt="">  
                                             </div>
                                             <div class="texto">
-                                                <p id="hoverm">VER MIS MEDICOS</p>
+                                                <p id="hoverm" class="hover">VER MIS MEDICOS</p>
                                                 <p class="texto2">Puedes ver la información de tu médico/s que te tienen de alta como su paciente</p>
                                             </div>
                                     </div>
                             </div>
-                            <!-- VER MIS ALERTAS -------------- -->
-                            <div class="paciente-item">
-                                    <div id="VerMisAlertas">
-                                            <div class="icono">
-                                                <img  src="img/icons8-alarm-50.png" alt="">  
-                                            </div>
-                                            <div class="texto">
-                                                <p id="hovera">VER MIS ALERTAS</p>
-                                                <p class="texto2"> Puedes ver todas tus alertas programadas que aun quedan y su información</p>
-                                            </div> 
-                                    </div>
-                            </div>
+
             </div>
             <!-- FIN DIV UNO---------------------------- -->
 
@@ -154,10 +191,26 @@
                 <!-- ---------------- VER MIS CUIDADORES -->
                 <div class="usuario-div-dos">
 
-                        <div id="fecha"></div>
-                        <script src="cliente_paciente/medicamentosDeHoy.js">  </script>    
-                        <!-- <div id="diacuenta"> " Hoy tienes 1 medicamento por tomar "</div> -->
-                        <div id="diacuenta">Cargando recordatorio de hoy...</div>
+
+                         
+                    <div  id="historial" class="hover">
+                         <div class="icono">
+                            <img src="img/ico-historial-64.png" alt="historial" >
+                        </div>
+                        <div class="texto">
+                            <p id="verhisalert" class="hover">VER HISTORIAL</p>   
+                            <p class="texto2">Puedes ver Las Alertas que ya han pasado de la hora actual</p>       
+                        </div>
+                    </div>
+
+                    <div id="infoHistorial">
+                             <p > En el Historial puedes ver :   </p>
+                            <p> 1 🔹​  El historial  de las Alertas que ya han pasado, Su estado, la fecha y la hora.</p>
+                            <p> 2 🔹​ En caso de que el estado este Sin Confirmar podrás Confirmar la Toma después de la hora : su estado cambiará a Toma - Confirmada Tarde.</p>
+                            
+                            <p>IMPORTANTE: No  podrás deshacer la acción. Tampoco te dejará confirmar En caso de Bajo stock de Medicamento o la receta este Caducada</p>
+                    
+                        </div>
             
                 </div>
                 <!-- ---------------- CALENDARIO -->
@@ -177,57 +230,35 @@
 
            <h1>Contactos de Emergencia</h1>
 
-<!-- CONTACTOS DE EMERGENCIA------------------------------------------------------- -->
+        <!-- CONTACTOS DE EMERGENCIA------------------------------------------------------- -->
 
-<div class="usu-div-pa">
-    <div id="pacContactoAlta">
+        <div class="usu-div-pa">
+                    <div id="pacContactoAlta">
 
 
-        <div class="pacUnContactoAlta">
-        
-            <!-- ALTA CONTACTO---------------------------------- -->
-            <div id="paciente-contactos" ></div>
-            <script src="/cliente_paciente/contactoalta.js">  </script> 
+                        <div class="pacUnContactoAlta">
+                        
+                            <!-- ALTA CONTACTO---------------------------------- -->
+                            <div id="paciente-contactos" ></div>
+                            <script src="/cliente_paciente/contactoalta.js">  </script> 
 
+                        </div>
+                        
+                        
+                    </div>
+
+                </div>
+
+
+                <div class="usu-div-pa">
+                <div class="contactos-container" style="width: 100%;">
+                    <!-- Aquí el JS agregará todos los .pacUnContacto -->
+                </div>
+
+                <script src="cliente_paciente/contactoseccion.js"></script>
         </div>
-        
-        
-    </div>
-
-</div>
 
 
-<div class="usu-div-pa">
-  <div class="contactos-container" style="width: 100%;">
-    <!-- Aquí el JS agregará todos los .pacUnContacto -->
-  </div>
-
-  <script src="cliente_paciente/contactoseccion.js"></script>
-</div>
-
-
-<!-- MODAL------------------------------------------------------- -->
-
-
-<div class="usu-div-pa"> 
-        <button id="openModalBtn" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 15px;">Ver Alertas</button>
-TEXTO
- <div id="modalalerta" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
-    background: rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:9999;">
-
-    <div style="background:white; padding:20px; border-radius:8px; width: 90%; max-width: 450px; position: relative;">
-        <!-- Botón cerrar modal con X en negro -->
-        <button id="closeModalBtn" 
-            style="position:absolute; top:10px; right:15px; background:none; border:none; font-size: 24px; color:#000; cursor:pointer;">
-            &times;
-        </button>
-        <p></p>
-    </div>
-</div>
-
-
-</div>
-    <!-- Aquí va el modal -->
 
 <!-- DIV 6 FOOTER --------------- -->
             <div class="usuario-div-seis">

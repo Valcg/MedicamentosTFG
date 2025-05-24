@@ -260,15 +260,13 @@
 
 
         /* 1 VOLVER HOME ---------------------------------------*/
-        .BtnVolverHome {
-            width: 250px;
+        .BtnVolverHome ,.BtnVolverArriba{
             margin-left: 40px;
-            /* border-radius: 20px;*/
             border:1px solid yellow; 
             font-weight: bold; 
             color: #00669C;
             cursor: pointer;
-
+            
             text-decoration: none;
         }
 

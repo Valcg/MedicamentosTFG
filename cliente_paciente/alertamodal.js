@@ -72,10 +72,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         ${esSinConfirmar ? `
                         <button id="confirmarAlertaBtn"
                             style="
-                                background-color: ${puedeConfirmar ? 'green' : '#ccc'};
+                                background-color: ${puedeConfirmar ? '#66b794f1' : '#ccc'};
                                 color: ${puedeConfirmar ? 'white' : '#666'};
-                                border-radius: 5px;
-                                padding: 12px 25px;
+                                border-radius: 16px;
+                                padding: 6px 12px;
                                 border: none;
                                 cursor: ${puedeConfirmar ? 'pointer' : 'not-allowed'};
                             "
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         ${!puedeConfirmar ? `
                         <p style="color: #999; font-style: italic; margin-top: 10px;">
                             El botón se habilitará cuando queden 10 minutos antes de la hora de la toma.
-                        </p>` : ''}` : `<strong>YA CONFIRMASTE LA TOMA</strong>`}
+                        </p>` : ''}` : `<a style ="color:#449a74f1;">YA CONFIRMASTE LA TOMA</a>`}
                     </td>
                 </tr>
             </table>
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(() => {
                         const horaConfirmada = new Date().toLocaleTimeString();
                         document.getElementById("mensajeConfirmacion").textContent = `✅ La toma fue confirmada a las ${horaConfirmada}.`;
-                        document.getElementById("mensajeConfirmacion").style.color = "green";
+                        document.getElementById("mensajeConfirmacion").style.color = "#66b794f1";
                         document.getElementById("estadoAlerta").textContent = "Confirmado";
                         this.remove();
                         alertaProxima.estadoAlerta = "Confirmada";

@@ -21,8 +21,6 @@
 }
 
 
-
-
 /* 1 -------------- PERFIL Y VER HISTORIAL ----------------------------------------- */
 
     /* 1  BOXS DE perfil y Historial --------------------------- */
@@ -42,7 +40,7 @@
         font-size: 14px;
         transition: 0.3s ease-in-out;
     }
-    #saludo ,#historial{
+    #saludo ,#infocuenta{
         display: flex;
         align-items: center;
         justify-content: space-evenly;
@@ -81,19 +79,14 @@
                     height: 60px;
                 }
 
-            #historial{background-color: #0d7ebb;}  
-            #historial:hover{background-color: #00669C;}  
-            #verhisalert { /*BOTON*/
-
-                background-color: white;
+            #infocuenta{background-color: #0d7ebb;}  
+            #infocuenta:hover{background-color: #00669C;}  
+            #verhisalert { /*BOTON*/background-color: white;
             }
 
             #verhisalert:hover { color:#00669C;} 
 
-                #saludo:hover,#historial:hover{box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
-                #verperfil:hover,#verhisalert:hover {box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
-
-
+           
 
 /* 2 -------------- MEDICAMENTOS-RECETAS-MEDICOS-ALERTAS ----------------------------------------- */
         .paciente-item {
@@ -110,38 +103,25 @@
             box-sizing: border-box;
             transition:  0.3s ease-in-out;
         }
-                    /* sombras BOTONES -----------------------------------------*/
-                    #hoverr:hover,#hoverm:hover,#hovera:hover,#hovermt:hover {
-                        box-shadow:4px 4px 8px rgba(0, 0, 0, 0.1);
-                    }
+
             /* MIS MEDICAMENTOS  ----------------------------------------*/
             #vermedicamentos{background-color: #dac47c;}
-
-            #vermedicamentos:hover{background-color: #c9b268;
-                box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}  
-                #hovermt:hover { color: #dac47c; }
+                    #vermedicamentos:hover{background-color: #c9b268;}  
+            #hovermt:hover { color: #dac47c; }
 
             /* MIS RECETAS -----------------------------------------------*/
             #VerMisRecetas {background-color: rgb(223, 153, 127);}
-
-            #VerMisRecetas:hover {background-color: #d77957;
-                box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1); }
-
+                    #VerMisRecetas:hover {background-color: #d77957;}
             #hoverr:hover { color: #f9a365; }
 
             /* MIS MEDICOS -----------------------------------------------*/
             #VerMisMedicos {background-color: #66b794f1;}
-
-            #VerMisMedicos:hover {background-color: #449a74f1;
-                box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}
+                    #VerMisMedicos:hover {background-color: #449a74f1;}
 
             #hoverm:hover { color: #66b794f1; }
             /* MIS ALERTAS-------------------------------------------------*/
             #VerMisAlertas {background-color: #84CBF1;}
-
-            #VerMisAlertas:hover {background-color: #4699c5; 
-                box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1); }
-
+                #VerMisAlertas:hover {background-color: #4699c5;  }
             #hovera:hover { color: #84CBF1; }
 
 
@@ -179,21 +159,18 @@
                     box-sizing: border-box;
                 }
 
-                /*--------------CALENDARIO*/ 
-
+                /*--------------------------------------CALENDARIO*/ 
                 #fecha,#diacuenta {
                     text-align: center;
-                    /* margin:20px; */
-                    padding: 60px 0;
-                    font-size: 16px;
-                    font-family: Arial, sans-serif;
-                    background-color: white;
+                    width: 100%;
+                    padding: 10px 0;
+
                     border-radius: 8px;
+                    margin: 10px 20px;
                 }
                         #fecha {
                             font-family: Arial, sans-serif;
                             background-color: #F0F0F0;
-                            margin-bottom: 40px;
                         }
 
                         #diacuenta {
@@ -212,9 +189,33 @@
                             border: none;
                         }
 
+                #historial{
+                    height:200px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-evenly;
+                        border-radius: 10px;
+                        box-sizing: border-box;
+                        transition:  0.3s ease-in-out;
+                    }
+
+                #historial{background-color: #0d7ebb;}  
+                    #historial:hover{background-color: #00669C;}  
+                #verhisalert { /*BOTON*/background-color: white;}
+                        #verhisalert:hover { color:#00669C;} 
+
+                #infoHistorial{
+                     display:inline-block;
+  align-items: center; /* Centra verticalmente */
+                    width: 100%;
+                    height:auto;
+                text-align:justify;
+                font-size: 14px;
+           
+                }
 
 
-
+/*MEDIA max-width -----------------------------------------------------------------------------*/
 
 @media screen and (max-width: 1270px) {
 
@@ -336,9 +337,6 @@
 
 /* BOTONES -------------------------------------------------------------------------- */
 
-
-          
-
 #pacMisRecetas, #pacVerMisMedicos
 {  
 margin: 20px;
@@ -357,8 +355,7 @@ gap: 20px; /* espacio entre filas y columnas */
 }
 
 
-        .pacUnaReceta,.pacUnMedico
-        {   
+        .pacUnaReceta,.pacUnMedico{   
             flex: 0 0 calc(50% - 10px); /* restamos la mitad del gap */
             box-sizing: border-box;   
             background-color: #F0F0F0;
@@ -372,8 +369,6 @@ gap: 20px; /* espacio entre filas y columnas */
             background-color: white;
             margin: 10px 0;
         }
-
-
 
         .pacUnMedico{
             display: flex;
@@ -390,8 +385,6 @@ gap: 20px; /* espacio entre filas y columnas */
 /* CONTACTOS -------------------------------------------------------------------------- */
 
     /*  CONTACTO ALTA------------ */ 
-
-
     .pacUnContactoAlta{background-color: #F0F0F0;
             border-radius: 10px;}
     .pacUnContactoAlta:hover{ 
@@ -399,29 +392,28 @@ gap: 20px; /* espacio entre filas y columnas */
             box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);}
    
             #tablapacAltaContacto{
-                    width: 40%;
+                    width: 50%;
                     margin: auto;
-                    text-align: center;
-                    }
+                    text-align: center;}
 
             #paciente-contactos{padding: 20px 0;
                     width: 80%;
                     margin: auto;}
 
 
-   /*  UN CONTACTO -------------- */
+/*  UN CONTACTO -------------- */
 /* Contenedor de todos los contactos */
 .contactos-container {
     padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Espacio entre cajas */
+  gap: 40px; /* Espacio entre cajas */
   justify-content: flex-start;
 }
 
 /* Cada contacto */
 .pacUnContacto {
-  width: calc((100% - 40px) / 3); /* 3 por fila con 2 gaps de 20px */
+  width: calc((100% - 40px) / 2); /* 3 por fila con 2 gaps de 20px */
   background-color: #84CBF1;
   border-radius: 10px;
   box-sizing: border-box;
@@ -481,3 +473,61 @@ gap: 20px; /* espacio entre filas y columnas */
                     #tablapacUnContacto .btn-guardar:hover {background-color: #449a74f1; box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.1);}
 
 
+
+
+/* MODAL - MEDICAMENTOS Y MIS ALERTAS -------------------------------------------------------------------------- */
+
+
+        /* Open Modal BOTON */
+        .open-modal-btn {
+                        all: unset; /* Esto quita prácticamente todos los estilos del navegador */
+                        color: white; /* Color del texto */
+                        padding: 6px 12px;
+                        border-radius: 16px;
+                        cursor: pointer;
+                        font-size: 14px;
+                        font-family: inherit;
+                        white-space: nowrap; 
+                        transition: background-color 0.3s;
+                        width: fit-content;
+                        margin: auto;
+                        text-align: center;
+        }
+            /*MODAL  ALERTA BAJO STOCK*/
+
+        .open-modal-btn {background-color: #66b794f1; }
+            .open-modal-btn:hover { background-color: #449a74f1; }
+
+
+        /* Confirm Button */
+        .confirm-btn {
+            background-color: #0d7ebb;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        .confirm-btn:hover {background-color: #00669C;}
+
+
+.paHomeOpenModalBtVerAlert{
+    position: fixed;
+    bottom: 20px;
+    right: 20px; 
+    color: white;                    
+    padding: 6px 12px;
+    border-radius: 16px;
+    border: none ;               
+    font-size: 14px;               
+    transition: background-color 0.3s; 
+    background-color: #84CBF1;
+    box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);                  
+    }
+
+
+.paHomeOpenModalBtVerAlert:hover{ background-color: #4699c5;} 
+      
