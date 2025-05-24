@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     seccion.innerHTML = `
       <form id="form-contacto">
 
-            <h2>Dar de Alta <br> <strong ">  Nuevo Contacto</strong></h2>
+            <h2>Dar de Alta <br> <strong>Nuevo Contacto</strong></h2>
             <table id="tablapacAltaContacto">
                 <tbody>
                     <tr>
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>
                             Relación Específica
                             <br>
-                            <input type="text" id="relacionEspecifica" class="input" placeholder="Relación específica" />
+                            <input type="text" id="relacionEspecifica" class="input" placeholder="Relación específica" required />
                         </td>
                     </tr>
                  
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>
                             Comentarios
                             <br>
-                            <input type="text" id="comentarios" class="input" placeholder="Comentarios" />
+                            <input type="text" id="comentarios" class="input" placeholder="Comentarios" required />
                         </td>
                     </tr>
                 
@@ -56,10 +56,17 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>
                             Correo
                             <br>
-                            <input type="email" id="correo" class="input" placeholder="Correo electrónico" />
+                            <input type="email" id="correo" class="input" placeholder="Correo electrónico" required />
                         </td>
                     </tr>
-                  
+                    
+                    <!-- Mensaje de validación aparecerá aquí, antes del botón -->
+                    <tr>
+                        <td>
+                            <div id="mensaje" class="mensaje-contacto mt-2"></div>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td style="text-align:center;">
                             <button type="submit" class="btnAñadirContacto hover">Guardar contacto</button>
@@ -68,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 </tbody>
             </table>
         </form>
-        <div id="mensaje" class="mensaje-contacto mt-2"></div>
     `;
 
     contenedor.appendChild(seccion);
@@ -81,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const idPaciente = localStorage.getItem("idUsuario");
 
     if (!idPaciente) {
-        mensaje.innerHTML = "<p>Error: No se encontró el ID del paciente en localStorage.</p>";
+        mensaje.innerHTML = "<p style='color: red;'>Error: No se encontró el ID del paciente en localStorage.</p>";
         return;
     }
 
@@ -98,20 +104,45 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(err => {
             console.error("Error al cargar relaciones:", err);
-            mensaje.innerHTML = "<p>Error al cargar las opciones de relación.</p>";
+            mensaje.innerHTML = "<p style='color: red;'>Error al cargar las opciones de relación.</p>";
         });
 
-    // ✉️ Enviar formulario
+    // ✉️ Enviar formulario con validación obligatoria en todos los campos
     form.addEventListener("submit", function (e) {
         e.preventDefault();
 
+        // Limpiar mensaje previo
+        mensaje.innerHTML = "";
+
+        // Obtener y limpiar valores de espacios en blanco
+        const nombre = document.getElementById("nombre").value.trim();
+        const telefono = document.getElementById("telefono").value.trim();
+        const relacionEnum = document.getElementById("relacionEnum").value.trim();
+        const relacionEspecifica = document.getElementById("relacionEspecifica").value.trim();
+        const comentarios = document.getElementById("comentarios").value.trim();
+        const correo = document.getElementById("correo").value.trim();
+
+        // Validar que TODOS los campos tengan contenido
+        if (!nombre || !telefono || !relacionEnum || !relacionEspecifica || !comentarios || !correo) {
+            mensaje.innerHTML = "<p style='color: red; text-align: center; margin-bottom: 10px;'>Por favor, complete todos los campos obligatorios.</p>";
+            return;
+        }
+
+        // Validar formato básico correo (opcional, si quieres)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(correo)) {
+            mensaje.innerHTML = "<p style='color: red; text-align: center; margin-bottom: 10px;'>Por favor, ingrese un correo electrónico válido.</p>";
+            return;
+        }
+
+        // Crear objeto contacto
         const contactoEmergencia = {
-            nombre: document.getElementById("nombre").value,
-            telefono: parseInt(document.getElementById("telefono").value),
-            relacionEnum: document.getElementById("relacionEnum").value,
-            relacionEspecifica: document.getElementById("relacionEspecifica").value,
-            comentarios: document.getElementById("comentarios").value,
-            correo: document.getElementById("correo").value,
+            nombre: nombre,
+            telefono: parseInt(telefono),
+            relacionEnum: relacionEnum,
+            relacionEspecifica: relacionEspecifica,
+            comentarios: comentarios,
+            correo: correo,
             paciente: {
                 idPaciente: parseInt(idPaciente)
             }
@@ -119,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         axios.post("https://medicade-back.involux.es/pacientes/alta-contacto-emergencia", contactoEmergencia)
             .then(res => {
-                mensaje.innerHTML = "<p style='color: green;'>Contacto de emergencia guardado con éxito.</p>";
+                mensaje.innerHTML = "<p style='color: green; text-align: center;'>Contacto de emergencia guardado con éxito.</p>";
                 form.reset();
                 setTimeout(() => {
                     location.href = "#paciente-contactos";
@@ -128,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(err => {
                 console.error("Error al guardar contacto:", err);
-                mensaje.innerHTML = "<p style='color: red;'>Error al guardar el contacto.</p>";
+                mensaje.innerHTML = "<p style='color: red; text-align: center;'>Error al guardar el contacto.</p>";
             });
     });
 });
