@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // 🔄 Cargar opciones del enum desde el backend
-    axios.get("http://localhost:9050/pacientes/relacionesContactoEmergencia")
+    axios.get("https://medicade-back.involux.es/pacientes/relacionesContactoEmergencia")
         .then(res => {
             const relaciones = res.data;
             relaciones.forEach(rel => {
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
 
-        axios.post("http://localhost:9050/pacientes/alta-contacto-emergencia", contactoEmergencia)
+        axios.post("https://medicade-back.involux.es/pacientes/alta-contacto-emergencia", contactoEmergencia)
             .then(res => {
                 mensaje.innerHTML = "<p style='color: green;'>Contacto de emergencia guardado con éxito.</p>";
                 form.reset();

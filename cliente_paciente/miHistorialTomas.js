@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
         <thead>
             <tr>
                 <td>Fecha y Hora de Toma</td>
-                <td>Estado de Alerta</td>
                 <td>Nombre del Medicamento</td>
+                <td>Estado de Alerta</td>
                 <td>  </td>
             </tr>
         </thead>
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const url = `http://localhost:9050/pacientes/Vermihistorial/${idPaciente}`;
+    const url = `https://medicade-back.involux.es/pacientes/Vermihistorial/${idPaciente}`;
 
     function obtenerFechaYHoraFormateada(fechaStr) {
         const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
@@ -41,7 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return {
             fechaTexto: `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)} ${dia} de ${mes} de ${año}`,
             horaTexto: `${hora}:${minutos}`,
-            claveAgrupacion: `${año}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`
+            claveAgrupacion: `${año}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`,
+            fechaReal: fecha
         };
     }
 
@@ -57,31 +58,40 @@ document.addEventListener("DOMContentLoaded", function () {
                 const historialAgrupado = {};
 
                 historial.forEach(toma => {
-                    const { fechaTexto, horaTexto, claveAgrupacion } = obtenerFechaYHoraFormateada(toma.fechaHoraToma);
+                    const { fechaTexto, horaTexto, claveAgrupacion, fechaReal } = obtenerFechaYHoraFormateada(toma.fechaHoraToma);
                     if (!historialAgrupado[claveAgrupacion]) {
                         historialAgrupado[claveAgrupacion] = {
                             fechaTexto,
+                            fechaReal,
                             tomas: []
                         };
                     }
                     historialAgrupado[claveAgrupacion].tomas.push({
                         ...toma,
-                        horaTexto
+                        horaTexto,
+                        fechaToma: fechaReal
                     });
                 });
 
                 cuerpoTabla.innerHTML = '';
 
-                for (const clave in historialAgrupado) {
+                const clavesOrdenadas = Object.keys(historialAgrupado).sort((a, b) => {
+                    return historialAgrupado[b].fechaReal - historialAgrupado[a].fechaReal;
+                });
+
+                clavesOrdenadas.forEach(clave => {
                     const grupo = historialAgrupado[clave];
 
                     const filaTitulo = document.createElement("tr");
                     filaTitulo.innerHTML = `<td colspan="4" style="background-color: #fafafa; padding: 10px;">${grupo.fechaTexto}</td>`;
                     cuerpoTabla.appendChild(filaTitulo);
 
+                    // ✅ Ordenar por hora descendente dentro del día
+                    grupo.tomas.sort((a, b) => b.fechaToma - a.fechaToma);
+
                     grupo.tomas.forEach(toma => {
                         const fila = document.createElement("tr");
-                        fila.classList.add("tablahover");  
+                        fila.classList.add("tablahover");
                         const estadoAlerta = toma.alerta ? toma.alerta.estadoAlerta : 'No disponible';
                         const nombreMedicamento = toma.alerta?.medicamento?.nombreMedicamento || 'No disponible';
 
@@ -104,11 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         fila.id = `alerta-${toma.alerta?.idAlerta || toma.id}`;
                         fila.innerHTML = `
                             <td>${toma.horaTexto}</td>
-
                             <td>${nombreMedicamento}</td>
-
                             ${estadoHTML}
-                          
                             ${accionHTML}
                         `;
 
@@ -118,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (confirmarBtn) {
                             confirmarBtn.addEventListener("click", function () {
                                 const idAlerta = toma.alerta.idAlerta;
-                                const urlConfirmar = `http://localhost:9050/pacientes/confirmarToma/${idAlerta}`;
+                                const urlConfirmar = `https://medicade-back.involux.es/pacientes/confirmarToma/${idAlerta}`;
 
                                 axios.post(urlConfirmar)
                                     .then(() => {
@@ -132,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         confirmarBtn.disabled = true;
                                         confirmarBtn.textContent = "Confirmado";
 
-                                        const estadoCelda = fila.querySelector("td:nth-child(2)");
+                                        const estadoCelda = fila.querySelector("td:nth-child(3)");
                                         if (estadoCelda) {
                                             estadoCelda.innerHTML = `<span class="estadotarde">Confirmado Tarde</span>`;
                                         }
@@ -143,28 +150,22 @@ document.addEventListener("DOMContentLoaded", function () {
                                             window.location.reload();
                                         }, 1000);
                                     })
-                                    .catch(error => {
-                                        console.error("Error al confirmar la toma:", error);
-
-                                        // Guardar el ID antes de recargar
+                                    .catch(() => {
                                         localStorage.setItem("idAlertaConfirmada", idAlerta);
 
                                         let filaError = document.createElement("tr");
                                         filaError.classList.add("mensaje-error");
                                         filaError.innerHTML = `<td colspan="4" style="color: red; font-weight: bold; text-align: center;">
-                                            Error al confirmar la toma. ${error.response?.data?.message || 'Intente más tarde.'}
+                                            Tienes Bajo Stock de este Medicamento o Esta Receta ya está Caducada
                                         </td>`;
                                         fila.parentNode.insertBefore(filaError, fila.nextSibling);
 
-                                        // Recargar igualmente
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 1000);
+                                        fila.style.backgroundColor = "#fff3cd";
                                     });
                             });
                         }
                     });
-                }
+                });
 
                 if (!historialContainer.contains(tabla)) {
                     historialContainer.appendChild(tabla);

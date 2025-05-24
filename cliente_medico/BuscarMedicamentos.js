@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tablaBody = document.querySelector("#tablaMedicamentos tbody");
 
     function cargarTodosLosMedicamentos() {
-        axios.get("http://localhost:9050/medicos/BuscarTodosLosMedicamentos")
+        axios.get("https://medicade-back.involux.es/medicos/BuscarTodosLosMedicamentos")
             .then(response => {
                 const medicamentos = response.data;
                 tablaBody.innerHTML = "";
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function cargarTodosLosMedicamentos() {
-        axios.get("http://localhost:9050/medicos/BuscarTodosLosMedicamentos")
+        axios.get("https://medicade-back.involux.es/medicos/BuscarTodosLosMedicamentos")
             .then(response => {
                 medicamentosCargados = response.data || [];
                 tablaBody.innerHTML = "";

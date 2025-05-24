@@ -1,17 +1,15 @@
 document.addEventListener("DOMContentLoaded", async function () {
     const correo = localStorage.getItem("correo");
     const idPaciente = localStorage.getItem("idUsuario");
-    
-const divAlta = document.querySelector(".contactos-container"); //l contenedor real de todos
-    
-    // ✅ Limpiar contenido sin eliminar el contenedor
+
+    const divAlta = document.querySelector(".contactos-container");
     divAlta.innerHTML = "";
 
     let relacionesEnumGlobal = [];
     let contactos = [];
 
     try {
-        const resRelaciones = await axios.get("http://localhost:9050/pacientes/relacionesContactoEmergencia");
+        const resRelaciones = await axios.get("https://medicade-back.involux.es/pacientes/relacionesContactoEmergencia");
         relacionesEnumGlobal = resRelaciones.data;
     } catch (err) {
         console.error("Error al obtener relaciones:", err);
@@ -19,7 +17,7 @@ const divAlta = document.querySelector(".contactos-container"); //l contenedor r
     }
 
     try {
-        const resContactos = await axios.get(`http://localhost:9050/pacientes/contacto-emergencia-por-paciente/${correo}`);
+        const resContactos = await axios.get(`https://medicade-back.involux.es/pacientes/contacto-emergencia-por-paciente/${correo}`);
         contactos = resContactos.data;
     } catch (err) {
         console.error("Error al obtener contactos:", err);
@@ -30,7 +28,6 @@ const divAlta = document.querySelector(".contactos-container"); //l contenedor r
         const divContacto = document.createElement("div");
         divContacto.className = "pacUnContacto";
 
-        // Crear select dinámico para relacionEnum
         const selectRelacion = document.createElement("select");
         selectRelacion.classList.add("input-relacionEnum", "input");
         relacionesEnumGlobal.forEach(rel => {
@@ -42,7 +39,7 @@ const divAlta = document.querySelector(".contactos-container"); //l contenedor r
         });
 
         divContacto.innerHTML = `
-            <div class="mensaje"></div>
+            <div class="mensaje" style="color: red;text-align:center;"></div>
             <h3>
                 CONTACTO<br>
                 <strong>${contacto.nombre}</strong>
@@ -52,13 +49,13 @@ const divAlta = document.querySelector(".contactos-container"); //l contenedor r
                     <tr>
                         <td>
                             Nombre<br>
-                            <input type="text" class="input-nombre input" value="${contacto.nombre}" />
+                            <input type="text" class="input-nombre input" value="${contacto.nombre}" required />
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Teléfono<br>
-                            <input type="number" class="input-telefono input" value="${contacto.telefono}" />
+                            <input type="number" class="input-telefono input" value="${contacto.telefono}" required />
                         </td>
                     </tr>
                     <tr>
@@ -70,19 +67,19 @@ const divAlta = document.querySelector(".contactos-container"); //l contenedor r
                     <tr>
                         <td>
                             Relación Específica<br>
-                            <input type="text" class="input-relacionEspecifica input" value="${contacto.relacionEspecifica || ''}" />
+                            <input type="text" class="input-relacionEspecifica input" value="${contacto.relacionEspecifica || ''}" required />
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Comentarios<br>
-                            <input type="text" class="input-comentarios input" value="${contacto.comentarios || ''}" />
+                            <input type="text" class="input-comentarios input" value="${contacto.comentarios || ''}" required />
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Correo<br>
-                            <input type="text" class="input-correo input" value="${contacto.correo || ''}" />
+                            <input type="text" class="input-correo input" value="${contacto.correo || ''}" required />
                         </td>
                     </tr>
                     <tr>
@@ -96,18 +93,14 @@ const divAlta = document.querySelector(".contactos-container"); //l contenedor r
         `;
 
         divContacto.querySelector(".select-container").appendChild(selectRelacion);
-
-        // ✅ Insertar en el contenedor (ya no usamos insertAdjacentElement)
         divAlta.appendChild(divContacto);
 
-        // Guardar cambios
         divContacto.querySelector(".btn-guardar").addEventListener("click", function () {
             const contenedorContacto = this.closest(".pacUnContacto");
             const id = this.getAttribute("data-id");
             modificarContactoEnTabla(id, contenedorContacto);
         });
 
-        // Eliminar contacto
         divContacto.querySelector(".btn-eliminar").addEventListener("click", function () {
             const id = this.getAttribute("data-id");
             eliminarContacto(id);
@@ -115,6 +108,18 @@ const divAlta = document.querySelector(".contactos-container"); //l contenedor r
     });
 
     function modificarContactoEnTabla(id, contenedor) {
+        const inputs = contenedor.querySelectorAll("input, select");
+        const mensaje = contenedor.querySelector(".mensaje");
+        mensaje.textContent = ""; // Limpiar mensaje previo
+
+        for (const input of inputs) {
+            if (!input.value.trim()) {
+                mensaje.textContent = "Por favor, completa todos los campos antes de guardar.";
+                input.focus();
+                return;
+            }
+        }
+
         const contactoActualizado = {
             idContacto: parseInt(id),
             nombre: contenedor.querySelector(".input-nombre").value,
@@ -128,13 +133,15 @@ const divAlta = document.querySelector(".contactos-container"); //l contenedor r
             }
         };
 
-        axios.put("http://localhost:9050/pacientes/modificar-contacto-emergencia", contactoActualizado)
+        axios.put("https://medicade-back.involux.es/pacientes/modificar-contacto-emergencia", contactoActualizado)
             .then(() => {
-                alert("Contacto actualizado correctamente.");
+                mensaje.style.color = "green";
+                mensaje.textContent = "Contacto actualizado correctamente.";
             })
             .catch(err => {
                 console.error("Error al actualizar contacto:", err);
-                alert("Error al actualizar el contacto.");
+                mensaje.style.color = "red";
+                mensaje.textContent = "Error al actualizar el contacto.";
             });
     }
 
@@ -148,7 +155,7 @@ const divAlta = document.querySelector(".contactos-container"); //l contenedor r
             }
         };
 
-        axios.delete("http://localhost:9050/pacientes/eliminar-contacto-emergencia", { data: contactoAEliminar })
+        axios.delete("https://medicade-back.involux.es/pacientes/eliminar-contacto-emergencia", { data: contactoAEliminar })
             .then(() => {
                 alert("Contacto eliminado.");
                 location.reload();

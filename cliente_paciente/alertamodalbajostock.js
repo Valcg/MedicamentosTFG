@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 180000);
 
     function verificarMedicamentosCliente() {
-        axios.get(`http://localhost:9050/pacientes/VerMisMedicamentos/paciente/${idPaciente}`)
+        axios.get(`https://medicade-back.involux.es/pacientes/VerMisMedicamentos/paciente/${idPaciente}`)
             .then(response => {
                 const listaMedicamentos = response.data;
 
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function verificarStockMedicamento(idMedicamento, esUltimo) {
-        axios.post(`http://localhost:9050/pacientes/verificar-stock/${idPaciente}/${idMedicamento}`)
+        axios.post(`https://medicade-back.involux.es/pacientes/verificar-stock/${idPaciente}/${idMedicamento}`)
             .then(response => {
                 const mensaje = response.data;
 
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.confirmarAlertaBajoStock = function(idAlerta) {
         console.log(`🟢 Confirmando alerta para medicamento ID ${idAlerta}`);
-        axios.post(`http://localhost:9050/pacientes/confirmarAlertaBajoStock/${idAlerta}`)
+        axios.post(`https://medicade-back.involux.es/pacientes/confirmarAlertaBajoStock/${idAlerta}`)
             .then(() => {
                 localStorage.setItem("alertaResaltarId", idAlerta); // Guardamos ID para resaltar en la siguiente vista
                 window.location.href = "mismedicamentos.html";
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.posponerAlertaBajoStock = function(idAlerta) {
         console.log(`🟠 Posponiendo alerta para medicamento ID ${idAlerta}`);
-        axios.post(`http://localhost:9050/pacientes/posponerAlertaBajoStock/${idAlerta}`, {})
+        axios.post(`https://medicade-back.involux.es/pacientes/posponerAlertaBajoStock/${idAlerta}`, {})
             .then(res => {
                 alert("La alerta se pospondrá 1 minuto.");
                 modalBajoStock.classList.remove("show");

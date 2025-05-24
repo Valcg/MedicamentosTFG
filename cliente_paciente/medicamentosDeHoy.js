@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("diacuenta").textContent = "Cargando...";
 
     // Realiza la solicitud GET para obtener las alertas de hoy
-    axios.get(`http://localhost:9050/pacientes/alertasDeHoy/${idPaciente}/alertas/hoy`)
+    axios.get(`https://medicade-back.involux.es/pacientes/alertasDeHoy/${idPaciente}/alertas/hoy`)
         .then(res => {
             const cantidad = res.data;
             console.log(cantidad);

@@ -1,6 +1,6 @@
 // Código JavaScript igual al que ya tienes
 document.addEventListener("DOMContentLoaded", function () {
-    const baseURL = "http://localhost:9050/medicos";
+    const baseURL = "https://medicade-back.involux.es/medicos";
     const unicoContainer = document.getElementById("medicoseccionasociarpaciente"); // Usar el id correcto 'unico'
 
     // Obtener el número de colegiado desde localStorage

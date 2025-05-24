@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const fechaTexto = `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)} ${dia} de ${mes} de ${año}`;
         const horaTexto = `${hora}:${minutos}`;
-
         const claveAgrupacion = `${año}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
 
         return {
@@ -35,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const url = `http://localhost:9050/pacientes/VermisAlertas/${idPaciente}`;
+    const url = `https://medicade-back.involux.es/pacientes/VermisAlertas/${idPaciente}`;
 
     axios.get(url)
         .then(res => {
@@ -46,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Filtrar solo alertas futuras
             const ahora = new Date();
             alertas = alertas
                 .map(alerta => ({
@@ -54,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     fechaHoraDate: new Date(alerta.fechaHoraAlerta)
                 }))
                 .filter(alerta => alerta.fechaHoraDate >= ahora)
-                .sort((a, b) => a.fechaHoraDate - b.fechaHoraDate); // Ordenar por fecha ascendente
+                .sort((a, b) => a.fechaHoraDate - b.fechaHoraDate);
 
             if (alertas.length === 0) {
                 alertasContainer.innerHTML = "<p>No hay próximas alertas médicas.</p>";
@@ -77,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
 
-           const tabla = document.createElement("table");
+            const tabla = document.createElement("table");
             tabla.id = "tablapacienteMisAlertas";
             tabla.innerHTML = `
                 <thead>
@@ -87,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>Estado</td>
                         <td>Tipo de Alerta</td>
                         <td>Total Uds/Stk</td>
-                        <td>    </td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -96,64 +94,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
             for (const clave in alertasAgrupadas) {
                 const grupo = alertasAgrupadas[clave];
+                const filaTitulo = document.createElement("tr");
+                filaTitulo.innerHTML = `<td colspan="6" style="background-color:#fafafa; padding: 10px;">${grupo.fechaTexto}</td>`;
+                cuerpoTabla.appendChild(filaTitulo);
 
-                // Fila de fecha
-const filaTitulo = document.createElement("tr");
+                grupo.alertas.forEach(alerta => {
+                    const fila = document.createElement("tr");
+                    fila.classList.add("tablahover");
+                    const nombreMedicamento = alerta.medicamento ? alerta.medicamento.nombreMedicamento : 'No disponible';
+                    const cantidadUnidad = alerta.medicamento ? alerta.medicamento.cantidadUnidad : 'No disponible';
+                    const idMedicamento = alerta.medicamento ? alerta.medicamento.idMedicamento : null;
 
-filaTitulo.innerHTML = `<td colspan="6" style="background-color:#fafafa; padding: 10px;">${grupo.fechaTexto}</td>`;
-   cuerpoTabla.appendChild(filaTitulo);
+                    const estadoAlerta = alerta.estadoAlerta === 'sinConfirmar'
+                        ? `<span class="estadoinact">Sin Confirmar</span>`
+                        : alerta.estadoAlerta === 'confirmado'
+                            ? `<span class="estadoact">Confirmado</span>`
+                            : `<span>${alerta.estadoAlerta}</span>`;
 
-grupo.alertas.forEach(alerta => {
-    const fila = document.createElement("tr");
-    fila.classList.add("tablahover");
-    const nombreMedicamento = alerta.medicamento ? alerta.medicamento.nombreMedicamento : 'No disponible';
-    const cantidadUnidad = alerta.medicamento ? alerta.medicamento.cantidadUnidad : 'No disponible';
-    const idMedicamento = alerta.medicamento ? alerta.medicamento.idMedicamento : null;
+                    fila.innerHTML = `
+                        <td>${alerta.horaTexto}</td>
+                        <td>${nombreMedicamento}</td>
+                        <td>${estadoAlerta}</td>
+                        <td><a class="infoTabla">${alerta.tipoAlerta}</a></td>
+                        <td>${cantidadUnidad === 20 ? '20' : cantidadUnidad}</td>
+                    `;
 
-    const estadoAlerta = alerta.estadoAlerta === 'sinConfirmar'
-        ? `<span class="estadoinact">Sin Confirmar</span>`
-        : alerta.estadoAlerta === 'confirmado'
-            ? `<span class="estadoact">Confirmado</span>`
-            : `<span>${alerta.estadoAlerta}</span>`;
+                    const celdaAccion = document.createElement("td");
+                    if (idMedicamento) {
+                        const urlCantidad = `https://medicade-back.involux.es/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
 
-    fila.innerHTML = `
-        <td>${alerta.horaTexto}</td>
-        <td>${nombreMedicamento}</td>
-        <td>${estadoAlerta}</td>
-        <td> <a class="infoTabla"> ${alerta.tipoAlerta}</a></td>
-        <td> ${cantidadUnidad === 20 ? '20' : cantidadUnidad}</td>
-    `;
+                        axios.get(urlCantidad)
+                            .then(response => {
+                                const stock = response.data ? response.data.cantidadDisponible : "No disponible";
+                                celdaAccion.innerHTML = `<span class="alertunidades">${stock} Uds/Stk</span>`;
+                            })
+                            .catch(error => {
+                                console.error("Error al obtener la cantidad:", error);
+                                celdaAccion.innerHTML = `<span style="color: red; font-weight: bold;">Error al obtener</span>`;
+                            });
+                    } else {
+                        celdaAccion.innerHTML = `<span style="color: red; font-weight: bold;">ID inválido</span>`;
+                    }
 
-    const celdaAccion = document.createElement("td");
-    if (idMedicamento) {
-        const urlCantidad = `http://localhost:9050/pacientes/VerCantidadDeMisMedicamentos/pacientes/${idPaciente}/medicamentos/${idMedicamento}`;
+                    fila.appendChild(celdaAccion);
 
-        axios.get(urlCantidad)
-            .then(response => {
-                const stock = response.data ? response.data.cantidadDisponible : "No disponible";
-                celdaAccion.innerHTML = `<span class="alertunidades">${stock} Uds/Stk</span>`;
-            })
-            .catch(error => {
-                console.error("Error al obtener la cantidad:", error);
-                celdaAccion.innerHTML = `<span style="color: red; font-weight: bold;">Error al obtener</span>`;
-            });
-    } else {
-        celdaAccion.innerHTML = `<span style="color: red; font-weight: bold;">ID inválido</span>`;
-    }
+                    const idResaltado = localStorage.getItem("alertaResaltarId");
+                    if (idResaltado && idMedicamento && idMedicamento.toString() === idResaltado) {
+                        fila.style.backgroundColor = "#fff3cd";
+                        fila.style.border = "2px solid #ffc107";
+                        localStorage.removeItem("alertaResaltarId");
+                    }
 
-    fila.appendChild(celdaAccion);
-
-    // 🔥 NUEVO: Resaltado si es el medicamento con alerta reciente
-    const idResaltado = localStorage.getItem("alertaResaltarId");
-    if (idResaltado && idMedicamento && idMedicamento.toString() === idResaltado) {
-        fila.style.backgroundColor = "#fff3cd"; // Amarillo claro
-        fila.style.border = "2px solid #ffc107"; // Borde ámbar
-        localStorage.removeItem("alertaResaltarId");
-    }
-
-    cuerpoTabla.appendChild(fila);
-});
-
+                    cuerpoTabla.appendChild(fila);
+                });
             }
 
             alertasContainer.appendChild(tabla);
@@ -162,4 +155,33 @@ grupo.alertas.forEach(alerta => {
             console.error("Hubo un fallo en la petición: " + err);
             alertasContainer.innerHTML = "<p>Error al cargar las alertas.</p>";
         });
+
+    // ✅ FUNCIONALIDAD NUEVA: registrar tomas vencidas automáticamente
+    function registrarTomasVencidas() {
+        const urlVencidas = "https://medicade-back.involux.es/pacientes/registrar-tomas-vencidas";
+        axios.post(urlVencidas)
+            .then(response => {
+                console.log("✅ Tomas vencidas registradas correctamente.", response.data);
+            })
+            .catch(error => {
+                console.error("❌ Error al registrar tomas vencidas:", error);
+            });
+    }
+
+    // ✅ Temporizador solo en consola
+    let segundosRestantes = 60;
+
+    function actualizarTemporizador() {
+        console.log(`⏳ Próxima comprobación en: ${segundosRestantes}s`);
+        segundosRestantes--;
+        if (segundosRestantes < 0) {
+            registrarTomasVencidas();
+            segundosRestantes = 60;
+        }
+    }
+
+    // Primera ejecución
+    registrarTomasVencidas();
+    actualizarTemporizador();
+    setInterval(actualizarTemporizador, 1000);
 });
