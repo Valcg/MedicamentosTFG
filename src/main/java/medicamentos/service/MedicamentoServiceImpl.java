@@ -127,6 +127,74 @@ public class MedicamentoServiceImpl implements MedicamentoService {
 	    Optional<Medicamento> medicamentoOptional = medicamentoRepository.findById(idMedicamento);
 
 	    if (pacienteMedicamento == null || !medicamentoOptional.isPresent()) {
+	        resultado.setStockSuficiente(true);
+	        resultado.setMensaje("No se encontró relación paciente-medicamento o medicamento.");
+	        return resultado;
+	    }
+
+	    Medicamento medicamento = medicamentoOptional.get();
+	    int cantidadUnidadPorCaja = medicamento.getCantidadUnidad();
+	    int stockActual = pacienteMedicamento.getCantidadDisponible();
+
+	    // 1. Verificar si hay alertas pendientes de tipo medicacion para este paciente y medicamento
+	    
+	    long alertasMedicacionPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfterAndTipoAlerta(
+                medicamento,
+                pacienteMedicamento.getPaciente(),
+                LocalDateTime.now(),
+                EstadoAlerta.sinConfirmar,
+                TipoAlerta.medicacion
+        );
+
+	    if (alertasMedicacionPendientes == 0) {
+	        // No hay alertas de medicacion pendientes, no genera alerta de bajo stock
+	        resultado.setStockSuficiente(true);
+	        resultado.setMensaje("No hay alertas de medicación pendientes, no es necesario generar alerta de bajo stock.");
+	        return resultado;
+	    }
+
+	    // 2. Verificar si ya existe alerta de bajo stock pendiente para paciente y medicamento
+	    Alerta alertaBajoStockExistente = alertaService.buscarAlertaBajoStockExistente(idPaciente, idMedicamento);
+	    if (alertaBajoStockExistente != null) {
+	        resultado.setYaExisteAlerta(true);
+	        resultado.setIdAlertaGenerada(alertaBajoStockExistente.getIdAlerta());
+	        resultado.setMensaje("Ya existe una alerta de bajo stock sin confirmar.");
+	        return resultado;
+	    }
+
+	    // 3. Si hay alertas de medicacion pendientes y no hay alerta bajo stock pendiente, verificar stock actual
+	    if (stockActual < cantidadUnidadPorCaja / 2) {
+	        // Generar alerta bajo stock
+	        Alerta nuevaAlertaBajoStock = Alerta.builder()
+	                .paciente(pacienteMedicamento.getPaciente())
+	                .medicamento(medicamento)
+	                .fechaHoraAlerta(LocalDateTime.now())
+	                .estadoAlerta(EstadoAlerta.sinConfirmar)
+	                .tipoAlerta(TipoAlerta.bajo_stock)
+	                .build();
+
+	        alertaRepository.save(nuevaAlertaBajoStock);
+
+	        resultado.setAlertaGenerada(true);
+	        resultado.setIdAlertaGenerada(nuevaAlertaBajoStock.getIdAlerta());
+	        resultado.setMensaje("Se ha generado una nueva alerta de bajo stock.");
+	        return resultado;
+	    }
+
+	    // 4. Si stock suficiente
+	    resultado.setStockSuficiente(true);
+	    resultado.setMensaje("Stock suficiente, no es necesario generar alerta.");
+	    return resultado;
+	}
+	/*@Override
+	public ResultadoVerificacionStockDTO verificarStockPorPacienteYMedicamento(int idPaciente, int idMedicamento) {
+	    ResultadoVerificacionStockDTO resultado = new ResultadoVerificacionStockDTO();
+
+	    PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepository
+	            .findByPacienteIdAndMedicamentoId(idPaciente, idMedicamento);
+	    Optional<Medicamento> medicamentoOptional = medicamentoRepository.findById(idMedicamento);
+
+	    if (pacienteMedicamento == null || !medicamentoOptional.isPresent()) {
 	        resultado.setStockSuficiente(true); // No hay relación, no aplica
 	        return resultado;
 	    }
@@ -179,66 +247,9 @@ public class MedicamentoServiceImpl implements MedicamentoService {
 	    resultado.setMensaje("Stock suficiente, no es necesario generar alerta.");
 
 	    return resultado;
-	}
+	}*/
 
-	/*@Override
-	public boolean verificarStockPorPacienteYMedicamento(int idPaciente, int idMedicamento) {
-	    // Obtener la relación paciente-medicamento
-	    PacienteMedicamento pacienteMedicamento = pacienteMedicamentoRepository
-	            .findByPacienteIdAndMedicamentoId(idPaciente, idMedicamento);
-
-	    // Obtener el medicamento como Optional
-	    Optional<Medicamento> medicamentoOptional = medicamentoRepository.findById(idMedicamento);
-
-	    // Si no existe la relación o el medicamento, salimos
-	    if (pacienteMedicamento == null || !medicamentoOptional.isPresent()) {
-	        return false;
-	    }
-
-	    Medicamento medicamento = medicamentoOptional.get();
-
-	    // Verificar si ya hay una alerta de bajo stock sin confirmar
-	    boolean yaExisteAlerta = alertaService.buscarAlertasBajoStock(idPaciente, idMedicamento);
-	    if (yaExisteAlerta) {
-	        return false;
-	        // Ya hay una alerta activa
-	    }
-
-	    int cantidadUnidadPorCaja = medicamento.getCantidadUnidad();
-	    int stockActual = pacienteMedicamento.getCantidadDisponible();
-
-	    // Verificar si el stock es bajo
-	    if (stockActual < cantidadUnidadPorCaja / 2) {
-	        // Verificar si hay alertas de medicación futuras pendientes
-	    	
-	    	long alertasPendientes = alertaRepository.countByMedicamentoAndPacienteAndFechaHoraAlertaAfterAndTipoAlerta(
-	    		    medicamento, 
-	    		    pacienteMedicamento.getPaciente(), 
-	    		    LocalDateTime.now(), 
-	    		    EstadoAlerta.sinConfirmar, 
-	    		    TipoAlerta.medicacion
-	    		);
-	    	System.out.println("alertas pendeintes"+alertasPendientes);
-
-
-	        // Si hay alertas de medicación pendientes, crear alerta de bajo stock
-	        if (alertasPendientes > 0) {
-	            Alerta alertaBajoStock = Alerta.builder()
-	                    .paciente(pacienteMedicamento.getPaciente())
-	                    .medicamento(medicamento)
-	                    .fechaHoraAlerta(LocalDateTime.now())
-	                    .estadoAlerta(EstadoAlerta.sinConfirmar)
-	                    .tipoAlerta(TipoAlerta.bajo_stock)
-	                    .build();
-	            alertaRepository.save(alertaBajoStock);
-	            return true;
-	        }
-	    }
-
-	    return false; // No cumple condiciones
-	}
-
-	*/
+	
 }
 
 
