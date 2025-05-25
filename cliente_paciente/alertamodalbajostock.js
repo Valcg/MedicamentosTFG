@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             })
             .catch(err => {
-                console.error("❌ Error al obtener medicamentos:", err);
+                console.error("Error al obtener medicamentos:", err);
             });
     }
 
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 else if (mensajeMinuscula.includes("se ha generado una alerta de bajostock si es necesario")) {
                     alertasBajoStock.push({
                         idMedicamento: idMedicamento,
-                        mensaje: `⚠️ Alerta para ${nombreMedicamento}: Se ha generado una alerta de bajo stock si es necesario.`
+                        nombreMedicamento: nombreMedicamento
                     });
                     huboAlerta = true;
                     console.log(`Alerta detectada para ${nombreMedicamento}`);
@@ -74,14 +74,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 if (esUltimo) {
-                    console.log("Último medicamento procesado. ¿Hubo alertas?", huboAlerta);
+                    console.log("Último medicamento procesado", huboAlerta);
                     if (huboAlerta) {
                         mostrarModalBajoStockMultiple(alertasBajoStock);
                     }
                 }
             })
             .catch(err => {
-                console.error(`❌ Error al verificar stock del medicamento ${idMedicamento}:`, err);
+                console.error(`Error al verificar stock del medicamento ${idMedicamento}:`, err);
             });
     }
 
@@ -92,13 +92,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         console.log("Mostrando modal con alertas:", alertas);
-        let html = '<p>Medicamentos con bajo stock:</p><ul>';
+        let html = '';
         alertas.forEach(alerta => {
-            html += `<li>${alerta.mensaje} 
-                <button onclick="confirmarAlertaBajoStock(${alerta.idMedicamento})" style="background-color: green; color: white; margin-left: 10px;">Ir</button>
-            </li>`;
+            html += `
+                <p style="text-align:center;">Tienes este Medicamento con Bajo Stock</p>
+                <p style="text-align:center;font-weight:bold;">${alerta.nombreMedicamento}</p>
+                <p style="text-align:center;">
+                    <button onclick="confirmarAlertaBajoStock(${alerta.idMedicamento})"  class=" BtnAlertaBajoStock hover">Ver Medicamento</button>
+                </p>
+            `;
         });
-        html += '</ul>';
 
         contenidoBajoStock.innerHTML = html;
         modalBajoStock.classList.add("show");
@@ -144,10 +147,10 @@ document.addEventListener("DOMContentLoaded", () => {
             // Resaltar fila en amarillo
             fila.style.backgroundColor = "#fff3b0"; // Amarillo suave
 
-            // Quitar resaltado después de 10 segundos
+            // Quitar resaltado después de 15 segundos
             setTimeout(() => {
                 fila.style.backgroundColor = "";
-            }, 10000);
+            }, 15000);
         } else {
             console.warn(`No se encontró la fila para el medicamento con ID ${idMedicamento}`);
         }

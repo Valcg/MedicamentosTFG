@@ -294,7 +294,7 @@
 /* BOTONES -------------------------------------------------------------------------- */
                 .btnAgregarStock,
                 .btnpaconfirmhistorial,
-                .btnpaconfirmhistorialModal{
+                .btnpaconfirmhistorialModa,.BtnAlertaBajoStock{
                         all: unset; /* Esto quita prácticamente todos los estilos del navegador */
                         color: white; /* Color del texto */
                         padding: 6px 12px;
@@ -312,8 +312,9 @@
                 /*1 ----- MI HISTORIAL*/
                 .btnpaconfirmhistorial{ background-color:   #0d7ebb;  }
                         .btnpaconfirmhistorial:hover{background-color: #00669C;}
-
-
+                /*1 ----- MI HISTORIAL*/
+                    .BtnAlertaBajoStock{ background-color: #dac47c;  }
+                      .BtnAlertaBajoStock:hover{background-color: #c9b268;}
                 /* TABLA : MIS ALERTAS MEDICAS-------------------------------------------------------------------------- */
                     .estadoact,.estadoinact,.estadotarde,
                      .infoTabla,
