@@ -84,11 +84,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         ${!puedeConfirmar ? `
                         <p style="color: #999; font-style: italic; margin-top: 10px;">
                             El botón se habilitará cuando queden 10 minutos antes de la hora de la toma.
-                        </p>` : ''}` : `<a style ="color:#449a74f1;">YA CONFIRMASTE LA TOMA</a>`}
+                        </p>` : ''}` : `<a style="color:#449a74f1;">YA CONFIRMASTE LA TOMA</a>`}
                     </td>
                 </tr>
             </table>
-            <p id="mensajeConfirmacion" style="margin-top:10px;"></p>
+            <p id="mensajeConfirmacion" style="margin:10px 0; line-height: 1.6; text-align:center; "></p>
         `;
 
         modalContent.innerHTML = contenido;
@@ -100,18 +100,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 axios.post(urlConfirmar)
                     .then(() => {
                         const horaConfirmada = new Date().toLocaleTimeString();
-                        document.getElementById("mensajeConfirmacion").textContent = `✅ La toma fue confirmada a las ${horaConfirmada}.`;
-                        document.getElementById("mensajeConfirmacion").style.color = "#66b794f1";
+                        const mensaje = document.getElementById("mensajeConfirmacion");
+                        mensaje.textContent = `La toma fue confirmada a las ${horaConfirmada}.`;
+                        mensaje.style.color = "#66b794f1";
                         document.getElementById("estadoAlerta").textContent = "Confirmado";
                         this.remove();
                         alertaProxima.estadoAlerta = "Confirmada";
                         alertaProxima.horaConfirmacion = new Date().toISOString();
                         setTimeout(() => location.reload(), 1500);
                     })
+                    
                     .catch(err => {
-                        alert("Hubo un error al confirmar la toma.");
-                        console.error(err);
-                    });
+                    const mensajeError = document.getElementById("mensajeConfirmacion");
+                    mensajeError.innerHTML = `
+                        No puedes Confirmar la toma.<br>
+                        Por favor revisa tu stock en la sección de Mis Medicamentos.
+                    `;
+                    mensajeError.style.color = "#f14343";
+                    console.error(err);
+                     });
+
             });
         }
 
