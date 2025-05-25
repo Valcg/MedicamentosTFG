@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (idMedicamentoResaltado) {
                     const fila = document.getElementById(`fila-${idMedicamentoResaltado}`);
                     if (fila) {
-                        fila.style.backgroundColor = "#fff3b0"; // Amarillo suave
+                        fila.style.backgroundColor = "#fff3b0";
                         setTimeout(() => {
                             fila.style.backgroundColor = "";
                             localStorage.removeItem("medicamentoResaltado");
@@ -79,18 +79,32 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const url = `http://localhost:9050/pacientes/${idPaciente}/medicamentos/${idMedicamento}/agregar-stock?cantidadCajas=${cantidadCajas}`;
+        const urlAgregarStock = `http://localhost:9050/pacientes/${idPaciente}/medicamentos/${idMedicamento}/agregar-stock?cantidadCajas=${cantidadCajas}`;
+        const urlVerificarStock = `http://localhost:9050/pacientes/verificar-stock/${idPaciente}/${idMedicamento}`;
 
-        axios.post(url)
+        axios.post(urlAgregarStock)
             .then(response => {
                 mostrarMensaje(idMedicamento, "Stock agregado correctamente.", "exito");
+
+                // Eliminar alerta local
+                eliminarAlertaDeLocalStorage(idMedicamento);
+
                 localStorage.setItem("medicamentoResaltado", idMedicamento);
 
-                // Actualizar cantidad sin esperar la recarga aún
+                // Consultar si hay alerta activa para confirmar
+                return axios.get(urlVerificarStock);
+            })
+            .then(responseVerificar => {
+                const resultado = responseVerificar.data;
+                
+                // 🔴 Eliminado confirmación de alerta:
+                console.log("Verificación después de agregar stock:", resultado.mensaje || "Sin mensaje");
+
+                // Continuar normalmente
                 return axios.get(`http://localhost:9050/pacientes/VerMisMedicamentos/paciente/${idPaciente}`);
             })
-            .then(res => {
-                const listaMedicamentos = res.data;
+            .then(resMedicamentos => {
+                const listaMedicamentos = resMedicamentos.data;
                 const actualizado = listaMedicamentos.find(med => med.medicamento.idMedicamento === parseInt(idMedicamento));
                 if (!actualizado) return;
 
@@ -98,7 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 cantidadCell.textContent = actualizado.cantidadDisponible;
                 input.value = "1";
 
-                // Recargar para mostrar el resaltado
                 setTimeout(() => {
                     location.reload();
                 }, 1500);
@@ -117,7 +130,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const fila = document.getElementById(`fila-${idMedicamento}`);
         if (!fila) return;
 
-        // Quitar mensajes previos si existen justo después de esta fila
         const trSiguiente = fila.nextSibling;
         if (trSiguiente && (trSiguiente.classList && (trSiguiente.classList.contains("mensaje-exito") || trSiguiente.classList.contains("mensaje-error")))) {
             trSiguiente.remove();
@@ -136,5 +148,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 filaMensaje.remove();
             }, 5000);
         }
+    }
+
+    function eliminarAlertaDeLocalStorage(idMedicamento) {
+        const alertas = JSON.parse(localStorage.getItem("alertasBajoStock") || "[]");
+        const nuevasAlertas = alertas.filter(a => a.idMedicamento !== parseInt(idMedicamento));
+        localStorage.setItem("alertasBajoStock", JSON.stringify(nuevasAlertas));
+        console.log(`🗑️ Alerta eliminada de localStorage para medicamento ID: ${idMedicamento}`);
     }
 });

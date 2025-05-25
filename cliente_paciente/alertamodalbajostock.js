@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM cargado, iniciando script de verificación de stock...");
 
     const idPaciente = localStorage.getItem("idUsuario");
-    console.log("ID del paciente obtenido de localStorage:", idPaciente);
-
     if (!idPaciente) {
         console.warn("No se encontró ID del paciente en localStorage. Abortando.");
         return;
@@ -19,104 +17,116 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnCerrarModal = document.getElementById("closeModalBajoStockBtn");
     const btnConfirmar = document.getElementById("confirmBtn");
 
+    function obtenerAlertasGuardadas() {
+        const datos = localStorage.getItem("alertasBajoStock") || "[]";
+        try {
+            return JSON.parse(datos);
+        } catch {
+            return [];
+        }
+    }
+
+    function guardarAlerta(idMedicamento, idAlerta) {
+        const alertas = obtenerAlertasGuardadas();
+        if (!alertas.some(a => a.idMedicamento === idMedicamento)) {
+            alertas.push({ idMedicamento, idAlerta });
+            localStorage.setItem("alertasBajoStock", JSON.stringify(alertas));
+            console.log("✔️ Alerta guardada:", { idMedicamento, idAlerta });
+        }
+    }
+
     function verificarMedicamentosCliente() {
-        console.log("Iniciando verificación de medicamentos del paciente...");
+        console.log("📦 Verificando medicamentos del paciente...");
         alertasBajoStock = [];
         huboAlerta = false;
         modalAbierto = false;
 
+        const alertasLocales = obtenerAlertasGuardadas();
+
         axios.get(`http://localhost:9050/pacientes/VerMisMedicamentos/paciente/${idPaciente}`)
             .then(response => {
                 const listaMedicamentos = response.data;
-                console.log("Medicamentos obtenidos:", listaMedicamentos);
-                if (!listaMedicamentos || listaMedicamentos.length === 0) {
+                if (!listaMedicamentos?.length) {
                     console.log("No hay medicamentos para este paciente.");
                     return;
                 }
 
-                let total = listaMedicamentos.length;
                 let procesados = 0;
 
                 listaMedicamentos.forEach(med => {
-                    verificarStockMedicamento(
-                        med.medicamento.idMedicamento,
-                        med.medicamento.nombreMedicamento,
-                        ++procesados === total
-                    );
+                    const id = med.medicamento.idMedicamento;
+                    const nombre = med.medicamento.nombreMedicamento;
+                    const alertaLocal = alertasLocales.find(a => a.idMedicamento === id);
+
+                    const finalizarProceso = () => {
+                        procesados++;
+                        if (procesados === listaMedicamentos.length && huboAlerta) {
+                            mostrarModalBajoStockMultiple(alertasBajoStock);
+                        }
+                    };
+
+                    if (alertaLocal) {
+                        console.log(`🔁 Alerta ya registrada para "${nombre}".`);
+                        alertasBajoStock.push({ idMedicamento: id, nombreMedicamento: nombre, idAlerta: alertaLocal.idAlerta });
+                        huboAlerta = true;
+                        finalizarProceso();
+                    } else {
+                        verificarStockMedicamento(id, nombre, finalizarProceso);
+                    }
                 });
             })
-            .catch(err => {
-                console.error("Error al obtener medicamentos:", err);
-            });
+            .catch(err => console.error("❌ Error al obtener medicamentos:", err));
     }
 
-    function verificarStockMedicamento(idMedicamento, nombreMedicamento, esUltimo) {
-        console.log(`Verificando stock para medicamento ID: ${idMedicamento} (${nombreMedicamento})`);
+    function verificarStockMedicamento(idMedicamento, nombreMedicamento, callback) {
+        console.log(`🔎 Verificando stock para ${nombreMedicamento} (ID: ${idMedicamento})`);
+
         axios.post(`http://localhost:9050/pacientes/verificar-stock/${idPaciente}/${idMedicamento}`)
             .then(response => {
-                const mensajeString = response.data;
-                console.log(`Respuesta verificación stock para ${nombreMedicamento}:`, mensajeString);
+                const resultado = response.data;
+                const mensaje = (resultado.mensaje || "").toLowerCase();
+                const idAlertaGenerada = resultado.idAlertaGenerada;
 
-                const mensajeMinuscula = mensajeString.toLowerCase();
-
-                if (mensajeMinuscula.includes("stock suficiente")) {
-                    console.log(`Stock suficiente para ${nombreMedicamento}, no se genera alerta.`);
-                }
-                else if (mensajeMinuscula.includes("se ha generado una alerta de bajostock si es necesario")) {
-                    alertasBajoStock.push({
-                        idMedicamento: idMedicamento,
-                        nombreMedicamento: nombreMedicamento
-                    });
+                if (mensaje.includes("stock suficiente")) {
+                    console.log(`✅ Stock suficiente para ${nombreMedicamento}.`);
+                } else if (mensaje.includes("alerta") || resultado.yaExisteAlerta) {
+                    alertasBajoStock.push({ idMedicamento, nombreMedicamento, idAlerta: idAlertaGenerada });
+                    guardarAlerta(idMedicamento, idAlertaGenerada);
                     huboAlerta = true;
-                    console.log(`Alerta detectada para ${nombreMedicamento}`);
+                    console.log(`⚠️ Alerta generada para ${nombreMedicamento}.`);
                 } else {
-                    console.log(`Mensaje recibido para ${nombreMedicamento} no genera alerta:`, mensajeString);
-                }
-
-                if (esUltimo) {
-                    console.log("Último medicamento procesado", huboAlerta);
-                    if (huboAlerta) {
-                        mostrarModalBajoStockMultiple(alertasBajoStock);
-                    }
+                    console.log(`ℹ️ No se genera alerta para ${nombreMedicamento}.`);
                 }
             })
-            .catch(err => {
-                console.error(`Error al verificar stock del medicamento ${idMedicamento}:`, err);
-            });
+            .catch(err => console.error(`❌ Error al verificar stock de ${nombreMedicamento}:`, err))
+            .finally(callback);
     }
 
     function mostrarModalBajoStockMultiple(alertas) {
-        if (modalAbierto) {
-            console.log("Modal ya está abierto, no se muestra de nuevo.");
-            return;
-        }
+        if (modalAbierto) return;
+        console.log("📢 Mostrando modal de bajo stock:", alertas);
 
-        console.log("Mostrando modal con alertas:", alertas);
-        let html = '';
-        alertas.forEach(alerta => {
-            html += `
-                <p style="text-align:center;">Tienes este Medicamento con Bajo Stock</p>
-                <p style="text-align:center;font-weight:bold;">${alerta.nombreMedicamento}</p>
-                <p style="text-align:center;">
-                    <button onclick="confirmarAlertaBajoStock(${alerta.idMedicamento})"  class=" BtnAlertaBajoStock hover">Ver Medicamento</button>
-                </p>
-            `;
-        });
+        contenidoBajoStock.innerHTML = alertas.map(alerta => `
+            <p style="text-align:center;">Tienes este Medicamento con Bajo Stock</p>
+            <p style="text-align:center;font-weight:bold;">${alerta.nombreMedicamento}</p>
+            <p style="text-align:center;">
+                <button onclick="confirmarAlertaBajoStock(${alerta.idMedicamento}, ${alerta.idAlerta})" class="BtnAlertaBajoStock hover">
+                    Ver Medicamento
+                </button>
+            </p>
+        `).join("");
 
-        contenidoBajoStock.innerHTML = html;
         modalBajoStock.classList.add("show");
         modalAbierto = true;
     }
 
     function cerrarModal() {
-        console.log("Cerrando modal de alertas.");
         modalBajoStock.classList.remove("show");
         modalAbierto = false;
     }
 
     if (btnAbrirModal) {
         btnAbrirModal.addEventListener("click", () => {
-            console.log("Botón abrir modal clickeado.");
             if (alertasBajoStock.length > 0) {
                 mostrarModalBajoStockMultiple(alertasBajoStock);
             } else {
@@ -127,34 +137,48 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    if (btnCerrarModal) {
-        btnCerrarModal.addEventListener("click", cerrarModal);
-    }
+    btnCerrarModal?.addEventListener("click", cerrarModal);
+    btnConfirmar?.addEventListener("click", cerrarModal);
 
-    if (btnConfirmar) {
-        btnConfirmar.addEventListener("click", cerrarModal);
-    }
-
-    window.confirmarAlertaBajoStock = function (idMedicamento) {
-        console.log("Confirmar alerta para medicamento ID:", idMedicamento);
+    window.confirmarAlertaBajoStock = function (idMedicamento, idAlerta) {
+        console.log(`✅ Confirmando alerta para medicamento ID: ${idMedicamento}`);
         cerrarModal();
 
-        // Buscar fila y hacer scroll
+        axios.post(`http://localhost:9050/pacientes/confirmarAlertaBajoStock/${idAlerta}`)
+            .then(resp => {
+                console.log("✔️ Alerta confirmada en backend:", resp.data);
+                let alertas = obtenerAlertasGuardadas().filter(a => a.idAlerta !== idAlerta);
+                localStorage.setItem("alertasBajoStock", JSON.stringify(alertas));
+                alertasBajoStock = alertasBajoStock.filter(a => a.idAlerta !== idAlerta);
+            })
+            .catch(err => console.error("❌ Error confirmando alerta:", err));
+
         const fila = document.getElementById(`fila-${idMedicamento}`);
         if (fila) {
             fila.scrollIntoView({ behavior: "smooth", block: "center" });
-
-            // Resaltar fila en amarillo
-            fila.style.backgroundColor = "#fff3b0"; // Amarillo suave
-
-            // Quitar resaltado después de 15 segundos
-            setTimeout(() => {
-                fila.style.backgroundColor = "";
-            }, 15000);
-        } else {
-            console.warn(`No se encontró la fila para el medicamento con ID ${idMedicamento}`);
+            fila.style.backgroundColor = "#fff3b0";
+            setTimeout(() => fila.style.backgroundColor = "", 15000);
         }
     };
 
     verificarMedicamentosCliente();
+
+    let estadoAnteriorAlertas = localStorage.getItem("alertasBajoStock");
+
+    setInterval(() => {
+        const estadoActual = localStorage.getItem("alertasBajoStock");
+        if (estadoActual !== estadoAnteriorAlertas) {
+            console.warn("🔄 alertasBajoStock ha cambiado.");
+            estadoAnteriorAlertas = estadoActual;
+            verificarMedicamentosCliente();
+        } else {
+            console.log("🕒 Sin cambios en alertasBajoStock.");
+        }
+    }, 60000);
+
+    // Mostrar alertas actuales en consola
+    console.log("📋 Alertas guardadas:");
+    obtenerAlertasGuardadas().forEach(alerta =>
+        console.log(`➡️ idMedicamento: ${alerta.idMedicamento}, idAlerta: ${alerta.idAlerta}`)
+    );
 });

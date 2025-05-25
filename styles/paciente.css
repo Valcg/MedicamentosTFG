@@ -256,14 +256,31 @@
         .usuario-div-tres {
             width: 100%; /* Ambos divs ocuparán el 100% del ancho disponible */
         }
-    
+
+       .usu-div-pa{margin:0px}
+    .usu-dos-tres-container{margin:0px}
+    .usu-div-paciente{margin:0px;}
+    .usu-div-one{margin: 0px;}
+
+        #pacMisRecetas, #pacVerMisMedicos {
+    margin: 20px;
+    display: flex
+;
+    flex-wrap: wrap;
+    overflow-x: visible;
+    width: 100%;
+    gap: 20px;
+}
 }
 /* --------------------------- MEDIA QUERY PARA RESPONSIVIDAD --------------------------- */
 
 @media (max-width: 770px) {
     .paciente-item { width: 100%;}
     .usuario-div {padding: 20px;}
-    .texto { color: yellow;}
+    .paciente-item-dos{width: 100%;}
+    .pacUnContacto {
+        width: 100% !important;;
+    }
 
 }
 

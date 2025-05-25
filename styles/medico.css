@@ -173,6 +173,11 @@
     .medico-item{width :100%; }
 }
 
+@media (max-width: 1000px) {
+
+     .usu-div-med{margin: 0px;}
+}
+
 /* MAX WIDTH 1270PX----------------------------------------------------------------------------*/
 @media (max-width: 770px) {
     .medico-item-pacientes,.medico-item-medicamentos{width :100%;} 
