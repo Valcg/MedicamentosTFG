@@ -11,7 +11,6 @@ public interface AlertaService extends IntGenericoCrud<Alerta, Integer>{
 	public int contarAlertasDeHoy(Paciente paciente);
 	
 	  boolean confirmarAlertaBajoStock(int idAlerta);
-	   boolean posponerAlertaBajoStock(int idAlerta);
 	   public Alerta buscarAlertaBajoStockExistente(int idPaciente, int idMedicamento);
 
 }

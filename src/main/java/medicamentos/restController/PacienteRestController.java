@@ -236,16 +236,7 @@ public class PacienteRestController {
 	                : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo confirmar la alerta.");
 	    }
 
-	    // Posponer alerta bajo stock (suma 3 horas, cambia estado)
-	    @PostMapping("/posponerAlertaBajoStock/{idAlerta}")
-	    public ResponseEntity<String> posponerAlerta(@PathVariable int idAlerta) {
-	        boolean resultado = alertaService.posponerAlertaBajoStock(idAlerta);
-	        System.out.println("Buscando alerta con ID: " + idAlerta);
-
-	        return resultado
-	                ? ResponseEntity.ok("Alerta pospuesta correctamente.")
-	                : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo posponer la alerta.");
-	    }
+	   
 	   @PostMapping("/registrar-tomas-vencidas")
 	    public ResponseEntity<String> registrarTomasNoConfirmadas() {
 	        try {

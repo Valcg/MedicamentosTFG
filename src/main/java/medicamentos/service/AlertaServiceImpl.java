@@ -13,11 +13,13 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import medicamentos.entities.Alerta;
 import medicamentos.entities.EstadoAlerta;
+import medicamentos.entities.HistorialDeToma;
 import medicamentos.entities.Medicamento;
 import medicamentos.entities.Paciente;
 import medicamentos.entities.Receta;
 import medicamentos.entities.TipoAlerta;
 import medicamentos.repository.AlertaRepository;
+import medicamentos.repository.HistorialDeTomaRepository;
 import medicamentos.repository.MedicamentoRepository;
 import medicamentos.repository.PacienteRepository;
 
@@ -33,6 +35,10 @@ public class AlertaServiceImpl implements AlertaService {
 	
 	@Autowired
     private MedicamentoRepository medicamentoRepository;
+	
+	@Autowired
+    private HistorialDeTomaRepository historialDeTomaRepository;
+
 
 	@Override
 	public Alerta alta(Alerta entidad) {
@@ -110,7 +116,55 @@ public class AlertaServiceImpl implements AlertaService {
     }
 
 	
-	 @Override
+    @Override
+    @Transactional
+    public boolean confirmarAlertaBajoStock(int idAlerta) {
+        try {
+            System.out.println("Intentando confirmar alerta con ID: " + idAlerta);
+            Alerta alerta = alertaRepository.findById(idAlerta)
+                    .orElseThrow(() -> new RuntimeException("Alerta no encontrada"));
+
+            System.out.println("Tipo de alerta: " + alerta.getTipoAlerta());
+            System.out.println("Estado actual de la alerta: " + alerta.getEstadoAlerta());
+
+            if (alerta.getTipoAlerta() == TipoAlerta.bajo_stock &&
+                alerta.getEstadoAlerta() != EstadoAlerta.confirmado) {
+
+                // Verificamos si ya hay una entrada en el historial para esta alerta
+                boolean yaRegistrada = historialDeTomaRepository.existsByAlerta(alerta);
+
+                if (!yaRegistrada) {
+                    // Confirmar la alerta
+                    alerta.setEstadoAlerta(EstadoAlerta.confirmado);
+                    alertaRepository.save(alerta);
+                    System.out.println("Alerta confirmada con éxito.");
+
+                    // Crear nueva entrada en el historial de tomas
+                    HistorialDeToma nuevaToma = HistorialDeToma.builder()
+                            .paciente(alerta.getPaciente())
+                            .fechaHoraToma(LocalDateTime.now())
+                            .alerta(alerta)
+                            .build();
+
+                    historialDeTomaRepository.save(nuevaToma);
+                    System.out.println("Historial de toma registrado para alerta de bajo stock.");
+                } else {
+                    System.out.println("La alerta ya fue registrada previamente en el historial.");
+                }
+
+                return true;
+            }
+
+            System.out.println("No se cumplen las condiciones para confirmar la alerta.");
+            return false;
+        } catch (Exception e) {
+            System.err.println("Error al confirmar la alerta: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+	/* @Override
 	 @Transactional
 	 public boolean confirmarAlertaBajoStock(int idAlerta) {
 	     try {
@@ -137,29 +191,8 @@ public class AlertaServiceImpl implements AlertaService {
 	         e.printStackTrace();
 	         return false;
 	     }
-	 }
-	@Override
-	 @Transactional
-	    public boolean posponerAlertaBajoStock(int idAlerta) {
-	        try {
-	            Alerta alerta = alertaRepository.findById(idAlerta)
-	                    .orElseThrow(() -> new RuntimeException("Alerta no encontrada"));
+	 }*/
 
-	            if (alerta.getTipoAlerta() == TipoAlerta.bajo_stock &&
-	                alerta.getEstadoAlerta() == EstadoAlerta.sinConfirmar) {
-
-	                alerta.setFechaHoraAlerta(alerta.getFechaHoraAlerta().plusHours(3));
-	                alerta.setEstadoAlerta(EstadoAlerta.sinConfirmar); // Asegúrate de tener este enum
-	                alertaRepository.save(alerta);
-	                return true;
-	            }
-
-	            return false;
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            return false;
-	        }
-	    }
 
 	@Override
 	public Alerta buscarAlertaBajoStockExistente(int idPaciente, int idMedicamento) {
