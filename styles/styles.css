@@ -17,7 +17,6 @@
 
   /* div 100% MEDICO SECCION PACIENTES- Recetas de ------------------------------------------- */ 
   .usu-div-one{
-    border: 1px solid yellow;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -459,8 +458,7 @@
 /* --------------------------- RESPONSIVE --------------------------- */
 /* MAX WIDTH 1270PX----------------------------------------------------------------------------*/
 @media screen and (max-width: 1350px) {
-
-    .seccion-card-duo{width :100%; }
+.seccion-card-duo{width :100%; }
 }
 
 
@@ -468,6 +466,7 @@
 
 /* TABLET------------------------- */
 @media (max-width: 768px) {
+    
 
     body {
         overflow: auto; /* Permite el scroll en móvil */

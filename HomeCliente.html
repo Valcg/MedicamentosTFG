@@ -7,11 +7,8 @@
     <!-- --------------------------------- -->
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/cliente.css">
-
-
     <link rel="stylesheet" href="styles/paciente.css">
     <link rel="stylesheet" href="styles/modal.css">
-    
     <!-- --------------------------------- -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,23 +17,69 @@
     <!-- --------------------------------- -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- --------------------------------- -->
+    <style>
+        .modal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .modal.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+       
+            width: 70%;
+            max-width: 700px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 25px;
+            color: #333;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
-<body >
-    <!-- HEADER CLIENTE UNO #F0F0F0;------------------------------------------------------- -->
+<body>
     <header id="header-cliente-uno">
         <nav class="nav-cliente-uno">
             <ul>
                 <li><a href="#about-us"><img src="img/medicadeblue.png" alt="medicade" class="logo-about-us" style="width: 90px;"></a></li>
-                <!-- --------------------------------- -->
-
-                <!-- --------------------------------- -->
                 <li><a class="cerrar-sesion-cliente">CERRAR SESIÓN</a></li>
             </ul>
         </nav>
     </header>
-    <!-- HEADER CLIENTE DOS------------------------------------------------------- -->
-    <header id="header-cliente-dos" >
+
+    <header id="header-cliente-dos">
         <nav class="nav-cliente-dos">
             <ul>
                 <li><a href="#about">SOBRE NOSOTROS</a></li>
@@ -46,248 +89,161 @@
             </ul>
         </nav>
     </header>
-    <!-- MAIN-USUARIO ------------------------------------------------------- -->
-    <main id="usuario-main"  >
-        <!-- Sección con los divs de contenido -->
-        <section id="usuario-divs-container" >
 
+    <main id="usuario-main">
+        <section id="usuario-divs-container">
 
-        <!-- MODAL +  FECHAS------------------------------------------------------- -->
-
-                <div class="usu-div-pa">
-
-                        <!--  MEDICAMENTOS PRO TOMAR-------------- -->
-                        <script src="cliente_paciente/medicamentosDeHoy.js">  </script>    
-                        <div id="diacuenta">Cargando recordatorio de hoy...</div>
-                        
-                        <!--  FECHA DE HOY-------------- -->
-                         <div id="fecha"></div>
-
-
-                     <button id="openModalBtn" class="paHomeOpenModalBtVerAlert  hover">Ver Mis Alertas</button>
-                    
-                     <!-- MODAL VER MIS ALERTAS-->
-                    <div id="modalalerta" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
-                    background: rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:9999;">
-
-                            <div style="background:white; padding:20px; border-radius:8px; width: 90%; max-width: 450px; position: relative;">
-                                <!-- Botón cerrar modal con X en negro -->
-                                <button id="closeModalBtn" 
-                                    style="position:absolute; top:10px; right:15px; background:none; border:none; font-size: 24px; color:#000; cursor:pointer;">
-                                    &times;
-                                </button>
-                                <p></p>
-                            </div>
-                    </div>
-
-                </div>
- 
-
-<!-- USUARIO------------------------------------------------------- -->
-<h2> Mi Cuenta</h2>
             <div class="usu-div-pa">
+                <script src="cliente_paciente/medicamentosDeHoy.js"></script>
+                <div id="diacuenta">Cargando recordatorio de hoy...</div>
+                <div id="fecha"></div>
 
-                <!--  VER MI PERFIL -------------- -->
-                 <div  class="paciente-item-dos" >         
-                    <div  id="saludo" class="hover">
-         
-                        <div class="icono">
-                            <img src="img/ico-perfil-completo-64.png" alt="saludo" >
-                        </div>
-                        <div class="texto">
-                             <p id="verperfil" class="hover">VER MI PERFIL</p>   
-                            <p class="texto3" >Puedes toda la información de los datos de tu cuenta</p>       
-                        </div>
+                <button id="openModalBtn" class="paHomeOpenModalBtVerAlert hover">Ver Mis Alertas</button>
+
+                <div id="modalalerta" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:9999;">
+                    <div style="background:white; padding:20px; border-radius:8px; width: 90%; max-width: 450px; position: relative;">
+                        <button id="closeModalBtn" style="position:absolute; top:10px; right:15px; background:none; border:none; font-size: 24px; color:#000; cursor:pointer;">&times;</button>
+                        <p></p>
                     </div>
-                 </div>      
- 
-                 <!--  VER MI PERFIL -------------- -->
-                   <div  class="paciente-item-dos" >         
-                 <div  id="infocuenta" class="hover">
-         
-                         <div class="icono">
-                         <img src="img/ico-info-perfil-64.png" alt="historial" >
-                     </div>
-                      <div class="texto">
+                </div>
 
+                <button id="btnAbrirBajoStock" class="open-modal-btn paHomeOpenModalBtVerAlerBajoStock hover">Ver Alerta de Bajo Stock</button>
 
-                            <p> Correo electrónico </p>
-                            <a class="nombre-usuario infoReceta" >  </a>     
-                            <!-- --------------------------------- -->
-                             <p> Tipo de Usuario </p> 
-                                <a id="paciente-text" class="infoReceta">  </a> 
-                      </div>
-                  </div>
-               </div>    
- 
- 
- 
-             </div>
-
-<h2> Mi Panel de Paciente</h2>
-        <div class="usu-div-pa">
-       <!---------------- 4 DIVS -->         
-                            <!-- VER MIS ALERTAS -------------- -->
-                            <div class="paciente-item">
-                                    <div id="VerMisAlertas"class="hover">
-                                            <div class="icono">
-                                                <img  src="img/icons8-alarm-50.png" alt="">  
-                                            </div>
-                                            <div class="texto">
-                                                <p id="hovera" class="hover">VER MIS ALERTAS</p>
-                                                <p class="texto2"> Puedes ver todas tus alertas programadas que aun quedan y su información</p>
-                                            </div> 
-                                    </div>
-                            </div>
-                            <!--  VER MI PERFIL -------------- -->
-                            <div  class="paciente-item" >
-                                    <div  id="vermedicamentos" class="hover">
-                                        <div class="icono" >
-                                            <img src="img/ico-medicamentos-64.png" alt="" style="padding: 4px;">
-                                        </div>
-                                        <div class="texto">
-                                            <p id="hovermt" class="hover">MIS MEDICAMENTOS</p>   
-                                            <p class="texto2">Puedes ver tus medicamentos, tu cantidad disponible y agregar stock</p>
-                                        </div>
-                                    </div>
-                            
-                            </div> 
-                            <!--  VER MIS RECETAS -------------- -->
-                            <div  class="paciente-item">
-                                        <div id="VerMisRecetas" class="hover">
-                                            <div class="icono">
-                                                <img  src="img/ico-rec-64.png" alt="">  
-                                            </div>
-                                            <div class="texto">
-                                                <p id="hoverr" class="hover">VER MIS RECETAS</p>
-                                                <p class="texto2">Puedes ver las recetas que esten ACTIVAS en este momento </p>
-                                            </div>
-                                        </div>
-                            </div>
-                            <!--  VER MIS MEDICOS -------------- -->
-                            <div  class="paciente-item">
-                                    <div id="VerMisMedicos" class="hover">
-                                        <div class="icono">
-                                                <img  src="img/ico-med-64.png" alt="">  
-                                            </div>
-                                            <div class="texto">
-                                                <p id="hoverm" class="hover">VER MIS MEDICOS</p>
-                                                <p class="texto2">Puedes ver la información de tu médico/s que te tienen de alta como su paciente</p>
-                                            </div>
-                                    </div>
-                            </div>
-
+                <div id="modalBajoStock" class="modal">
+                    <div class="modal-content">
+                        <span id="closeModalBajoStockBtn" class="close">&times;</span>
+                        <h2 style="color: #d9534f;">⚠ Alerta de Bajo Stock</h2>
+                        <div id="contenidoBajoStock">Cargando alerta...</div>
+                        <button id="confirmBtn" class="confirm-btn hover">Leído</button>
+                    </div>
+                </div>
             </div>
-            <!-- FIN DIV UNO---------------------------- -->
 
-<h2> Mi Historial y Calendario</h2>
-              <!-- DIV 3 VER MIS CUIDADORES Y  CALENDAR --------------- -->
-              <div class="usu-dos-tres-container">
-                <!-- ---------------- VER MIS CUIDADORES -->
-                <div class="usuario-div-dos">
-
-
-                         
-                    <div  id="historial" class="hover">
-                         <div class="icono">
-                            <img src="img/ico-historial-64.png" alt="historial" >
-                        </div>
+            <h2>Mi Cuenta</h2>
+            <div class="usu-div-pa">
+                <div class="paciente-item-dos">
+                    <div id="saludo" class="hover">
+                        <div class="icono"><img src="img/ico-perfil-completo-64.png" alt="saludo"></div>
                         <div class="texto">
-                            <p id="verhisalert" class="hover">VER HISTORIAL</p>   
-                            <p class="texto2">Puedes ver Las Alertas que ya han pasado de la hora actual</p>       
+                            <p id="verperfil" class="hover">VER MI PERFIL</p>
+                            <p class="texto3">Puedes toda la información de los datos de tu cuenta</p>
                         </div>
                     </div>
+                </div>
 
+                <div class="paciente-item-dos">
+                    <div id="infocuenta" class="hover">
+                        <div class="icono"><img src="img/ico-info-perfil-64.png" alt="historial"></div>
+                        <div class="texto">
+                            <p>Correo electrónico</p>
+                            <a class="nombre-usuario infoReceta"></a>
+                            <p>Tipo de Usuario</p>
+                            <a id="paciente-text" class="infoReceta"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Mi Panel de Paciente</h2>
+            <div class="usu-div-pa">
+                <div class="paciente-item">
+                    <div id="VerMisAlertas" class="hover">
+                        <div class="icono"><img src="img/icons8-alarm-50.png" alt=""></div>
+                        <div class="texto">
+                            <p id="hovera" class="hover">VER MIS ALERTAS</p>
+                            <p class="texto2">Puedes ver todas tus alertas programadas que aún quedan y su información</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="paciente-item">
+                    <div id="vermedicamentos" class="hover">
+                        <div class="icono"><img src="img/ico-medicamentos-64.png" alt="" style="padding: 4px;"></div>
+                        <div class="texto">
+                            <p id="hovermt" class="hover">MIS MEDICAMENTOS</p>
+                            <p class="texto2">Puedes ver tus medicamentos, tu cantidad disponible y agregar stock</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="paciente-item">
+                    <div id="VerMisRecetas" class="hover">
+                        <div class="icono"><img src="img/ico-rec-64.png" alt=""></div>
+                        <div class="texto">
+                            <p id="hoverr" class="hover">VER MIS RECETAS</p>
+                            <p class="texto2">Puedes ver las recetas que estén ACTIVAS en este momento</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="paciente-item">
+                    <div id="VerMisMedicos" class="hover">
+                        <div class="icono"><img src="img/ico-med-64.png" alt=""></div>
+                        <div class="texto">
+                            <p id="hoverm" class="hover">VER MIS MÉDICOS</p>
+                            <p class="texto2">Puedes ver la información de tu médico/s que te tienen de alta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Mi Historial y Calendario</h2>
+            <div class="usu-dos-tres-container">
+                <div class="usuario-div-dos">
+                    <div id="historial" class="hover">
+                        <div class="icono"><img src="img/ico-historial-64.png" alt="historial"></div>
+                        <div class="texto">
+                            <p id="verhisalert" class="hover">VER HISTORIAL</p>
+                            <p class="texto2">Puedes ver Las Alertas que ya han pasado de la hora actual</p>
+                        </div>
+                    </div>
                     <div id="infoHistorial">
-                             <p > En el Historial puedes ver :   </p>
-                            <p> 1 🔹​  El historial  de las Alertas que ya han pasado, Su estado, la fecha y la hora.</p>
-                            <p> 2 🔹​ En caso de que el estado este Sin Confirmar podrás Confirmar la Toma después de la hora : su estado cambiará a Toma - Confirmada Tarde.</p>
-                            
-                            <p>IMPORTANTE: No  podrás deshacer la acción. Tampoco te dejará confirmar En caso de Bajo stock de Medicamento o la receta este Caducada</p>
-                    
-                        </div>
-            
+                        <p>En el Historial puedes ver:</p>
+                        <p>1 🔹​ El historial de las Alertas que ya han pasado, su estado, la fecha y la hora.</p>
+                        <p>2 🔹​ Si el estado está “Sin Confirmar”, podrás Confirmar la Toma después de la hora.</p>
+                        <p>IMPORTANTE: No podrás deshacer la acción. No se permite confirmar si hay bajo stock o receta caducada.</p>
+                    </div>
                 </div>
-                <!-- ---------------- CALENDARIO -->
+
                 <div class="usuario-div-tres">
-                   
                     <div class="calendar-container">
-                        <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=Your_Timezone" 
-                        style="border: 0;border-radius: 8px;" frameborder="0" scrolling="no" ></iframe>
-      
+                        <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=Your_Timezone" style="border: 0;border-radius: 8px;" frameborder="0" scrolling="no"></iframe>
                     </div>
-
                 </div>
+            </div>
 
-</div>
-
-<!-- CONTACTOS DE EMERGENCIA------------------------------------------------------- -->
-
-           <h1>Contactos de Emergencia</h1>
-
-        <!-- CONTACTOS DE EMERGENCIA------------------------------------------------------- -->
-
-        <div class="usu-div-pa">
-                    <div id="pacContactoAlta">
-
-
-                        <div class="pacUnContactoAlta">
-                        
-                            <!-- ALTA CONTACTO---------------------------------- -->
-                            <div id="paciente-contactos" ></div>
-                            <script src="/cliente_paciente/contactoalta.js">  </script> 
-
-                        </div>
-                        
-                        
+            <h1>Contactos de Emergencia</h1>
+            <div class="usu-div-pa">
+                <div id="pacContactoAlta">
+                    <div class="pacUnContactoAlta">
+                        <div id="paciente-contactos"></div>
+                        <script src="/cliente_paciente/contactoalta.js"></script>
                     </div>
-
                 </div>
+            </div>
 
-
-                <div class="usu-div-pa">
-                <div class="contactos-container" style="width: 100%;">
-                    <!-- Aquí el JS agregará todos los .pacUnContacto -->
-                </div>
-
+            <div class="usu-div-pa">
+                <div class="contactos-container" style="width: 100%;"></div>
                 <script src="cliente_paciente/contactoseccion.js"></script>
-        </div>
+            </div>
 
-
-
-<!-- DIV 6 FOOTER --------------- -->
             <div class="usuario-div-seis">
-                            <!-- ---------------- RRSS -->
-                            <div class="usu-footer" id="rrss"> 
-                                <h4>NUESTRAS REDES SOCIALES</h4>
-                                <ul>
-                                    <li><a href="https://www.instagram.com" target="_blank"><img src="img/ico-insta-48.png" alt="Instagram"></a></li>
-                                    <li><a href="https://www.tiktok.com" target="_blank"><img src="img/ico-tktk-48.png" alt="TikTok"></a></li>
-                                    <li><a href="https://twitter.com" target="_blank"><img src="img/ico-x-48.png" alt="Twitter (X)"></a></li>
-                                    <li><a href="https://www.pinterest.com" target="_blank"><img src="img/ico-pinterest-50.png" alt="Pinterest"></a></li>     
-                                </ul>
-                            </div>
-                            <!-- ---------------- NEWSLETTER -->
-                            <div class="usu-footer">
-                                <h4>NEWSLETTER</h4>
-                                <p>Recibe actualizaciones, recomendaciones o avisos de cambios que hagamos !</p>
-                                <div id="btn-usu-footer">
-                                    <a>UNIRSE</a>
-                                </div>
-                            </div>
-                            <!-- ---------------- NEWSLETTER -->
-                            <div class="usu-footer">
-                                <h4>CREAR CUENTA</h4>
-                                <p>Si aún no tienes una cuenta con nosotros puedes crear una y empieza a usarla.</p>
-                                <div id="btn-usu-footer">
-                                    <a>CREAR CUENTA</a>
-                                </div>
-                            </div>
+                <div class="usu-footer" id="rrss">
+                    <h4>NUESTRAS REDES SOCIALES</h4>
+                    <ul>
+                        <li><a href="https://www.instagram.com" target="_blank"><img src="img/ico-insta-48.png" alt="Instagram"></a></li>
+                        <li><a href="https://www.tiktok.com" target="_blank"><img src="img/ico-tktk-48.png" alt="TikTok"></a></li>
+                        <li><a href="https://twitter.com" target="_blank"><img src="img/ico-x-48.png" alt="Twitter (X)"></a></li>
+                        <li><a href="https://www.pinterest.com" target="_blank"><img src="img/ico-pinterest-50.png" alt="Pinterest"></a></li>
+                    </ul>
+                </div>
+                <div class="usu-footer">
+                    <h4>NEWSLETTER</h4>
+                    <p>Recibe actualizaciones, recomendaciones o avisos de cambios que hagamos!</p>
+                    <div id="btn-usu-footer"><a>UNIRSE</a></div>
+                </div>
 
             </div>
         </section>
     </main>
-    <!-- FOOTER ------------------------------------------------------- -->
+
     <footer id="footer-dos">
         <ul>
             <li><a>© 2025 All rights reserved.</a></li>
@@ -298,12 +254,24 @@
             <li><a href="#help">Ayuda</a></li>
         </ul>
     </footer>
-    
-<!--SCRIPTS ------------------------------------------------------- -->
-        <script src="main.js"></script>
-   
-        <script src="cliente_paciente/enlaces.js"></script>
-       <script src="cliente_paciente/alertamodal.js"></script>
 
+    <script src="main.js"></script>
+    <script src="cliente_paciente/enlaces.js"></script>
+    <script src="cliente_paciente/alertamodal.js"></script>
+    <script src="cliente_paciente/alertamodalbajostock.js"></script>
+
+    <script>
+        document.getElementById("btnAbrirBajoStock").addEventListener("click", function () {
+            document.getElementById("modalBajoStock").classList.add("show");
+        });
+
+        document.getElementById("closeModalBajoStockBtn").addEventListener("click", function () {
+            document.getElementById("modalBajoStock").classList.remove("show");
+        });
+
+        document.getElementById("confirmBtn").addEventListener("click", function () {
+            document.getElementById("modalBajoStock").classList.remove("show");
+        });
+    </script>
 </body>
 </html>

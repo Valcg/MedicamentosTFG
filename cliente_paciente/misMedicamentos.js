@@ -91,9 +91,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 localStorage.setItem("medicamentoResaltado", idMedicamento);
 
-                // Consultar si hay alerta activa para confirmar
-                return axios.get(urlVerificarStock);
-            })
+// Consultar si hay alerta activa para confirmar
+                return axios.post(urlVerificarStock).catch(err => {
+            console.warn("NOOOO se pudo verificar alerta, pero el stock se agregó.");
+            return null; // Evitamos romper el flujo
+        });
+    })
             .then(responseVerificar => {
                 const resultado = responseVerificar.data;
                 

@@ -250,10 +250,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: yellow;
-    height: 50px;
+    background-color: #84CBF1;
+    height: 40px;
     width: 200px;
-    border-radius: 5px;
+    border-radius: 20px;
     color: white;
     font-weight: bold;
     transition: 0.3s ease-in-out;
@@ -267,7 +267,6 @@
         /* 1 VOLVER HOME ---------------------------------------*/
         .BtnVolverHome ,.BtnVolverArriba{
             margin-left: 40px;
-            border:1px solid yellow; 
             font-weight: bold; 
             color: #00669C;
             cursor: pointer;

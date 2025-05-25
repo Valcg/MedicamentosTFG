@@ -14,7 +14,7 @@
 
 .usu-div-med{
     background-color:white;
-    border: 1px solid yellow;
+    
     width: 100%;
     display: flex;
     flex-wrap: wrap; 
@@ -170,12 +170,13 @@
     margin: 0px;}
     .numpaciente,.nummedicamento{margin: 0px 10px;}
 
-    .medico-item{width :100%; }
+    
 }
 
 @media (max-width: 1000px) {
 
      .usu-div-med{margin: 0px;}
+    
 }
 
 /* MAX WIDTH 1270PX----------------------------------------------------------------------------*/
@@ -189,7 +190,7 @@
         display: flex;}
 
 .perfil-section{width :100%; }
-
+ .medico-item{width :100%; }
 }
 
 

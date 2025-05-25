@@ -2,7 +2,7 @@
 /*DISEÑO  CAJAS - PERFIl-HISTORIAL y  MED-REC-MEDI-ALERT */
 .usu-div-pa{
     background-color:white;
-    border: 1px solid orange;
+   
     width: 100%;
     display: flex;
     flex-wrap: wrap; 
@@ -12,7 +12,7 @@
 .usu-div-paciente{
 
     background-color:white;
-    border: 1px solid orange;
+  
     width: 100%;
     display: flex;
     flex-wrap: wrap; 
@@ -137,7 +137,7 @@
         width: 100%;
         background-color: white;
         border-radius: 8px;
-        border: 1px solid #ccc;
+
 
     }
                 /* Div "dos" ocupa el 50% */
@@ -542,13 +542,29 @@ gap: 20px; /* espacio entre filas y columnas */
     color: white;                    
     padding: 6px 12px;
     border-radius: 16px;
-    border: none ;               
+    border: 1px solid white;               
     font-size: 14px;               
     transition: background-color 0.3s; 
     background-color: #84CBF1;
     box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);                  
     }
 
+
+  .paHomeOpenModalBtVerAlerBajoStock{
+    position: fixed;
+    bottom: 60px;
+    right: 20px; 
+    color: white;                    
+    padding: 6px 12px;
+    border-radius: 16px;
+     border: 1px solid white;              
+    font-size: 14px;               
+    transition: background-color 0.3s; 
+    background-color: #84CBF1;
+    box-shadow:6px 6px 8px rgba(0, 0, 0, 0.1);                  
+    }
+.paHomeOpenModalBtVerAlerBajoStock{background-color: #dac47c;}
+.paHomeOpenModalBtVerAlerBajoStock:hover{background-color: #c9b268;}
 
 .paHomeOpenModalBtVerAlert:hover{ background-color: #4699c5;} 
       

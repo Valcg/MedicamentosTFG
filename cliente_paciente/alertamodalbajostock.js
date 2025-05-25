@@ -106,15 +106,32 @@ document.addEventListener("DOMContentLoaded", () => {
         if (modalAbierto) return;
         console.log("📢 Mostrando modal", alertas);
 
-        contenidoBajoStock.innerHTML = alertas.map(alerta => `
-            <p style="text-align:center;">Tienes este Medicamento con Bajo Stock</p>
-            <p style="text-align:center;font-weight:bold;">${alerta.nombreMedicamento}</p>
-            <p style="text-align:center;">
-                <button onclick="confirmarAlertaBajoStock(${alerta.idMedicamento}, ${alerta.idAlerta})" class="BtnAlertaBajoStock hover">
-                    Ver Medicamento
-                </button>
-            </p>
-        `).join("");
+        const rutaActual = window.location.pathname;
+        const esHomeCliente = rutaActual.includes("HomeCliente.html");
+
+        contenidoBajoStock.innerHTML = alertas.map(alerta => {
+            if (esHomeCliente) {
+                return `
+                    <p style="text-align:center;">Tienes este Medicamento con Bajo Stock</p>
+                    <p style="text-align:center;font-weight:bold;">${alerta.nombreMedicamento}</p>
+                    <p style="text-align:center;">
+                        <a href="cliente_paciente/mismedicamentos.html" class="BtnAlertaBajoStock hover">
+                            Ir a Medicamentos
+                        </a>
+                    </p>
+                `;
+            } else {
+                return `
+                    <p style="text-align:center;">Tienes este Medicamento con Bajo Stock</p>
+                    <p style="text-align:center;font-weight:bold;">${alerta.nombreMedicamento}</p>
+                    <p style="text-align:center;">
+                        <button onclick="confirmarAlertaBajoStock(${alerta.idMedicamento}, ${alerta.idAlerta})" class="BtnAlertaBajoStock hover">
+                            AGREGAR MEDICAMENTO
+                        </button>
+                    </p>
+                `;
+            }
+        }).join("");
 
         modalBajoStock.classList.add("show");
         modalAbierto = true;
@@ -161,17 +178,15 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 fila.style.backgroundColor = "";
 
-                // 👇 Ejecutar clic automático en el botón Agregar Stock
                 const botonAgregar = fila.querySelector(".btnAgregarStock");
                 if (botonAgregar) {
                     console.log("🟢 Ejecutando clic automático en Agregar Stock");
                     botonAgregar.click();
 
-                    // 🔁 Recargar la página después de un pequeño retraso
                     setTimeout(() => {
                         console.log("🔁 Recargando página...");
                         location.reload();
-                    }, 1000); // Ajusta el tiempo si es necesario
+                    }, 1000);
                 } else {
                     console.warn("⚠️ No se encontró el botón Agregar Stock");
                 }
