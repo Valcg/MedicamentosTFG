@@ -29,16 +29,16 @@ function mostrarHistorialDePaciente(idPaciente, nombrePaciente) {
                         <h3>Historial de ${nombrePaciente}</h3>
                         <div style="margin-bottom: 1rem;" id="filtros-historial">
                             <label for="filtro-desde">Desde:</label>
-                            <input type="date" id="filtro-desde">
+                            <input type="date" id="filtro-desde" class="inputdos">
 
                             <label for="filtro-hasta">Hasta:</label>
-                            <input type="date" id="filtro-hasta">
+                            <input type="date" id="filtro-hasta" class="inputdos">
 
                             <label for="filtro-estado">Estado:</label>
-                            <select id="filtro-estado">${opcionesEstado}</select>
+                            <select id="filtro-estado" class="inputdos">${opcionesEstado}</select>
 
                             <label for="filtro-medicamento">Medicamento:</label>
-                            <input type="text" id="filtro-medicamento" placeholder="Nombre del medicamento...">
+                            <input type="text" class="inputdos"  id="filtro-medicamento" placeholder="Nombre del medicamento...">
 
                             <button id="btn-filtrar">Filtrar</button>
                         </div>

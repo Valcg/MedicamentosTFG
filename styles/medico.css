@@ -233,7 +233,7 @@
                     #btnAsociarPaciente,#btnCrearReceta,
                     #btnRedirigir,
                     #btnAltaMedicamento,#btnBuscarMedicamento
-                    ,.btnMCaducarReceta{
+                    ,.btnMCaducarReceta,#btn-filtrar{
                         all: unset; /* Esto quita prácticamente todos los estilos del navegador */
                         color: white; /* Color del texto */
                         padding: 6px 12px;
@@ -245,6 +245,9 @@
                         transition: background-color 0.3s;
                         width: fit-content;}
                     /*TABLA MIS PACIENTES-----------------------------------------*/
+                                    /*BOTON VER HISTORIAL----------------*/
+                                    #btn-filtrar{ background-color: #0d7ebb;  }
+                                        #btn-filtrar:hover{background-color: #00669C;}
                                     /*BOTON VER HISTORIAL----------------*/
                                     .btnVerHistorial{ background-color: #0d7ebb;  }
                                                     .btnVerHistorial:hover{background-color: #00669C;}
@@ -298,7 +301,7 @@
             /* RECETAS------------------------------*/
             .estConfirmado{color: #66b794f1;}
             .estSinConf{color: #f14343;}
-            .estTarde{color: orange;}
+            .estTarde{color: #f1e043;}
 
         #medicoseccionasociarpaciente,#medicoseccioncrearreceta,#formAltaMedicamento,#formBusquedaMedicamento{    
             display: flex;

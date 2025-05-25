@@ -3,6 +3,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const tabla = document.createElement("table");
     tabla.id = "tablapacienteMiHistorial";
     const toast = document.getElementById("toast-confirmacion");
+    const idPaciente = localStorage.getItem("idUsuario");
+    
+    // URL para obtener el historial
+    const urlHistorial = `http://localhost:9050/pacientes/Vermihistorial/${idPaciente}`;
+    
+    // Variable para almacenar errores de confirmación
+    const confirmacionesFallidas = JSON.parse(localStorage.getItem('confirmacionesFallidas') || "{}");
+
+    if (!idPaciente) {
+        historialContainer.innerHTML = "<p>Error: No se encontró el ID del paciente.</p>";
+        return;
+    }
 
     tabla.innerHTML = `
         <thead>
@@ -10,192 +22,198 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>Fecha y Hora de Toma</td>
                 <td>Nombre del Medicamento</td>
                 <td>Estado de Alerta</td>
-                <td>  </td>
+                <td></td>
             </tr>
         </thead>
         <tbody></tbody>
     `;
 
     const cuerpoTabla = tabla.querySelector("tbody");
-    const idPaciente = localStorage.getItem("idUsuario");
-
-    if (!idPaciente) {
-        historialContainer.innerHTML = "<p>Error: No se encontró el ID del paciente en localStorage.</p>";
-        return;
-    }
-
-    const url = `http://localhost:9050/pacientes/Vermihistorial/${idPaciente}`;
 
     function obtenerFechaYHoraFormateada(fechaStr) {
         const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
         const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
         const fecha = new Date(fechaStr);
-        const diaSemana = dias[fecha.getDay()];
-        const dia = fecha.getDate();
-        const mes = meses[fecha.getMonth()];
-        const año = fecha.getFullYear();
-        const hora = fecha.getHours().toString().padStart(2, '0');
-        const minutos = fecha.getMinutes().toString().padStart(2, '0');
-
         return {
-            fechaTexto: `${diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1)} ${dia} de ${mes} de ${año}`,
-            horaTexto: `${hora}:${minutos}`,
-            claveAgrupacion: `${año}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`,
+            fechaTexto: `${dias[fecha.getDay()].charAt(0).toUpperCase() + dias[fecha.getDay()].slice(1)} ${fecha.getDate()} de ${meses[fecha.getMonth()]} de ${fecha.getFullYear()}`,
+            horaTexto: `${fecha.getHours().toString().padStart(2, '0')}:${fecha.getMinutes().toString().padStart(2, '0')}`,
+            claveAgrupacion: `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${fecha.getDate().toString().padStart(2, '0')}`,
             fechaReal: fecha
         };
     }
 
+    function mostrarToastConfirmacion() {
+        if (toast) {
+            toast.style.display = "block";
+            setTimeout(() => {
+                toast.style.display = "none";
+            }, 3000);
+        }
+    }
+
+    async function confirmarToma(idAlerta, fila, btnConfirmar) {
+        const mensajesAnteriores = fila.parentNode.querySelectorAll(".mensaje-tabla");
+        mensajesAnteriores.forEach(msg => msg.remove());
+        
+        btnConfirmar.disabled = true;
+        btnConfirmar.textContent = "Procesando...";
+
+        try {
+            const response = await axios.post(`http://localhost:9050/pacientes/confirmarToma/${idAlerta}`);
+            
+            if (response.status >= 200 && response.status < 300) {
+                // Eliminar de confirmaciones fallidas si existe
+                if (confirmacionesFallidas[idAlerta]) {
+                    delete confirmacionesFallidas[idAlerta];
+                    localStorage.setItem('confirmacionesFallidas', JSON.stringify(confirmacionesFallidas));
+                }
+                
+                // Actualizar interfaz
+                fila.querySelector("td:nth-child(3)").innerHTML = `<span class="estadotarde">Confirmado Tarde</span>`;
+                btnConfirmar.textContent = "Confirmado";
+                btnConfirmar.disabled = true;
+                
+                // Mostrar mensaje de éxito
+                const mensajeExito = document.createElement("tr");
+                mensajeExito.className = "mensaje-tabla";
+                mensajeExito.innerHTML = `
+                    <td colspan="4" style="color: green; text-align: center; font-weight: bold;">
+                        ✅ Toma confirmada correctamente
+                    </td>
+                `;
+                fila.parentNode.insertBefore(mensajeExito, fila.nextSibling);
+                
+                mostrarToastConfirmacion();
+                fila.style.backgroundColor = "#e8f5e9";
+                setTimeout(() => fila.style.backgroundColor = "", 2000);
+                setTimeout(() => mensajeExito.remove(), 5000);
+            } else {
+                throw new Error("Respuesta no exitosa del servidor");
+            }
+        } catch (error) {
+            console.error("Error al confirmar toma:", error);
+            
+            // Guardar en localStorage que esta confirmación falló
+            confirmacionesFallidas[idAlerta] = { timestamp: new Date().getTime() };
+            localStorage.setItem('confirmacionesFallidas', JSON.stringify(confirmacionesFallidas));
+            
+            // Restaurar botón
+            btnConfirmar.disabled = false;
+            btnConfirmar.textContent = "Confirmar";
+            
+            // Mostrar mensaje de error
+            const mensajeError = document.createElement("tr");
+            mensajeError.className = "mensaje-tabla";
+            mensajeError.innerHTML = `
+                <td colspan="4" style="color: #f44336; text-align: center;">
+                    ❌ Error: ${error.response?.data?.message || 'No se pudo confirmar (stock bajo o receta caducada)'}
+                </td>
+            `;
+            fila.parentNode.insertBefore(mensajeError, fila.nextSibling);
+            
+            fila.style.backgroundColor = "#ffebee";
+            setTimeout(() => {
+                fila.style.backgroundColor = "";
+                mensajeError.remove();
+            }, 5000);
+        }
+    }
+
     function cargarHistorial() {
-        axios.get(url)
+        axios.get(urlHistorial)
             .then(res => {
-                let historial = res.data;
-                if (!historial || historial.length === 0) {
-                    historialContainer.innerHTML = "<p>No hay historial de tomas disponible.</p>";
+                const historial = res.data;
+                if (!historial?.length) {
+                    historialContainer.innerHTML = "<p>No hay historial disponible.</p>";
                     return;
                 }
 
-                const historialAgrupado = {};
-
-                historial.forEach(toma => {
-                    const { fechaTexto, horaTexto, claveAgrupacion, fechaReal } = obtenerFechaYHoraFormateada(toma.fechaHoraToma);
-                    if (!historialAgrupado[claveAgrupacion]) {
-                        historialAgrupado[claveAgrupacion] = {
-                            fechaTexto,
-                            fechaReal,
-                            tomas: []
-                        };
+                // Limpiar confirmaciones fallidas antiguas (más de 1 día)
+                const ahora = new Date().getTime();
+                const confirmacionesActualizadas = {};
+                Object.keys(confirmacionesFallidas).forEach(id => {
+                    const fechaError = confirmacionesFallidas[id].timestamp;
+                    if (ahora - fechaError < 24 * 60 * 60 * 1000) { // 1 día
+                        confirmacionesActualizadas[id] = confirmacionesFallidas[id];
                     }
-                    historialAgrupado[claveAgrupacion].tomas.push({
-                        ...toma,
-                        horaTexto,
-                        fechaToma: fechaReal
-                    });
                 });
+                localStorage.setItem('confirmacionesFallidas', JSON.stringify(confirmacionesActualizadas));
+
+                const historialAgrupado = historial.reduce((acc, toma) => {
+                    const { fechaTexto, horaTexto, claveAgrupacion, fechaReal } = obtenerFechaYHoraFormateada(toma.fechaHoraToma);
+                    if (!acc[claveAgrupacion]) {
+                        acc[claveAgrupacion] = { fechaTexto, fechaReal, tomas: [] };
+                    }
+                    
+                    // Si la confirmación falló anteriormente, forzar estado "Sin Confirmar"
+                    const idAlerta = toma.alerta?.idAlerta;
+                    if (idAlerta && confirmacionesActualizadas[idAlerta]) {
+                        toma.alerta.estadoAlerta = "sinConfirmar";
+                    }
+                    
+                    acc[claveAgrupacion].tomas.push({ ...toma, horaTexto, fechaToma: fechaReal });
+                    return acc;
+                }, {});
 
                 cuerpoTabla.innerHTML = '';
 
-                const clavesOrdenadas = Object.keys(historialAgrupado).sort((a, b) => {
-                    return historialAgrupado[b].fechaReal - historialAgrupado[a].fechaReal;
-                });
+                Object.keys(historialAgrupado)
+                    .sort((a, b) => historialAgrupado[b].fechaReal - historialAgrupado[a].fechaReal)
+                    .forEach(clave => {
+                        const { fechaTexto, tomas } = historialAgrupado[clave];
+                        
+                        const filaTitulo = document.createElement("tr");
+                        filaTitulo.innerHTML = `<td colspan="4" style="background-color: #fafafa; padding: 10px;">${fechaTexto}</td>`;
+                        cuerpoTabla.appendChild(filaTitulo);
 
-                clavesOrdenadas.forEach(clave => {
-                    const grupo = historialAgrupado[clave];
+                        tomas.sort((a, b) => b.fechaToma - a.fechaToma).forEach(toma => {
+                            const estadoAlerta = toma.alerta?.estadoAlerta || 'No disponible';
+                            const nombreMedicamento = toma.alerta?.medicamento?.nombreMedicamento || 'No disponible';
+                            
+                            let estadoHTML = "";
+                            if (estadoAlerta === "confirmado") {
+                                estadoHTML = `<td><span class="estadoact">Confirmado</span></td>`;
+                            } else if (estadoAlerta === "sinConfirmar") {
+                                estadoHTML = `<td><span class="estadoinact">Sin Confirmar</span></td>`;
+                            } else if (estadoAlerta === "confirmadaTarde") {
+                                estadoHTML = `<td><span class="estadotarde">Confirmado Tarde</span></td>`;
+                            } else {
+                                estadoHTML = `<td><span>${estadoAlerta}</span></td>`;
+                            }
 
-                    const filaTitulo = document.createElement("tr");
-                    filaTitulo.innerHTML = `<td colspan="4" style="background-color: #fafafa; padding: 10px;">${grupo.fechaTexto}</td>`;
-                    cuerpoTabla.appendChild(filaTitulo);
+                            let accionHTML = "<td></td>";
+                            if (estadoAlerta === "sinConfirmar") {
+                                accionHTML = `<td><button class="btnpaconfirmhistorial hover">Confirmar</button></td>`;
+                            }
 
-                    // ✅ Ordenar por hora descendente dentro del día
-                    grupo.tomas.sort((a, b) => b.fechaToma - a.fechaToma);
+                            const fila = document.createElement("tr");
+                            fila.classList.add("tablahover");
+                            fila.id = `alerta-${toma.alerta?.idAlerta || toma.id}`;
+                            fila.innerHTML = `
+                                <td>${toma.horaTexto}</td>
+                                <td>${nombreMedicamento}</td>
+                                ${estadoHTML}
+                                ${accionHTML}
+                            `;
 
-                    grupo.tomas.forEach(toma => {
-                        const fila = document.createElement("tr");
-                        fila.classList.add("tablahover");
-                        const estadoAlerta = toma.alerta ? toma.alerta.estadoAlerta : 'No disponible';
-                        const nombreMedicamento = toma.alerta?.medicamento?.nombreMedicamento || 'No disponible';
+                            cuerpoTabla.appendChild(fila);
 
-                        let estadoHTML = "";
-                        if (estadoAlerta === "confirmado") {
-                            estadoHTML = `<td><span class="estadoact">Confirmado</span></td>`;
-                        } else if (estadoAlerta === "sinConfirmar") {
-                            estadoHTML = `<td><span class="estadoinact">Sin Confirmar</span></td>`;
-                        } else if (estadoAlerta === "confirmadaTarde") {
-                            estadoHTML = `<td><span class="estadotarde">Confirmado Tarde</span></td>`;
-                        } else {
-                            estadoHTML = `<td><span>${estadoAlerta}</span></td>`;
-                        }
-
-                        let accionHTML = "<td></td>";
-                        if (estadoAlerta === "sinConfirmar") {
-                            accionHTML = `<td><button class="btnpaconfirmhistorial hover">Confirmar</button></td>`;
-                        }
-
-                        fila.id = `alerta-${toma.alerta?.idAlerta || toma.id}`;
-                        fila.innerHTML = `
-                            <td>${toma.horaTexto}</td>
-                            <td>${nombreMedicamento}</td>
-                            ${estadoHTML}
-                            ${accionHTML}
-                        `;
-
-                        cuerpoTabla.appendChild(fila);
-
-                        const confirmarBtn = fila.querySelector(".btnpaconfirmhistorial");
-                        if (confirmarBtn) {
-                            confirmarBtn.addEventListener("click", function () {
-                                const idAlerta = toma.alerta.idAlerta;
-                                const urlConfirmar = `http://localhost:9050/pacientes/confirmarToma/${idAlerta}`;
-
-                                axios.post(urlConfirmar)
-                                    .then(() => {
-                                        let filaMensaje = document.createElement("tr");
-                                        filaMensaje.classList.add("mensaje-confirmacion");
-                                        filaMensaje.innerHTML = `<td colspan="4" style="color: green; font-weight: bold; text-align: center;">
-                                            CONFIRMADO CORRECTAMENTE
-                                        </td>`;
-                                        fila.parentNode.insertBefore(filaMensaje, fila.nextSibling);
-
-                                        confirmarBtn.disabled = true;
-                                        confirmarBtn.textContent = "Confirmado";
-
-                                        const estadoCelda = fila.querySelector("td:nth-child(3)");
-                                        if (estadoCelda) {
-                                            estadoCelda.innerHTML = `<span class="estadotarde">Confirmado Tarde</span>`;
-                                        }
-
-                                        localStorage.setItem("idAlertaConfirmada", idAlerta);
-
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 1000);
-                                    })
-                                    .catch(() => {
-                                        localStorage.setItem("idAlertaConfirmada", idAlerta);
-
-                                        let filaError = document.createElement("tr");
-                                        filaError.classList.add("mensaje-error");
-                                        filaError.innerHTML = `<td colspan="4" style="color: red; font-weight: bold; text-align: center;">
-                                            Tienes Bajo Stock de este Medicamento o Esta Receta ya está Caducada
-                                        </td>`;
-                                        fila.parentNode.insertBefore(filaError, fila.nextSibling);
-
-                                        fila.style.backgroundColor = "#fff3cd";
-                                    });
-                            });
-                        }
+                            const btnConfirmar = fila.querySelector(".btnpaconfirmhistorial");
+                            if (btnConfirmar) {
+                                btnConfirmar.addEventListener("click", () => {
+                                    confirmarToma(toma.alerta.idAlerta, fila, btnConfirmar);
+                                });
+                            }
+                        });
                     });
-                });
 
-                if (!historialContainer.contains(tabla)) {
-                    historialContainer.appendChild(tabla);
-                }
-
-                const idAlertaConfirmada = localStorage.getItem("idAlertaConfirmada");
-                if (idAlertaConfirmada) {
-                    const elemento = document.getElementById("alerta-" + idAlertaConfirmada);
-                    if (elemento) {
-                        elemento.scrollIntoView({ behavior: "smooth", block: "center" });
-                        elemento.style.backgroundColor = "#fffce3";
-                        setTimeout(() => {
-                            elemento.style.backgroundColor = "";
-                        }, 8000);
-                    }
-                    localStorage.removeItem("idAlertaConfirmada");
-                }
+                historialContainer.appendChild(tabla);
             })
             .catch(err => {
-                console.error("Hubo un fallo en la petición: " + err);
-                historialContainer.innerHTML = "<p>Error al cargar el historial.</p>";
+                console.error("Error al cargar historial:", err);
+                historialContainer.innerHTML = `<p>Error al cargar el historial: ${err.message}</p>`;
             });
-    }
-
-    if (localStorage.getItem("tomaConfirmada")) {
-        toast.style.display = "block";
-        setTimeout(() => {
-            toast.style.display = "none";
-        }, 8000);
-        localStorage.removeItem("tomaConfirmada");
     }
 
     cargarHistorial();

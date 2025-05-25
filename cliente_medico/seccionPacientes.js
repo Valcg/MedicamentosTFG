@@ -51,9 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         </td>
 
                         <td>
-                            <button class="btnVerContactos hover" ">
-                                Ver Contactos
-                            </button>
+<button class="btnVerContactos hover" >
+    Ver Contactos
+</button>
+
                         </td>
                 </tr>`;
                 });

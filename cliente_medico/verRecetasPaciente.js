@@ -156,7 +156,7 @@ function caducarReceta(idReceta) {
             const mensajeTr = document.getElementById(`mensaje_${idReceta}`);
             if (mensajeTr) {
                 const td = mensajeTr.querySelector("td");
-                td.textContent = "⚠️ Error: No se puede caducar la receta. Quizá hay alertas pendientes.";
+                td.textContent = "No se puede caducar la receta.Aun hay alertas pendientes.";
                 td.style.color = "#f14343";
                 mensajeTr.style.backgroundColor = ""; // Sin color especial
                 mensajeTr.style.display = "table-row";

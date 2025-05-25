@@ -18,7 +18,13 @@
 
 
         /*INPUT FORMULARIOS-----------------------------------------*/
-
+            .inputdos{ text-align: center;
+            background-color: white; 
+            border: 1px solid white;  
+            border-radius: 20px;         /* Bordes redondeados */
+            padding: 6px 0;              /* Espaciado interno */
+            font-size: 14px;            /* Tamaño de la fuente */
+            color: #333;                /* Color del texto */}
             
         .input {
             width: 100%;margin: auto;
