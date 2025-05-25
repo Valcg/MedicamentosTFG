@@ -78,8 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const mensajeExito = document.createElement("tr");
                 mensajeExito.className = "mensaje-tabla";
                 mensajeExito.innerHTML = `
-                    <td colspan="4" style="color: green; text-align: center; font-weight: bold;">
-                        ✅ Toma confirmada correctamente
+                    <td colspan="4" style="color: #66b794f1; text-align: center; ">
+                       Toma Confirmada Tarde correctamente
                     </td>
                 `;
                 fila.parentNode.insertBefore(mensajeExito, fila.nextSibling);
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
             mensajeError.className = "mensaje-tabla";
             mensajeError.innerHTML = `
                 <td colspan="4" style="color: #f44336; text-align: center;">
-                    ❌ Error: ${error.response?.data?.message || 'No se pudo confirmar (stock bajo o receta caducada)'}
+                  ${error.response?.data?.message || 'No se pudo confirmar (stock bajo o receta caducada)'}
                 </td>
             `;
             fila.parentNode.insertBefore(mensajeError, fila.nextSibling);

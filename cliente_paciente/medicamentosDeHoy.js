@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const mensaje = cantidad === 0
                 ? "Hoy no tienes ningún medicamento por tomar"
-                : ` ¡ Hoy tienes <span style="color:#0d7ebb; font-weight:bold;">${cantidad}</span> medicamento${cantidad > 1 ? 's' : ''} por tomar! `;
+                : ` ¡ Recuerda que Hoy tienes un total de <span style="color:#0d7ebb; font-weight:bold;">${cantidad}</span> Alerta${cantidad > 1 ? 's' : ''} ! `;
 
             // Usa innerHTML para poder aplicar estilos al número
             document.getElementById("diacuenta").innerHTML = mensaje;

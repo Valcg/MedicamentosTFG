@@ -40,14 +40,10 @@
     }
             /* 1 -------------- MI PERFIL MEDICO ----------------------------------------- */ 
             #miperfilmedico{background-color: #F0F0F0;}
-            
-            #miperfilmedico:hover{background-color: #e7e7e7;
-                box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}
+                #miperfilmedico:hover{background-color: #e7e7e7;}
             /* 1 -------------- notas ----------------------------------------- */ 
-            #nota{background-color: #84CBF1;}  
-            
-            #nota:hover{background-color: #65aed5;
-                        box-shadow:4px 4px 8px rgba(0, 0, 0, 0.2);}  
+            #nota{background-color: #F0F0F0;}  
+                #nota:hover{background-color: #e7e7e7;}  
 
             .activo,.inactivo,.tipoUsu,.activa,.caducada{
                     background-color: white; /* Color del texto */

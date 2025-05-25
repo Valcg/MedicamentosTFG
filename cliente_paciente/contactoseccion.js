@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
         divContacto.innerHTML = `
-            <div class="mensaje" style="color: red;text-align:center;"></div>
+           
             <h3>
                 CONTACTO<br>
                 <strong>${contacto.nombre}</strong>
@@ -90,6 +90,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                     </tr>
                 </tbody>
             </table>
+
+             <div class="mensaje" style="color: red;text-align:center;"></div>
+             <br>
         `;
 
         divContacto.querySelector(".select-container").appendChild(selectRelacion);

@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
             })
             .catch(() => {
-                document.getElementById("mensajeReceta").innerHTML = `<span style="color:red;">Paciente no encontrado</span>`;
+                document.getElementById("mensajeReceta").innerHTML = `<span style="color:#f14343;">Paciente no encontrado</span>`;
             });
     }
 });
