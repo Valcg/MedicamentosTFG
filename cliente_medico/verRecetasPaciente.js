@@ -79,8 +79,8 @@ function verRecetasDePaciente(idPaciente, nombrePaciente) {
                         <td id="estado_${receta.idReceta}">
                             <a class="${claseEstado}">${estado}</a>
                         </td>
-                        <td style="color:#00669C;"><a class="infoReceta">${medico}</a></td>
-                        <td style="color:#84CBF1;"><a class="infoReceta">${especialidad}</a></td>
+                        <td ><a class="infoReceta" style="color:#00669C;">${medico}</a></td>
+                        <td ><a class="infoReceta" style="color:#84CBF1;">${especialidad}</a></td>
                         <td style="color:#00669C;">${emailMedico}</td>`;
 
                 if (estado !== "Caducada" && !tieneAlertasPendientes && emailMedico === correoSesion) {

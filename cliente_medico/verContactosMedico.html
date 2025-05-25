@@ -52,7 +52,7 @@
     <!-- MAIN-USUARIO ------------------------------------------------------- -->
     <main id="usuario-main">
         <a href="seccionpacientes.html" class="BtnVolverHome"> ← Volver</a>
-        <h1 id="top">Sección Pacientes</h1>
+        <h1 >SECCION PACIENTES</h1>
         <!-- Sección con los divs de contenido -->
         <section id="usuario-divs-container">
 
@@ -62,23 +62,24 @@
         <div class="seccion-card-one" > 
 
                 <div id="section-cliente-one" class="hover tabla-scroll" >
-                   
-                    <div id="historial-pacientes"></div> 
-                    
-                </div>
+       
+
+
+
+                    <div id="tablaContactosContainer">
+
+                        <h2> CONTACTOS DE </h2>
+                    </div>
+
+                    <script src="verContactosMedico.js"></script>
+
+
+    </div>
                     <!-- -------------- -->
             
         </div>                
         
   </div>
-  
-  <!-- SUBIR AL ID_ QUE TENGA EL nombre-------------- -->
-            
-  <div class="usu-div-one"><a href="#top" class="BtnVolverArriba" >↑ Subir arriba</a></div>
-            
-
-
-
 
 <!-- DIV 6 FOOTER --------------- -->
             <div class="usuario-div-seis">
@@ -130,26 +131,5 @@
             <!-- Enlazamos al archivo main.js -->
             <script src="../main.js"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const tipoVista = localStorage.getItem("tipoVista");
-    const idPaciente = localStorage.getItem("idPacienteSeleccionado");
-    const nombrePaciente = localStorage.getItem("nombrePacienteSeleccionado");
-
-    if (tipoVista === "historial") {
-        mostrarHistorialDePaciente(idPaciente, nombrePaciente); // definida en verHistorialPaciente.js
-    } else if (tipoVista === "recetas") {
-        verRecetasDePaciente(idPaciente, nombrePaciente); // definida en verRecetasPaciente.js
-    } else {
-        document.getElementById("historial-pacientes").innerHTML = "<p>Tipo de vista no válido.</p>";
-    }
-});
-</script>
-
-<script src="verHistorialPaciente.js"></script>
-<script src="verRecetasPaciente.js"></script>
-
-
-          
 </body>
 </html>

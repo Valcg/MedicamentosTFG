@@ -198,14 +198,17 @@
                 .tablapaciente,
                 .tablaMedicamentos,
                 .tablaRecetas,
-                .tablaHistorial
+                .tablaHistorial,.tablaContactosMedicos
                 { width: 100%;                           
-                border-collapse: collapse;}
+                border-collapse: collapse;margin: 20px 0;}
 
+
+                     #historial-pacientes,#tablaContactosContainer{width: 100%;}/*tabla  HISTORIAL: MEDICOS*/
                 .tablapaciente tr td,
                 .tablaMedicamentos tr td,
                 .tablaRecetas tr td,
-                .tablaHistorial tr td
+                .tablaHistorial tr td,
+                .tablaContactosMedicos tr td
                     {border-bottom: 1px solid  white;
                     padding: 10px 8px;}
 

@@ -3,7 +3,7 @@ const baseURL = "http://localhost:9050/medicos";
 const historialContainer = document.getElementById("historial-pacientes");
 
 function mostrarHistorialDePaciente(idPaciente, nombrePaciente) {
-    historialContainer.innerHTML = `<h3>Historial de ${nombrePaciente}</h3><p>Cargando...</p>`;
+    historialContainer.innerHTML = `<h2>Historial de ${nombrePaciente}</h2><p>Cargando...</p>`;
 
     axios.get(`${baseURL}/VerHistorialDeMisPacientes/${idPaciente}`)
         .then(response => {
@@ -26,7 +26,7 @@ function mostrarHistorialDePaciente(idPaciente, nombrePaciente) {
                     });
 
                     let html = `
-                        <h3>Historial de ${nombrePaciente}</h3>
+                        <h2>Historial de ${nombrePaciente}</h2>
                         <div style="margin-bottom: 1rem;" id="filtros-historial">
                             <label for="filtro-desde">Desde:</label>
                             <input type="date" id="filtro-desde" class="inputdos">
