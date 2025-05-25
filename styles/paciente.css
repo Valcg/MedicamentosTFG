@@ -262,15 +262,17 @@
     .usu-div-paciente{margin:0px;}
     .usu-div-one{margin: 0px;}
 
-        #pacMisRecetas, #pacVerMisMedicos {
-    margin: 20px;
-    display: flex
-;
+    /* #pacMisRecetas, #pacVerMisMedicos {
+    margin:;
     flex-wrap: wrap;
     overflow-x: visible;
     width: 100%;
     gap: 20px;
 }
+.pacUnaReceta, .pacUnMedico {
+        width: 100% !important;
+
+} */
 }
 /* --------------------------- MEDIA QUERY PARA RESPONSIVIDAD --------------------------- */
 
