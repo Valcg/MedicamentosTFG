@@ -340,7 +340,7 @@
 #footer {
     text-align: center;
     padding: 10px 0; /* Margen vertical y horizontal */
-    background-color: white;
+    background-color: #F0F0F0;
     width: 100%;
     flex-shrink: 0; /* Evita que el footer se encoja */
    
@@ -380,7 +380,7 @@
             #footer-dos {
                 text-align: center;
                 padding: 10px 0px; 
-                background-color: #F0F0F0; /* Fondo azul claro */
+                background-color: white; /* Fondo azul claro */
                 width: 100%;
                 flex-shrink: 0; /* Evita que el footer se encoja */
             }
@@ -420,17 +420,15 @@
         /* 1 VOLVER HOME ---------------------------------------*/
         .volver-link {
 
-            /* border-radius: 20px;*/
-            border:1px solid yellow; 
             font-weight: bold; 
-            color: #00669C; 
+            color: #0d7ebb; 
             cursor: pointer;
             display: flex;
             justify-content: left;
             text-decoration: none;
             transition: color 0.3s ease; /* Transición suave hover */
         }
-        .volver-link:hover { color: red; }
+        .volver-link:hover { color: #00669C; }
             
 
 /* --------------------------- LÍNEA SEPARADORA gris --------------------------- */
